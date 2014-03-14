@@ -1,75 +1,12 @@
-
 <!-- content -->
 <div style="position: relative;width: 1024px;margin: 0 auto; padding-top: 15px; clear: both;">
     <!-- left col -->
     <div style="float: left; width: 605px">
         <!-- widget -->
-        <div style="border: 1px solid #d8d8d8; background: #fff;padding: 11px;margin-bottom: 15px;">
-            <!-- head -->
-            <div style="height: 28px;vertical-align: middle; display: table-cell;">
-                <span style="font-weight: bold;">Recent Products</span>
-            </div>
-            <!-- head end -->
-            <!-- widget content -->
-            <div style="padding-top: 12px;overflow: hidden;">
-                <ul style="width: 700px;margin: 0;padding: 0;" ng-controller="recntPrdCtrlr">
-                    <li style="margin:0 25px 0 0;display: inline-block" ng-repeat="prdct in prdcts">
-                        <!-- product -->
-                        <div style="display: inline-block;padding: 4px;padding-bottom: 11px;border: 1px solid #d8d8d8; position: relative;">
-                            <img style="width:164px;height:94px;margin-bottom: 25px;" src="product-cover001.png"/>
-                            <img class="propic-small" style="position: absolute;left: 50px;top: 50px;"
-                                 src="propic01.png"/>
-
-                            <div style="color: #737373;font-size:15px;text-align: center;">Product Name</div>
-                            <div style="color: #b0b0b0;font-size:12px;text-align: center;">8 left</div>
-                            <div style="text-align: center;">
-                                <button style="background-color: #0db741;border: none; color: #fff;font-size: 12px;padding: 5px 15px;">
-                                    Details
-                                </button>
-                            </div>
-                        </div>
-                        <!-- product end -->
-                    </li>
-                </ul>
-            </div>
-            <!-- widget content end-->
-        </div>
+        <div ng-include="'widgets/products-widget.html'"></div>
         <!-- widget end -->
         <!-- widget -->
-        <div style="border: 1px solid #d8d8d8; background: #fff;padding: 11px;margin-bottom: 15px;">
-            <!-- head -->
-            <div style="height: 28px;vertical-align: middle; display: table-cell;">
-                <span style="font-weight: bold;">Your Recent Earnings</span>
-            </div>
-            <!-- head end -->
-            <!-- widget content -->
-            <div style="padding-top: 12px;overflow: hidden;">
-                <ul style="margin:  0 0 -12px 0;padding: 0;" ng-controller="recntErnngsCtrlr">
-                    <li style="display: block;" ng-repeat="ernng in ernngs">
-                        <!-- earning post -->
-                        <div style="border: 1px solid #d8d8d8; border-left: none; border-right: none;padding: 11px 0 11px 0;min-height: 70px;position: relative;margin-top: -1px;">
-                            <img class="propic-small" style="position: absolute;"
-                                 src="earning-ico001.png"/>
-
-                            <div style="position: absolute;font-size: 12px;color: #777777; right: 0px;top: 16px;">
-                                Yesterday
-                            </div>
-                            <div class="pad-rightTo-propic">
-                                <div style="color: #737373;font-size: 15px;font-weight: bold;">Blogger Earning</div>
-                                <div style="color: #777777;font-size: 12px;padding: 4px 0 0 15px;">For blog name you
-                                    mentioned
-                                </div>
-                                <div style="color: #282828;font-size: 14px;padding: 6px 0 0 15px;">You earned 100
-                                    K$
-                                </div>
-                            </div>
-                        </div>
-                        <!-- earning post end-->
-                    </li>
-                </ul>
-            </div>
-            <!-- widget content end-->
-        </div>
+        <div ng-include="'widgets/earnings-widget.html'"></div>
         <!-- widget end -->
     </div>
     <!-- left col end-->
@@ -77,74 +14,10 @@
     <!-- right col -->
     <div style="float: left; padding-left: 15px; width:404px;">
         <!-- widget -->
-        <div style="border: 1px solid #d8d8d8; background: #fff;padding: 11px;margin-bottom: 15px;">
-            <!-- head -->
-            <div style="height: 28px;vertical-align: middle; display: table-cell;">
-                <span style="font-weight: bold;">Top Earners Of The Week</span>
-            </div>
-            <!-- head end -->
-            <!-- widget content -->
-            <div style="padding-top: 12px;overflow: hidden;">
-                <ul style="margin: 0 0 -12px 0;padding: 0;" ng-controller="topErnrsCtrlr">
-                    <li style="display: block;" ng-repeat="tpErner in tpErners">
-                        <!-- top earner -->
-                        <div style="border: 1px solid #d8d8d8; border-left: none; border-right: none;padding: 11px 0 11px 0;min-height: 70px;position: relative;margin-top: -1px;">
-                            <img class="propic-small" style="position: absolute;"
-                                 src="propic01.png"/>
-
-                            <div style="position: absolute;font-size: 12px;color: #777777; right: 0px;top: 13px;border-radius:50%;border: 1px solid #777777;width: 20px; height: 18px; text-align: center;padding-top: 2px;">
-                                <span style="position: relative;font-size: 13px;">01</span></div>
-                            <div class="pad-rightTo-propic">
-                                <div style="color: #737373;font-size: 15px;font-weight: bold;">Samiyuru Senarathne
-                                </div>
-                                <div style="color: #777777;font-size: 13px;padding: 4px 0 0 0px;">wealth 10,000 K$
-                                </div>
-                                <div style="color: #777777;font-size: 13px;padding: 10px 0 0 0px;">weeks's earning
-                                    5,000 K$
-                                </div>
-                            </div>
-                        </div>
-                        <!-- top earner end-->
-                    </li>
-                </ul>
-            </div>
-            <!-- widget content end-->
-        </div>
+        <div ng-include="'widgets/topEarners-widget.html'"></div>
         <!-- widget end -->
         <!-- widget -->
-        <div style="border: 1px solid #d8d8d8; background: #fff;padding: 11px;margin-bottom: 15px;">
-            <!-- head -->
-            <div style="height: 28px;vertical-align: middle; display: table-cell;">
-                <span style="font-weight: bold;">KE People</span>
-            </div>
-            <!-- head end -->
-            <!-- widget content -->
-            <div style="padding-top: 12px;overflow: hidden;">
-                <ul style="margin: 0 0 -12px 0;padding: 0;" ng-controller="tpWlthyCtrler">
-                    <li style="display: block;" ng-repeat="wlthyPrsn in wlthyPrsns">
-                        <!-- top earner -->
-                        <div style="border: 1px solid #d8d8d8; border-left: none; border-right: none;padding: 11px 0 11px 0;min-height: 70px;position: relative;margin-top: -1px;">
-                            <img class="propic-small" style="position: absolute;"
-                                 src="propic01.png"/>
-
-                            <div style="position: absolute;font-size: 12px;color: #777777; right: 0px;top: 13px;border-radius:50%;border: 1px solid #777777;width: 20px; height: 18px; text-align: center;padding-top: 2px;">
-                                <span style="position: relative;font-size: 13px;">01</span></div>
-                            <div class="pad-rightTo-propic">
-                                <div style="color: #737373;font-size: 15px;font-weight: bold;">Samiyuru Senarathne
-                                </div>
-                                <div style="color: #777777;font-size: 13px;padding: 4px 0 0 0px;">wealth 10,000 K$
-                                </div>
-                                <div style="color: #777777;font-size: 13px;padding: 10px 0 0 0px;">weeks's earning
-                                    5,000 K$
-                                </div>
-                            </div>
-                        </div>
-                        <!-- top earner end-->
-                    </li>
-                </ul>
-            </div>
-            <!-- widget content end-->
-        </div>
+        <div ng-include="'widgets/wealth-widget.html'"></div>
         <!-- widget end -->
     </div>
     <!-- right col end -->

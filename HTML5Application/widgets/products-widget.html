@@ -1,0 +1,37 @@
+<!-- widget -->
+<div ng-controller="prdctsCtrlr" class="swidget">
+    <style type="text/css">
+        .product{
+            display: inline-block;padding: 4px;padding-bottom: 11px;border: 1px solid #d8d8d8; position: relative;
+        }
+        .product .cover{
+            width:174px;height:94px;margin-bottom: 25px;
+        }
+    </style>
+    <!-- head -->
+    <div class="head-div">
+        <span style="font-weight: bold;color: #282828;">Buy Products</span>
+        <span>My Products</span>
+    </div>
+    <!-- head end -->
+    <!-- widget content -->
+    <div class="cont-div" style="padding-top: 12px;overflow: hidden;">
+        <ul style="width: 700px;margin: 0 0 -12px 0;padding: 0;">
+            <li style="margin:0 12px 12px 0;display: inline-block" ng-repeat="product in products">
+                <!-- product -->
+                <div class="product">
+                    <img class="cover" style="" ng-src="{{product.prdcover}}"/>
+                    <img class="propic-small" style="position: absolute;left: 55px;top: 50px;" ng-src="{{product.seller.propic}}"/>
+                    <div style="color: #737373;font-size:15px;text-align: center;">{{product.name}}</div>
+                    <div style="color: #b0b0b0;font-size:12px;text-align: center;">{{product.left}} left</div>
+                    <div style="text-align: center;">
+                        <button ng-click="product" style="background-color: #0db741;">Details</button>
+                    </div>
+                </div>
+                <!-- product end -->
+            </li>
+        </ul>
+    </div>
+    <!-- widget content end-->
+</div>
+<!-- widget end -->
