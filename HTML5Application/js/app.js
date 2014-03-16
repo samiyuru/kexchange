@@ -259,3 +259,60 @@ kEX.controller("accountCtrl", function($scope){
         balance:1000
     }];
 });
+
+kEX.controller("investorsCtrl", function($scope){
+    $scope.investors = [
+        {
+            investor:{
+                id:0001,
+                wealth:3000,
+                name:"Amila",
+                propic:"propic01.png"
+            },
+            amount:1000,
+            timeago: 100,
+            interest: 10
+        },
+        {
+            investor:{
+                id:0001,
+                wealth:3000,
+                name:"Darshatha",
+                propic:"propic02.png"
+            },
+            amount:1000,
+            timeago: 100,
+            interest: 10
+        },
+        {
+            investor:{
+                id:0001,
+                wealth:3000,
+                name:"Nimal",
+                propic:"propic01.png"
+            },
+            amount:1000,
+            timeago: 100,
+            interest: 10
+        },
+        {
+            investor:{
+                id:0001,
+                wealth:3000,
+                name:"Hasith",
+                propic:"propic02.png"
+            },
+            amount:1000,
+            timeago: 100,
+            interest: 10
+        }
+    ];
+});
+
+kEX.controller("loansCtrl", function($scope){
+
+});
+
+kEX.controller("myInvestmentsCtrl", function($scope){
+
+});

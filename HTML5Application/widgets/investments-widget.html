@@ -1,14 +1,14 @@
 <div kex-widget>
-    <ul tab-title="Investors">
-        <li>
+    <ul ng-controller="investorsCtrl" tab-title="Investors">
+        <li ng-repeat="investor in investors">
             <!-- Investor -->
             <div style="border: 1px solid #d8d8d8; border-left: none; border-right: none;padding: 11px 0 11px 0;min-height: 70px;position: relative;margin-top: -1px;">
-                <img class="propic-small" style="position: absolute;" src="propic02.png" />
+                <img class="propic-small" style="position: absolute;" ng-src="{{investor.investor.propic}}" />
                 <div style="padding: 2px 0 0 90px;">
-                    <div style="color: #666666;font-size: 15px;font-weight: bold;">Amount 1,000 K$ <span style="font-weight: normal;color: #777777;">1 month ago</span></div>
-                    <div style="color: #777777;font-size: 13px;padding: 4px 0 0 0px;">Added by Hasith</div>
+                    <div style="color: #666666;font-size: 15px;font-weight: bold;">Amount {{investor.amount}} K$ <span style="font-weight: normal;color: #777777;">1 month ago</span></div>
+                    <div style="color: #777777;font-size: 13px;padding: 4px 0 0 0px;">Added by {{investor.investor.name}}</div>
                     <div>
-                        <div style="color: #777777;font-size: 13px;padding: 10px 0 0 0px;float:left;">Interest 10% per month</div>
+                        <div style="color: #777777;font-size: 13px;padding: 10px 0 0 0px;float:left;">Interest {{investor.interest}}% per month</div>
                         <button style="background-color: #de4747;float:right;">Take</button>
                     </div>
                 </div>
