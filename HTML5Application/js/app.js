@@ -150,17 +150,112 @@ kEX.controller("topErnrsCtrlr", function($scope){
 });
 
 kEX.controller("tpWlthyCtrler", function($scope){
-    $scope.tpErners = [0, 1, 2];
+    $scope.wlthyPrsns = [
+        {
+            person:{
+                id:0001,
+                wealth:3000,
+                name:"Samiyuru Senarathne",
+                propic:"propic01.png"
+            },
+            earning:10000,
+            place:01
+        },
+        {
+            person:{
+                id:0001,
+                wealth:3000,
+                name:"Samiyuru Senarathne",
+                propic:"propic01.png"
+            },
+            earning:10000,
+            place:02
+        },
+        {
+            person:{
+                id:0001,
+                wealth:3000,
+                name:"Samiyuru Senarathne",
+                propic:"propic01.png"
+            },
+            earning:10000,
+            place:03
+        },
+        {
+            person:{
+                id:0001,
+                wealth:3000,
+                name:"Samiyuru Senarathne",
+                propic:"propic01.png"
+            },
+            earning:10000,
+            place:01
+        },
+        {
+            person:{
+                id:0001,
+                wealth:3000,
+                name:"Samiyuru Senarathne",
+                propic:"propic01.png"
+            },
+            earning:10000,
+            place:02
+        },
+        {
+            person:{
+                id:0001,
+                wealth:3000,
+                name:"Samiyuru Senarathne",
+                propic:"propic01.png"
+            },
+            earning:10000,
+            place:03
+        }];
 });
 
-kEX.controller("tpWlthyCtrler", function($scope){
-    $scope.wlthyPrsns = [0, 1, 2, 4, 5, 6];
-});
-
-kEX.controller("coverctrlr", function($scope){
+kEX.controller("coverCtrlr", function($scope){
     $scope.name = "Samiyuru Senarathne";
     $scope.status = "Millionaire";
     $scope.balance = 10000;
     $scope.loan = 5000;
     $scope.propic = "propic01.png";
+});
+
+kEX.controller("accountCtrl", function($scope){
+    $scope.accLogs = [{
+        detail:"Loan from Saman",
+        timeago:"1 month ago",
+        amount:300,
+        balance:3000
+    },{
+        detail:"Blog earning",
+        timeago:"2 days ago",
+        amount:800,
+        balance:6000
+    },{
+        detail:"Investment in Gayan",
+        timeago:"1 week ago",
+        amount:200,
+        balance:7000
+    },{
+        detail:"Loan from Saman",
+        timeago:"1 day ago",
+        amount:300,
+        balance:3300
+    },{
+        detail:"Loan from Saman",
+        timeago:"1 min ago",
+        amount:200,
+        balance:9000
+    },{
+        detail:"Loan from Saman",
+        timeago:"1 hour ago",
+        amount:800,
+        balance:6000
+    },{
+        detail:"Loan from Anil",
+        timeago:"1 day ago",
+        amount:40,
+        balance:1000
+    }];
 });

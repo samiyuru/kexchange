@@ -1,0 +1,15 @@
+<!-- widget -->
+<div class="swidget">
+    <!-- head -->
+    <div tab-head class="head-div">
+        <span ng-repeat="tab in tabs" ng-class="{active:tab.isShow}" ng-click="tabShow($index)">{{tab.title}}</span>
+    </div>
+    <!-- head end -->
+    <!-- widget content -->
+    <div style="padding-top: 12px;overflow: hidden;">
+        <div style="margin: 0 0 -12px 0;padding: 0;" ng-transclude>
+        </div>
+    </div>
+    <!-- widget content end-->
+</div>
+<!-- widget end -->

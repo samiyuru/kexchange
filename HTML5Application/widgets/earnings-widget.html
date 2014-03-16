@@ -1,29 +1,17 @@
-
-<!-- widget -->
-<div ng-controller="recntErnngsCtrlr" style="border: 1px solid #d8d8d8; background: #fff;padding: 11px;margin-bottom: 15px;">
-    <!-- head -->
-    <div style="height: 28px;vertical-align: middle; display: table-cell;">
-        <span style="font-weight: bold;">Your Recent Earnings</span>
-    </div>
-    <!-- head end -->
-    <!-- widget content -->
-    <div style="padding-top: 12px;overflow: hidden;">
-        <ul style="margin:  0 0 -12px 0;padding: 0;" >
-            <li style="display: block;" ng-repeat="earning in ernngs">
-                <!-- earning post -->
-                <div style="border: 1px solid #d8d8d8; border-left: none; border-right: none;padding: 11px 0 11px 0;min-height: 70px;position: relative;margin-top: -1px;">
-                    <img class="propic-small" style="position: absolute;" ng-src="{{earning.srcimg}}"/>
-                    <div style="position: absolute;font-size: 12px;color: #777777; right: 0px;top: 16px;">{{earning.timeago}}</div>
-                    <div class="pad-rightTo-propic">
-                        <div style="color: #737373;font-size: 15px;font-weight: bold;">{{earning.head}}</div>
-                        <div style="color: #777777;font-size: 12px;padding: 4px 0 0 15px;">{{earning.detail}}</div>
-                        <div style="color: #282828;font-size: 14px;padding: 6px 0 0 15px;">You earned {{earning.amount}} K$</div>
-                    </div>
+<div kex-widget>
+    <ul ng-controller="recntErnngsCtrlr" tab-title="Your Recent Earnings">
+        <li style="display: block;" ng-repeat="earning in ernngs">
+            <!-- earning post -->
+            <div style="border: 1px solid #d8d8d8; border-left: none; border-right: none;padding: 11px 0 11px 0;min-height: 70px;position: relative;margin-top: -1px;">
+                <img class="propic-small" style="position: absolute;" ng-src="{{earning.srcimg}}"/>
+                <div style="position: absolute;font-size: 12px;color: #777777; right: 0px;top: 16px;">{{earning.timeago}}</div>
+                <div class="pad-rightTo-propic">
+                    <div style="color: #737373;font-size: 15px;font-weight: bold;">{{earning.head}}</div>
+                    <div style="color: #777777;font-size: 12px;padding: 4px 0 0 15px;">{{earning.detail}}</div>
+                    <div style="color: #282828;font-size: 14px;padding: 6px 0 0 15px;">You earned {{earning.amount}} K$</div>
                 </div>
-                <!-- earning post end-->
-            </li>
+            </div>
+            <!-- earning post end-->
+        </li>
         </ul>
     </div>
-    <!-- widget content end-->
-</div>
-<!-- widget end -->

@@ -1,5 +1,5 @@
 * {
-    font-family: arial;
+    font-family: Roboto,arial,sans-serif;
 }
 
 ::-webkit-scrollbar {
@@ -33,6 +33,12 @@ nav a {
     font-weight: normal;
 }
 
+.active {
+    color: #282828 !important;
+    text-decoration: none !important;
+    font-weight: bold !important;
+}
+
 button {
     background-color: #de4747;
     border: none;
@@ -53,6 +59,7 @@ button {
     height: 28px;
     vertical-align: middle;
     display: table-cell;
+    cursor: default;
 }
 
 .swidget .head-div span {
@@ -80,7 +87,7 @@ button {
 table.accounts {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 12px;
+    margin-bottom: 20px;
 }
 
 table.accounts .desc {

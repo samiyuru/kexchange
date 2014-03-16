@@ -1,33 +1,20 @@
-<div style="border: 1px solid #d8d8d8; background: #fff;padding: 11px;margin-bottom: 15px;">
-    <!-- head -->
-    <div style="height: 28px;vertical-align: middle; display: table-cell;">
-        <span style="font-weight: bold;">KE People</span>
-    </div>
-    <!-- head end -->
-    <!-- widget content -->
-    <div style="padding-top: 12px;overflow: hidden;">
-        <ul style="margin: 0 0 -12px 0;padding: 0;" ng-controller="tpWlthyCtrler">
-            <li style="display: block;" ng-repeat="wlthyPrsn in wlthyPrsns">
-                <!-- top earner -->
-                <div style="border: 1px solid #d8d8d8; border-left: none; border-right: none;padding: 11px 0 11px 0;min-height: 70px;position: relative;margin-top: -1px;">
-                    <img class="propic-small" style="position: absolute;"
-                         src="propic01.png"/>
+<div kex-widget>
+    <ul ng-controller="tpWlthyCtrler" tab-title="KE People">
+        <li style="display: block;" ng-repeat="wlthyPrsn in wlthyPrsns">
+            <!-- top earner -->
+            <div style="border: 1px solid #d8d8d8; border-left: none; border-right: none;padding: 11px 0 11px 0;min-height: 70px;position: relative;margin-top: -1px;">
+                <img class="propic-small" style="position: absolute;" src="propic01.png"/>
 
-                    <div style="position: absolute;font-size: 12px;color: #777777; right: 0px;top: 13px;border-radius:50%;border: 1px solid #777777;width: 20px; height: 18px; text-align: center;padding-top: 2px;">
-                        <span style="position: relative;font-size: 13px;">01</span></div>
-                    <div class="pad-rightTo-propic">
-                        <div style="color: #737373;font-size: 15px;font-weight: bold;">Samiyuru Senarathne
-                        </div>
-                        <div style="color: #777777;font-size: 13px;padding: 4px 0 0 0px;">wealth 10,000 K$
-                        </div>
-                        <div style="color: #777777;font-size: 13px;padding: 10px 0 0 0px;">weeks's earning
-                            5,000 K$
-                        </div>
-                    </div>
+                <div style="position: absolute;font-size: 12px;color: #777777; right: 0px;top: 13px;border-radius:50%;border: 1px solid #777777;width: 20px; height: 18px; text-align: center;padding-top: 2px;">
+                    <span style="position: relative;font-size: 13px;">01</span>
                 </div>
-                <!-- top earner end-->
-            </li>
+                <div class="pad-rightTo-propic">
+                    <div style="color: #737373;font-size: 15px;font-weight: bold;">Samiyuru Senarathne</div>
+                    <div style="color: #777777;font-size: 13px;padding: 4px 0 0 0px;">wealth 10,000 K$</div>
+                    <div style="color: #777777;font-size: 13px;padding: 10px 0 0 0px;">weeks's earning 5,000 K$</div>
+                </div>
+            </div>
+            <!-- top earner end-->
+        </li>
         </ul>
     </div>
-    <!-- widget content end-->
-</div>
