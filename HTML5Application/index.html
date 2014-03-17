@@ -10,9 +10,11 @@ Samiyuru Senarathne
 </head>
 <body style="margin: 0; padding: 0;background-color: #e5e5e5;">
 
-<div style="position: fixed;width: 100%;height: 45px;background-color: #f5f5f5;box-shadow: 0 0 5px 0 #000; z-index: 100;">
+<div style="position: fixed;width: 100%;max-height: 45px;z-index: 100;">
+    <div style="position: relative;margin: 0 auto;width: 100%;box-shadow: 0 0 5px 0 #000">
+    <div style="position: absolute;width:100%;height:100%;background-color: #f5f5f5;opacity:0.7"></div>
     <img style="position: absolute;top: 0px;left: 0px;height: 45px;" src="logo.png"/>
-    <nav style="position: relative;margin: 0 auto;width: 1024px;">
+    <nav style="position: relative;">
         <ul act-link-css="active">
             <li><a href="#/">Home</a></li>
             <li><a href="#/store">Store</a></li>
@@ -20,12 +22,13 @@ Samiyuru Senarathne
             <li><a href="#/profile">Profile</a></li>
         </ul>
     </nav>
+    </div>
 </div>
 
 
 
 <!-- cover -->
-<div dir01 ng-include="'widgets/kExCover.html'">
+<div dir01 ng-include="'widgets/kExCover.html'" style="padding-top: 45px;">
 </div>
 <!-- cover end -->
 
