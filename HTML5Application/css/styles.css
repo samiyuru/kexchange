@@ -1,17 +1,20 @@
 * {
-    font-family: Roboto,arial,sans-serif;
+    font-family: Roboto, arial, sans-serif;
 }
 
 ::-webkit-scrollbar {
     width: 12px;
 }
+
 ::-webkit-scrollbar-track {
     background-color: #eaeaea;
     border-left: 1px solid #ccc;
 }
+
 ::-webkit-scrollbar-thumb {
     background-color: #ccc;
 }
+
 ::-webkit-scrollbar-thumb:hover {
     background-color: #aaa;
 }
@@ -24,19 +27,26 @@ nav ul {
 
 nav li {
     display: inline-block;
-    padding: 14px 30px 13px 30px;
+    padding: 0px 30px 0px 30px;
 }
 
 nav a {
+    display: inline-block;
+    padding: 14px 0px 11px 0px;
     color: #737373;
     text-decoration: none;
     font-weight: normal;
+    font-size: 15px;
 }
 
 .active {
     color: #282828 !important;
     text-decoration: none !important;
     font-weight: bold !important;
+}
+
+nav a.active{
+    border-bottom: 3px solid #4b87d2;
 }
 
 button {
@@ -50,6 +60,9 @@ button {
 
 .swidget {
     border: 1px solid #d8d8d8;
+    border-bottom-width: 2px;
+    border-top-width: 0px;
+    border-radius: 2px;
     background: #fff;
     padding: 11px;
     margin-bottom: 15px;
@@ -62,26 +75,36 @@ button {
     cursor: default;
 }
 
-.swidget .head-div span {
+.swidget .head-div h3 {
+    padding: 0;
+    margin: 0;
     margin-right: 25px;
     color: #bbbbbb;
-    font-weight: normal;
+    font-weight: normal !important;
+    font-size: 16px;
+    display: inline;
 }
 
-.propic-small{
+.propic-small {
+    border-radius: 50%;
+    width: 66px;
+    height: 66px;
+}
+
+.pad-rightTo-propic {
+    padding: 2px 0 0 80px;
+}
+
+.propic-large {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+.propic-mid {
     border-radius: 50%;
     width: 70px;
     height: 70px;
-}
-
-.pad-rightTo-propic{
-    padding: 5px 0 0 90px;
-}
-
-.propic-mid{
-    border-radius: 50%;
-    width: 94px;
-    height: 94px;
 }
 
 table.accounts {
@@ -126,4 +149,39 @@ table.accounts td {
     border-left: none;
     border-right: none;
     padding: 8px 0 8px 0;
+}
+
+.data-row01 {
+    border: 1px solid #d8d8d8;
+    border-left: none;
+    border-right: none;
+    padding: 11px 0px 11px 0px;
+    min-height: 65px;
+    position: relative;
+    margin-top: -1px;
+}
+
+.left-col-main{
+    width: 595px;
+    float: left;
+}
+
+.right-col-main{
+    width: 404px;
+    float: left;
+    padding-left: 15px;
+}
+
+.content-body{
+    position: relative;width: 1015px;margin: 0 auto; padding-top: 15px; clear: both;
+}
+
+.link-btn{
+    display: inline-block;
+    background-color: transparent;
+    border: none;
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: underline;
+    text-align: center;
 }

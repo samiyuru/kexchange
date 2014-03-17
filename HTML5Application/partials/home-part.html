@@ -1,25 +1,21 @@
-<!-- content -->
-<div style="position: relative;width: 1024px;margin: 0 auto; padding-top: 15px; clear: both;">
-    <!-- left col -->
-    <div style="float: left; width: 605px">
-        <!-- widget -->
-        <div ng-include="'widgets/products-widget.html'"></div>
-        <!-- widget end -->
-        <!-- widget -->
-        <div ng-include="'widgets/earnings-widget.html'"></div>
-        <!-- widget end -->
-    </div>
-    <!-- left col end-->
-
-    <!-- right col -->
-    <div style="float: left; padding-left: 15px; width:404px;">
-        <!-- widget -->
-        <div ng-include="'widgets/topEarners-widget.html'"></div>
-        <!-- widget end -->
-        <!-- widget -->
-        <div ng-include="'widgets/wealth-widget.html'"></div>
-        <!-- widget end -->
-    </div>
-    <!-- right col end -->
+<!-- left col -->
+<div class="left-col-main">
+    <!-- widget -->
+    <div ng-include="'widgets/products-widget.html'"></div>
+    <!-- widget end -->
+    <!-- widget -->
+    <div ng-include="'widgets/earnings-widget.html'"></div>
+    <!-- widget end -->
 </div>
-<!-- content end -->
+<!-- left col end-->
+
+<!-- right col -->
+<div class="right-col-main">
+    <!-- widget -->
+    <div ng-include="'widgets/topEarners-widget.html'"></div>
+    <!-- widget end -->
+    <!-- widget -->
+    <div ng-include="'widgets/wealth-widget.html'"></div>
+    <!-- widget end -->
+</div>
+<!-- right col end -->

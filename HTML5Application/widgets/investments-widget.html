@@ -2,14 +2,19 @@
     <ul ng-controller="investorsCtrl" tab-title="Investors">
         <li ng-repeat="investor in investors">
             <!-- Investor -->
-            <div style="border: 1px solid #d8d8d8; border-left: none; border-right: none;padding: 11px 0 11px 0;min-height: 70px;position: relative;margin-top: -1px;">
-                <img class="propic-small" style="position: absolute;" ng-src="{{investor.investor.propic}}" />
+            <div class="data-row01">
+                <img class="propic-small" style="position: absolute;" ng-src="{{investor.investor.propic}}"/>
                 <div style="padding: 2px 0 0 90px;">
-                    <div style="color: #666666;font-size: 15px;font-weight: bold;">Amount {{investor.amount}} K$ <span style="font-weight: normal;color: #777777;">1 month ago</span></div>
-                    <div style="color: #777777;font-size: 13px;padding: 4px 0 0 0px;">Added by {{investor.investor.name}}</div>
-                    <div>
-                        <div style="color: #777777;font-size: 13px;padding: 10px 0 0 0px;float:left;">Interest {{investor.interest}}% per month</div>
-                        <button style="background-color: #de4747;float:right;">Take</button>
+                    <div style="color: #666666;font-size: 15px;font-weight: bold;">Amount {{investor.amount}} K$ <span
+                            style="font-weight: normal;color: #777777;">1 month ago</span></div>
+                    <div style="color: #777777;font-size: 13px;padding: 4px 0 0 0px;">Added by
+                        {{investor.investor.name}}
+                    </div>
+                    <div style="padding: 10px 0 0 0px;">
+                        <div style="color: #777777;font-size: 13px;float:left;">Interest {{investor.interest}}% per
+                            month
+                        </div>
+                        <a class="link-btn" style="color: #de4747;float:right;">Take it</a>
                     </div>
                 </div>
             </div>
@@ -18,50 +23,57 @@
     </ul>
     <ul tab-title="My Investments">
         <li>
-        <!-- You Invested -->
-        <div style="border: 1px solid #d8d8d8; border-left: none; border-right: none;padding: 11px 0 11px 0;min-height: 70px;position: relative;margin-top: -1px;">
-            <img class="propic-small" style="position: absolute;opacity: .4" src="propic01.png" />
-            <img style="position: absolute;right: 0px;" src="close01.png"/>
-            <div style="padding: 2px 0 0 90px;">
-                <div style="color: #666666;font-size: 15px;font-weight: bold;">Amount 21,000 K$ <span style="font-weight: normal;color: #777777;">1 month ago</span></div>
-                <div style="color: #777777;font-size: 13px;padding: 4px 0 0 0px;">You invested</div>
-                <div>
-                    <div style="color: #777777;font-size: 13px;padding: 10px 0 0 0px;float:left;">Interest 10% per month</div>
-                    <button style="background-color: #4b87d2;float:right;">Change %</button>
+            <!-- You Invested -->
+            <div class="data-row01">
+                <img class="propic-small" style="position: absolute;opacity: .4" src="propic01.png"/>
+                <img style="position: absolute;right: 0px;" src="close01.png"/>
+
+                <div style="padding: 2px 0 0 90px;">
+                    <div style="color: #666666;font-size: 15px;font-weight: bold;">Amount 21,000 K$ <span
+                            style="font-weight: normal;color: #777777;">1 month ago</span></div>
+                    <div style="color: #777777;font-size: 13px;padding: 4px 0 0 0px;">You invested</div>
+                    <div style="padding: 10px 0 0 0px;">
+                        <div style="color: #777777;font-size: 13px;float:left;">Interest 10% per month</div>
+                        <a class="link-btn" style="color: #4b87d2;float:right;">Change %</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- You Invested end -->
-        <!-- You Investment accepted -->
-        <div style="border: 1px solid #d8d8d8; border-left: none; border-right: none;padding: 11px 0 11px 0;min-height: 70px;position: relative;margin-top: -1px;">
-            <img class="propic-small" style="position: absolute;" src="propic01.png" />
-            <div style="padding: 2px 0 0 90px;">
-                <div style="color: #666666;font-size: 15px;font-weight: bold;">Amount 21,000 K$ <span style="font-weight: normal;color: #777777;">1 month ago</span></div>
-                <div style="color: #777777;font-size: 13px;padding: 4px 0 0 0px;">You invested in Saman</div>
-                <div>
-                    <div style="color: #777777;font-size: 13px;padding: 10px 0 0 0px;float:left;">Interest 10% per month</div>
-                    <button style="background-color: #4b87d2;float:right;">Change %</button>
+            <!-- You Invested end -->
+            <!-- You Investment accepted -->
+            <div class="data-row01">
+                <img class="propic-small" style="position: absolute;" src="propic01.png"/>
+                <div style="padding: 2px 0 0 90px;">
+                    <div style="color: #666666;font-size: 15px;font-weight: bold;">Amount 21,000 K$ <span
+                            style="font-weight: normal;color: #777777;">1 month ago</span></div>
+                    <div style="color: #777777;font-size: 13px;padding: 4px 0 0 0px;">You invested in Saman</div>
+                    <div style="padding: 10px 0 0 0px;">
+                        <div style="color: #777777;font-size: 13px;float:left;">Interest 10% per month</div>
+                        <a class="link-btn" style="color: #4b87d2;float:right;">Change %</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- You Investment accepted end -->
+            <!-- You Investment accepted end -->
         </li>
     </ul>
     <ul tab-title="Loans">
         <li>
             <!-- You took money -->
-            <div style="border: 1px solid #d8d8d8; border-left: none; border-right: none;padding: 11px 0 11px 0;min-height: 70px;position: relative;margin-top: -1px;">
-                <img class="propic-small" style="position: absolute;" src="propic02.png" />
+            <div class="data-row01">
+                <img class="propic-small" style="position: absolute;" src="propic02.png"/>
                 <div style="padding: 2px 0 0 90px;">
-                    <div style="color: #666666;font-size: 15px;font-weight: bold;">Amount 1,000 K$ <span style="font-weight: normal;color: #777777;">1 month ago</span></div>
+                    <div style="color: #666666;font-size: 15px;font-weight: bold;">Amount 1,000 K$ <span
+                            style="font-weight: normal;color: #777777;">1 month ago</span></div>
                     <div style="color: #777777;font-size: 13px;padding: 4px 0 0 0px;">You took from Hasith</div>
-                    <div>
-                        <div style="color: #777777;font-size: 13px;padding: 10px 0 0 0px;float:left;">Interest 10% per month</div>
-                        <button style="background-color: #0db741;float:right;">Pay Back</button>
+                    <div style="padding: 10px 0 0 0px;">
+                        <div style="color: #777777;font-size: 13px;float:left;">Interest 10% per month</div>
+                        <a class="link-btn" style="color: #0db741;float:right;">Pay Back</a>
                     </div>
                 </div>
             </div>
             <!-- You took money end -->
         </li>
+            <div class="data-row01" style="min-height: 0;">
+                <button style="background-color: #4b87d2;float:right;">Bid</button>
+            </div>
     </ul>
 </div>

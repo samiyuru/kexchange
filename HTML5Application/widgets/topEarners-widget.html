@@ -2,7 +2,7 @@
     <ul ng-controller="topErnrsCtrlr" tab-title="Top Earners Of The Week">
         <li style="display: block;" ng-repeat="earner in tpErners">
             <!-- top earner -->
-            <div style="border: 1px solid #d8d8d8; border-left: none; border-right: none;padding: 11px 0 11px 0;min-height: 70px;position: relative;margin-top: -1px;">
+            <div  class="data-row01">
                 <img class="propic-small" style="position: absolute;" ng-src="{{earner.person.propic}}"/>
                 <div style="position: absolute;font-size: 12px;color: #777777; right: 0px;top: 13px;border-radius:50%;border: 1px solid #777777;width: 20px; height: 18px; text-align: center;padding-top: 3px;">
                     <span style="position: relative;font-size: 13px;">{{earner.place}}</span>

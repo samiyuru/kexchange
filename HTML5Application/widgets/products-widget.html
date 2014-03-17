@@ -4,17 +4,19 @@
             display: inline-block;padding: 4px;padding-bottom: 11px;border: 1px solid #d8d8d8; position: relative;
         }
         .product .cover{
-            width:174px;height:94px;margin-bottom: 25px;
+            width:172px;height:94px;margin-bottom: 25px;
         }
     </style>
-    <ul ng-controller="prdctsCtrlr" tab-title="Products" style="width: 700px;">
+    <ul ng-controller="prdctsCtrlr" tab-title="Recent Products" style="width: 700px;">
         <li style="margin:0 12px 12px 0;display: inline-block" ng-repeat="product in products">
             <!-- product -->
             <div class="product">
                 <img class="cover" style="" ng-src="{{product.prdcover}}"/>
-                <img class="propic-small" style="position: absolute;left: 55px;top: 50px;" ng-src="{{product.seller.propic}}"/>
-                <div style="color: #737373;font-size:15px;text-align: center;">{{product.name}}</div>
-                <div style="color: #b0b0b0;font-size:12px;text-align: center;">{{product.left}} left</div>
+                <div style="position: absolute;top: 55px; left: 0;width: 100%;text-align: center;">
+                <img class="propic-mid" style="display: inline-block;" ng-src="{{product.seller.propic}}"/>
+                    </div>
+                <div style="color: #737373;font-size:15px;text-align: center;margin-top: 5px;">{{product.name}}</div>
+                <div style="color: #b0b0b0;font-size:12px;text-align: center;margin: 5px 0;">{{product.left}} left</div>
                 <div style="text-align: center;">
                     <button ng-click="product" style="background-color: #0db741;">Details</button>
                 </div>

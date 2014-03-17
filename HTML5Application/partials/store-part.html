@@ -1,17 +1,15 @@
-<div style="position: relative;width: 1024px;margin: 0 auto; padding-top: 15px; clear: both;">
-    <div style="float: left; width: 605px">
-        <!-- widget -->
-        <div class="swidget">
-            <!-- button -->
-            <button style="background-color: #de4747;">Add New Item to Sell </button>
-            <!-- button end-->
-        </div>
-        <!-- widget end -->
-        <!-- widget -->
-        <div ng-include="'widgets/products-widget.html'"></div>
-        <!-- widget end -->
+<div class="left-col-main">
+    <!-- widget -->
+    <div class="swidget">
+        <!-- button -->
+        <button style="background-color: #de4747;">Add New Item to Sell</button>
+        <!-- button end-->
     </div>
-    <div style="float: left; padding-left: 15px; width:404px;">
-        <div ng-include="'widgets/myItems-widget.html'"></div>
-    </div>
+    <!-- widget end -->
+    <!-- widget -->
+    <div ng-include="'widgets/products-widget.html'"></div>
+    <!-- widget end -->
+</div>
+<div class="right-col-main">
+    <div ng-include="'widgets/myItems-widget.html'"></div>
 </div>
