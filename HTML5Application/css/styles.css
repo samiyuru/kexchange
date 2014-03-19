@@ -156,7 +156,7 @@ table.accounts td {
     border-left: none;
     border-right: none;
     padding: 11px 0px 11px 0px;
-    min-height: 65px;
+    min-height: 66px;
     position: relative;
     margin-top: -1px;
 }
@@ -184,4 +184,13 @@ table.accounts td {
     font-weight: bold;
     text-decoration: underline;
     text-align: center;
+}
+
+.L-R-padding0{
+    padding-left: 11px;
+    padding-right: 11px;
+}
+.L-R-margin0{
+    padding-left: 11px;
+    padding-right: 11px;
 }
