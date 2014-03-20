@@ -12,8 +12,8 @@ kEX.config(['$routeProvider', function($routeProvider) {
             when('/store', {
                 templateUrl: 'partials/store-part.html'
             }).
-            when('/bank', {
-                templateUrl: 'partials/bank-part.html'
+            when('/profile', {
+                templateUrl: 'partials/profile-part.html'
             }).
             otherwise({
                 redirectTo: '/'
@@ -260,7 +260,7 @@ kEX.controller("accountCtrl", function($scope){
     }];
 });
 
-kEX.controller("investorsCtrl", function($scope){
+kEX.controller("loanCtrl", function($scope){
     $scope.investors = [
         {
             investor:{
@@ -307,10 +307,43 @@ kEX.controller("investorsCtrl", function($scope){
             interest: 10
         }
     ];
+    $scope.isShowInvestors = false;
+
+    $scope.hideInvestors = function(){
+        $scope.isShowInvestors = false;
+    }
+    $scope.showInvestors = function(){
+        $scope.isShowInvestors = true;
+    }
 });
 
-kEX.controller("loansCtrl", function($scope){
-
+kEX.controller("myInvestCtrl", function($scope){
+    $scope.investments = [
+        {
+            timeago:"1 month ago",
+            amount:1000,
+            rate:5,
+            person:{
+                id:0001,
+                wealth:3000,
+                name:"Samiyuru Senarathne",
+                propic:"propic02.png"
+            }
+        },
+        {
+            timeago:"1 month ago",
+            amount:1000,
+            rate:5,
+            person:null
+        }
+    ];
+    $scope.isShowInvest = false;
+    $scope.showInvest = function(){
+        $scope.isShowInvest = true;
+    }
+    $scope.hideInvest = function(){
+        $scope.isShowInvest = false;
+    }
 });
 
 kEX.controller("myInvestmentsCtrl", function($scope){

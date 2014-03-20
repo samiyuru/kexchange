@@ -1,9 +1,11 @@
 <!-- widget -->
-<div class="swidget L-R-padding0">
+<div class="swidget">
     <!-- head -->
+    <div class="L-R-margin0">
     <div tab-head class="head-div">
         <h3 ng-repeat="tab in tabs" ng-class="{active:tab.isShow}" ng-click="tabShow($index)">{{tab.title}}</h3>
     </div>
+        </div>
     <!-- head end -->
     <!-- widget content -->
     <div style="padding-top: 8px;overflow: hidden;">
