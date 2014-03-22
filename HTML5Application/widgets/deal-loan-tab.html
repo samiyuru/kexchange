@@ -1,0 +1,99 @@
+<ul ng-init="ui={};ui.isShowInvestors=false;" ng-controller="loanCtrl">
+    <li class="L-R-margin0">
+        <!-- my loans -->
+        <ul style="margin: 0; padding: 0">
+            <li ng-repeat="loan in loans">
+                <!-- You took money -->
+                <div class="data-row01">
+                    <img class="propic-small" style="position: absolute;" ng-src="{{loan.investor.propic}}"/>
+
+                    <div style="padding: 2px 0 0 90px;">
+                        <div style="color: #666666;font-size: 15px;font-weight: bold;">Amount {{loan.amount}} K$ <span
+                                style="font-weight: normal;color: #777777;">{{loan.timeago}}</span></div>
+                        <div style="color: #777777;font-size: 13px;padding: 4px 0 0 0px;">You took from {{loan.investor.name}}</div>
+
+
+                        <div ng-init="ui={};ui.paybkCnf=false;">
+                            <div ng-show="!ui.paybkCnf" style="padding: 10px 0 0 0px;">
+                                <div style="color: #777777;font-size: 13px;float:left;">Interest {{loan.interest}}% per month</div>
+                                <a ng-click="ui.paybkCnf=true;" class="link-btn"
+                                   style="color: #0db741;float:right;">Pay Back</a>
+
+                                <div style="clear: both;"></div>
+                            </div>
+                            <div ng-show="ui.paybkCnf" style="text-align: right;padding: 10px 0 0 0px;">
+                                <div style="display: inline-block;font-size: 13px;color: #000;font-weight: bold;">Are you sure?</div>
+                                <a ng-click="" class="link-btn" style="color: #0db741;">Pay Back</a>
+                                <a ng-click="ui.paybkCnf=false;" class="link-btn" style="color: #666666;">Cancel</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- You took money end -->
+            </li>
+        </ul>
+        <!-- my loans end -->
+
+        <!-- new loan button -->
+        <div ng-show="!ui.isShowInvestors" class="data-row01" style="min-height: 0;">
+            <button ng-click="ui.isShowInvestors=true;" style="background-color: #4b87d2;">Get Loan</button>
+        </div>
+        <!-- new loan button end-->
+    </li>
+    <li ng-show="ui.isShowInvestors">
+        <!--investors head-->
+        <div class="data-row01 swidget-sublist">
+            <div class="L-R-margin0">
+                <h3>Investors</h3>
+                <img class="close" ng-click="ui.isShowInvestors=false;" src="../close01.png">
+            </div>
+        </div>
+        <!--investors head end -->
+
+        <!--investors list -->
+        <ul class="L-R-margin0" style="margin: 0;padding: 0;">
+            <li ng-repeat="investor in investors">
+                <!-- Investor -->
+                <div class="data-row01">
+                    <img class="propic-small" style="position: absolute;"
+                         ng-src="{{investor.investor.propic}}"/>
+
+                    <div style="padding: 2px 0 0 90px;">
+                        <div style="color: #666666;font-size: 15px;font-weight: bold;">Amount
+                            {{investor.amount}} K$ <span
+                                    style="font-weight: normal;color: #777777;">1 month ago</span></div>
+                        <div style="color: #777777;font-size: 13px;padding: 4px 0 0 0px;">Added by
+                            {{investor.investor.name}}
+                        </div>
+
+                        <div ng-init="ui={};ui.TakeItCnf=false;">
+                            <div style="padding: 10px 0 0 0px;">
+                                <div style="color: #777777;font-size: 13px;float:left;">Interest
+                                    {{investor.interest}}% per month
+                                </div>
+                                <a ng-show="!ui.TakeItCnf" ng-click="ui.TakeItCnf=true;" class="link-btn"
+                                   style="color: #de4747;float:right;">Take it</a>
+
+                                <div style="clear: both;"></div>
+                            </div>
+                            <div ng-show="ui.TakeItCnf" style="text-align: right;padding: 2px 0 0 0px;">
+                                <div style="display: inline-block;font-size: 13px;color: #000;font-weight: bold;">Are you sure?</div>
+                                <a ng-click="" class="link-btn" style="color: #de4747;">Take it</a>
+                                <a ng-click="ui.TakeItCnf=false;" class="link-btn" style="color: #666666;">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Investor end -->
+            </li>
+        </ul>
+        <!--investors list end-->
+
+        <!--investors close button-->
+        <div class="L-R-margin0 data-row01" style="min-height: 0;">
+            <button ng-click="ui.isShowInvestors=false;" style="background-color: #4b87d2;">Cancel</button>
+        </div>
+        <!--investors close button end-->
+    </li>
+</ul>

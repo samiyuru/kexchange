@@ -307,14 +307,41 @@ kEX.controller("loanCtrl", function($scope){
             interest: 10
         }
     ];
-    $scope.isShowInvestors = false;
-
-    $scope.hideInvestors = function(){
-        $scope.isShowInvestors = false;
-    }
-    $scope.showInvestors = function(){
-        $scope.isShowInvestors = true;
-    }
+    $scope.loans = [
+        {
+            investor:{
+                id:0001,
+                wealth:3000,
+                name:"Amila",
+                propic:"propic01.png"
+            },
+            amount:1000,
+            timeago: 100,
+            interest: 10
+        },
+        {
+            investor:{
+                id:0001,
+                wealth:3000,
+                name:"Darshatha",
+                propic:"propic02.png"
+            },
+            amount:1000,
+            timeago: 100,
+            interest: 10
+        },
+        {
+            investor:{
+                id:0001,
+                wealth:3000,
+                name:"Nimal",
+                propic:"propic01.png"
+            },
+            amount:1000,
+            timeago: 100,
+            interest: 10
+        }
+    ];
 });
 
 kEX.controller("myInvestCtrl", function($scope){
@@ -335,17 +362,23 @@ kEX.controller("myInvestCtrl", function($scope){
             amount:1000,
             rate:5,
             person:null
+        },
+        {
+            timeago:"1 month ago",
+            amount:1000,
+            rate:5,
+            person:null
+        },
+        {
+            timeago:"1 month ago",
+            amount:1000,
+            rate:5,
+            person:{
+                id:0001,
+                wealth:3000,
+                name:"Samiyuru Senarathne",
+                propic:"propic02.png"
+            }
         }
     ];
-    $scope.isShowInvest = false;
-    $scope.showInvest = function(){
-        $scope.isShowInvest = true;
-    }
-    $scope.hideInvest = function(){
-        $scope.isShowInvest = false;
-    }
-});
-
-kEX.controller("myInvestmentsCtrl", function($scope){
-
 });

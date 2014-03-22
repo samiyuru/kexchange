@@ -2,5 +2,19 @@
     <div ng-include="'widgets/account-widget.html'"></div>
 </div>
 <div class="right-col-main">
-    <div ng-include="'widgets/investments-widget.html'"></div>
+    <!-- deal widget -->
+    <div kex-widget>
+        <!-- investments tab -->
+        <div tab-title="My Investments">
+            <div ng-include="'widgets/deal-investments-tab.html'"></div>
+        </div>
+        <!-- investments tab end-->
+
+        <!-- loan tab -->
+        <div tab-title="Loans">
+            <div ng-include="'widgets/deal-loan-tab.html'"></div>
+        </div>
+        <!-- loan tab end-->
+    </div>
+    <!-- deal widget end -->
 </div>

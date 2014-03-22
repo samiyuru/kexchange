@@ -1,5 +1,50 @@
 <div kex-widget>
-    <ul class="L-R-margin0" ng-controller="accountCtrl" tab-title="Account History">
+    <style type="text/css">
+        table.accounts {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table.accounts .desc {
+            text-align: left;
+        }
+
+        table.accounts .date {
+            width: 100px;
+            text-align: right;
+        }
+
+        table.accounts .amt {
+            width: 100px;
+            text-align: right;
+        }
+
+        table.accounts .bal {
+            width: 100px;
+            text-align: right;
+        }
+
+        table.accounts th {
+            color: #9a9a9a;
+            font-size: 14px;
+            font-weight: bold;
+            border: 1px solid #ececec;
+            border-left: none;
+            border-right: none;
+            padding: 8px 0 8px 0;
+        }
+
+        table.accounts td {
+            color: #282828;
+            font-size: 14px;
+            border: 1px solid #ececec;
+            border-left: none;
+            border-right: none;
+            padding: 8px 0 8px 0;
+        }
+    </style>
+    <div tab-title="Account History">
+        <ul class="L-R-margin0" ng-controller="accountCtrl">
             <table class="accounts">
                 <tr>
                     <th class="desc">Description</th>
@@ -16,3 +61,4 @@
             </table>
         </ul>
     </div>
+</div>
