@@ -19,10 +19,20 @@
     background-color: #aaa;
 }
 
-input[type=text]{
+input, textarea{
     padding: 5px;
     border: 1px solid #cccccc;
     outline: 0;
+    font-size: 13px;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+select{
+    background-color: #fff;
+    margin: 0;
+    padding: 5px;
+    font-size: 13px;
 }
 
 .input-Labl01{
@@ -135,7 +145,7 @@ button:focus {outline:0;}
 }
 
 .pad-rightTo-propic {
-    padding: 2px 0 0 80px;
+    padding: 2px 0 0 75px;
 }
 
 .propic-large {

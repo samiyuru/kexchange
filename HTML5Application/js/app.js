@@ -104,13 +104,6 @@ kEX.controller("recntErnngsCtrlr", function($scope){
             srcimg:"earning-ico001.png",
             timeago:"Yesterday",
             link:"#"
-        }, {
-            head:"Blogger Earning",
-            amount:100,
-            detail:"For the blogger you mentioned",
-            srcimg:"earning-ico001.png",
-            timeago:"Yesterday",
-            link:"#"
         }
     ];
 });
@@ -200,17 +193,8 @@ kEX.controller("tpWlthyCtrler", function($scope){
             },
             earning:10000,
             place:02
-        },
-        {
-            person:{
-                id:0001,
-                wealth:3000,
-                name:"Samiyuru Senarathne",
-                propic:"propic01.png"
-            },
-            earning:10000,
-            place:03
-        }];
+        }
+    ];
 });
 
 kEX.controller("coverCtrlr", function($scope){
