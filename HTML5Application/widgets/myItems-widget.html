@@ -4,7 +4,7 @@
             <li style="display: block;">
                 <!-- My bid -->
                 <div class="data-row01">
-                    <img class="propic-small" style="position: absolute;" src="product-cover001.png"/>
+                    <img class="propic-small" style="float: left;" src="product-cover001.png"/>
 
                     <div class="place-circle">
                         <span>1</span>
@@ -12,14 +12,13 @@
 
                     <div ng-init="ui={};ui.showbids=false;" class="pad-rightTo-propic">
                         <div style="color: #666666;font-size: 15px;font-weight: bold;">Session Tickets</div>
-                        <div class="topgutter01" style="color: #777777;font-size: 13px;">Expires in one day</div>
+                        <div class="topgutter01" style="color: #777777;">Expires in one day</div>
                         <div class="topgutter02">
-                            <div style="color: #777777;font-size: 13px;">Current bid 5,000 K$</div>
+                            <span style="color: #777777;">Current bid 5,000 K$</span>
                             <div style="display: inline-block;float:right;">
                                 <a ng-show="!ui.showbids" ng-click="ui.showbids=true;" class="link-btn" style="color: #4b87d2;">New Bid</a>
                                 <a ng-show="ui.showbids" ng-click="ui.showbids=false;" class="link-btn" style="color: #666666;">Cancel</a>
                             </div>
-                            <div style="clear: both;"></div>
                         </div>
 
                         <!-- bids list --->
@@ -31,37 +30,19 @@
                             </div>
                             <!-- new bid input end -->
 
-                             <!-- bids hist -->
-                            <style type="text/css">
-                                ul .bids1{
-                                    max-height: 170px;overflow-y: auto;padding-right: 5px;
-                                }
-                                ul .bids1 li{
-                                    font-size: 13px;white-space: nowrap;border-bottom: 1px solid #d8d8d8;padding: 12px 0;
-                                }
-                            </style>
-                            <ul class="bids1">
-                                <li>
+                            <!-- bids hist -->
+                            <ul class="bids01">
+                                <li class="data-row01">
                                     <span style="color: #282828;">Samiyuru</span>
                                     <span style="color: #9a9a9a;margin-left: 12px;">1 hour ago</span>
                                     <span style="float: right;">10,0000 K$</span>
                                 </li>
-                                <li>
+                                <li class="data-row01">
                                     <span style="color: #282828;">Samiyuru</span>
                                     <span style="color: #9a9a9a;margin-left: 12px;">1 hour ago</span>
                                     <span style="float: right;">10,0000 K$</span>
                                 </li>
-                                <li>
-                                    <span style="color: #282828;">Samiyuru</span>
-                                    <span style="color: #9a9a9a;margin-left: 12px;">1 hour ago</span>
-                                    <span style="float: right;">10,0000 K$</span>
-                                </li>
-                                <li>
-                                    <span style="color: #282828;">Samiyuru</span>
-                                    <span style="color: #9a9a9a;margin-left: 12px;">1 hour ago</span>
-                                    <span style="float: right;">10,0000 K$</span>
-                                </li>
-                                <li>
+                                <li class="data-row01">
                                     <span style="color: #282828;">Samiyuru</span>
                                     <span style="color: #9a9a9a;margin-left: 12px;">1 hour ago</span>
                                     <span style="float: right;">10,0000 K$</span>
@@ -77,29 +58,29 @@
                         </div>
                         <!-- bids list end --->
                     </div>
+                    <div style="clear: both;"></div>
                 </div>
                 <!-- My bid -->
             </li>
             <li style="display: block;">
             <!-- My bid -->
             <div class="data-row01">
-                <img class="propic-small" style="position: absolute;" src="product-cover001.png"/>
+                <img class="propic-small" style="float: left;" src="product-cover001.png"/>
 
                 <div class="place-circle">
                     <span>1</span>
                 </div>
                 <div class="pad-rightTo-propic">
                     <div style="color: #666666;font-size: 15px;font-weight: bold;">Session Tickets</div>
-                    <div class="topgutter01" style="color: #777777;font-size: 13px;">Expires in one day</div>
+                    <div class="topgutter01" style="color: #777777;">Expires in one day</div>
                     <div class="topgutter02">
-                        <div style="color: #777777;font-size: 13px;float:left;">Current bid 5,000 K$</div>
-                        <!--<button style="background-color: #4b87d2;float:right;">Bid</button>-->
+                        <div style="color: #777777;float:left;">Current bid 5,000 K$</div>
                         <div style="display: inline-block;float:right;">
                             <a class="link-btn" style="color: #4b87d2;">New Bid</a>
                         </div>
-                        <div style="clear: both;"></div>
                     </div>
                 </div>
+                <div style="clear: both;"></div>
             </div>
             <!-- My bid -->
         </li>
@@ -110,20 +91,18 @@
             <li>
                 <!-- My Item -->
                 <div class="data-row01">
-                    <img class="propic-small" style="position: absolute;" src="product-cover001.png"/>
+                    <img class="propic-small" style="float: left;" src="product-cover001.png"/>
 
                     <div class="pad-rightTo-propic">
                         <div style="color: #666666;font-size: 15px;font-weight: bold;">Session Tickets</div>
-                        <div class="topgutter01" style="color: #777777;font-size: 13px;">from Hasith Yaggahawita
+                        <div class="topgutter01" style="color: #777777;">from Hasith Yaggahawita
                         </div>
                         <div class="topgutter02">
-                            <div style="color: #777777;font-size: 13px;float:left;">Bought for 3,000 K$</div>
-                            <!--<button style="background-color: #4b87d2;float:right;">Sell Back</button>-->
+                            <div style="color: #777777;float:left;">Bought for 3,000 K$</div>
                             <a class="link-btn" style="color: #4b87d2;float:right;">Sell Back</a>
-
-                            <div style="clear: both;"></div>
                         </div>
                     </div>
+                    <div style="clear: both;"></div>
                 </div>
                 <!-- My Item -->
             </li>

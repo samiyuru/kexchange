@@ -23,25 +23,25 @@
 
                             <!-- condinal propic-->
                             <img ng-show="invst.person==null" class="propic-small"
-                                 style="position: absolute;opacity: .4;"
+                                 style="float: left;opacity: .4;"
                                  src="propic01.png"/>
-                            <img ng-show="invst.person!=null" class="propic-small" style="position: absolute;"
+                            <img ng-show="invst.person!=null" class="propic-small" style="float: left;"
                                  ng-src="{{invst.person.propic}}"/>
                             <!-- condinal propic end-->
 
                             <div class="pad-rightTo-propic">
                                 <div style="color: #666666;font-size: 15px;font-weight: bold;">
-                                    <span>Amount 21,000 K$</span>
+                                    Amount 21,000 K$
                                     <span style="font-weight: normal;color: #777777;">1 month ago</span>
                                 </div>
 
                                 <!-- condinal info-->
                                 <div class="topgutter01">
                                     <div ng-if="invst.person==null"
-                                         style="color: #777777;font-size: 13px;">You invested
+                                         style="color: #777777;">You invested
                                     </div>
                                     <div ng-if="invst.person!=null"
-                                         style="color: #777777;font-size: 13px;">You invested in {{invst.person.shname}}
+                                         style="color: #777777;">You invested in {{invst.person.shname}}
                                     </div>
                                 </div>
                                 <!-- condinal info end-->
@@ -49,7 +49,7 @@
                                 <div ng-init="ui.RateChng=false;" class="topgutter02">
                                     <!-- profit readonly -->
                                     <div ng-show="!ui.RateChng">
-                                        <span style="color: #777777;font-size: 13px;">Interest 10% per month
+                                        <span style="color: #777777;">Interest 10% per month
                                         </span>
                                         <a ng-click="ui.RateChng=true" class="link-btn"
                                            style="color: #4b87d2;float:right;">Change %</a>
@@ -63,12 +63,12 @@
                                            style="color: #666666;">Cancel</a>
                                     </div>
                                     <!-- profit mutable end -->
-                                    <div style="clear: both;"></div>
                                 </div>
                             </div>
                         </div>
                         <!-- invest content end -->
                     </div>
+                    <div style="clear: both;"></div>
                 </div>
                 <!-- You Invested end -->
             </li>
@@ -97,7 +97,7 @@
 
         <!-- new investment input -->
         <div class="L-R-margin0 data-row01">
-            <img class="propic-small" style="position: absolute;" src="propic01.png"/>
+            <img class="propic-small" style="float: left;" src="propic01.png"/>
 
             <div class="pad-rightTo-propic">
                 <table>

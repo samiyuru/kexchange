@@ -1,6 +1,11 @@
 * {
     font-family: Roboto, arial, sans-serif;
     font-weight: 100;
+    font-size: 13px;
+}
+
+span{
+    font-size: inherit;/*spans dint inherit from parent*/
 }
 
 ::-webkit-scrollbar {
@@ -258,4 +263,8 @@ button:focus {
 .place-circle span {
     position: relative;
     font-size: 13px;
+}
+
+ul.bids01{
+    max-height: 170px;overflow-y: auto;padding-right: 5px;
 }
