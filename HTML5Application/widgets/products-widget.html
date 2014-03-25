@@ -8,7 +8,9 @@
             position: relative;
             cursor: default;
         }
-
+        .prdgutterR{
+            margin-right: 12px;
+        }
         .product .cover {
             width: 172px;
             height: 90px;
@@ -21,8 +23,8 @@
         }
     </style>
     <div tab-title="Recent Products">
-        <ul class="L-R-margin0" ng-controller="prdctsCtrlr" style="width: 700px;">
-            <li style="margin:0 12px 12px 0;display: inline-block" ng-repeat="product in products">
+        <ul class="L-R-margin0" ng-controller="prdctsCtrlr">
+            <li ng-repeat="product in products" ng-class="{prdgutterR:($index%3!=2)}" style="display: inline-block;margin-bottom: 12px;">
                 <!-- product -->
                 <div class="product">
                     <img class="cover" style="" ng-src="{{product.prdcover}}"/>
@@ -31,9 +33,6 @@
                         <img class="propic-small" style="display: inline-block;" ng-src="{{product.seller.propic}}"/>
                     </div>
                     <div class="topgutter01" style="color: #666666;font-size:16px;text-align: center;">{{product.name}}</div>
-                    <div class="topgutter02" style="text-align: center;">
-                        <a class="link-btn" style="color:#4b87d2;font-weight: normal;text-decoration: none;display: none;">by Hasith</a>
-                    </div>
                     <div class="topgutter02" style="color: #b0b0b0;font-size:12px;text-align: center;">{{product.left}} out of 6 left</div>
                     <div class="topgutter02" style="text-align: center;">
                         <!--<button ng-click="product" style="background-color: #0db741;">Details</button>-->
