@@ -94,7 +94,7 @@ kEX.directive("kexWidget", function ($rootScope, $location) {
     };
 });
 
-kEX.directive("imgUpload", function () {
+kEX.directive("imgUpload", function () {//parent should be 'imgUploader' //to be added to a button
     return {
         restrict: 'A',
         require: "^imgUploader",
@@ -137,7 +137,7 @@ kEX.directive("imgUploader", function () {
                 imgs.push(imgObj);
                 $scope.$apply();
             };
-            $scope.delImg = function(imgObg){
+            $scope.delImg = function (imgObg) {
                 var indx = imgs.indexOf(imgObg);
                 imgs.splice(indx, 1);
             };
@@ -159,6 +159,38 @@ kEX.directive("imgUploader", function () {
         <button img-upload style="background-color: #4b87d2;">Add Images</button>\
     </div>'
     };
+});
+
+
+kEX.directive("productscont", function () {
+    return {
+        restrict: 'A',
+        scope: {},
+        controller: function ($scope, $element) {
+
+        }
+    }
+});
+
+
+kEX.directive("product", function () {
+    return {
+        restrict: 'A',
+        scope: {},
+        link: function (scope, elem, attr) {
+
+        }
+    }
+});
+
+kEX.directive("productinfo", function () {
+    return {
+        restrict: 'A',
+        scope: {},
+        link: function (scope, elem, attr) {
+
+        }
+    }
 });
 
 /*kEX.directive("inrowConfirm", function () {
