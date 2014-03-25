@@ -21,30 +21,32 @@
 
                             <!-- condinal propic-->
                             <img ng-show="invst.person==null" class="propic-small"
-                                 style="position: absolute;opacity: .4"
-                                 ng-src="propic01.png"/>
+                                 style="position: absolute;opacity: .4;"
+                                 src="propic01.png"/>
                             <img ng-show="invst.person!=null" class="propic-small" style="position: absolute;"
                                  ng-src="{{invst.person.propic}}"/>
                             <!-- condinal propic end-->
 
-                            <div style="padding: 2px 0 0 90px;">
-                                <div style="color: #666666;font-size: 15px;font-weight: bold;">Amount 21,000
-                                    K$ <span
-                                            style="font-weight: normal;color: #777777;">1 month ago</span></div>
+                            <div class="pad-rightTo-propic">
+                                <div style="color: #666666;font-size: 15px;font-weight: bold;">
+                                    <span>Amount 21,000 K$</span>
+                                    <span style="font-weight: normal;color: #777777;">1 month ago</span>
+                                </div>
 
                                 <!-- condinal info-->
-                                <div ng-if="invst.person==null"
-                                     style="color: #777777;font-size: 13px;padding: 4px 0 0 0px;">You invested
-                                </div>
-                                <div ng-if="invst.person!=null"
-                                     style="color: #777777;font-size: 13px;padding: 4px 0 0 0px;">You invested in
-                                    {{invst.person.name}}
+                                <div class="topgutter01">
+                                    <div ng-if="invst.person==null"
+                                         style="color: #777777;font-size: 13px;">You invested
+                                    </div>
+                                    <div ng-if="invst.person!=null"
+                                         style="color: #777777;font-size: 13px;">You invested in {{invst.person.shname}}
+                                    </div>
                                 </div>
                                 <!-- condinal info end-->
 
-                                <div ng-init="ui.RateChng=false;">
+                                <div ng-init="ui.RateChng=false;" class="topgutter02">
                                     <!-- profit readonly -->
-                                    <div ng-show="!ui.RateChng" style="padding: 10px 0 0 0px;">
+                                    <div ng-show="!ui.RateChng">
                                         <div style="color: #777777;font-size: 13px;float:left;">Interest 10% per month
                                         </div>
                                         <a ng-click="ui.RateChng=true" class="link-btn"
@@ -52,17 +54,16 @@
                                             %</a>
                                     </div>
                                     <!-- profit readonly end-->
-
                                     <!-- profit mutable -->
-                                    <div ng-show="ui.RateChng" style="padding: 10px 0 0 0px;text-align: right;">
+                                    <div ng-show="ui.RateChng" style="text-align: right;">
                                         <input placeholder="Profit Rate" type="text"/>
                                         <a class="link-btn" style="color: #4b87d2;">Change %</a>
                                         <a ng-click="ui.RateChng=false" class="link-btn"
                                            style="color: #666666;">Cancel</a>
                                     </div>
                                     <!-- profit mutable end -->
+                                    <div style="clear: both;"></div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -93,7 +94,7 @@
         <div class="L-R-margin0 data-row01">
             <img class="propic-small" style="position: absolute;" src="propic01.png"/>
 
-            <div style="padding: 2px 0 0 90px;">
+            <div class="pad-rightTo-propic">
                 <table>
                     <tr>
                         <!-- <td class="input-Labl01">Ammount</td> -->

@@ -1,22 +1,28 @@
 <div kex-widget>
     <div tab-title="KE People">
-    <ul class="L-R-margin0"  ng-controller="tpWlthyCtrler">
-        <li style="display: block;" ng-repeat="wlthyPrsn in wlthyPrsns">
-            <!-- top earner -->
-            <div  class="data-row01">
-                <img class="propic-small" style="position: absolute;" src="propic01.png"/>
+        <div style="overflow-y: auto;max-height: 800px;">
+            <ul class="L-R-margin0" ng-controller="tpWlthyCtrler" style="padding-top: 1px/*for top list boarder*/;">
+                <li style="display: block;" ng-repeat="wlthyPrsn in wlthyPrsns">
+                    <!-- top earner -->
+                    <div class="data-row01">
+                        <img class="propic-small" style="position: absolute;" src="propic01.png"/>
 
-                <div style="position: absolute;font-size: 12px;color: #777777; right: 0px;top: 13px;border-radius:50%;border: 1px solid #777777;width: 20px; height: 18px; text-align: center;padding-top: 2px;">
-                    <span style="position: relative;font-size: 13px;">01</span>
-                </div>
-                <div class="pad-rightTo-propic">
-                    <div style="color: #737373;font-size: 15px;font-weight: bold;">Samiyuru Senarathne</div>
-                    <div style="color: #777777;font-size: 13px;padding: 4px 0 0 0px;">wealth 10,000 K$</div>
-                    <div style="color: #777777;font-size: 13px;padding: 10px 0 0 0px;">weeks's earning 5,000 K$</div>
-                </div>
-            </div>
-            <!-- top earner end-->
-        </li>
-        </ul>
+                        <div class="place-circle">
+                            <span>{{wlthyPrsn.place}}</span>
+                        </div>
+                        <div class="pad-rightTo-propic">
+                            <div style="color: #737373;font-size: 15px;font-weight: bold;">{{wlthyPrsn.person.name}}</div>
+                            <div class="topgutter01"
+                                 style="color: #777777;font-size: 13px;">wealth {{wlthyPrsn.person.wealth}} K$
+                            </div>
+                            <div class="topgutter02"
+                                 style="color: #777777;font-size: 13px;">weeks's earning {{wlthyPrsn.earning}} K$
+                            </div>
+                        </div>
+                    </div>
+                    <!-- top earner end-->
+                </li>
+            </ul>
+        </div>
     </div>
-    </div>
+</div>

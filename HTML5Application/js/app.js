@@ -30,6 +30,7 @@ kEX.controller("prdctsCtrlr", function($scope){
             prdcover:"product-cover001.png",
             seller:{
                 id:0001,
+                shname:"Samiyuru",
                 name:"Samiyuru Senarathne",
                 propic:"propic01.png"
             }
@@ -42,6 +43,7 @@ kEX.controller("prdctsCtrlr", function($scope){
             prdcover:"product-cover001.png",
             seller:{
                 id:0001,
+                shname:"Samiyuru",
                 name:"Samiyuru Senarathne",
                 propic:"propic01.png"
             }
@@ -54,6 +56,7 @@ kEX.controller("prdctsCtrlr", function($scope){
             prdcover:"product-cover001.png",
             seller:{
                 id:0001,
+                shname:"Samiyuru",
                 name:"Samiyuru Senarathne",
                 propic:"propic01.png"
             }
@@ -68,42 +71,84 @@ kEX.controller("recntErnngsCtrlr", function($scope){
             detail:"For the blogger you mentioned",
             srcimg:"earning-ico001.png",
             timeago:"Yesterday",
-            link:"#"
+            link:"#",
+            person:{
+                id:0001,
+                wealth:3000,
+                shname:"Samiyuru",
+                name:"Samiyuru Senarathne",
+                propic:"propic02.png"
+            }
         }, {
             head:"Blogger Earning",
             amount:100,
             detail:"For the blogger you mentioned",
             srcimg:"earning-ico001.png",
             timeago:"Yesterday",
-            link:"#"
+            link:"#",
+            person:{
+                id:0001,
+                wealth:3000,
+                shname:"Samiyuru",
+                name:"Samiyuru Senarathne",
+                propic:"propic02.png"
+            }
         }, {
             head:"Blogger Earning",
             amount:100,
             detail:"For the blogger you mentioned",
             srcimg:"earning-ico001.png",
             timeago:"Yesterday",
-            link:"#"
+            link:"#",
+            person:{
+                id:0001,
+                wealth:3000,
+                shname:"Samiyuru",
+                name:"Samiyuru Senarathne",
+                propic:"propic02.png"
+            }
         }, {
             head:"Blogger Earning",
             amount:100,
             detail:"For the blogger you mentioned",
             srcimg:"earning-ico001.png",
             timeago:"Yesterday",
-            link:"#"
+            link:"#",
+            person:{
+                id:0001,
+                wealth:3000,
+                shname:"Samiyuru",
+                name:"Samiyuru Senarathne",
+                propic:"propic02.png"
+            }
         }, {
             head:"Blogger Earning",
             amount:100,
             detail:"For the blogger you mentioned",
             srcimg:"earning-ico001.png",
             timeago:"Yesterday",
-            link:"#"
+            link:"#",
+            person:{
+                id:0001,
+                wealth:3000,
+                shname:"Samiyuru",
+                name:"Samiyuru Senarathne",
+                propic:"propic02.png"
+            }
         }, {
             head:"Blogger Earning",
             amount:100,
             detail:"For the blogger you mentioned",
             srcimg:"earning-ico001.png",
             timeago:"Yesterday",
-            link:"#"
+            link:"#",
+            person:{
+                id:0001,
+                wealth:3000,
+                shname:"Samiyuru",
+                name:"Samiyuru Senarathne",
+                propic:"propic02.png"
+            }
         }
     ];
 });
@@ -114,6 +159,7 @@ kEX.controller("topErnrsCtrlr", function($scope){
             person:{
                 id:0001,
                 wealth:3000,
+                shname:"Samiyuru",
                 name:"Samiyuru Senarathne",
                 propic:"propic01.png"
             },
@@ -124,6 +170,7 @@ kEX.controller("topErnrsCtrlr", function($scope){
             person:{
                 id:0001,
                 wealth:3000,
+                shname:"Samiyuru",
                 name:"Samiyuru Senarathne",
                 propic:"propic01.png"
             },
@@ -134,6 +181,7 @@ kEX.controller("topErnrsCtrlr", function($scope){
             person:{
                 id:0001,
                 wealth:3000,
+                shname:"Samiyuru",
                 name:"Samiyuru Senarathne",
                 propic:"propic01.png"
             },
@@ -148,6 +196,7 @@ kEX.controller("tpWlthyCtrler", function($scope){
             person:{
                 id:0001,
                 wealth:3000,
+                shname:"Samiyuru",
                 name:"Samiyuru Senarathne",
                 propic:"propic01.png"
             },
@@ -158,6 +207,7 @@ kEX.controller("tpWlthyCtrler", function($scope){
             person:{
                 id:0001,
                 wealth:3000,
+                shname:"Samiyuru",
                 name:"Samiyuru Senarathne",
                 propic:"propic01.png"
             },
@@ -168,6 +218,7 @@ kEX.controller("tpWlthyCtrler", function($scope){
             person:{
                 id:0001,
                 wealth:3000,
+                shname:"Samiyuru",
                 name:"Samiyuru Senarathne",
                 propic:"propic01.png"
             },
@@ -178,6 +229,7 @@ kEX.controller("tpWlthyCtrler", function($scope){
             person:{
                 id:0001,
                 wealth:3000,
+                shname:"Samiyuru",
                 name:"Samiyuru Senarathne",
                 propic:"propic01.png"
             },
@@ -188,6 +240,7 @@ kEX.controller("tpWlthyCtrler", function($scope){
             person:{
                 id:0001,
                 wealth:3000,
+                shname:"Samiyuru",
                 name:"Samiyuru Senarathne",
                 propic:"propic01.png"
             },
@@ -250,6 +303,7 @@ kEX.controller("loanCtrl", function($scope){
             investor:{
                 id:0001,
                 wealth:3000,
+                shname:"Samiyuru",
                 name:"Amila",
                 propic:"propic01.png"
             },
@@ -261,6 +315,7 @@ kEX.controller("loanCtrl", function($scope){
             investor:{
                 id:0001,
                 wealth:3000,
+                shname:"Samiyuru",
                 name:"Darshatha",
                 propic:"propic02.png"
             },
@@ -272,6 +327,7 @@ kEX.controller("loanCtrl", function($scope){
             investor:{
                 id:0001,
                 wealth:3000,
+                shname:"Samiyuru",
                 name:"Nimal",
                 propic:"propic01.png"
             },
@@ -283,6 +339,7 @@ kEX.controller("loanCtrl", function($scope){
             investor:{
                 id:0001,
                 wealth:3000,
+                shname:"Samiyuru",
                 name:"Hasith",
                 propic:"propic02.png"
             },
@@ -296,6 +353,7 @@ kEX.controller("loanCtrl", function($scope){
             investor:{
                 id:0001,
                 wealth:3000,
+                shname:"Samiyuru",
                 name:"Amila",
                 propic:"propic01.png"
             },
@@ -307,6 +365,7 @@ kEX.controller("loanCtrl", function($scope){
             investor:{
                 id:0001,
                 wealth:3000,
+                shname:"Samiyuru",
                 name:"Darshatha",
                 propic:"propic02.png"
             },
@@ -318,6 +377,7 @@ kEX.controller("loanCtrl", function($scope){
             investor:{
                 id:0001,
                 wealth:3000,
+                shname:"Samiyuru",
                 name:"Nimal",
                 propic:"propic01.png"
             },
@@ -337,6 +397,7 @@ kEX.controller("myInvestCtrl", function($scope){
             person:{
                 id:0001,
                 wealth:3000,
+                shname:"Samiyuru",
                 name:"Samiyuru Senarathne",
                 propic:"propic02.png"
             }
@@ -360,9 +421,14 @@ kEX.controller("myInvestCtrl", function($scope){
             person:{
                 id:0001,
                 wealth:3000,
+                shname:"Samiyuru",
                 name:"Samiyuru Senarathne",
                 propic:"propic02.png"
             }
         }
     ];
+});
+
+kEX.controller("newPrdCtrl", function($scope){
+
 });

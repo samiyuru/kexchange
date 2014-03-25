@@ -1,20 +1,27 @@
-<div class="left-col-main">
-    <div ng-include="'widgets/account-widget.html'"></div>
+<!-- cover -->
+<div dir01 ng-include="'widgets/kExCover.html'">
 </div>
-<div class="right-col-main">
-    <!-- deal widget -->
-    <div kex-widget>
-        <!-- investments tab -->
-        <div tab-title="My Investments">
-            <div ng-include="'widgets/deal-investments-tab.html'"></div>
-        </div>
-        <!-- investments tab end-->
+<!-- cover end -->
 
-        <!-- loan tab -->
-        <div tab-title="Loans">
-            <div ng-include="'widgets/deal-loan-tab.html'"></div>
-        </div>
-        <!-- loan tab end-->
+<div class="content-body">
+    <div class="left-col-main">
+        <div ng-include="'widgets/account-widget.html'"></div>
     </div>
-    <!-- deal widget end -->
+    <div class="right-col-main">
+        <!-- deal widget -->
+        <div kex-widget>
+            <!-- investments tab -->
+            <div tab-title="My Investments">
+                <div ng-include="'widgets/deal-investments-tab.html'"></div>
+            </div>
+            <!-- investments tab end-->
+
+            <!-- loan tab -->
+            <div tab-title="Loans">
+                <div ng-include="'widgets/deal-loan-tab.html'"></div>
+            </div>
+            <!-- loan tab end-->
+        </div>
+        <!-- deal widget end -->
+    </div>
 </div>

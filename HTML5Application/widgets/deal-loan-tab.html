@@ -7,25 +7,28 @@
                 <div class="data-row01">
                     <img class="propic-small" style="position: absolute;" ng-src="{{loan.investor.propic}}"/>
 
-                    <div style="padding: 2px 0 0 90px;">
+                    <div class="pad-rightTo-propic">
                         <div style="color: #666666;font-size: 15px;font-weight: bold;">Amount {{loan.amount}} K$ <span
                                 style="font-weight: normal;color: #777777;">{{loan.timeago}}</span></div>
-                        <div style="color: #777777;font-size: 13px;padding: 4px 0 0 0px;">You took from {{loan.investor.name}}</div>
+                        <div class="topgutter01"
+                             style="color: #777777;font-size: 13px;">You took from {{loan.investor.shname}}
+                        </div>
 
 
-                        <div ng-init="ui={};ui.paybkCnf=false;">
-                            <div ng-show="!ui.paybkCnf" style="padding: 10px 0 0 0px;">
+                        <div ng-init="ui={};ui.paybkCnf=false;" class="topgutter02">
+                            <div ng-show="!ui.paybkCnf">
                                 <div style="color: #777777;font-size: 13px;float:left;">Interest {{loan.interest}}% per month</div>
                                 <a ng-click="ui.paybkCnf=true;" class="link-btn"
-                                   style="color: #0db741;float:right;">Pay Back</a>
+                                   style="color: #4b87d2;float:right;">Pay Back</a>
 
                                 <div style="clear: both;"></div>
                             </div>
-                            <div ng-show="ui.paybkCnf" style="text-align: right;padding: 10px 0 0 0px;">
+                            <div ng-show="ui.paybkCnf" style="text-align: right;">
                                 <div style="display: inline-block;font-size: 13px;color: #000;font-weight: bold;">Are you sure?</div>
-                                <a ng-click="" class="link-btn" style="color: #0db741;">Pay Back</a>
+                                <a ng-click="" class="link-btn" style="color: #4b87d2;">Pay Back</a>
                                 <a ng-click="ui.paybkCnf=false;" class="link-btn" style="color: #666666;">Cancel</a>
                             </div>
+                            <div style="clear: both;"></div>
                         </div>
 
                     </div>
@@ -59,16 +62,16 @@
                     <img class="propic-small" style="position: absolute;"
                          ng-src="{{investor.investor.propic}}"/>
 
-                    <div style="padding: 2px 0 0 90px;">
+                    <div class="pad-rightTo-propic">
                         <div style="color: #666666;font-size: 15px;font-weight: bold;">Amount
                             {{investor.amount}} K$ <span
                                     style="font-weight: normal;color: #777777;">1 month ago</span></div>
-                        <div style="color: #777777;font-size: 13px;padding: 4px 0 0 0px;">Added by
-                            {{investor.investor.name}}
+                        <div class="topgutter01" style="color: #777777;font-size: 13px;">Added by
+                            {{investor.investor.shname}}
                         </div>
 
-                        <div ng-init="ui={};ui.TakeItCnf=false;">
-                            <div style="padding: 10px 0 0 0px;">
+                        <div ng-init="ui={};ui.TakeItCnf=false;" class="topgutter02">
+                            <div>
                                 <div style="color: #777777;font-size: 13px;float:left;">Interest
                                     {{investor.interest}}% per month
                                 </div>

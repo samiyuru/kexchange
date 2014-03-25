@@ -1,5 +1,5 @@
 <div kex-widget>
-    <div tab-title="Your Recent Earnings">
+    <div tab-title="Earnings of KE People">
         <ul class="L-R-margin0" ng-controller="recntErnngsCtrlr">
             <li style="display: block;" ng-repeat="earning in ernngs">
                 <!-- earning post -->
@@ -9,8 +9,8 @@
                     <div style="position: absolute;font-size: 12px;color: #777777; right: 0px;top: 16px;">{{earning.timeago}}</div>
                     <div class="pad-rightTo-propic">
                         <div style="color: #737373;font-size: 15px;font-weight: bold;">{{earning.head}}</div>
-                        <div style="color: #777777;font-size: 12px;padding: 4px 0 0 15px;">{{earning.detail}}</div>
-                        <div style="color: #282828;font-size: 14px;padding: 6px 0 0 15px;">You earned {{earning.amount}} K$</div>
+                        <div class="topgutter01" style="color: #777777;font-size: 12px;padding: 0 0 0 15px;">{{earning.detail}}</div>
+                        <div class="topgutter02" style="color: #282828;font-size: 14px;padding: 0 0 0 15px;">{{earning.person.shname}} earned {{earning.amount}} K$</div>
                     </div>
                 </div>
                 <!-- earning post end-->

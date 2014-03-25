@@ -94,46 +94,113 @@ kEX.directive("kexWidget", function ($rootScope, $location) {
     };
 });
 
-/*kEX.directive("inrowConfirm", function () {
+kEX.directive("imgUpload", function () {
     return {
         restrict: 'A',
-        transclude: true,
-        scope: {
-            confColor: "@confColor",
-            confName: "@inrowConfirm"
-        },
-        controller:function($scope){
-            $scope.shwConf = false;
-            this.showConfirmation = (function(){
-                $scope.shwConf = true;
-                $scope.$apply();
-            }).bind(this);
-        },
-        template: '\
-            <div>\
-                <!-- delete confirmation -->\
-                <div ng-show="shwConf">\
-                    <div style="margin: 22px auto;text-align: center;">\
-                        <a ng-click="confirmFunc();" class="link-btn" ng-style="{color: confColor}">{{confName}}</a>\
-                        <a ng-click="shwConf=false;" class="link-btn" style="color: #666666;">Undo</a>\
-                    </div>\
-                </div>\
-                <!-- delete confirmation  end-->\
-                <div ng-transclude ng-show="!shwConf">\
-                </div>\
-            </div>'
-    };
-});
-
-kEX.directive("inrowConfirmShw", function () {
-    return {
-        restrict: 'A',
-        require:"^inrowConfirm",
-        link:function(scope, elem, attr, parentInrwCtrl){
-            elem.on('click', function(){
-                parentInrwCtrl.showConfirmation();
+        require: "^imgUploader",
+        scope: {},
+        link: function (scope, elem, attr, imgUploader) {
+            var fInp = document.createElement("input");
+            fInp.setAttribute("type", "file");
+            fInp.setAttribute("multiple", "");
+            fInp.setAttribute("style", "position: absolute;width: 0;height: 0;left: -9999999px;");
+            fInp.setAttribute("accept", "image/png, image/jpeg, image/gif");
+            fInp.onchange = function () {
+                var flen = fInp.files.length;
+                for (var i = 0; i < flen; i++) {
+                    var file = fInp.files[i];
+                    var reader = new FileReader();
+                    reader.onload = function (event) {
+                        imgUploader.addImage({
+                            img: event.target.result,
+                            file: file
+                        });
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+            elem.append(fInp);
+            elem.on("click", function () {
+                fInp.click();
             });
         }
     };
-});*/
+});
+
+kEX.directive("imgUploader", function () {
+    return {
+        restrict: 'A',
+        scope: {},
+        controller: function ($scope, $element) {
+            $scope.imgs = imgs = [];
+            this.addImage = function (imgObj) {
+                imgs.push(imgObj);
+                $scope.$apply();
+            };
+            $scope.delImg = function(imgObg){
+                var indx = imgs.indexOf(imgObg);
+                imgs.splice(indx, 1);
+            };
+        },
+        template: '<div>\
+            <div style="padding-bottom: 12px;">\
+        <div>\
+            <div ng-show="imgs.length==0;" style="padding: 12px;text-align: center;font-size: 13px;color: #9a9a9a;margin-bottom: 8px;">\
+                <span>No Images added</span>\
+            </div>\
+            <ul style="margin-bottom: -12px;">\
+                <li ng-repeat="imgOb in imgs" style="display: inline-block; margin: 0 12px 12px 0;position: relative;">\
+                    <img style="height: 66px;padding: 3px;border: 1px solid #d8d8d8;" ng-src="{{imgOb.img}}"/>\
+                    <img ng-click="delImg(imgOb);" style="position: absolute;top:-5px;right: -5px;" src="../close01.png"/>\
+                </li>\
+            </ul>\
+        </div>\
+        </div>\
+        <button img-upload style="background-color: #4b87d2;">Add Images</button>\
+    </div>'
+    };
+});
+
+/*kEX.directive("inrowConfirm", function () {
+ return {
+ restrict: 'A',
+ transclude: true,
+ scope: {
+ confColor: "@confColor",
+ confName: "@inrowConfirm"
+ },
+ controller:function($scope){
+ $scope.shwConf = false;
+ this.showConfirmation = (function(){
+ $scope.shwConf = true;
+ $scope.$apply();
+ }).bind(this);
+ },
+ template: '\
+ <div>\
+ <!-- delete confirmation -->\
+ <div ng-show="shwConf">\
+ <div style="margin: 22px auto;text-align: center;">\
+ <a ng-click="confirmFunc();" class="link-btn" ng-style="{color: confColor}">{{confName}}</a>\
+ <a ng-click="shwConf=false;" class="link-btn" style="color: #666666;">Undo</a>\
+ </div>\
+ </div>\
+ <!-- delete confirmation  end-->\
+ <div ng-transclude ng-show="!shwConf">\
+ </div>\
+ </div>'
+ };
+ });
+
+ kEX.directive("inrowConfirmShw", function () {
+ return {
+ restrict: 'A',
+ require:"^inrowConfirm",
+ link:function(scope, elem, attr, parentInrwCtrl){
+ elem.on('click', function(){
+ parentInrwCtrl.showConfirmation();
+ });
+ }
+ };
+ });*/
 
