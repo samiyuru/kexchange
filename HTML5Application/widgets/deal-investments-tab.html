@@ -75,10 +75,11 @@
 
         <!-- invest button -->
         <div ng-show="!ui.isShowNwInvest" class="L-R-margin0 data-row01" style="min-height: 0;">
-            <button ng-click="ui.isShowNwInvest=true" style="background-color: #4b87d2;">Invest money</button>
+            <button ng-click="ui.isShowNwInvest=true;" onclick="utils.scrollToID('newInvestmentLoc');" style="background-color: #4b87d2;">Invest money</button>
         </div>
         <!-- invest button end-->
     </li>
+    <li id="newInvestmentLoc"></li>
     <li ng-show="ui.isShowNwInvest">
         <!-- new investment head-->
         <div class="data-row01 swidget-sublist">
