@@ -6,21 +6,81 @@
                 <div class="data-row01">
                     <img class="propic-small" style="position: absolute;" src="product-cover001.png"/>
 
-                    <div style="position: absolute;font-size: 12px;color: #777777; right: 0px;top: 13px;border-radius:50%;border: 1px solid #777777;width: 20px; height: 18px; text-align: center;padding-top: 2px;">
-                        <span style="position: relative;font-size: 13px;">01</span>
+                    <div class="place-circle">
+                        <span>1</span>
                     </div>
-                    <div style="padding: 2px 0 0 90px;">
+                    <div ng-init="ui={};ui.showbids=false;" class="pad-rightTo-propic">
                         <div style="color: #666666;font-size: 15px;font-weight: bold;">Session Tickets</div>
-                        <div style="color: #777777;font-size: 13px;padding: 4px 0 0 0px;">Expires in one day</div>
-                        <div style="padding: 10px 0 0 0px;">
+                        <div class="topgutter01" style="color: #777777;font-size: 13px;">Expires in one day</div>
+                        <div class="topgutter02">
                             <div style="color: #777777;font-size: 13px;float:left;">Current bid 5,000 K$</div>
                             <!--<button style="background-color: #4b87d2;float:right;">Bid</button>-->
-                            <a class="link-btn" style="color: #4b87d2;float:right;">New Bid</a>
+                            <div style="display: inline-block;float:right;">
+                                <a ng-show="!ui.showbids" ng-click="ui.showbids=true;" class="link-btn" style="color: #4b87d2;">New Bid</a>
+                                <a ng-show="ui.showbids" ng-click="ui.showbids=false;" class="link-btn" style="color: #666666;">Cancel</a>
+                            </div>
+                            <div style="clear: both;"></div>
                         </div>
+                        <!-- bids list --->
+                        <div ng-show="ui.showbids" style="margin-top: 12px;">
+                            <div class="data-row01" style="white-space: nowrap;min-height: 0;text-align: right;">
+                                <input type="text" placeholder="Place new bid K$" style="text-align: right;"/>
+                                <button style="background-color: #4b87d2;">Bid</button>
+                            </div>
+                            <ul style="max-height: 190px;overflow-y: auto;padding-right: 5px;">
+                                <li class="data-row01" style="font-size: 13px;white-space: nowrap;min-height: 0;border-bottom: none;">
+                                    <span style="color: #282828;">Samiyuru</span>
+                                    <span style="color: #9a9a9a;margin-left: 12px;">1 hour ago</span>
+                                    <span style="float: right;">10,0000 K$</span>
+                                </li>
+                                <li class="data-row01" style="font-size: 13px;white-space: nowrap;min-height: 0;border-bottom: none;">
+                                    <span style="color: #282828;">Samiyuru</span>
+                                    <span style="color: #9a9a9a;margin-left: 12px;">1 hour ago</span>
+                                    <span style="float: right;">10,0000 K$</span>
+                                </li>
+                                <li class="data-row01" style="font-size: 13px;white-space: nowrap;min-height: 0;border-bottom: none;">
+                                    <span style="color: #282828;">Samiyuru</span>
+                                    <span style="color: #9a9a9a;margin-left: 12px;">1 hour ago</span>
+                                    <span style="float: right;">10,0000 K$</span>
+                                </li>
+                                <li class="data-row01" style="font-size: 13px;white-space: nowrap;min-height: 0;border-bottom: none;">
+                                    <span style="color: #282828;">Samiyuru</span>
+                                    <span style="color: #9a9a9a;margin-left: 12px;">1 hour ago</span>
+                                    <span style="float: right;">10,0000 K$</span>
+                                </li>
+                                <li class="data-row01" style="min-height: 0;border-bottom: none;text-align: center;">
+                                    <a class="link-btn" style="color: #737373;">Load more bids</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- bids list end --->
                     </div>
                 </div>
                 <!-- My bid -->
             </li>
+            <li style="display: block;">
+            <!-- My bid -->
+            <div class="data-row01">
+                <img class="propic-small" style="position: absolute;" src="product-cover001.png"/>
+
+                <div class="place-circle">
+                    <span>1</span>
+                </div>
+                <div class="pad-rightTo-propic">
+                    <div style="color: #666666;font-size: 15px;font-weight: bold;">Session Tickets</div>
+                    <div class="topgutter01" style="color: #777777;font-size: 13px;">Expires in one day</div>
+                    <div class="topgutter02">
+                        <div style="color: #777777;font-size: 13px;float:left;">Current bid 5,000 K$</div>
+                        <!--<button style="background-color: #4b87d2;float:right;">Bid</button>-->
+                        <div style="display: inline-block;float:right;">
+                            <a class="link-btn" style="color: #4b87d2;">New Bid</a>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- My bid -->
+        </li>
         </ul>
     </div>
     <div tab-title="My Items">
@@ -30,14 +90,16 @@
                 <div class="data-row01">
                     <img class="propic-small" style="position: absolute;" src="product-cover001.png"/>
 
-                    <div style="padding: 2px 0 0 90px;">
+                    <div class="pad-rightTo-propic">
                         <div style="color: #666666;font-size: 15px;font-weight: bold;">Session Tickets</div>
-                        <div style="color: #777777;font-size: 13px;padding: 4px 0 0 0px;">from Hasith Yaggahawita
+                        <div class="topgutter01" style="color: #777777;font-size: 13px;">from Hasith Yaggahawita
                         </div>
-                        <div style="padding: 10px 0 0 0px;">
+                        <div class="topgutter02">
                             <div style="color: #777777;font-size: 13px;float:left;">Bought for 3,000 K$</div>
                             <!--<button style="background-color: #4b87d2;float:right;">Sell Back</button>-->
                             <a class="link-btn" style="color: #4b87d2;float:right;">Sell Back</a>
+
+                            <div style="clear: both;"></div>
                         </div>
                     </div>
                 </div>
