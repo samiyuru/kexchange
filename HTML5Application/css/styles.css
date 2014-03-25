@@ -20,6 +20,10 @@
     background-color: #aaa;
 }
 
+h1,h2,h3,h4{
+    margin: 0;padding: 0;
+}
+
 input, textarea {
     padding: 5px;
     border: 1px solid #cccccc;
@@ -119,8 +123,6 @@ button:focus {
 }
 
 .swidget .head-div h3 {
-    padding: 0;
-    margin: 0;
     margin-right: 25px;
     color: #bbbbbb;
     font-weight: normal !important;

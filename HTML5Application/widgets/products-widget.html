@@ -8,14 +8,17 @@
             position: relative;
             cursor: default;
         }
+
         .product .cover {
             width: 172px;
             height: 90px;
         }
-        .product .topgutter01{
+
+        .product .topgutter01 {
             margin-top: 32px;
         }
-        .product .topgutter02{
+
+        .product .topgutter02 {
             margin-top: 3px;
         }
     </style>
@@ -29,14 +32,101 @@
                     <div style="position: absolute;top: 58px; left: 0;width: 100%;text-align: center;">
                         <img class="propic-small" style="display: inline-block;" ng-src="{{product.seller.propic}}"/>
                     </div>
-                    <div class="topgutter01" style="color: #666666;font-size:16px;text-align: center;">{{product.name}}</div>
-                    <div class="topgutter02" style="color: #b0b0b0;font-size:12px;text-align: center;">{{product.left}} out of 6 left</div>
+                    <div class="topgutter01"
+                         style="color: #666666;font-size:16px;text-align: center;">{{product.name}}
+                    </div>
+                    <div class="topgutter02"
+                         style="color: #b0b0b0;font-size:12px;text-align: center;">{{product.left}} out of 6 left
+                    </div>
                     <div class="topgutter02" style="text-align: center;">
                         <!--<button ng-click="product" style="background-color: #0db741;">Details</button>-->
                         <a class="link-btn" style="color: #282828;text-decoration: none;">1,000 K$</a>
                     </div>
                 </div>
                 <!-- product end -->
+            </li>
+            <li style="margin-right: 24px;position: relative;">
+                <div style="padding: 18px;background-color: #282828;margin-bottom: 12px;">
+                    <div style="position: absolute;bottom:100%;height: 0; width: 0;border-bottom: 10px solid #282828;border-left: 10px solid transparent;border-right: 10px solid transparent;"></div>
+                    <table style="border-collapse: collapse;width: 100%;">
+                        <tr>
+                            <td style="vertical-align: top;">
+                                <!-- prd detailes -->
+                                <h3 style="color: #d8d8d8;font-weight: normal;font-size: 16px;">Mobile Session Tickets</h3>
+                                <p style="color: #de4747;font-size: 13px;">Expires in one day</p>
+                                <p style="color: #cccccc; max-width:100%;font-size: 13px;">lorem ipsarasan lorem ipsum dorasan lorem ipsum darasan lorem ipsum d re marasan </p>
+                                <!-- prd detailes end-->
+
+                                <!-- images -->
+                                <div style="margin-top: 15px;display: none;">
+                                    <img style="max-height: 66px;margin: 0 8px 8px 0" src="/img/askjdhkjasd.jpg">
+                                    <img style="max-height: 66px;margin: 0 8px 8px 0" src="/img/askjdhkjasd.jpg">
+                                    <img style="max-height: 66px;margin: 0 8px 8px 0" src="/img/askjdhkjasd.jpg">
+                                </div>
+                                <!-- images end -->
+                            </td>
+                            <td style="vertical-align: top;width: 200px;">
+                                <div style="margin-left: 15px;">
+                                    <!--close button -->
+                                    <div style="position: relative;min-height: 25px;">
+                                        <img style="position: absolute;right: 0px;margin-top:4px;" src="close01.png"/>
+                                    </div>
+                                    <!--close button end-->
+
+                                    <!--purchase-->
+                                    <div style="white-space: nowrap;min-height: 0;text-align: right;display: none;">
+                                        <span style="font-size: 16px;color: #cccccc;margin-right: 10px;">1,000 K$</span>
+                                        <button style="background-color: #4b87d2;">Purchase</button>
+                                    </div>
+                                    <!--purchase end-->
+
+                                    <!-- bids list -->
+                                    <div style="">
+                                        <!-- new bid input -->
+                                        <div style="white-space: nowrap;min-height: 0;text-align: right;">
+                                            <input type="text" placeholder="Place new bid K$"
+                                                   style="text-align: right;"/>
+                                            <button style="background-color: #4b87d2;">Bid</button>
+                                        </div>
+                                        <!-- new bid input end -->
+
+                                        <!-- bids hist -->
+                                        <ul style="max-height: 170px;overflow-y: auto;padding-right: 5px;">
+                                            <li style="font-size: 13px;white-space: nowrap;border-bottom: 1px solid #666666;padding: 12px 0">
+                                                <span style="color: #cccccc;">Samiyuru</span>
+                                                <span style="color: #9a9a9a;margin-left: 12px;">1 hour ago</span>
+                                                <span style="float: right;color: #cccccc;">10,0000 K$</span>
+                                            </li>
+                                            <li style="font-size: 13px;white-space: nowrap;border-bottom: 1px solid #666666;padding: 12px 0">
+                                                <span style="color: #cccccc;">Samiyuru</span>
+                                                <span style="color: #9a9a9a;margin-left: 12px;">1 hour ago</span>
+                                                <span style="float: right;color: #cccccc;">10,0000 K$</span>
+                                            </li>
+                                            <li style="font-size: 13px;white-space: nowrap;border-bottom: 1px solid #666666;padding: 12px 0">
+                                                <span style="color: #cccccc;">Samiyuru</span>
+                                                <span style="color: #9a9a9a;margin-left: 12px;">1 hour ago</span>
+                                                <span style="float: right;color: #cccccc;">10,0000 K$</span>
+                                            </li>
+                                            <li style="font-size: 13px;white-space: nowrap;border-bottom: 1px solid #666666;padding: 12px 0">
+                                                <span style="color: #cccccc;">Samiyuru</span>
+                                                <span style="color: #9a9a9a;margin-left: 12px;">1 hour ago</span>
+                                                <span style="float: right;color: #cccccc;">10,0000 K$</span>
+                                            </li>
+                                        </ul>
+                                        <!-- bids hist end-->
+
+                                        <!--load more --->
+                                        <div style="padding: 12px 0;text-align: center;">
+                                            <a class="link-btn" style="color: #737373;">Load all bids</a>
+                                        </div>
+                                        <!--load more end -->
+                                    </div>
+                                    <!-- bids list end -->
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </li>
         </ul>
     </div>
