@@ -49,11 +49,10 @@
                                 <div ng-init="ui.RateChng=false;" class="topgutter02">
                                     <!-- profit readonly -->
                                     <div ng-show="!ui.RateChng">
-                                        <div style="color: #777777;font-size: 13px;float:left;">Interest 10% per month
-                                        </div>
+                                        <span style="color: #777777;font-size: 13px;">Interest 10% per month
+                                        </span>
                                         <a ng-click="ui.RateChng=true" class="link-btn"
-                                           style="color: #4b87d2;float:right;">Change
-                                            %</a>
+                                           style="color: #4b87d2;float:right;">Change %</a>
                                     </div>
                                     <!-- profit readonly end-->
                                     <!-- profit mutable -->
@@ -78,7 +77,9 @@
 
         <!-- invest button -->
         <div ng-show="!ui.isShowNwInvest" class="L-R-margin0 data-row01" style="min-height: 0;">
-            <button ng-click="ui.isShowNwInvest=true;" onclick="utils.scrollToID('newInvestmentLoc');" style="background-color: #4b87d2;">Invest money</button>
+            <button ng-click="ui.isShowNwInvest=true;" onclick="utils.scrollToID('newInvestmentLoc');"
+                    style="background-color: #4b87d2;">Invest money
+            </button>
         </div>
         <!-- invest button end-->
     </li>

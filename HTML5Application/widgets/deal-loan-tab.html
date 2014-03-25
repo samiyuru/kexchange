@@ -17,7 +17,7 @@
 
                         <div ng-init="ui={};ui.paybkCnf=false;" class="topgutter02">
                             <div ng-show="!ui.paybkCnf">
-                                <div style="color: #777777;font-size: 13px;float:left;">Interest {{loan.interest}}% per month</div>
+                                <span style="color: #777777;font-size: 13px;">Interest {{loan.interest}}% per month</span>
                                 <a ng-click="ui.paybkCnf=true;" class="link-btn"
                                    style="color: #4b87d2;float:right;">Pay Back</a>
 
@@ -73,13 +73,11 @@
 
                         <div ng-init="ui={};ui.TakeItCnf=false;" class="topgutter02">
                             <div>
-                                <div style="color: #777777;font-size: 13px;float:left;">Interest
+                                <span style="color: #777777;font-size: 13px;">Interest
                                     {{investor.interest}}% per month
-                                </div>
+                                </span>
                                 <a ng-show="!ui.TakeItCnf" ng-click="ui.TakeItCnf=true;" class="link-btn"
                                    style="color: #de4747;float:right;">Take it</a>
-
-                                <div style="clear: both;"></div>
                             </div>
                             <div ng-show="ui.TakeItCnf" style="text-align: right;padding: 2px 0 0 0px;">
                                 <div style="display: inline-block;font-size: 13px;color: #000;font-weight: bold;">Are you sure?</div>
