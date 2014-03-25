@@ -20,7 +20,6 @@ kEX.config(['$routeProvider', function($routeProvider) {
             });
     }]);
 
-
 kEX.controller("prdctsCtrlr", function($scope){
     $scope.products = [
         {

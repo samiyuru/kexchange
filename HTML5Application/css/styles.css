@@ -233,7 +233,7 @@ button:focus {
 }
 
 .focusShadow01 {
-    box-shadow: 1px 5px 17px 0 #000;
+    box-shadow: 1px 5px 17px 0 #282828;
     border: 0 !important;
     z-index: 1000 !important;
 }

@@ -47,7 +47,13 @@
                                         <span class="input-lable">Auction</span>
                                         <input type="checkbox"/>
                                         <span class="input-lable">Min Bid</span>
-                                        <input type="text" placeholder="Min Bid" style="max-width: 80px;text-align: right;"/>
+                                        <input type="text" placeholder="Min Bid"
+                                               style="max-width: 80px;text-align: right;"/>
+                                    </div>
+                                    <div class="input-row-gutter">
+                                        <span class="input-lable">Price per Item</span>
+                                        <input type="text" placeholder="Price K$"
+                                               style="max-width: 80px;text-align: right;"/>
                                     </div>
                                     <div class="input-row-gutter">
                                         <span class="input-lable">Expires</span>
@@ -63,14 +69,15 @@
                             </tr>
                         </table>
                     </div>
-                    <div style="text-align: left;">
-                        <button ng-show="!ui.form" ng-click="ui.form=true;"
-                                style="background-color: #de4747;">Add New Item to Sell
-                        </button>
-                        <button ng-show="ui.form" ng-click="" style="background-color: #de4747;">Add Item to Sell
-                        </button>
-                        <button ng-show="ui.form" ng-click="ui.form=false;" style="background-color: #666666;">Cancel
-                        </button>
+                    <div>
+                        <div ng-show="!ui.form" style="text-align: left;">
+                            <button ng-click="ui.form=true;" style="background-color: #de4747;">Add New Item to Sell
+                            </button>
+                        </div>
+                        <div ng-show="ui.form" style="text-align: right;">
+                            <button ng-click="" style="background-color: #de4747;">Add Item to Sell</button>
+                            <button ng-click="ui.form=false;" style="background-color: #666666;">Cancel</button>
+                        </div>
                     </div>
                 </div>
             </div>
