@@ -60,9 +60,10 @@ kEX.directive("kexWidget", function ($rootScope, $location) {
             var uls = element.children().find("div");
             var ulsl = uls.length;
             for (var i = 0; i < ulsl; i++) {
-                var ul = angular.element(uls[i]);
-                var tabTtl = ul.attr("tab-title");
+                var ul0 = uls[i];
+                var tabTtl = ul0.getAttribute("tab-title");
                 if (tabTtl != undefined) {
+                    var ul = angular.element(ul0);
                     scope.tabs.push({
                         title: tabTtl,
                         cont: ul,
@@ -166,8 +167,28 @@ kEX.directive("productscont", function () {
     return {
         restrict: 'A',
         scope: {},
-        controller: function ($scope, $element) {
+        controller: function ($scope, $element, $compile) {
+            var _iPrdInfo = null,
+                _curInfIndx = -1,
+                _numCols = 3;
 
+            this.setIPrdInfo = function (iPrdInfo) {
+                _iPrdInfo = iPrdInfo;
+            }
+
+            this.showPrdInfo = function (product, indx, pMidX) {
+                var infIndx = indx + _numCols - (indx % _numCols);
+                if (_curInfIndx != infIndx) {
+                    _iPrdInfo.hide();
+                    var chldrn = $element.children();
+                    angular.element(chldrn[chldrn.length - 1]).after(_iPrdInfo.domElem);//temporary add to the end
+                    var prvChild = angular.element($element.children()[infIndx - 1]);//find before element
+                    prvChild.after(_iPrdInfo.domElem);//place after before element
+                    _curInfIndx = infIndx;
+                }
+                _iPrdInfo.setProduct(product, pMidX);
+                _iPrdInfo.show();
+            }
         }
     }
 });
@@ -176,9 +197,16 @@ kEX.directive("productscont", function () {
 kEX.directive("product", function () {
     return {
         restrict: 'A',
-        scope: {},
-        link: function (scope, elem, attr) {
-
+        scope: {
+            indx: "=indx",
+            product: "=product"
+        },
+        require: "^productscont",
+        link: function (scope, elem, attr, productscont) {
+            var lMrg = 12, pMidX = elem.prop('offsetLeft') + elem.prop('offsetWidth') / 2 - lMrg;
+            elem.on("click", function () {
+                productscont.showPrdInfo(scope.product, scope.indx, pMidX);
+            });
         }
     }
 });
@@ -186,9 +214,42 @@ kEX.directive("product", function () {
 kEX.directive("productinfo", function () {
     return {
         restrict: 'A',
+        require: "^productscont",
         scope: {},
-        link: function (scope, elem, attr) {
+        link: function (scope, elem, attr, productscont) {
 
+            function _setProduct(product, pMidX) {
+                scope.product = product;
+                scope.arwElm.css("left", pMidX - 10 + "px");
+                scope.$apply();
+            }
+
+            function _show() {
+                elem.css("display", "block");
+            }
+
+            function _hide() {
+                elem.css("display", "none");
+            }
+
+            scope.remove = _hide;
+
+            productscont.setIPrdInfo({
+                setProduct: _setProduct,
+                hide: _hide,
+                show: _show,
+                domElem: elem
+            });
+        },
+        templateUrl: 'widgets/productinf-tmplt.html'
+    }
+});
+
+kEX.directive("pinfarrow", function () {
+    return {
+        restrict: 'A',
+        link: function (scope, elem, attr) {
+            scope.arwElm = elem;
         }
     }
 });

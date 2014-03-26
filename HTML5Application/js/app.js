@@ -59,7 +59,47 @@ kEX.controller("prdctsCtrlr", function($scope){
                 name:"Samiyuru Senarathne",
                 propic:"propic01.png"
             }
-        }];
+        },
+
+        {
+            id:0002,
+            name:"Session Tickets",
+            left:2,
+            prdcover:"product-cover001.png",
+            seller:{
+                id:0001,
+                shname:"Samiyuru",
+                name:"Samiyuru Senarathne",
+                propic:"propic01.png"
+            }
+        },
+
+        {
+            id:0002,
+            name:"Session Tickets",
+            left:2,
+            prdcover:"product-cover001.png",
+            seller:{
+                id:0001,
+                shname:"Samiyuru",
+                name:"Samiyuru Senarathne",
+                propic:"propic01.png"
+            }
+        },
+
+        {
+            id:0002,
+            name:"Session Tickets",
+            left:2,
+            prdcover:"product-cover001.png",
+            seller:{
+                id:0001,
+                shname:"Samiyuru",
+                name:"Samiyuru Senarathne",
+                propic:"propic01.png"
+            }
+        }
+    ];
 });
 
 kEX.controller("recntErnngsCtrlr", function($scope){
@@ -429,5 +469,9 @@ kEX.controller("myInvestCtrl", function($scope){
 });
 
 kEX.controller("newPrdCtrl", function($scope){
+
+});
+
+kEX.controller("mybidsctrl", function($scope){
 
 });

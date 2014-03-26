@@ -125,6 +125,7 @@ button:focus {
     vertical-align: middle;
     display: table-cell;
     cursor: default;
+    padding-left: 1px;
 }
 
 .swidget .head-div h3 {
@@ -267,4 +268,16 @@ button:focus {
 
 ul.bids01{
     max-height: 170px;overflow-y: auto;padding-right: 5px;
+}
+
+.input-lable {
+    font-size: 13px;
+    color: #737373;
+    margin-right: 5px;
+    min-width: 50px;
+    display: inline-block;
+}
+
+.input-row-gutter {
+    margin: 0 0 12px 0;
 }
