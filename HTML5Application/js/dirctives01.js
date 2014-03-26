@@ -30,6 +30,7 @@ kEX.directive("actLinkCss", function ($rootScope, $location) {
     };
 });
 
+
 kEX.directive("coverImg", function ($rootScope, $location) {
     return {
         restrict: 'A',
@@ -50,50 +51,62 @@ kEX.directive("coverImg", function ($rootScope, $location) {
     };
 });
 
+
 kEX.directive("kexWidget", function ($rootScope, $location) {
     return {
         restrict: 'A',
         transclude: true,
         scope: {},
-        link: function (scope, element, attrs) {
-            scope.tabs = [];
-            var uls = element.children().find("div");
-            var ulsl = uls.length;
-            for (var i = 0; i < ulsl; i++) {
-                var ul0 = uls[i];
-                var tabTtl = ul0.getAttribute("tab-title");
-                if (tabTtl != undefined) {
-                    var ul = angular.element(ul0);
-                    scope.tabs.push({
-                        title: tabTtl,
-                        cont: ul,
-                        isShow: false
-                    });
-                    ul.css({'display': 'none', 'margin': 0, 'padding': 0});
-                }
-            }
+        controller:function($scope){
+            $scope.tabs = [];
 
-            scope.tabShow = function (indx) {
+            this.addTab = function(title, contElem){
+                $scope.tabs.push({
+                    title: title,//header of tab
+                    cont: contElem,//tab content div jqlt obj
+                    isShow: false//is this the visible tab
+                });
+            };
+
+        },
+        link: function (scope, element, attrs) {
+
+            scope.tabShow = function (indx) {//index of to be shown tab
                 var tbsl = scope.tabs.length;
-                for (var i = 0; i < tbsl; i++) {
+                for (var i = 0; i < tbsl; i++) {//traverse tab objects
                     var tab = scope.tabs[i];
-                    if (i == indx) {
+                    if (i == indx) {//if this is the tab to be shown
                         tab.cont.css('display', 'block');
                         tab.isShow = true;
-                    } else {
-                        tab.cont.css('display', 'none');
+                    } else {//not to be shown
+                        tab.cont.css('display', 'none');//hide content
                         tab.isShow = false;
                     }
                 }
             }
 
             if (scope.tabs.length > 0) {
-                scope.tabShow(0);
+                scope.tabShow(0);//show first tab
             }
         },
         templateUrl: "widgets/widget-tmplt.html"
     };
 });
+
+kEX.directive("tabTitle", function ($rootScope, $location) {
+    return {
+        restrict: 'A',
+        require:"^kexWidget",
+        scope: {
+            title:"@tabTitle"
+        },
+        link:function(scope, elem, attr, kexWidget){
+            kexWidget.addTab(scope.title, elem);
+        }
+    };
+});
+
+
 
 kEX.directive("imgUpload", function () {//parent should be 'imgUploader' //to be added to a button
     return {
@@ -163,6 +176,7 @@ kEX.directive("imgUploader", function () {
 });
 
 
+
 kEX.directive("productscont", function () {
     return {
         restrict: 'A',
@@ -193,7 +207,6 @@ kEX.directive("productscont", function () {
     }
 });
 
-
 kEX.directive("product", function () {
     return {
         restrict: 'A',
@@ -203,7 +216,7 @@ kEX.directive("product", function () {
         },
         require: "^productscont",
         link: function (scope, elem, attr, productscont) {
-            var lMrg = 12, pMidX = elem.prop('offsetLeft') + elem.prop('offsetWidth') / 2 - lMrg;
+            var lMrg = 17, pMidX = elem.prop('offsetLeft') + elem.prop('offsetWidth') / 2 - lMrg;
             elem.on("click", function () {
                 productscont.showPrdInfo(scope.product, scope.indx, pMidX);
             });
