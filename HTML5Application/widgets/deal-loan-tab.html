@@ -4,7 +4,7 @@
         <ul style="margin: 0; padding: 0">
             <li ng-repeat="loan in loans">
                 <!-- You took money -->
-                <div class="data-row01">
+                <div class="rowtyp01">
                     <img class="propic-small" style="float: left;" ng-src="{{loan.investor.propic}}"/>
 
                     <div class="pad-rightTo-propic">
@@ -38,7 +38,7 @@
         <!-- my loans end -->
 
         <!-- new loan button -->
-        <div ng-show="!ui.isShowInvestors" class="data-row01">
+        <div ng-show="!ui.isShowInvestors" class="rowtyp01">
             <button ng-click="ui.isShowInvestors=true;" onclick="window.utils.scrollToFcs('investorsListLoc');" style="background-color: #4b87d2;">Get Loan</button>
         </div>
         <!-- new loan button end-->
@@ -46,7 +46,7 @@
     <li id="investorsListLoc"></li>
     <li ng-show="ui.isShowInvestors">
         <!--investors head-->
-        <div class="data-row01 swidget-sublist">
+        <div class="rowtyp01 swidget-sublist">
             <div class="L-R-margin0">
                 <h3>Investors</h3>
                 <img class="close" ng-click="ui.isShowInvestors=false;" src="../close01.png">
@@ -58,7 +58,7 @@
         <ul class="L-R-margin0" style="margin: 0;padding: 0;">
             <li ng-repeat="investor in investors">
                 <!-- Investor -->
-                <div class="data-row01">
+                <div class="rowtyp01">
                     <img class="propic-small" style="float: left;"
                          ng-src="{{investor.investor.propic}}"/>
 
@@ -94,7 +94,7 @@
         <!--investors list end-->
 
         <!--investors close button-->
-        <div class="L-R-margin0 data-row01">
+        <div class="L-R-margin0 rowtyp01">
             <button ng-click="ui.isShowInvestors=false;" style="background-color: #4b87d2;">Cancel</button>
         </div>
         <!--investors close button end-->

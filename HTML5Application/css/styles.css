@@ -176,7 +176,7 @@ button:focus {
     height: 70px;
 }
 
-.data-row01 {
+.rowtyp01 {
     border-top: 1px solid #d8d8d8;
     border-left: none;
     border-right: none;
@@ -184,11 +184,11 @@ button:focus {
     position: relative;
 }
 
-.data-row01 .topgutter01 {
+.rowtyp01 .topgutter01 {
     margin-top: 4px;
 }
 
-.data-row01 .topgutter02 {
+.rowtyp01 .topgutter02 {
     margin-top: 8px;
 }
 

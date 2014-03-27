@@ -4,7 +4,7 @@
         <ul ng-init="ui={};ui.isShowNwInvest" class="L-R-margin0" style="margin: 0;padding: 0;">
             <li ng-repeat="invst in investments">
                 <!-- You Invested -->
-                <div class="data-row01">
+                <div class="rowtyp01">
                     <div ng-init="ui={};ui.delete=false;">
                         <!-- delete confirmation -->
                         <div ng-show="ui.delete">
@@ -76,7 +76,7 @@
         <!-- my invetments list end -->
 
         <!-- invest button -->
-        <div ng-show="!ui.isShowNwInvest" class="L-R-margin0 data-row01">
+        <div ng-show="!ui.isShowNwInvest" class="L-R-margin0 rowtyp01">
             <button ng-click="ui.isShowNwInvest=true;" onclick="window.utils.scrollToFcs('newInvestmentLoc');"
                     style="background-color: #4b87d2;">Invest money
             </button>
@@ -86,7 +86,7 @@
     <li id="newInvestmentLoc"></li>
     <li ng-show="ui.isShowNwInvest">
         <!-- new investment head-->
-        <div class="data-row01 swidget-sublist">
+        <div class="rowtyp01 swidget-sublist">
             <div class="L-R-margin0">
                 <h3>Invest Money</h3>
                 <img class="close" ng-click="ui.isShowNwInvest=false" src="../close01.png">
@@ -96,7 +96,7 @@
 
 
         <!-- new investment input -->
-        <div class="L-R-margin0 data-row01">
+        <div class="L-R-margin0 rowtyp01">
             <img class="propic-small" style="float: left;" src="propic01.png"/>
 
             <div class="pad-rightTo-propic">
@@ -115,7 +115,7 @@
         <!-- new investment input end -->
 
         <!-- ok button -->
-        <div class="L-R-margin0 data-row01">
+        <div class="L-R-margin0 rowtyp01">
             <button ng-click="hideInvestors()" style="background-color: #4b87d2;">Invest</button>
         </div>
         <!-- ok button end -->
