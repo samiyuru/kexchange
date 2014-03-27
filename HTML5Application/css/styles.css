@@ -125,7 +125,7 @@ button:focus {
     vertical-align: middle;
     display: table-cell;
     cursor: default;
-    padding-left: 1px;
+    padding-left: 2px;
 }
 
 .swidget .head-div h3 {
