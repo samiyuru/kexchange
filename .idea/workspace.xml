@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2026f3ce-14eb-4cc0-b298-c019ae965b28" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HTML5Application/partials/bank-part.html" afterPath="$PROJECT_DIR$/HTML5Application/partials/bank-part.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HTML5Application/index.html" afterPath="$PROJECT_DIR$/HTML5Application/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HTML5Application/widgets/investments-widget.html" afterPath="$PROJECT_DIR$/HTML5Application/widgets/investments-widget.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HTML5Application/css/styles.css" afterPath="$PROJECT_DIR$/HTML5Application/css/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HTML5Application/widgets/widget-tmplt.html" afterPath="$PROJECT_DIR$/HTML5Application/widgets/widget-tmplt.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HTML5Application/widgets/products-widget.html" afterPath="$PROJECT_DIR$/HTML5Application/widgets/products-widget.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HTML5Application/partials/profile-part.html" afterPath="$PROJECT_DIR$/HTML5Application/partials/profile-part.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HTML5Application/partials/store-part.html" afterPath="$PROJECT_DIR$/HTML5Application/partials/store-part.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="k-ex.iws" />
@@ -33,87 +31,16 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/HTML5Application/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="42" selection-start="647" selection-end="647" vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="855">
-              <folding>
-                <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="styles.css" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/HTML5Application/css/styles.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="158" column="18" selection-start="2549" selection-end="2549" vertical-scroll-proportion="1.1343284" vertical-offset="1230" max-vertical-offset="3015">
-              <folding>
-                <marker date="1395225634000" expanded="true" signature="491:611" placeholder="{...}" />
-                <marker date="1395225634000" expanded="true" signature="1308:1422" placeholder="{...}" />
-                <marker date="1395225634000" expanded="true" signature="1437:1500" placeholder="{...}" />
-                <marker date="1395225634000" expanded="true" signature="1565:1630" placeholder="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="investments-widget.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/HTML5Application/widgets/investments-widget.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="29" selection-start="1178" selection-end="1178" vertical-scroll-proportion="6.0" vertical-offset="474" max-vertical-offset="1455">
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#1;n#li#0;n#ul#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#li#1;n#ul#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#button#0;n#div#0;n#li#1;n#ul#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#div#0;n#li#0;n#ul#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#0;n#li#0;n#ul#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#li#0;n#ul#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#div#0;n#div#0;n#div#0;n#li#0;n#ul#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#li#0;n#ul#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#li#0;n#ul#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#2;n#div#0;n#div#0;n#li#0;n#ul#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#a#0;n#div#2;n#div#0;n#div#0;n#li#0;n#ul#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#li#1;n#ul#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#button#0;n#div#0;n#li#1;n#ul#1;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bank-part.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/HTML5Application/partials/bank-part.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="27" selection-start="27" selection-end="27" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="180">
+            <state line="10" column="42" selection-start="315" selection-end="315" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="810">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dirctives01.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/HTML5Application/js/dirctives01.js">
+      <file leaf-file-name="products-widget.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/HTML5Application/widgets/products-widget.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="58" column="28" selection-start="1703" selection-end="1703" vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="1515">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="widget-tmplt.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/HTML5Application/widgets/widget-tmplt.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="35" selection-start="364" selection-end="367" vertical-scroll-proportion="-5.625" vertical-offset="0" max-vertical-offset="300">
-              <folding>
-                <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="kExCover.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/HTML5Application/widgets/kExCover.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="119" selection-start="119" selection-end="119" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="465">
+            <state line="24" column="45" selection-start="561" selection-end="561" vertical-scroll-proportion="0.36697248" vertical-offset="0" max-vertical-offset="981">
               <folding />
             </state>
           </provider>
@@ -138,6 +65,9 @@
         <option value="$PROJECT_DIR$/HTML5Application/index.html" />
         <option value="$PROJECT_DIR$/HTML5Application/widgets/investments-widget.html" />
         <option value="$PROJECT_DIR$/HTML5Application/css/styles.css" />
+        <option value="$PROJECT_DIR$/HTML5Application/partials/profile-part.html" />
+        <option value="$PROJECT_DIR$/HTML5Application/partials/store-part.html" />
+        <option value="$PROJECT_DIR$/HTML5Application/widgets/products-widget.html" />
       </list>
     </option>
   </component>
@@ -290,14 +220,6 @@
     <property name="LayoutCode.rearrangeEntriesHTML" value="false" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="scope" value="ALL" />
-      <option name="testName" />
-      <method />
-    </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -308,15 +230,23 @@
       <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
       <setting name="configLocationType" value="CONFIG_FILE" />
       <setting name="settingsFile" value="" />
       <setting name="serverType" value="INTERNAL" />
       <setting name="preferredDebugBrowser" value="CHROME" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
-      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
@@ -353,11 +283,11 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -379,25 +309,50 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/HTML5Application/index.html">
       <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="42" selection-start="647" selection-end="647" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="855">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HTML5Application/css/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="158" column="18" selection-start="2549" selection-end="2549" vertical-scroll-proportion="0.0" vertical-offset="2370" max-vertical-offset="3015">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HTML5Application/js/dirctives01.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="58" column="28" selection-start="1703" selection-end="1703" vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="1515">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HTML5Application/widgets/widget-tmplt.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="35" selection-start="364" selection-end="367" vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="300">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HTML5Application/widgets/kExCover.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="119" selection-start="119" selection-end="119" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="465">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HTML5Application/index.html">
+      <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="34" selection-start="718" selection-end="726" vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="900">
-          <folding>
-            <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/HTML5Application/css/styles.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="29" column="31" selection-start="446" selection-end="446" vertical-scroll-proportion="0.0" vertical-offset="435" max-vertical-offset="2880">
-          <folding>
-            <marker date="1395225634000" expanded="true" signature="491:611" placeholder="{...}" />
-            <marker date="1395225634000" expanded="true" signature="1308:1422" placeholder="{...}" />
-            <marker date="1395225634000" expanded="true" signature="1437:1500" placeholder="{...}" />
-            <marker date="1395225634000" expanded="true" signature="1565:1630" placeholder="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -413,78 +368,59 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HTML5Application/js/dirctives01.js">
+    <entry file="file://$PROJECT_DIR$/HTML5Application/partials/store-part.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="28" selection-start="1703" selection-end="1703" vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="1515">
+        <state line="16" column="28" selection-start="567" selection-end="567" vertical-scroll-proportion="0.24464832" vertical-offset="0" max-vertical-offset="981">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HTML5Application/widgets/kExCover.html">
+    <entry file="file://$PROJECT_DIR$/HTML5Application/partials/profile-part.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="119" selection-start="119" selection-end="119" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="981">
+        <state line="27" column="38" selection-start="883" selection-end="922" vertical-scroll-proportion="0.41284403" vertical-offset="0" max-vertical-offset="981">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HTML5Application/js/dirctives01.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="76" column="28" selection-start="2312" selection-end="2312" vertical-scroll-proportion="0.35820895" vertical-offset="780" max-vertical-offset="5235">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/HTML5Application/widgets/widget-tmplt.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="35" selection-start="364" selection-end="367" vertical-scroll-proportion="-5.625" vertical-offset="0" max-vertical-offset="300">
-          <folding>
-            <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
+        <state line="11" column="27" selection-start="382" selection-end="382" vertical-scroll-proportion="0.16819572" vertical-offset="0" max-vertical-offset="981">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HTML5Application/partials/bank-part.html">
+    <entry file="file://$PROJECT_DIR$/HTML5Application/widgets/kExCover.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="27" selection-start="27" selection-end="27" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="981">
+        <state line="11" column="58" selection-start="786" selection-end="786" vertical-scroll-proportion="0.16819572" vertical-offset="0" max-vertical-offset="981">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HTML5Application/css/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="190" column="18" selection-start="2909" selection-end="2909" vertical-scroll-proportion="0.0" vertical-offset="2850" max-vertical-offset="4320">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/HTML5Application/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="42" selection-start="647" selection-end="647" vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="855">
-          <folding>
-            <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state line="10" column="42" selection-start="315" selection-end="315" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="810">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HTML5Application/widgets/investments-widget.html">
+    <entry file="file://$PROJECT_DIR$/HTML5Application/widgets/products-widget.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="29" selection-start="1178" selection-end="1178" vertical-scroll-proportion="6.0" vertical-offset="474" max-vertical-offset="1455">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#1;n#li#0;n#ul#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#li#1;n#ul#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#div#0;n#li#1;n#ul#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#div#0;n#li#0;n#ul#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#li#0;n#ul#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#li#0;n#ul#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#div#0;n#div#0;n#div#0;n#li#0;n#ul#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#li#0;n#ul#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#li#0;n#ul#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#2;n#div#0;n#div#0;n#li#0;n#ul#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#div#2;n#div#0;n#div#0;n#li#0;n#ul#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#li#1;n#ul#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#div#0;n#li#1;n#ul#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HTML5Application/css/styles.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="158" column="18" selection-start="2549" selection-end="2549" vertical-scroll-proportion="1.1343284" vertical-offset="1230" max-vertical-offset="3015">
-          <folding>
-            <marker date="1395225634000" expanded="true" signature="491:611" placeholder="{...}" />
-            <marker date="1395225634000" expanded="true" signature="1308:1422" placeholder="{...}" />
-            <marker date="1395225634000" expanded="true" signature="1437:1500" placeholder="{...}" />
-            <marker date="1395225634000" expanded="true" signature="1565:1630" placeholder="{...}" />
-          </folding>
+        <state line="24" column="45" selection-start="561" selection-end="561" vertical-scroll-proportion="0.36697248" vertical-offset="0" max-vertical-offset="981">
+          <folding />
         </state>
       </provider>
     </entry>
