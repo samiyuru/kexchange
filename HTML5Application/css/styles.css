@@ -40,6 +40,18 @@ button:focus {
     outline: 0;
 }
 
+.btnbg-red{
+    background-color: #de4747;
+}
+
+.btnbg-blue{
+    background-color: #4b87d2;
+}
+
+.btnbg-gray{
+ background-color: #666666;
+}
+
 input, textarea {
     padding: 5px;
     border: 1px solid #cccccc;
@@ -130,7 +142,7 @@ nav a.active {
     margin-right: 25px;
     color: #bbbbbb;
     font-weight: normal !important;
-    font-size: 16px;
+    font-size: 17px;
     display: inline;
 }
 
@@ -298,12 +310,6 @@ nav a.active {
 .place-circle span {
     position: relative;
     font-size: 13px;
-}
-
-ul.bids01 {
-    max-height: 170px;
-    overflow-y: auto;
-    padding-right: 5px;
 }
 
 .input-lable {

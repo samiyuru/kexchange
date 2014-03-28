@@ -1,7 +1,13 @@
 <style type="text/css">
 
     .bidhist .nwbid {
-        white-space: nowrap
+        white-space: nowrap;
+        text-align: right;
+    }
+
+    .bidhist ul{
+        max-height: 170px;
+        overflow-y: auto;
     }
 
     .bidhist .nwbid input{
@@ -21,7 +27,7 @@
     }
 
     .bidhist .bidcol3{
-        color: #000;float: right;
+        color: #000;float: right;padding-right: 2px;
     }
 </style>
 
@@ -34,7 +40,7 @@
     <!-- new bid input end -->
 
     <!-- bids hist -->
-    <ul class="bids">
+    <ul>
         <li class="rowtyp01">
             <span class="bidcol1">Samiyuru</span>
             <span class="bidcol2">1 hour ago</span>
