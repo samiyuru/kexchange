@@ -212,23 +212,46 @@ kEX.directive("productscont", function () {
     return {
         restrict: 'A',
         scope: {},
-        controller: function ($scope, $element, $compile) {
+        controller: function ($scope, $element) {
             var _iPrdInfo = null,
-                _curInfIndx = -1,
+                _curInfIndx = 99999999,
                 _numCols = 3;
+
+            this.infoHided = function () {
+                //_curInfIndx = 99999999;
+            };
 
             this.setIPrdInfo = function (iPrdInfo) {
                 _iPrdInfo = iPrdInfo;
             }
 
             this.showPrdInfo = function (product, indx, pMidX) {
-                var infIndx = indx + _numCols - (indx % _numCols);
+                function lastElemInRow(indx) {
+                    var chldrn = $element.children(),
+                        chL = chldrn.length;
+                    if (_curInfIndx <= indx)++indx;//correct index by including place for info
+                    var offstH = chldrn[indx].offsetTop;
+                    for (var i = indx; i < chL; ++i) {
+                        var chld = chldrn[i];
+                        var next;
+                        if (i + 1 == chL) {//if this is the last child
+                            return {i: i, el: chld};
+                        } else {
+                            next = chldrn[i + 1];
+                            if (next.offsetTop > chld.offsetTop) {//next is in row below
+                                return  {i: i, el: chld};
+                            } else if (next.getAttribute("productinfo") != null) {//next is infobox n it is hidden (hidden offsetTop = 0)
+                                return  {i: i, el: chld};
+                            }
+                        }
+                    }
+                }
+
+                var obj = lastElemInRow(indx),
+                    infIndx = obj.i;
                 if (_curInfIndx != infIndx) {
                     _iPrdInfo.hide();
-                    var chldrn = $element.children();
-                    angular.element(chldrn[chldrn.length - 1]).after(_iPrdInfo.domElem);//temporary add to the end
-                    var prvChild = angular.element($element.children()[infIndx - 1]);//find before element
-                    prvChild.after(_iPrdInfo.domElem);//place after before element
+                    angular.element(obj.el).after(_iPrdInfo.domElem);//place after 'prev element'
                     _curInfIndx = infIndx;
                 }
                 _iPrdInfo.setProduct(product, pMidX);
@@ -247,8 +270,9 @@ kEX.directive("product", function () {
         },
         require: "^productscont",
         link: function (scope, elem, attr, productscont) {
-            var lMrg = 17, pMidX = elem.prop('offsetLeft') + elem.prop('offsetWidth') / 2 - lMrg;
+            var lMrg = 17;
             elem.on("click", function () {
+                var pMidX = elem.prop('offsetLeft') + elem.prop('offsetWidth') / 2 - lMrg;
                 productscont.showPrdInfo(scope.product, scope.indx, pMidX);
             });
         }
@@ -274,6 +298,7 @@ kEX.directive("productinfo", function () {
 
             function _hide() {
                 elem.css("display", "none");
+                productscont.infoHided();
             }
 
             scope.remove = _hide;

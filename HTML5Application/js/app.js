@@ -24,7 +24,7 @@ kEX.controller("prdctsCtrlr", function($scope){
     $scope.products = [
         {
             id:0002,
-            name:"Session Tickets",
+            name:"Domain driven development session",
             left:2,
             prdcover:"product-cover001.png",
             seller:{

@@ -90,7 +90,8 @@ nav li {
 
 nav a {
     display: inline-block;
-    padding: 14px 0px 11px 0px;
+    line-height: 39px;
+    padding-top: 3px;
     color: #737373;
     text-decoration: none;
     font-weight: normal;
