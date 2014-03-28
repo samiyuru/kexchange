@@ -14,15 +14,15 @@
             margin: -1px;
         }
 
-        .product .topgutter01 {
+        .product .rowL2Typ02 {
             margin-top: 32px;
         }
 
-        .product .topgutter02 {
+        .product .rowL2Typ03 {
             margin-top: 3px;
         }
     </style>
-    <div kex-tab-delegate="" kex-titles="['KE Products','Fixed Price','Auction']" style="padding-top: 6px;">
+    <div kex-tab-delegate="" kex-titles="['KE Products','Fixed Price','Auction']" style="padding-top: 4px;">
         <ul productscont ng-controller="prdctsCtrlr" style="margin: 0 -19px -6px 12px;">
             <li ng-repeat="product in products" style="display: inline-block;margin:0 19px 19px 0;">
                 <!-- product -->
@@ -32,13 +32,13 @@
                     <div style="position: absolute;top: 54px; left: 0;width: 100%;text-align: center;">
                         <img class="propic-small" style="display: inline-block;" ng-src="{{product.seller.propic}}"/>
                     </div>
-                    <div class="topgutter01"
+                    <div class="rowL2Typ02"
                          style="color: #666666;font-size:16px;text-align: center;">{{product.name}}
                     </div>
-                    <div class="topgutter02"
+                    <div class="rowL2Typ03"
                          style="color: #b0b0b0;font-size:12px;text-align: center;">{{product.left}} out of 6 left
                     </div>
-                    <div class="topgutter02" style="text-align: center;">
+                    <div class="rowL2Typ03" style="text-align: center;">
                         <!--<button ng-click="product" style="background-color: #0db741;">Details</button>-->
                         <a class="link-btn" style="color: #282828;text-decoration: none;">1,000 K$</a>
                     </div>

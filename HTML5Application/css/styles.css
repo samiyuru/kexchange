@@ -2,10 +2,8 @@
     font-family: Roboto, arial, sans-serif;
     font-weight: 100;
     font-size: 13px;
-}
-
-span{
-    font-size: inherit;/*spans dint inherit from parent*/
+    margin: 0;
+    padding: 0;
 }
 
 ::-webkit-scrollbar {
@@ -25,8 +23,21 @@ span{
     background-color: #aaa;
 }
 
-h1,h2,h3,h4{
-    margin: 0;padding: 0;
+span {
+    font-size: inherit; /*spans dint inherit from parent*/
+}
+
+button {
+    background-color: #de4747;
+    border: none;
+    color: #fff;
+    font-size: 12px;
+    padding: 6px 15px 5px 15px;
+    min-width: 80px;
+}
+
+button:focus {
+    outline: 0;
 }
 
 input, textarea {
@@ -43,18 +54,6 @@ select {
     margin: 0;
     padding: 5px;
     font-size: 13px;
-}
-
-.input-Labl01 {
-    padding: 5px 0 5px 0;
-    font-size: 14px;
-    color: #737373;
-}
-
-input[type=text]:focus {
-    padding: 5px;
-    border: 1px solid #4b87d2;
-    outline: 0;
 }
 
 ul {
@@ -86,6 +85,18 @@ nav a {
     font-size: 15px;
 }
 
+input[type=text]:focus {
+    padding: 5px;
+    border: 1px solid #4b87d2;
+    outline: 0;
+}
+
+.input-Labl01 {
+    padding: 5px 0 5px 0;
+    font-size: 14px;
+    color: #737373;
+}
+
 .active {
     color: #282828 !important;
     text-decoration: none !important;
@@ -94,19 +105,6 @@ nav a {
 
 nav a.active {
     border-bottom: 3px solid #4b87d2;
-}
-
-button {
-    background-color: #de4747;
-    border: none;
-    color: #fff;
-    font-size: 12px;
-    padding: 6px 15px 5px 15px;
-    min-width: 80px;
-}
-
-button:focus {
-    outline: 0;
 }
 
 .swidget {
@@ -136,20 +134,20 @@ button:focus {
     display: inline;
 }
 
-.swidget-sublist {
-    min-height: 0 !important;
+.swidget .subhead01 {
     background-color: #f5f5f5;
+    border-bottom: 1px solid #d8d8d8;
+    margin-bottom: -1px;
 }
 
-.swidget-sublist h3 {
-    padding: 10px 0 10px 0;
-    margin: 0;
+.swidget .subhead01 h3 {
+    padding: 10px 0;
     display: inline;
     font-size: 18px;
     font-weight: normal;
 }
 
-.swidget-sublist .close {
+.swidget .subhead01 .close {
     float: right;
     margin: 5px 0;
 }
@@ -158,10 +156,6 @@ button:focus {
     border-radius: 50%;
     width: 64px;
     height: 64px;
-}
-
-.pad-rightTo-propic {
-    padding: 3px 0 0 78px;
 }
 
 .propic-large {
@@ -184,12 +178,52 @@ button:focus {
     position: relative;
 }
 
-.rowtyp01 .topgutter01 {
-    margin-top: 4px;
+.rowtyp01 .propic-small{
+    float: left;
 }
 
-.rowtyp01 .topgutter02 {
-    margin-top: 8px;
+.rowtyp01 .pad-rightTo-propic {
+    padding: 3px 0 0 78px;
+}
+
+.rowtyp01 .rowL2Typ01 {
+    color: #737373;font-size: 15px;font-weight: bold;
+}
+
+.rowtyp01 .rowL2Typ01 span{
+    font-weight: normal;color: #777777;
+}
+
+.rowtyp01 .rowL2Typ02 {
+    margin-top: 4px; color: #777777;
+}
+
+.rowtyp01 .rowL2Typ03 {
+    margin-top: 8px; color: #777777;
+}
+
+.rowtyp01 .rowL2Typ03 .confrm{
+    text-align: right;padding: 2px 0 0 0px;
+}
+
+.rowtyp01 .rowL2Typ03 .confrm span{
+    color: #000;font-weight: bold;
+}
+
+.rowtyp01.earning .rowL2Typ02{
+    color: #777777;font-size: 12px;padding: 0 0 0 15px;
+}
+
+.rowtyp01.earning .rowL2Typ03{
+    color: #282828;font-size: 14px;padding: 0 0 0 15px;
+}
+
+.rowtyp01.loadmr{
+    text-align: center;
+}
+
+.rowtyp01.loadmr .link-btn{
+    color: #737373;
 }
 
 .left-col-main {
@@ -221,12 +255,12 @@ button:focus {
     text-align: center;
     cursor: default;
     padding-top: 1px;
-    -webkit-touch-callout:none;
-    -webkit-user-select:none;
-    -khtml-user-select:none;
-    -moz-user-select:none;
-    -ms-user-select:none;
-    user-select:none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .L-R-padding0 {
@@ -266,8 +300,10 @@ button:focus {
     font-size: 13px;
 }
 
-ul.bids01{
-    max-height: 170px;overflow-y: auto;padding-right: 5px;
+ul.bids01 {
+    max-height: 170px;
+    overflow-y: auto;
+    padding-right: 5px;
 }
 
 .input-lable {
