@@ -1,0 +1,114 @@
+<ul ng-controller="myInvestCtrl">
+    <li>
+        <!-- my invetments list -->
+        <ul ng-init="ui={};ui.isShowNwInvest" class="L-R-margin0" style="margin: 0;padding: 0;">
+            <li ng-repeat="invst in investments">
+                <!-- You Invested -->
+                <div class="rowtyp01">
+                    <div ng-init="ui={};ui.delete=false;">
+                        <!-- delete confirmation -->
+                        <div ng-show="ui.delete">
+                            <div style="margin: 20px auto;text-align: center;">
+                                <a class="link-btn" style="color: #de4747;">Remove</a>
+                                <a ng-click="ui.delete=false;" class="link-btn" style="color: #666666;">Undo</a>
+                            </div>
+                        </div>
+                        <!-- delete confirmation  end-->
+
+                        <!-- invest content -->
+                        <div ng-show="!ui.delete">
+                            <img ng-if="invst.person==null" ng-click="ui.delete=true;"
+                                 style="position: absolute;right: 0px;margin-top:4px;"
+                                 src="close01.png"/>
+
+                            <!-- condinal propic-->
+                            <img ng-show="invst.person==null" class="propic-small"
+                                 style="opacity: .4;"
+                                 src="propic01.png"/>
+                            <img ng-show="invst.person!=null" class="propic-small" ng-src="{{invst.person.propic}}"/>
+                            <!-- condinal propic end-->
+
+                            <div class="pad-rightTo-propic">
+                                <div class="rowL2Typ01"> Amount 21,000 K$ <span>1 month ago</span></div>
+
+                                <!-- condinal info-->
+                                <div class="rowL2Typ02">
+                                    <div ng-if="invst.person==null">You invested</div>
+                                    <div ng-if="invst.person!=null">You invested in {{invst.person.shname}}</div>
+                                </div>
+                                <!-- condinal info end-->
+
+                                <div ng-init="ui.RateChng=false;" class="rowL2Typ03">
+                                    <!-- profit readonly -->
+                                    <div ng-show="!ui.RateChng">
+                                        <span>Interest 10% per month</span>
+                                        <a ng-click="ui.RateChng=true" class="link-btn"
+                                           style="color: #4b87d2;float:right;">Change %</a>
+                                    </div>
+                                    <!-- profit readonly end-->
+                                    <!-- profit mutable -->
+                                    <div ng-show="ui.RateChng" style="text-align: right;">
+                                        <input placeholder="Profit Rate" type="text"/>
+                                        <a class="link-btn" style="color: #4b87d2;">Change %</a>
+                                        <a ng-click="ui.RateChng=false" class="link-btn"
+                                           style="color: #666666;">Cancel</a>
+                                    </div>
+                                    <!-- profit mutable end -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- invest content end -->
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+                <!-- You Invested end -->
+            </li>
+        </ul>
+        <!-- my invetments list end -->
+
+        <!-- invest button -->
+        <div ng-show="!ui.isShowNwInvest" class="L-R-margin0 rowtyp01">
+            <button ng-click="ui.isShowNwInvest=true;" onclick="window.utils.scrollToFcs('newInvestmentLoc');"
+                    style="background-color: #4b87d2;">Invest money
+            </button>
+        </div>
+        <!-- invest button end-->
+    </li>
+    <li id="newInvestmentLoc"></li>
+    <li ng-show="ui.isShowNwInvest">
+        <!-- new investment head-->
+        <div class="rowtyp01 subhead01">
+            <div class="L-R-margin0">
+                <h3>Invest Money</h3>
+                <img class="close" ng-click="ui.isShowNwInvest=false" src="../close01.png">
+            </div>
+        </div>
+        <!-- new investment head end-->
+
+
+        <!-- new investment input -->
+        <div class="L-R-margin0 rowtyp01">
+            <img class="propic-small" src="propic01.png"/>
+
+            <div class="pad-rightTo-propic">
+                <table>
+                    <tr>
+                        <!-- <td class="input-Labl01">Ammount</td> -->
+                        <td><input placeholder="Ammount K$" type="text"/></td>
+                    </tr>
+                    <tr>
+                        <!-- <td class="input-Labl01">Profit Rate</td> -->
+                        <td><input placeholder="Profit Rate %" type="text"/></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- new investment input end -->
+
+        <!-- ok button -->
+        <div class="L-R-margin0 rowtyp01">
+            <button ng-click="hideInvestors()" class="btnbg-blue">Invest</button>
+        </div>
+        <!-- ok button end -->
+    </li>
+</ul>

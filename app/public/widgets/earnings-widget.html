@@ -1,0 +1,21 @@
+<div kex-widget>
+    <div kex-tab="Earnings of KE People">
+        <ul class="L-R-margin0" ng-controller="recntErnngsCtrlr">
+            <li style="display: block;" ng-repeat="earning in ernngs">
+                <!-- earning post -->
+                <div class="rowtyp01 earning">
+                    <img class="propic-small" ng-src="{{earning.srcimg}}"/>
+
+                    <div style="position: absolute;font-size: 12px;color: #777777; right: 0px;top: 16px;">{{earning.timeago}}</div>
+                    <div class="pad-rightTo-propic">
+                        <div class="rowL2Typ01">{{earning.head}}</div>
+                        <div class="rowL2Typ02">{{earning.detail}}</div>
+                        <div class="rowL2Typ03">{{earning.person.shname}} earned {{earning.amount}} K$</div>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+                <!-- earning post end-->
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<style type="text/css">
+
+</style>
+
+<div kex-widget>
+    <div kex-tab="Top Earners Of The Week">
+    <ul class="L-R-margin0"  ng-controller="topErnrsCtrlr">
+        <li style="display: block;" ng-repeat="earner in tpErners">
+            <!-- top earner -->
+            <div  class="rowtyp01">
+                <img class="propic-small" ng-src="{{earner.person.propic}}"/>
+                <div class="place-circle">
+                    <span>{{earner.place}}</span>
+                </div>
+                <div class="pad-rightTo-propic">
+                    <div class="rowL2Typ01">{{earner.person.name}}</div>
+                    <div class="rowL2Typ02">wealth {{earner.person.wealth}} K$</div>
+                    <div class="rowL2Typ03">weeks's earning {{earner.earning}} K$</div>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <!-- top earner end-->
+        </li>
+        </ul>
+    </div>
+    </div>
