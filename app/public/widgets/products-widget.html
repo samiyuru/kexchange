@@ -67,12 +67,12 @@
         }
 
         .product-inf {
-            margin-right: 31px /*18+12*/;
+            margin-right: 31px /*19+12 minus margine of products container + normal margine of 12*/;
             position: relative;
             display: none;
         }
     </style>
-    <div kex-tab-delegate="" kex-titles="['KE Products','Fixed Price','Auction']" style="padding-top: 4px;">
+    <div kex-tab-delegate="" kex-titles="['KE Products','Fixed Price','Auction']">
         <ul productscont ng-controller="prdctsCtrlr" style="margin: 0 -19px -6px 12px;">
             <!-- product -->
             <li ng-repeat="product in products" product="product" indx="$index" class="product">
