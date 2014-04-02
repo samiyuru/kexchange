@@ -11,9 +11,11 @@ app.use('/images/propics', express.static('./images/propics'));
 app.use(app.routes);
 
 
-require('./routes').routes(app);
+require('./routes').route(app);
 
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+http.createServer(app).listen(app.get('port'), function () {
+    console.log('Express server listening on port ' + app.get('port'));
+    console.log('Tests started..');
+    require('./Tests/tests').test();
 });

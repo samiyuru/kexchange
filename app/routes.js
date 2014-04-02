@@ -1,5 +1,5 @@
 
-exports.routes = function(app){
+exports.route = function(app){
 
     console.log("routing...");
 
