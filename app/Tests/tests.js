@@ -16,7 +16,7 @@ exports.test = function () {
     }
 
     dbmodles.createProfile({
-        nickname: 'Samiyuru ' + generateUUID(),
+        nickname: 'Samiyuru',
         name: 'Samiyuru Senarathne',
         wealth: '0',
         propic: 'images/propics/propic01.png'

@@ -9,19 +9,38 @@ var Profile = mongoose.model('profile', {
     nickname: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        dropDubs: true
     },
     name: {
         type: String,
         required: true
     },
     wealth: {
-        type: String
+        type: String,
+        required: true
     },
     propic: {
         type: String,
         required: true
-    }
+    },
+    purchases: [
+        {
+            date: {type: Date,
+                required: true
+            },
+            product: {
+                type: mongoose.Schema.ObjectId,
+                required: true
+            },
+            price: {
+                type: Number,
+                required: true
+            }
+        }
+    ]
+}, {
+    collection: 'profiles'
 });
 
 
@@ -46,8 +65,8 @@ exports.getProfiles = function (opt, cb) {
 
 
 /*
-* if auction qty, minbid and exp are mandatory
-* */
+ * if auction qty, minbid and exp are mandatory
+ * */
 var Product = mongoose.model('product', {
     title: {
         type: String,
@@ -91,26 +110,87 @@ var Product = mongoose.model('product', {
             }
         }
     ]
+}, {
+    collection: 'products'
 });
 
 exports.createProduct = function (owner, product, cb) {
     Profile.create(profile, cb);
 };
 
-exports.placeBid = function(productID, person, bid, cb){
+exports.placeBid = function (productID, person, bid, cb) {
 
 };
 
-exports.purchase = function(productID, person, cb){
+exports.purchase = function (productID, person, cb) {
 
 };
 
-exports.getProducts = function(opt, cb){
-/*
-* {
-*   skip:0,
-*   limit:0,
-*   isAuction:false
-* }
-* */
+exports.getProducts = function (opt, cb) {
+    //always order by date
+    /*
+     * {
+     *   skip:0,
+     *   limit:0,
+     *   isAuction:false
+     * }
+     * */
+};
+
+
+var Investment = mongoose.model('investment', {
+    amount: {
+        type: Number,
+        required: true
+    },
+    profitRate: {
+        type: Number,//percent
+        required: true
+    },
+    investor: {
+        date: {
+            type: Date,
+            required: true
+        },
+        id: {
+            type: mongoose.Schema.ObjectId,
+            required: true
+        }
+    },
+    debitor: {
+        date: {
+            type: Date
+        },
+        id: {
+            type: mongoose.Schema.ObjectId
+        }
+    }
+}, {
+    collection: 'investments'
+});
+
+exports.getInvestors = function (opt) {
+    //always order by date
+    /*
+     * {
+     *   skip:0,
+     *   limit:0
+     * }
+     * */
+};
+
+exports.getLoansOf = function(personID){
+
+};
+
+exports.getInvestmentsOf = function(personID){
+
+};
+
+exports.changeProfit = function(investmentID){
+
+};
+
+exports.removeInvestment = function(investmentID){
+
 };
