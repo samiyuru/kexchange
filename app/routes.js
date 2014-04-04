@@ -1,3 +1,4 @@
+var fs = require('fs');
 
 module.exports.route = function(app){
 
@@ -79,14 +80,15 @@ module.exports.route = function(app){
 
     });
 
-    //================tests=================
-    //  http://0.0.0.0:3000/test/132422343?name=samiyuru
-    app.get('/test/:id', function(req, res){
-        app.set('id', req.params.id);
-        res.json({
-            intId:parseInt(req.params.id),
-            intStr:req.params.id,
-            queryName:req.query.name
+
+    app.get('/propics/:file', function(req, res){
+        var path = './images/propics/' + req.params.file;
+        fs.exists(path, function(exists) {
+            if (exists) {
+                res.sendfile(path);
+            }else{
+                res.end('404 content not found');
+            }
         });
     });
 

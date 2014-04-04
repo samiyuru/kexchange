@@ -11,7 +11,7 @@ mongoose.connect('mongodb://localhost/kexchange');
 
 var profileModel = new dbmodles.ProfileModel(mongoose);
 
-module.exports.test = function () {
+module.exports.test = function (app) {
     function generateUUID(){
         var d = new Date().getTime();
         var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -30,6 +30,18 @@ module.exports.test = function () {
     }, function cb(err, profile) {
         if (err)console.log(err);
         console.log(profile);
+    });
+
+
+    //================route tests=================
+    //  http://0.0.0.0:3000/test/132422343?name=samiyuru
+    app.get('/test/:id', function(req, res){
+        app.set('id', req.params.id);
+        res.json({
+            intId:parseInt(req.params.id),
+            intStr:req.params.id,
+            queryName:req.query.name
+        });
     });
 
 }
