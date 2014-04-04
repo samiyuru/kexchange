@@ -4,7 +4,7 @@
 
 module.exports = function (mongoose) {
     /*
-     * if auction qty, minbid and exp are mandatory
+     * if auction: qty, minbid and exp are mandatory
      * */
     var Product = mongoose.model('product', {
         title: {
@@ -67,9 +67,10 @@ module.exports = function (mongoose) {
         //always order by date
         /*
          * {
-         *   skip:0,
-         *   limit:0,
-         *   isAuction:false
+         *   skip:num,
+         *   limit:num,
+         *   owner:id,
+         *   isAuction:bool
          * }
          * */
     };

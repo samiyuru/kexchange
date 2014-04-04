@@ -50,7 +50,7 @@ module.exports = function (mongoose) {
 
     this.getProfiles = function (opt, cb) {
         /*
-         * {  skip:0,  limit:0 }
+         * {  skip:0,  limit:0, sortBy:'' }
          * */
         if (opt == null) {
 

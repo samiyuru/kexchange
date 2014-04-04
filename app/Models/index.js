@@ -11,3 +11,5 @@ module.exports.InvestmentModel = require('./InvestmentModel');
 module.exports.NotificationModel = require('./NotificationModel');
 
 module.exports.PluginModel = require('./PluginModel');
+
+module.exports.AccountModel = require('./AccountModel');
