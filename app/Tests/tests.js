@@ -2,16 +2,13 @@
  * Created by samiyuru on 4/2/14.
  */
 
-var dbmodles = require('../Models');
+
+module.exports.test = function (app, mongoose) {
 
 
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/kexchange');
+    var dbmodles = require('../Models');
+    var profileModel = new dbmodles.ProfileModel(mongoose);
 
-
-var profileModel = new dbmodles.ProfileModel(mongoose);
-
-module.exports.test = function (app) {
     function generateUUID(){
         var d = new Date().getTime();
         var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
