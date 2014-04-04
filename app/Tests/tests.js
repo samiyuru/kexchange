@@ -2,9 +2,16 @@
  * Created by samiyuru on 4/2/14.
  */
 
-var dbmodles = require('../dbmodles');
+var dbmodles = require('../Models');
 
-exports.test = function () {
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/kexchange');
+
+
+var profileModel = new dbmodles.ProfileModel(mongoose);
+
+module.exports.test = function () {
     function generateUUID(){
         var d = new Date().getTime();
         var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -15,13 +22,13 @@ exports.test = function () {
         return uuid;
     }
 
-    dbmodles.createProfile({
+    profileModel.createProfile({
         nickname: 'Samiyuru',
         name: 'Samiyuru Senarathne',
         wealth: '0',
         propic: 'images/propics/propic01.png'
     }, function cb(err, profile) {
-        if (err)throw err;
+        if (err)console.log(err);
         console.log(profile);
     });
 

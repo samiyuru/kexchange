@@ -1,5 +1,5 @@
 
-exports.route = function(app){
+module.exports.route = function(app){
 
     console.log("routing...");
 
@@ -7,6 +7,9 @@ exports.route = function(app){
 
     });
     app.get('/profile', function(req, res){
+
+    });
+    app.get('/profile/new', function(req, res){
 
     });
     app.get('/profile/:id', function(req, res){
@@ -47,10 +50,13 @@ exports.route = function(app){
     app.get('/products/:id/bids', function(req, res){
 
     });
+    app.get('/products/:id/newbid', function(req, res){
+
+    });
     app.get('/products/new', function(req, res){
 
     });
-    app.get('/products/remove', function(req, res){
+    app.get('/products/:id/remove', function(req, res){
 
     });
 
