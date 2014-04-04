@@ -1,6 +1,6 @@
 var fs = require('fs');
 
-module.exports.route = function(app){
+module.exports.route = function(app, mongoose){
 
     console.log("routing...");
 

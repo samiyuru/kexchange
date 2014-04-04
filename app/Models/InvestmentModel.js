@@ -2,7 +2,7 @@
  * Created by samiyuru on 4/4/14.
  */
 
-module.exports = function(mongoose){
+module.exports = function (mongoose) {
     var Investment = mongoose.model('investment', {
         amount: {
             type: Number,
@@ -11,6 +11,14 @@ module.exports = function(mongoose){
         profitRate: {
             type: Number,//percent
             required: true
+        },
+        profitChange: {
+            newProfitRate: {
+                type: Number
+            },
+            date: {
+                type: Date
+            }
         },
         investor: {
             date: {
@@ -30,7 +38,7 @@ module.exports = function(mongoose){
                 type: mongoose.Schema.ObjectId
             }
         }
-    },'investments');
+    }, 'investments');
 
     this.getInvestors = function (opt) {
         //always order by date
@@ -42,19 +50,19 @@ module.exports = function(mongoose){
          * */
     };
 
-    this.getLoansOf = function(personID){
+    this.getLoansOf = function (personID) {
 
     };
 
-    this.getInvestmentsOf = function(personID){
+    this.getInvestmentsOf = function (personID) {
 
     };
 
-    this.changeProfit = function(investmentID){
+    this.changeProfit = function (investmentID) {
 
     };
 
-    this.payBackInvestment = function(investmentID){
+    this.payBackInvestment = function (investmentID) {
 
     };
 };

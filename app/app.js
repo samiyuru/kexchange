@@ -10,7 +10,10 @@ app.use(express.static('./public'));//map static files routes. files needed to r
 app.use(app.routes);
 
 
-require('./routes').route(app);
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/kexchange');
+
+require('./routes').route(app, mongoose);
 
 
 http.createServer(app).listen(app.get('port'), function () {
