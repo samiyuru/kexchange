@@ -15,7 +15,7 @@ module.exports = function (mongoose) {
             required: true
         },
         wealth: {
-            type: String,
+            type: Number,
             required: true
         },
         propic: {
@@ -24,7 +24,8 @@ module.exports = function (mongoose) {
         },
         purchases: [
             {
-                date: {type: Date,
+                date: {
+                    type: Date,
                     required: true
                 },
                 product: {
@@ -50,7 +51,7 @@ module.exports = function (mongoose) {
 
     this.getProfiles = function (opt, cb) {
         /*
-         * {  skip:0,  limit:0, sortBy:'' }
+         * {  skip:0, limit:0, sortBy:'' }
          * */
         if (opt == null) {
 
