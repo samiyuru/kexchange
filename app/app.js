@@ -13,13 +13,15 @@ app.use(app.routes);
 
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/kexchange');
-
-require('./routes').route(app, mongoose);
-
-
-http.createServer(app).listen(config.port, function () {
-    console.log('Express server listening on port ' + config.port);
-    console.log('Tests started..');
-    require('./Tests/tests').test(app, mongoose);
+mongoose.connect(config.mongo, function (err) {
+    if (err) {
+        console.warn(err);
+        return;
+    }
+    require('./routes').route(app, mongoose);
+    http.createServer(app).listen(config.port, function () {
+        console.log('Express server listening on port ' + config.port);
+        console.log('Tests started..');
+        require('./Tests/tests').test(app, mongoose);
+    });
 });

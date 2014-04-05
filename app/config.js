@@ -4,14 +4,12 @@
 var config = {
     local: {
         mode: 'local',
+        mongo: 'mongodb://localhost/kexchange',
         port: 3000
-    },
-    staging: {
-        mode: 'staging',
-        port: 4000
     },
     production: {
         mode: 'production',
+        mongo: 'mongodb://localhost/kexchange',
         port: 5000
     }
 }
