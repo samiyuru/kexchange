@@ -23,6 +23,10 @@
     background-color: #aaa;
 }
 
+body{
+    background-color: #e5e5e5;
+}
+
 span {
     font-size: inherit; /*spans dint inherit from parent*/
 }
@@ -204,15 +208,15 @@ nav a.active {
 }
 
 .rowtyp01 .rowL2Typ01 span{
-    font-weight: normal;color: #777777;
+    font-weight: normal;color: #7a7a7a;padding-left: 5px;
 }
 
 .rowtyp01 .rowL2Typ02 {
-    margin-top: 4px; color: #777777;
+    margin-top: 3px; color: #777777;
 }
 
 .rowtyp01 .rowL2Typ03 {
-    margin-top: 8px; color: #777777;
+    margin-top: 9px; color: #666666;
 }
 
 .rowtyp01 .rowL2Typ03 .confrm{

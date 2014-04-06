@@ -10,11 +10,13 @@ module.exports.initModel = function (mongoose) {
 
     this.ActTypes = {
         EARNING: 0,
-        PROFIT: 1,
+        PROFIT_GET: 1,
         PROFIT_PAY: 2,
-        TAX_PAY: 3,
-        SOLD: 4,
-        BOUGHT: 5
+        INVEST_GET: 3,
+        INVEST_GIVE: 4,
+        TAX_PAY: 5,
+        SOLD: 6,
+        BOUGHT: 7
     };
 
     var accountSchema = new mongoose.Schema({
@@ -50,7 +52,7 @@ module.exports.initModel = function (mongoose) {
         collection: 'accounts'
     });
 
-    accountSchema.statics.addTransaction = function(){
+    accountSchema.statics.addTransaction = function(personID, deal){
 
     };
 

@@ -41,15 +41,15 @@
                                 <div ng-init="ui.RateChng=false;" class="rowL2Typ03">
                                     <!-- profit readonly -->
                                     <div ng-show="!ui.RateChng">
-                                        <span>Interest 10% per month</span>
+                                        <span>Profit 10 K$ per week</span>
                                         <a ng-click="ui.RateChng=true" class="link-btn"
-                                           style="color: #4b87d2;float:right;">Change %</a>
+                                           style="color: #4b87d2;float:right;">Change Profit</a>
                                     </div>
                                     <!-- profit readonly end-->
                                     <!-- profit mutable -->
                                     <div ng-show="ui.RateChng" style="text-align: right;">
-                                        <input placeholder="Profit Rate" type="text"/>
-                                        <a class="link-btn" style="color: #4b87d2;">Change %</a>
+                                        <input placeholder="Profit per week" type="text"/>
+                                        <a class="link-btn" style="color: #4b87d2;">Change</a>
                                         <a ng-click="ui.RateChng=false" class="link-btn"
                                            style="color: #666666;">Cancel</a>
                                     </div>
@@ -98,7 +98,7 @@
                     </tr>
                     <tr>
                         <!-- <td class="input-Labl01">Profit Rate</td> -->
-                        <td><input placeholder="Profit Rate %" type="text"/></td>
+                        <td><input placeholder="Profit per week" type="text"/></td>
                     </tr>
                 </table>
             </div>

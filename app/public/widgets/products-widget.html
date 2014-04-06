@@ -72,12 +72,12 @@
             display: none;
         }
     </style>
-    <div kex-tab-delegate="" kex-titles="['KE Products','Fixed Price','Auction']">
+    <div kex-tab-delegate="" kex-titles="['KE Products','All Products']">
         <ul productscont ng-controller="prdctsCtrlr" style="margin: 0 -19px -6px 12px;">
             <!-- product -->
             <li ng-repeat="product in products" product="product" indx="$index" class="product">
                 <div onclick="window.utils.scrollToFcs(this)">
-                    <img class="cover" style="" ng-src="{{product.prdcover}}"/>
+                    <img class="cover" ng-src="{{product.prdcover}}"/>
 
                     <div class="propic">
                         <img class="propic-small" ng-src="{{product.seller.propic}}"/>

@@ -17,6 +17,10 @@ module.exports.initModel = function (mongoose) {
             type: String,
             required: true
         },
+        lastwealth: {
+            type: Number,
+            required: true
+        },
         wealth: {
             type: Number,
             required: true
@@ -50,15 +54,10 @@ module.exports.initModel = function (mongoose) {
     };
 
     profileSchema.statics.getProfile = function (id, cb) {
-        this.findById(id, {}, function (err, doc) {
-
-        });
+        this.findById(id, {}, cb);
     };
 
     profileSchema.statics.getProfiles = function (skip, limit, cb) {
-        /*
-         * {  skip:0, limit:0 }
-         * */
         if (limit == null) {
             this.find({})
                 .select('nickname name propic wealth')
@@ -66,7 +65,7 @@ module.exports.initModel = function (mongoose) {
                 .exec(cb);
         } else {
             this.find({})
-                .select('nickname name propic wealth')
+                .select('nickname name propic wealth lastwealth')
                 .sort('-wealth')
                 .skip(skip)
                 .limit(limit)

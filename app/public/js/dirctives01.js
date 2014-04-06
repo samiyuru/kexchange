@@ -14,7 +14,7 @@ kEX.directive("actLinkCss", function ($rootScope, $location) {
                 for (var i = 0; i < aSl; i++) {
                     var a = angular.element(aS[i]);
                     var hrf = a.attr("href");
-                    if (hrf.substr(1) == $location.url()) {
+                    if (hrf.substr(2)/* skip #/ */ == $location.url().substr(1).split('/')[0]) {
                         a.addClass(actCSS);
                     } else {
                         a.removeClass(actCSS);
@@ -322,47 +322,4 @@ kEX.directive("pinfarrow", function () {
         }
     }
 });
-
-/*kEX.directive("inrowConfirm", function () {
- return {
- restrict: 'A',
- transclude: true,
- scope: {
- confColor: "@confColor",
- confName: "@inrowConfirm"
- },
- controller:function($scope){
- $scope.shwConf = false;
- this.showConfirmation = (function(){
- $scope.shwConf = true;
- $scope.$apply();
- }).bind(this);
- },
- template: '\
- <div>\
- <!-- delete confirmation -->\
- <div ng-show="shwConf">\
- <div style="margin: 22px auto;text-align: center;">\
- <a ng-click="confirmFunc();" class="link-btn" ng-style="{color: confColor}">{{confName}}</a>\
- <a ng-click="shwConf=false;" class="link-btn" style="color: #666666;">Undo</a>\
- </div>\
- </div>\
- <!-- delete confirmation  end-->\
- <div ng-transclude ng-show="!shwConf">\
- </div>\
- </div>'
- };
- });
-
- kEX.directive("inrowConfirmShw", function () {
- return {
- restrict: 'A',
- require:"^inrowConfirm",
- link:function(scope, elem, attr, parentInrwCtrl){
- elem.on('click', function(){
- parentInrwCtrl.showConfirmation();
- });
- }
- };
- });*/
 

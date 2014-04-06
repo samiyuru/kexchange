@@ -1,19 +1,19 @@
 <div kex-widget>
-    <div kex-tab="KE People">
+    <div kex-tab="KE Peoples' Wealth">
         <div style="overflow-y: auto;max-height: 800px;">
-            <ul class="L-R-margin0" ng-controller="tpWlthyCtrler" style="padding-top: 1px/*for top list boarder*/;">
-                <li style="display: block;" ng-repeat="wlthyPrsn in wlthyPrsns">
+            <ul class="L-R-margin0" ng-controller="tpWlthyCtrler">
+                <li ng-repeat="wlthyPrsn in wlthyPrsns">
                     <!-- top earner -->
                     <div class="rowtyp01">
-                        <img class="propic-small" style="position: absolute;" src="propic01.png"/>
+                        <img class="propic-small" ng-src="{{wlthyPrsn.propic}}"/>
 
                         <div class="place-circle">
-                            <span>{{wlthyPrsn.place}}</span>
+                            <span>{{$index + 1}}</span>
                         </div>
                         <div class="pad-rightTo-propic">
-                            <div class="rowL2Typ01">{{wlthyPrsn.person.name}}</div>
-                            <div class="rowL2Typ02">wealth {{wlthyPrsn.person.wealth}} K$</div>
-                            <div class="rowL2Typ03">weeks's earning {{wlthyPrsn.earning}} K$</div>
+                            <div class="rowL2Typ01">{{wlthyPrsn.name}}</div>
+                            <div class="rowL2Typ02">wealth {{wlthyPrsn.wealth}} K$</div>
+                            <div class="rowL2Typ03">weeks's earning {{wlthyPrsn.wealth - wlthyPrsn.lastwealth}} K$</div>
                         </div>
                     </div>
                     <!-- top earner end-->

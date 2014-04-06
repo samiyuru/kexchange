@@ -45,14 +45,8 @@ module.exports.initModel = function (mongoose) {
         collection: 'investments'
     });
 
-    investmentSchema.statics.getInvestors = function (opt) {
+    investmentSchema.statics.getInvestors = function (skip, limit) {
         //always order by date
-        /*
-         * {
-         *   skip:0,
-         *   limit:0
-         * }
-         * */
     };
 
     investmentSchema.statics.getLoansOf = function (personID) {

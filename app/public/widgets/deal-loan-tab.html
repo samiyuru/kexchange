@@ -9,13 +9,13 @@
 
                     <div class="pad-rightTo-propic">
                         <div class="rowL2Typ01">Amount {{loan.amount}} K$ <span>{{loan.timeago}}</span></div>
-                        <div class="rowL2Typ02">You took from {{loan.investor.shname}}
+                        <div class="rowL2Typ02">Money taken from {{loan.investor.shname}}
                         </div>
 
 
                         <div ng-init="ui={};ui.paybkCnf=false;" class="rowL2Typ03">
                             <div ng-show="!ui.paybkCnf">
-                                <span>Interest {{loan.interest}}% per month</span>
+                                <span>Rental {{loan.interest}} K$ per week</span>
                                 <a ng-click="ui.paybkCnf=true;" class="link-btn"
                                    style="color: #4b87d2;float:right;">Pay Back</a>
                             </div>
@@ -38,7 +38,7 @@
         <!-- new loan button -->
         <div ng-show="!ui.isShowInvestors" class="rowtyp01">
             <button ng-click="ui.isShowInvestors=true;" onclick="window.utils.scrollToFcs('investorsListLoc');"
-                    class="btnbg-blue">Get Loan
+                    class="btnbg-blue">Need Money
             </button>
         </div>
         <!-- new loan button end-->
@@ -69,7 +69,7 @@
 
                         <div ng-init="ui={};ui.TakeItCnf=false;" class="rowL2Typ03">
                             <div>
-                                <span>Interest {{investor.interest}}% per month</span>
+                                <span>Rental {{investor.interest}} K$ per week</span>
                                 <a ng-show="!ui.TakeItCnf" ng-click="ui.TakeItCnf=true;" class="link-btn"
                                    style="color: #de4747;float:right;">Take it</a>
                             </div>
