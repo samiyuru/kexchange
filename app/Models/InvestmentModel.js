@@ -11,16 +11,21 @@ module.exports.initModel = function (mongoose) {
             type: Number,
             required: true
         },
-        profitRate: {
-            type: Number,//percent
-            required: true
-        },
-        profitChange: {
-            newProfitRate: {
-                type: Number
+        profit: {
+            amount: {
+                type: Number,//current
+                required: true
             },
-            date: {
+            lastDate: {//last profit pay/receive date
                 type: Date
+            },
+            change: {
+                newProfit: {
+                    type: Number
+                },
+                date: {
+                    type: Date
+                }
             }
         },
         investor: {
