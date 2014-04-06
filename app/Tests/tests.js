@@ -3,15 +3,11 @@
  */
 
 
-module.exports.test = function (app, db) {
-
-
-    var dbmodles = require('../Models');
-    var profileModel = new dbmodles.ProfileModel(db);
+module.exports.test = function (app, models, ctrls) {
 
     function generateUUID() {
         var d = new Date().getTime();
-        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var uuid = 'xxxxxxxx'.replace(/[xy]/g, function (c) {
             var r = (d + Math.random() * 16) % 16 | 0;
             d = Math.floor(d / 16);
             return (c == 'x' ? r : (r & 0x7 | 0x8)).toString(16);
@@ -19,11 +15,11 @@ module.exports.test = function (app, db) {
         return uuid;
     }
 
-    profileModel.createProfile({
+    models.profileModel.createProfile({
         nickname: 'Samiyuru',
         name: 'Samiyuru Senarathne',
         wealth: '0',
-        propic: 'images/propics/propic01.png'
+        propic: 'propics/propic01.png'
     }, function cb(err, profile) {
         if (err) console.warn(err);
         console.log(profile);

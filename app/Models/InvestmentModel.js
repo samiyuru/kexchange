@@ -2,8 +2,11 @@
  * Created by samiyuru on 4/4/14.
  */
 
-module.exports = function (mongoose) {
-    var Investment = mongoose.model('investment', {
+module.exports.initModel = function (mongoose) {
+
+    var ObjectId = mongoose.Schema.ObjectId;
+
+    var investmentSchema = new mongoose.Schema({
         amount: {
             type: Number,
             required: true
@@ -26,7 +29,7 @@ module.exports = function (mongoose) {
                 required: true
             },
             id: {
-                type: mongoose.Schema.ObjectId,
+                type: ObjectId,
                 required: true
             }
         },
@@ -35,12 +38,14 @@ module.exports = function (mongoose) {
                 type: Date
             },
             id: {
-                type: mongoose.Schema.ObjectId
+                type: ObjectId
             }
         }
-    }, 'investments');
+    }, {
+        collection: 'investments'
+    });
 
-    this.getInvestors = function (opt) {
+    investmentSchema.statics.getInvestors = function (opt) {
         //always order by date
         /*
          * {
@@ -50,19 +55,21 @@ module.exports = function (mongoose) {
          * */
     };
 
-    this.getLoansOf = function (personID) {
+    investmentSchema.statics.getLoansOf = function (personID) {
 
     };
 
-    this.getInvestmentsOf = function (personID) {
+    investmentSchema.statics.getInvestmentsOf = function (personID) {
 
     };
 
-    this.changeProfit = function (investmentID) {
+    investmentSchema.statics.changeProfit = function (investmentID) {
 
     };
 
-    this.payBackInvestment = function (investmentID) {
+    investmentSchema.statics.payBackInvestment = function (investmentID) {
 
     };
+
+    return mongoose.model('investment', investmentSchema);
 };

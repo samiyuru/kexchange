@@ -2,9 +2,16 @@
  * Created by samiyuru on 4/4/14.
  */
 
-var ProfileModel = require('../Models');
+module.exports.initCtrl = function(models){
 
+    var profileModel = models.profileModel;
 
-module.exports.peopleByWealth = function(skip, limit){
+    return new (function(models){
+
+        this.peopleByWealth = function(skip, limit, cb){
+            profileModel.getProfiles(skip, limit, cb);
+        };
+
+    })();
 
 };

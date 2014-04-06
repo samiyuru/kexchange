@@ -2,14 +2,21 @@
  * Created by samiyuru on 4/4/14.
  */
 
-module.exports.ProfileModel = require('./ProfileModel');
+module.exports = function(db){
 
-module.exports.ProductModel = require('./ProductModel');
+    var models =  {};
 
-module.exports.InvestmentModel = require('./InvestmentModel');
+    models.profileModel = require('./ProfileModel').initModel(db);
 
-module.exports.NotificationModel = require('./NotificationModel');
+    models.productModel = require('./ProductModel').initModel(db);
 
-module.exports.PluginModel = require('./PluginModel');
+    models.investmentModel = require('./InvestmentModel').initModel(db);
 
-module.exports.AccountModel = require('./AccountModel');
+    models.notificationModel = require('./NotificationModel').initModel(db);
+
+    models.pluginModel = require('./PluginModel').initModel(db);
+
+    models.accountModel = require('./AccountModel').initModel(db);
+
+    return models;
+}

@@ -2,10 +2,11 @@
  * Created by samiyuru on 4/4/14.
  */
 
-module.exports = function (mongoose) {
+module.exports.initModel = function (mongoose) {
     /*
      * types -> earning, profitpay, profit receive, tax, product sold, product bought
      * */
+    var ObjectId = mongoose.Schema.ObjectId;
 
     this.ActTypes = {
         EARNING: 0,
@@ -16,9 +17,9 @@ module.exports = function (mongoose) {
         BOUGHT: 5
     };
 
-    var Investment = mongoose.model('account', {
+    var accountSchema = new mongoose.Schema({
         owner:{
-            type: mongoose.Schema.ObjectID,
+            type: ObjectId,
             required: true
         },
         description: {
@@ -43,16 +44,17 @@ module.exports = function (mongoose) {
             required: true
         },
         subject: {
-            type: mongoose.Schema.ObjectID
+            type: ObjectId
         }
-    }, 'accounts');
+    }, {
+        collection: 'accounts'
+    });
 
-
-    this.addTransaction = function(){
+    accountSchema.statics.addTransaction = function(){
 
     };
 
-    this.getTransactions = function(personID, opt){
+    accountSchema.statics.getTransactions = function(personID, opt){
         /*
         *opt:{
         *   limit:
@@ -60,5 +62,7 @@ module.exports = function (mongoose) {
         * }
         * */
     };
+
+    return mongoose.model('account', accountSchema);
 
 };

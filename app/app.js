@@ -18,10 +18,16 @@ mongoose.connect(config.mongo, function (err) {
         console.warn(err);
         return;
     }
-    require('./routes').route(app, mongoose);
+
+    var models = require('./Models')(mongoose);
+
+    var ctrls = require('./Controllers')(models);
+
+    require('./routes').route(app, ctrls);
+
     http.createServer(app).listen(config.port, function () {
         console.log('Express server listening on port ' + config.port);
         console.log('Tests started..');
-        require('./Tests/tests').test(app, mongoose);
+        require('./Tests/tests').test(app, models, ctrls);
     });
 });

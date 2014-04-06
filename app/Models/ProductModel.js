@@ -2,11 +2,14 @@
  * Created by samiyuru on 4/4/14.
  */
 
-module.exports = function (mongoose) {
+module.exports.initModel = function (mongoose) {
+
+    var ObjectId = mongoose.Schema.ObjectId;
+
     /*
      * if auction: qty, minbid and exp are mandatory
      * */
-    var Product = mongoose.model('product', {
+    var productSchema = new mongoose.Schema({
         title: {
             type: String,
             required: true
@@ -16,7 +19,7 @@ module.exports = function (mongoose) {
             required: true
         },
         owner: {
-            type: mongoose.Schema.ObjectId,
+            type: ObjectId,
             required: true
         },
         type: {
@@ -36,7 +39,7 @@ module.exports = function (mongoose) {
         bids: [
             {
                 person: {
-                    type: mongoose.Schema.ObjectId,
+                    type: ObjectId,
                     required: true
                 },
                 date: {
@@ -49,21 +52,23 @@ module.exports = function (mongoose) {
                 }
             }
         ]
-    }, 'products');
+    }, {
+        collection: 'products'
+    });
 
-    this.createProduct = function (owner, product, cb) {
+    productSchema.statics.createProduct = function (owner, product, cb) {
         Profile.create(profile, cb);
     };
 
-    this.placeBid = function (productID, person, bid, cb) {
+    productSchema.statics.placeBid = function (productID, person, bid, cb) {
 
     };
 
-    this.purchase = function (productID, person, cb) {
+    productSchema.statics.purchase = function (productID, person, cb) {
 
     };
 
-    this.getProducts = function (opt, cb) {
+    productSchema.statics.getProducts = function (opt, cb) {
         //always order by date
         /*
          * {
@@ -74,5 +79,7 @@ module.exports = function (mongoose) {
          * }
          * */
     };
+
+    return mongoose.model('product', productSchema);
 };
 
