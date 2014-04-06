@@ -8,8 +8,8 @@ kEX.controller("kexroot", function ($rootScope, $location, kexPofiles) {
         var urlPrts = $location.url().substr(1).split('/');
         if (urlPrts[0] == 'profile') { //url should be like /profile/32324234wfsdfsd or /profile
             if (urlPrts.length == 1) {
-                $rootScope.$emit(PROFILE_URL_CHANGED, kexPofiles.getLoggedID());
-            } else if(urlPrts.length >= 2){
+                $rootScope.$emit(PROFILE_URL_CHANGED, kexPofiles.getLoggedProf().id);
+            } else if (urlPrts.length >= 2) {
                 $rootScope.$emit(PROFILE_URL_CHANGED, urlPrts[1]);
             }
         }
@@ -235,7 +235,7 @@ kEX.controller("topErnrsCtrlr", function ($scope) {
 kEX.controller("tpWlthyCtrler", function ($scope, kexPofiles) {
     $scope.wlthyPrsns = wlthyPrsns = [];
 
-    kexPofiles.loadProfiles(function (data) {
+    kexPofiles.loadProfiles(function loadWlthyPplCB(data) {
         var len = data.length;
         for (var i = 0; i < len; i++) {
             wlthyPrsns.push(data[i]);
@@ -390,45 +390,49 @@ kEX.controller("loanCtrl", function ($scope) {
     ];
 });
 
-kEX.controller("myInvestCtrl", function ($scope, $rootScope, kexPofiles) {
-    $scope.investments = [
-        {
-            timeago: "1 month ago",
-            amount: 1000,
-            rate: 5,
-            person: {
-                id: 0001,
-                wealth: 3000,
-                shname: "Samiyuru",
-                name: "Samiyuru Senarathne",
-                propic: "propic02.png"
-            }
-        },
-        {
-            timeago: "1 month ago",
-            amount: 1000,
-            rate: 5,
-            person: null
-        },
-        {
-            timeago: "1 month ago",
-            amount: 1000,
-            rate: 5,
-            person: null
-        },
-        {
-            timeago: "1 month ago",
-            amount: 1000,
-            rate: 5,
-            person: {
-                id: 0001,
-                wealth: 3000,
-                shname: "Samiyuru",
-                name: "Samiyuru Senarathne",
-                propic: "propic02.png"
-            }
+kEX.controller("myInvestCtrl", function ($scope, $rootScope, kexInvest) {
+
+    $scope.ui = ui = {
+        isShowNwInvest: false
+    };
+
+    var _curProfID = null;
+    $scope.investments = investments = [];
+
+    $scope.newInvest = newInvest = {
+        amount: "",
+        profit: ""
+    };
+
+    function hideNewInvest() {
+        newInvest.amount = "";
+        newInvest.profit = "";
+        ui.isShowNwInvest = false;
+    }
+
+    $scope.investMoney = function () {
+        kexInvest.investMoney(newInvest, function newInvestCB(data) {
+            investments.unshift({
+                date: new Date(),
+                profit: data.profit,
+                amount: data.amount,
+                debitor: null
+            });
+        });
+        hideNewInvest();
+    };
+
+    $rootScope.$on('$locationChangeSuccess', function (profID) {
+        if (_curProfID != profID) {
+            $scope.investments = investments = [];
+            kexInvest.loadInvestments(profID, function loadInvestCB(data) {
+                var len = data.length;
+                for (var i = 0; i < len; i++) {
+                    investments.push(data[i]);
+                }
+            });
         }
-    ];
+    });
 });
 
 kEX.controller("newPrdCtrl", function ($scope) {

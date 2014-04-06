@@ -2,15 +2,17 @@
  * Created by samiyuru on 3/26/14.
  */
 
-kEX.factory("kexPofiles", function ($http) {
+kEX.service("kexPofiles", function ($http) {
 
-    var _loggedID = null;
+    var _loggedProf = {
+        id: "0293200909"
+    };
 
     var _limit = 5;
     var _skip = 0;
     var _isLoading = false;
 
-    function loadProfiles(cb) {
+    this.loadProfiles = function (cb) {
         if (!_isLoading) {
             $http({
                 method: "GET",
@@ -20,26 +22,46 @@ kEX.factory("kexPofiles", function ($http) {
                     limit: _limit
                 }
             }).success(function (data) {
-                cb(data);
-                _isLoading = false;
-            }).error(function (data) {
-                _isLoading = false;
-            });
+                    cb(data);
+                    _isLoading = false;
+                }).error(function (data) {
+                    _isLoading = false;
+                });
         }
-    }
-
-    function getLoggedID(){
-        return _loggedID;
-    }
-
-    function setLoggedID(id){
-        _loggedID = id;
-    }
-
-    return {
-        loadProfiles: loadProfiles,
-        getLoggedID: getLoggedID,
-        setLoggedID: setLoggedID
     };
+
+    this.getLoggedProf = function () {
+        return _loggedProf;
+    };
+
+    this.setLoggedProf = function (profile) {
+        _loggedProf = profile;
+    };
+
+});
+
+kEX.service("kexInvest", function ($http) {
+    this.loadInvestments = function (profID, cb) {
+        $http({
+            method: "GET",
+            url: "/api/profile/" + profID + "/investments"
+        }).success(function (data) {
+                cb(data);
+            });
+    };
+
+    this.investMoney = function (investment, cb) {
+        $http({
+            method: "POST",
+            params: {
+                amount: investment.amount,
+                profit: investment.profit
+            },
+            url: "/api/investments"
+        }).success(function (data) {
+                cb(data);
+            });
+    };
+
 
 });

@@ -50,6 +50,23 @@ module.exports.initModel = function (mongoose) {
         collection: 'investments'
     });
 
+    investmentSchema.statics.createInvestment = function (profId, amount, profit, cb) {
+        this.create({
+            amount: amount,
+            profit: {
+                amount: profit
+            },
+            investor: {
+                date: new Date(),
+                id:  mongoose.Types.ObjectId(profId)
+            },
+            debitor: null
+        }, function (err, doc) {
+            doc.profit = doc.profit.amount;
+            cb(err, doc);
+        });
+    };
+
     investmentSchema.statics.getInvestors = function (skip, limit) {
         //always order by date
     };

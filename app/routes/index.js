@@ -72,8 +72,15 @@ module.exports.route = function (app, ctrls) {
     app.get('/api/investments', function (req, res) {
 
     });
-    app.get('/api/investments/new', function (req, res) {
-
+    app.post('/api/investments', function (req, res) {
+        ctrls.investmentCtrl.newInvestment("5341373c30216d890e448777", req.query.amount, req.query.profit, function (err, doc) {
+            if (err) {
+                console.warn(err);
+                res.json({err: "ERROR"});
+                return;
+            }
+            res.json(doc);
+        });
     });
     app.get('/api/investments/:id/remove', function (req, res) {
 

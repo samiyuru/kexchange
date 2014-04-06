@@ -4,10 +4,12 @@
 
 module.exports.initCtrl = function(models){
 
+    var investmentModel = models.investmentModel;
+
     return new (function(models){
 
-        this.peopleByWealth = function(skip, limit){
-
+        this.newInvestment = function(profId, amount, profit, cb){
+            investmentModel.createInvestment(profId, amount, profit, cb);
         };
 
     })();

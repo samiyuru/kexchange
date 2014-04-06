@@ -1,7 +1,7 @@
 <ul ng-controller="myInvestCtrl">
     <li>
         <!-- my invetments list -->
-        <ul ng-init="ui={};ui.isShowNwInvest" class="L-R-margin0" style="margin: 0;padding: 0;">
+        <ul class="L-R-margin0" style="margin: 0;padding: 0;">
             <li ng-repeat="invst in investments">
                 <!-- You Invested -->
                 <div class="rowtyp01">
@@ -43,7 +43,7 @@
                                     <div ng-show="!ui.RateChng">
                                         <span>Profit 10 K$ per week</span>
                                         <a ng-click="ui.RateChng=true" class="link-btn"
-                                           style="color: #4b87d2;float:right;">Change Profit</a>
+                                           style="color: #4b87d2;float:right;">Amend Profit</a>
                                     </div>
                                     <!-- profit readonly end-->
                                     <!-- profit mutable -->
@@ -94,11 +94,11 @@
                 <table>
                     <tr>
                         <!-- <td class="input-Labl01">Ammount</td> -->
-                        <td><input placeholder="Ammount K$" type="text"/></td>
+                        <td><input ng-model="newInvest.amount" placeholder="Ammount K$" type="text"/></td>
                     </tr>
                     <tr>
                         <!-- <td class="input-Labl01">Profit Rate</td> -->
-                        <td><input placeholder="Profit per week" type="text"/></td>
+                        <td><input ng-model="newInvest.profit" placeholder="Profit per week" type="text"/></td>
                     </tr>
                 </table>
             </div>
@@ -107,7 +107,7 @@
 
         <!-- ok button -->
         <div class="L-R-margin0 rowtyp01">
-            <button ng-click="hideInvestors()" class="btnbg-blue">Invest</button>
+            <button ng-click="investMoney()" class="btnbg-blue">Invest</button>
         </div>
         <!-- ok button end -->
     </li>
