@@ -30,7 +30,14 @@ module.exports.route = function (app, ctrls) {
 
     });
     app.get('/api/profile/:id/investments', function (req, res) {
-
+        ctrls.investmentCtrl.investmentsOf(req.params.id, function (err, doc) {
+            if (err) {
+                console.warn(err);
+                res.json({err: "ERROR"});
+                return;
+            }
+            res.json(doc);
+        });
     });
     app.get('/api/profile/:id/accounts', function (req, res) {
 

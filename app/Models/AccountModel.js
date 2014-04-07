@@ -20,7 +20,7 @@ module.exports.initModel = function (mongoose) {
     };
 
     var accountSchema = new mongoose.Schema({
-        owner:{
+        owner: {
             type: ObjectId,
             required: true
         },
@@ -52,17 +52,17 @@ module.exports.initModel = function (mongoose) {
         collection: 'accounts'
     });
 
-    accountSchema.statics.addTransaction = function(personID, deal){
+    accountSchema.statics.addTransaction = function (personID, deal) {
 
     };
 
-    accountSchema.statics.getTransactions = function(personID, opt){
+    accountSchema.statics.getTransactions = function (personID, opt) {
         /*
-        *opt:{
-        *   limit:
-        *   skip:
-        * }
-        * */
+         *opt:{
+         *   limit:
+         *   skip:
+         * }
+         * */
     };
 
     return mongoose.model('account', accountSchema);

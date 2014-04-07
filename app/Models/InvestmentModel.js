@@ -4,6 +4,8 @@
 
 module.exports.initModel = function (mongoose) {
 
+    var PROFIT_CHANGE_EFFECT_GAP = 14;//days
+
     var ObjectId = mongoose.Schema.ObjectId,
         TypObjectID = mongoose.Types.ObjectId;
 
@@ -86,16 +88,16 @@ module.exports.initModel = function (mongoose) {
         })
             .sort('-investor.date')
             .exec(function (err, docs) {
-                if(err){
-                    console.warn(err);
+                if (err) {
+                    cb(err, docs);
                     return;
                 }
                 var len = docs.length;
-                for(var i = 0; i<len; i++){
+                for (var i = 0; i < len; i++) {
                     var doc = docs[i];
-
+                    doc.profit = doc.profit.amount;
                 }
-                cb(er);
+                cb(err, docs);
             });
     };
 

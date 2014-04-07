@@ -2,9 +2,9 @@
  * Created by samiyuru on 4/4/14.
  */
 
-module.exports = function(db){
+module.exports = function (db) {
 
-    var models =  {};
+    var models = {};
 
     models.profileModel = require('./ProfileModel').initModel(db);
 

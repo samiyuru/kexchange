@@ -6,9 +6,7 @@ module.exports.initCtrl = function(models){
 
     return new (function(models){
 
-        this.peopleByWealth = function(skip, limit){
 
-        };
 
     })();
 
