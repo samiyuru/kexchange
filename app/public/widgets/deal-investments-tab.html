@@ -8,7 +8,7 @@
                     <div ng-init="ui={};ui.delete=false;">
                         <!-- delete confirmation -->
                         <div ng-show="ui.delete">
-                            <div style="margin: 20px auto;text-align: center;">
+                            <div style="margin: 22px auto;text-align: center;">
                                 <a class="link-btn" style="color: #de4747;">Remove</a>
                                 <a ng-click="ui.delete=false;" class="link-btn" style="color: #666666;">Undo</a>
                             </div>
@@ -93,12 +93,12 @@
             <div class="pad-rightTo-propic">
                 <table>
                     <tr>
-                        <!-- <td class="input-Labl01">Ammount</td> -->
-                        <td><input ng-model="newInvest.amount" placeholder="Ammount K$" type="number" style="text-align: right;"/></td>
+                        <td><div class="input-Labl01 rightspc01">Ammount</div></td>
+                        <td><input class="rightAlgn" ng-model="newInvest.amount" placeholder="Ammount K$" type="text" /></td>
                     </tr>
                     <tr>
-                        <!-- <td class="input-Labl01">Profit Rate</td> -->
-                        <td><input ng-model="newInvest.profit" placeholder="Profit per week" type="number" style="text-align: right;"/></td>
+                        <td><div class="input-Labl01 rightspc01">Profit</div></td>
+                        <td><input class="rightAlgn" ng-model="newInvest.profit" placeholder="Profit per week" type="text" /></td>
                     </tr>
                 </table>
             </div>

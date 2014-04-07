@@ -65,6 +65,10 @@ input, textarea {
     box-sizing: border-box;
 }
 
+input.rightAlgn, textarea.rightAlgn{
+    text-align: right;
+}
+
 select {
     background-color: #fff;
     margin: 0;
@@ -112,6 +116,7 @@ input[type=text]:focus {
     padding: 5px 0 5px 0;
     font-size: 14px;
     color: #737373;
+    text-align: right;
 }
 
 .active {
@@ -122,6 +127,14 @@ input[type=text]:focus {
 
 nav a.active {
     border-bottom: 3px solid #4b87d2;
+}
+
+.rightspc01 {
+    margin-right: 5px;
+}
+
+.leftspc01 {
+    margin-left: 5px;
 }
 
 .swidget {

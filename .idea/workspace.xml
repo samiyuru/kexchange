@@ -4,8 +4,8 @@
     <list default="true" id="2026f3ce-14eb-4cc0-b298-c019ae965b28" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/KExchange.iml" afterPath="$PROJECT_DIR$/app/KExchange.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/.idea/runConfigurations/app_js.xml" afterPath="$PROJECT_DIR$/app/.idea/runConfigurations/app_js.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/app/.idea/jsLibraryMappings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/.idea/workspace.xml" afterPath="$PROJECT_DIR$/app/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/app/.idea/jsLibraryMappings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/public/.idea/workspace.xml" afterPath="$PROJECT_DIR$/app/public/.idea/workspace.xml" />
     </list>
     <ignored path="k-ex.iws" />
@@ -54,7 +54,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="22" />
+    <option name="x" value="188" />
+    <option name="y" value="92" />
     <option name="width" value="1366" />
     <option name="height" value="768" />
   </component>
@@ -117,14 +118,6 @@
     <property name="LayoutCode.rearrangeEntriesHTML" value="false" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="scope" value="ALL" />
-      <option name="testName" />
-      <method />
-    </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -135,15 +128,23 @@
       <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
       <setting name="configLocationType" value="CONFIG_FILE" />
       <setting name="settingsFile" value="" />
       <setting name="serverType" value="INTERNAL" />
       <setting name="preferredDebugBrowser" value="CHROME" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
-      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
@@ -165,7 +166,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1366" height="768" extended-state="0" />
+    <frame x="188" y="92" width="1366" height="768" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />

@@ -4,7 +4,8 @@
 
 module.exports.initModel = function (mongoose) {
 
-    var ObjectId = mongoose.Schema.ObjectId;
+    var ObjectId = mongoose.Schema.ObjectId,
+        TypObjectID = mongoose.Types.ObjectId;
 
     var investmentSchema = new mongoose.Schema({
         amount: {
@@ -35,7 +36,8 @@ module.exports.initModel = function (mongoose) {
             },
             id: {
                 type: ObjectId,
-                required: true
+                required: true,
+                ref: 'profile'
             }
         },
         debitor: {
@@ -43,7 +45,8 @@ module.exports.initModel = function (mongoose) {
                 type: Date
             },
             id: {
-                type: ObjectId
+                type: ObjectId,
+                ref: 'profile'
             }
         }
     }, {
@@ -58,7 +61,7 @@ module.exports.initModel = function (mongoose) {
             },
             investor: {
                 date: new Date(),
-                id:  mongoose.Types.ObjectId(profId)
+                id: TypObjectID(profId)
             },
             debitor: null
         }, function (err, doc) {
@@ -75,8 +78,25 @@ module.exports.initModel = function (mongoose) {
 
     };
 
-    investmentSchema.statics.getInvestmentsOf = function (personID) {
+    investmentSchema.statics.getInvestmentsOf = function (profId, cb) {
+        this.find({
+            investor: {
+                id: TypObjectID(profId)
+            }
+        })
+            .sort('-investor.date')
+            .exec(function (err, docs) {
+                if(err){
+                    console.warn(err);
+                    return;
+                }
+                var len = docs.length;
+                for(var i = 0; i<len; i++){
+                    var doc = docs[i];
 
+                }
+                cb(er);
+            });
     };
 
     investmentSchema.statics.changeProfit = function (investmentID) {

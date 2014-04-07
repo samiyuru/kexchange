@@ -15,16 +15,16 @@ module.exports.test = function (app, models, ctrls) {
         return uuid;
     }
 
-//    models.profileModel.createProfile({
-//        nickname: 'Samiyuru ' + generateUUID(),
-//        name: 'Samiyuru Senarathne',
-//        lastwealth: 0,
-//        wealth: 0,
-//        propic: '/propics/propic02.png'
-//    }, function cb(err, profile) {
-//        if (err) console.warn(err);
-//        console.log(profile);
-//    });
+    models.profileModel.createProfile({
+        nickname: 'Samiyuru ' + generateUUID(),
+        name: 'Samiyuru Senarathne',
+        lastwealth: 0,
+        wealth: 0,
+        propic: '/propics/propic01.png'
+    }, function cb(err, profile) {
+        if (err) console.warn(err);
+        console.log(profile);
+    });
 
 
     //================route tests=================
