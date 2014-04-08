@@ -2,11 +2,17 @@
  * Created by samiyuru on 3/26/14.
  */
 
-kEX.service("kexPofiles", function ($http) {
+kEX.service("kexPofiles", function ($http, $rootScope, $location) {
 
     var _loggedProf = {
-        id: "0293200909"
+        id: "53421bb56339790321ce19cf",
+        shname: "Samiyuru b0fb7d3d",
+        name: "Samiyuru Senarathne",
+        wealth: 0,
+        propic: "/propics/propic02.png"
+
     };
+    var _curProfPgID; // currently shown profile page id
 
     var _limit = 5;
     var _skip = 0;
@@ -30,6 +36,10 @@ kEX.service("kexPofiles", function ($http) {
         }
     };
 
+    this.getCurrentProfPageID = function(){
+        return _curProfPgID;
+    }
+
     this.getLoggedProf = function () {
         return _loggedProf;
     };
@@ -37,6 +47,34 @@ kEX.service("kexPofiles", function ($http) {
     this.setLoggedProf = function (profile) {
         _loggedProf = profile;
     };
+
+    //----------------------------------------
+
+    var _onPrfChngArr = [];//on profile change listners
+    this.onProfileChange = function (func) {
+        _onPrfChngArr.push(func);
+    };
+
+    $rootScope.$on('$locationChangeSuccess', (function () {
+        function execPrfChng(profID) {
+            var len = _onPrfChngArr.length;
+            for (var i = 0; i < len; i++) {
+                (_onPrfChngArr[i])(profID);
+            }
+        };
+
+        var urlPrts = $location.url().substr(1).split('/');
+        if (urlPrts[0] == 'profile') { //url should be like /profile/32324234wfsdfsd or /profile
+            if (urlPrts.length == 1) {
+                _curProfPgID = this.getLoggedProf().id;
+            } else if (urlPrts.length >= 2) {
+                _curProfPgID = urlPrts[1];
+            }
+            execPrfChng(_curProfPgID);
+        } else {
+            _curProfPgID = null;//current page is not a profile page
+        }
+    }).bind(this));
 
 });
 
@@ -62,6 +100,5 @@ kEX.service("kexInvest", function ($http) {
                 cb(data);
             });
     };
-
 
 });

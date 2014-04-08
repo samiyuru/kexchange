@@ -2,18 +2,7 @@
  * Samiyuru Senarathne
  */
 
-kEX.controller("kexroot", function ($rootScope, $location, kexPofiles) {
-
-    $rootScope.$on('$locationChangeSuccess', function () {
-        var urlPrts = $location.url().substr(1).split('/');
-        if (urlPrts[0] == 'profile') { //url should be like /profile/32324234wfsdfsd or /profile
-            if (urlPrts.length == 1) {
-                $rootScope.$emit(PROFILE_URL_CHANGED, kexPofiles.getLoggedProf().id);
-            } else if (urlPrts.length >= 2) {
-                $rootScope.$emit(PROFILE_URL_CHANGED, urlPrts[1]);
-            }
-        }
-    });
+kEX.controller("kexroot", function ($scope, $rootScope, $location, kexPofiles) {
 
 });
 
@@ -390,7 +379,7 @@ kEX.controller("loanCtrl", function ($scope) {
     ];
 });
 
-kEX.controller("myInvestCtrl", function ($scope, $rootScope, kexInvest) {
+kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
 
     $scope.ui = ui = {
         isShowNwInvest: false
@@ -416,23 +405,50 @@ kEX.controller("myInvestCtrl", function ($scope, $rootScope, kexInvest) {
                 date: new Date(),
                 profit: data.profit,
                 amount: data.amount,
+                investor: kexPofiles.getLoggedProf(),
                 debitor: null
             });
         });
         hideNewInvest();
     };
 
-    $rootScope.$on('$locationChangeSuccess', function (profID) {
+    function loadInvestments(profID) {
         if (_curProfID != profID) {
             $scope.investments = investments = [];
             kexInvest.loadInvestments(profID, function loadInvestCB(data) {
                 var len = data.length;
                 for (var i = 0; i < len; i++) {
-                    investments.push(data[i]);
+                    var doc = data[i];
+                    var debitor = null,
+                        dispDate;
+                    if (doc.debitor) {
+                        var _debitor = doc.debitor.id
+                        debitor = {
+                            name: _debitor.name,
+                            shname: _debitor.nickname,
+                            propic: _debitor.propic,
+                            id: _debitor._id
+                        }
+                        dispDate = new Date(doc.debitor.date)
+                    } else {
+                        dispDate = new Date(doc.investor.date)
+                    }
+                    investments.push({
+                        id: doc._id,
+                        date: dispDate,
+                        profit: doc.profit,
+                        amount: doc.amount,
+                        investor: kexPofiles.getLoggedProf(),
+                        debitor: debitor
+                    });
                 }
             });
         }
-    });
+    }
+
+    loadInvestments(kexPofiles.getCurrentProfPageID());//initial profile //loaded to profile or  reload
+
+    kexPofiles.onProfileChange(loadInvestments);//profile change event
 });
 
 kEX.controller("newPrdCtrl", function ($scope) {

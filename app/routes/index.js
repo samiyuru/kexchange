@@ -80,7 +80,7 @@ module.exports.route = function (app, ctrls) {
 
     });
     app.post('/api/investments', function (req, res) {
-        ctrls.investmentCtrl.newInvestment("5341373c30216d890e448777", req.query.amount, req.query.profit, function (err, doc) {
+        ctrls.investmentCtrl.newInvestment("53421bb56339790321ce19cf", req.query.amount, req.query.profit, function (err, doc) {
             if (err) {
                 console.warn(err);
                 res.json({err: "ERROR"});

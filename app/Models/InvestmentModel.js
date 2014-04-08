@@ -64,8 +64,7 @@ module.exports.initModel = function (mongoose) {
             investor: {
                 date: new Date(),
                 id: TypObjectID(profId)
-            },
-            debitor: null
+            }
         }, function (err, doc) {
             doc.profit = doc.profit.amount;
             cb(err, doc);
@@ -82,11 +81,11 @@ module.exports.initModel = function (mongoose) {
 
     investmentSchema.statics.getInvestmentsOf = function (profId, cb) {
         this.find({
-            investor: {
-                id: TypObjectID(profId)
-            }
+            "investor.id": TypObjectID(profId)
         })
             .sort('-investor.date')
+            .populate('investor.id')
+            .populate('debitor.id')
             .exec(function (err, docs) {
                 if (err) {
                     cb(err, docs);
@@ -96,6 +95,12 @@ module.exports.initModel = function (mongoose) {
                 for (var i = 0; i < len; i++) {
                     var doc = docs[i];
                     doc.profit = doc.profit.amount;
+                    doc.investor.id.purchases = undefined;
+                    doc.investor.id.lastwealth = undefined;
+                    if(doc.debitor && doc.debitor.id){
+                        doc.debitor.id.purchases = undefined;
+                        doc.debitor.id.lastwealth = undefined;
+                    }
                 }
                 cb(err, docs);
             });

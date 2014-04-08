@@ -8,7 +8,7 @@
                     <div ng-init="ui={};ui.delete=false;">
                         <!-- delete confirmation -->
                         <div ng-show="ui.delete">
-                            <div style="margin: 23px auto;text-align: center;">
+                            <div style="margin: 24px auto;text-align: center;">
                                 <a class="link-btn" style="color: #de4747;">Remove</a>
                                 <a ng-click="ui.delete=false;" class="link-btn" style="color: #666666;">Undo</a>
                             </div>
@@ -17,7 +17,7 @@
 
                         <!-- invest content -->
                         <div ng-show="!ui.delete">
-                            <img ng-if="invst.person==null" ng-click="ui.delete=true;"
+                            <img ng-if="invst.debitor==null" ng-click="ui.delete=true;"
                                  style="position: absolute;right: 0px;margin-top:4px;"
                                  src="close01.png"/>
 
@@ -25,23 +25,23 @@
                             <img ng-show="invst.person==null" class="propic-small"
                                  style="opacity: .4;"
                                  src="propic01.png"/>
-                            <img ng-show="invst.person!=null" class="propic-small" ng-src="{{invst.person.propic}}"/>
+                            <img ng-show="invst.person!=null" class="propic-small" ng-src="{{invst.investor.propic}}"/>
                             <!-- condinal propic end-->
 
                             <div class="pad-rightTo-propic">
-                                <div class="rowL2Typ01"> Amount 21,000 K$ <span>1 month ago</span></div>
+                                <div class="rowL2Typ01">Amount {{invst.amount.toLocaleString()}} K$ <span timeago="invst.date"></span></div>
 
                                 <!-- condinal info-->
                                 <div class="rowL2Typ02">
                                     <div ng-if="invst.person==null">You invested</div>
-                                    <div ng-if="invst.person!=null">You invested in {{invst.person.shname}}</div>
+                                    <div ng-if="invst.person!=null">You invested in {{invst.debitor.shname}}</div>
                                 </div>
                                 <!-- condinal info end-->
 
                                 <div ng-init="ui.RateChng=false;" class="rowL2Typ03">
                                     <!-- profit readonly -->
                                     <div ng-show="!ui.RateChng">
-                                        <span>Profit 10 K$ per week</span>
+                                        <span>Profit {{invst.profit}} K$ per week</span>
                                         <a ng-click="ui.RateChng=true" class="link-btn"
                                            style="color: #4b87d2;float:right;">Amend Profit</a>
                                     </div>
