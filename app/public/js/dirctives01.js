@@ -323,3 +323,20 @@ kEX.directive("pinfarrow", function () {
     }
 });
 
+
+kEX.directive("timeago", function () {
+    return {
+        restrict: 'A',
+        scope: {
+            time:"=timeago"
+        },
+        link: function (scope, elem, attr) {
+            var time = new Date(scope.time);
+            elem.html(utils.timeAgo(time));
+            window.setInterval(function () {
+                elem.html(utils.timeAgo(time));
+            }, 60000);
+        }
+    }
+});
+
