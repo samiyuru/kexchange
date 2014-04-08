@@ -456,6 +456,7 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
                         debitor: debitor
                     });
                 }
+                _curProfID = profID;
             });
         }
     }

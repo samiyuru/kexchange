@@ -18,7 +18,7 @@
                         <!-- invest content -->
                         <div ng-show="!ui.delete">
                             <img ng-if="invst.debitor==null" ng-click="ui.delete=true;"
-                                 style="position: absolute;right: 0px;margin-top:4px;"
+                                 style="position: absolute;right: 0px;margin-top:3px;"
                                  src="close01.png"/>
 
                             <!-- condinal propic-->
@@ -29,11 +29,11 @@
                             <!-- condinal propic end-->
 
                             <div class="pad-rightTo-propic">
-                                <div class="rowL2Typ01">Amount {{invst.amount.toLocaleString()}} K$ <span timeago="invst.date"></span></div>
+                                <div class="rowL2Typ01">Amount {{invst.amount.toLocaleString()}} K$</div>
 
                                 <!-- condinal info-->
                                 <div class="rowL2Typ02">
-                                    <div ng-if="invst.person==null">You invested</div>
+                                    <div ng-if="invst.person==null">You invested <span timeago="invst.date"></span></div>
                                     <div ng-if="invst.person!=null">You invested in {{invst.debitor.shname}}</div>
                                 </div>
                                 <!-- condinal info end-->

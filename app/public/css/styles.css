@@ -226,7 +226,10 @@ nav a.active {
 }
 
 .rowtyp01 .rowL2Typ01 span{
-    font-weight: normal;color: #7a7a7a;padding-left: 5px;
+    font-weight: normal;
+    color: #7e7e7e;
+    padding-left: 8px;
+    font-size: 14px;
 }
 
 .rowtyp01 .rowL2Typ02 {
