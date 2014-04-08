@@ -16,6 +16,10 @@ module.exports.initCtrl = function(models){
             investmentModel.getInvestmentsOf(profId, cb);
         };
 
+        this.rmInvestment = function(id, cb){
+            investmentModel.rmInvestment(id, cb);
+        };
+
     })();
 
 };

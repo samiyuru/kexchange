@@ -69,6 +69,11 @@ input.rightAlgn, textarea.rightAlgn{
     text-align: right;
 }
 
+input.type01{
+    max-width: 100px;
+    font-size: 16px;
+}
+
 select {
     background-color: #fff;
     margin: 0;

@@ -36,7 +36,7 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location) {
         }
     };
 
-    this.getCurrentProfPageID = function(){
+    this.getCurrentProfPageID = function () {
         return _curProfPgID;
     }
 
@@ -83,6 +83,15 @@ kEX.service("kexInvest", function ($http) {
         $http({
             method: "GET",
             url: "/api/profile/" + profID + "/investments"
+        }).success(function (data) {
+                cb(data);
+            });
+    };
+
+    this.deleteInvest = function (id, cb) {
+        $http({
+            method: "DELETE",
+            url: "/api/investments/" + id
         }).success(function (data) {
                 cb(data);
             });

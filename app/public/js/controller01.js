@@ -399,9 +399,23 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
         ui.isShowNwInvest = false;
     }
 
+    $scope.delInvestment = function (invID) {
+        kexInvest.deleteInvest(invID, function (data) {
+            var id = data._id;
+            var len = investments.length;
+            for (var i = 0; i < len; i++) {
+                if (investments[i].id == invID) {
+                    investments.splice(i, 1);
+                    return;
+                }
+            }
+        });
+    };
+
     $scope.investMoney = function () {
         kexInvest.investMoney(newInvest, function newInvestCB(data) {
             investments.unshift({
+                id: data._id,
                 date: new Date(),
                 profit: data.profit,
                 amount: data.amount,

@@ -66,9 +66,24 @@ module.exports.initModel = function (mongoose) {
                 id: TypObjectID(profId)
             }
         }, function (err, doc) {
+            /*
+             * {
+             *   _id
+             *   profit
+             *   amount
+             *   investor{
+             *       date
+             *       id
+             *   }
+             * }
+             * */
             doc.profit = doc.profit.amount;
             cb(err, doc);
         });
+    };
+
+    investmentSchema.statics.rmInvestment = function (investmentID, cb) {
+        this.findByIdAndRemove(TypObjectID(investmentID), cb);
     };
 
     investmentSchema.statics.getInvestors = function (skip, limit) {
@@ -97,7 +112,7 @@ module.exports.initModel = function (mongoose) {
                     doc.profit = doc.profit.amount;
                     doc.investor.id.purchases = undefined;
                     doc.investor.id.lastwealth = undefined;
-                    if(doc.debitor && doc.debitor.id){
+                    if (doc.debitor && doc.debitor.id) {
                         doc.debitor.id.purchases = undefined;
                         doc.debitor.id.lastwealth = undefined;
                     }

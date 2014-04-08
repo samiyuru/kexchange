@@ -89,7 +89,17 @@ module.exports.route = function (app, ctrls) {
             res.json(doc);
         });
     });
-    app.get('/api/investments/:id/remove', function (req, res) {
+    app.delete('/api/investments/:id', function (req, res) {
+        ctrls.investmentCtrl.rmInvestment(req.params.id, function(err, docs){
+            if (err) {
+                console.warn(err);
+                res.json({err: "ERROR"});
+                return;
+            }
+            res.json(docs);
+        });
+    });
+    app.post('/api/investments/:id/pay', function (req, res) {
 
     });
     app.get('/api/investments/:id/take', function (req, res) {
