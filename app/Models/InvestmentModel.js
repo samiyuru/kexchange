@@ -86,47 +86,67 @@ module.exports.initModel = function (mongoose) {
         this.findByIdAndRemove(TypObjectID(investmentID), cb);
     };
 
-    investmentSchema.statics.getInvestors = function (skip, limit) {
+    investmentSchema.statics.findInvestments = function (findObj, chunk, cb) {//investmentSchema.statics is used inorder to have a valid this ref inside of the function
+        var query = this.find(findObj)
+            .sort('-debitor.date')
+            .sort('-investor.date')
+            .populate('investor.id')
+            .populate('debitor.id');
+
+        if (chunk != null) {
+            query = query.skip(chunk.skip).limit(chunk.limit);
+        }
+
+        query.exec(function (err, docs) {
+            if (err) {
+                cb(err, docs);
+                return;
+            }
+            var len = docs.length;
+            for (var i = 0; i < len; i++) {
+                var doc = docs[i];
+                doc.profit = doc.profit.amount;
+                doc.investor.id.purchases = undefined;
+                doc.investor.id.lastwealth = undefined;
+                if (doc.debitor && doc.debitor.id) {
+                    doc.debitor.id.purchases = undefined;
+                    doc.debitor.id.lastwealth = undefined;
+                }
+            }
+            cb(err, docs);
+        });
+    }
+
+    investmentSchema.statics.getInvestors = function (exclProfID, skip, limit) {
         //always order by date
+        this.findInvestments({//this is used becs findInvestments() is assigned to this context by mongoose in the end
+            "investor.id": {
+                $ne: TypObjectID(profId)
+            }
+        }, {
+            skip: skip,
+            limit: limit
+        }, cb);
     };
 
-    investmentSchema.statics.getLoansOf = function (personID) {
-
+    investmentSchema.statics.getLoansOf = function (profId, cb) {
+        this.findInvestments({
+            "debitor.id": TypObjectID(profId)
+        }, null, cb);
     };
 
     investmentSchema.statics.getInvestmentsOf = function (profId, cb) {
-        this.find({
+        this.findInvestments({
             "investor.id": TypObjectID(profId)
-        })
-            .sort('-investor.date')
-            .populate('investor.id')
-            .populate('debitor.id')
-            .exec(function (err, docs) {
-                if (err) {
-                    cb(err, docs);
-                    return;
-                }
-                var len = docs.length;
-                for (var i = 0; i < len; i++) {
-                    var doc = docs[i];
-                    doc.profit = doc.profit.amount;
-                    doc.investor.id.purchases = undefined;
-                    doc.investor.id.lastwealth = undefined;
-                    if (doc.debitor && doc.debitor.id) {
-                        doc.debitor.id.purchases = undefined;
-                        doc.debitor.id.lastwealth = undefined;
-                    }
-                }
-                cb(err, docs);
-            });
+        }, null, cb);
     };
 
-    investmentSchema.statics.changeProfit = function (investmentID) {
+    investmentSchema.statics.changeProfit = function (investmentID, cb) {
 
     };
 
-    investmentSchema.statics.payBackInvestment = function (investmentID) {
-
+    investmentSchema.statics.payBackInvestment = function (investmentID, cb) {
+        this.rmInvestment(investmentID, cb);
     };
 
     return mongoose.model('investment', investmentSchema);
