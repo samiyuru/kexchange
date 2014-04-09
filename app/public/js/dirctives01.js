@@ -213,9 +213,7 @@ kEX.directive("productscont", function () {
         restrict: 'A',
         scope: {},
         controller: function ($scope, $element) {
-            var _iPrdInfo = null,
-                _curInfIndx = 99999999,
-                _numCols = 3;
+            var _iPrdInfo = null, _curInfIndx = 99999999, _numCols = 3;
 
             this.infoHided = function () {
                 //_curInfIndx = 99999999;
@@ -227,8 +225,7 @@ kEX.directive("productscont", function () {
 
             this.showPrdInfo = function (product, indx, pMidX) {
                 function lastElemInRow(indx) {
-                    var chldrn = $element.children(),
-                        chL = chldrn.length;
+                    var chldrn = $element.children(), chL = chldrn.length;
                     if (_curInfIndx <= indx)++indx;//correct index by including place for info
                     var offstH = chldrn[indx].offsetTop;
                     for (var i = indx; i < chL; ++i) {
@@ -247,8 +244,7 @@ kEX.directive("productscont", function () {
                     }
                 }
 
-                var obj = lastElemInRow(indx),
-                    infIndx = obj.i;
+                var obj = lastElemInRow(indx), infIndx = obj.i;
                 if (_curInfIndx != infIndx) {
                     _iPrdInfo.hide();
                     angular.element(obj.el).after(_iPrdInfo.domElem);//place after 'prev element'
@@ -324,17 +320,20 @@ kEX.directive("pinfarrow", function () {
 });
 
 
-kEX.directive("timeago", function () {
+kEX.directive("timediff", function () {
     return {
         restrict: 'A',
         scope: {
-            time:"=timeago"
+            time: "=timediff"
         },
         link: function (scope, elem, attr) {
-            var time = new Date(scope.time);
-            elem.html(utils.timeAgo(time));
+            var time = null;
+            scope.$watch("time", function () {
+                time = new Date(scope.time);
+                elem.html(utils.timeDiff(time));
+            });
             window.setInterval(function () {
-                elem.html(utils.timeAgo(time));
+                if (time != null)elem.html(utils.timeDiff(time));
             }, 60000);
         }
     }

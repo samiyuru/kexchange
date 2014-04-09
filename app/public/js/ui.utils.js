@@ -62,7 +62,7 @@ window.utils = new (function () {
 
     }
 
-    this.timeAgo = function (date) {
+    this.timeDiff = function (date) {
         var units = [
             { name: "second", limit: 60, in_seconds: 1 },
             { name: "minute", limit: 3600, in_seconds: 60 },
@@ -73,13 +73,18 @@ window.utils = new (function () {
             { name: "year", limit: null, in_seconds: 31556926 }
         ];
         var diff = ((new Date()).getTime() - date.getTime()) / 1000;
+        var isFuture = false;
+        if (diff < 0) {
+            diff = diff * -1;
+            isFuture = true;
+        }
         if (diff < 5) return "now";
 
         var i = 0;
         while (unit = units[i++]) {
             if (diff < unit.limit || !unit.limit) {
                 var diff = Math.floor(diff / unit.in_seconds);
-                return diff + " " + unit.name + (diff > 1 ? "s" : "") + " ago";
+                return diff + " " + unit.name + (diff > 1 ? "s" : "") + ((isFuture) ? "" : " ago");
             }
         }
     }

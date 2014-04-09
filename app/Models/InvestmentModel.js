@@ -4,7 +4,7 @@
 
 module.exports.initModel = function (mongoose) {
 
-    var PROFIT_CHANGE_EFFECT_GAP = 14;//days
+    var PROFIT_CHANGE_EFFECT_GAP = 14 * 24 * 3600 * 1000;//days
 
     var ObjectId = mongoose.Schema.ObjectId,
         TypObjectID = mongoose.Types.ObjectId;
@@ -23,11 +23,11 @@ module.exports.initModel = function (mongoose) {
                 type: Date
             },
             change: {
-                newProfit: {
+                profit: {
                     type: Number
                 },
                 date: {
-                    type: Date
+                    type: Date//effects after this date
                 }
             }
         },
@@ -77,13 +77,20 @@ module.exports.initModel = function (mongoose) {
              *   }
              * }
              * */
+            if (err) {
+                cb(err, docs);
+                return;
+            }
             doc.profit = doc.profit.amount;
             cb(err, doc);
         });
     };
 
-    investmentSchema.statics.rmInvestment = function (investmentID, cb) {
-        this.findByIdAndRemove(TypObjectID(investmentID), cb);
+    investmentSchema.statics.rmInvestment = function (profID, invID, cb) {
+        this.findByIdAndRemove({
+            _id: TypObjectID(invID),
+            "investor.id": TypObjectID(profID)
+        }, cb);
     };
 
     investmentSchema.statics.findInvestments = function (findObj, chunk, cb) {//investmentSchema.statics is used inorder to have a valid this ref inside of the function
@@ -105,10 +112,10 @@ module.exports.initModel = function (mongoose) {
             var len = docs.length;
             for (var i = 0; i < len; i++) {
                 var doc = docs[i];
-                doc.profit = doc.profit.amount;
+                //doc.profit = doc.profit.amount;
                 doc.investor.id.purchases = undefined;
                 doc.investor.id.lastwealth = undefined;
-                if (doc.debitor && doc.debitor.id) {
+                if (doc.debitor && doc.debitor.id) {//both should be checked bcs of mongoose model
                     doc.debitor.id.purchases = undefined;
                     doc.debitor.id.lastwealth = undefined;
                 }
@@ -141,12 +148,32 @@ module.exports.initModel = function (mongoose) {
         }, null, cb);
     };
 
-    investmentSchema.statics.changeProfit = function (investmentID, cb) {
-
+    investmentSchema.statics.changeProfit = function (profId, invId, newProfit, cb) {
+        this.findOne({
+            _id: TypObjectID(invId),
+            "investor.id": TypObjectID(profId)
+        }).exec(function (err, doc) {
+            if (err || doc == null) {
+                cb(err, docs);
+            } else {
+                var efctDate = new Date((new Date()).getTime() + PROFIT_CHANGE_EFFECT_GAP);
+                if (doc.profit.amount == newProfit) {
+                    doc.profit.change = null;
+                } else {
+                    doc.profit.change = {
+                        date: efctDate,
+                        profit: newProfit
+                    };
+                }
+                doc.save(function (err, doc, num) {
+                    cb(err, doc);
+                });
+            }
+        });
     };
 
     investmentSchema.statics.payBackInvestment = function (investmentID, cb) {
-        this.rmInvestment(investmentID, cb);
+
     };
 
     return mongoose.model('investment', investmentSchema);

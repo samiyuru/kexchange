@@ -5,7 +5,7 @@
 kEX.service("kexPofiles", function ($http, $rootScope, $location) {
 
     var _loggedProf = {
-        id: "53421bb56339790321ce19cf",
+        id: "5341380fe2fa98900e2e46d7",
         shname: "Samiyuru b0fb7d3d",
         name: "Samiyuru Senarathne",
         wealth: 0,
@@ -88,10 +88,10 @@ kEX.service("kexInvest", function ($http) {
             });
     };
 
-    this.deleteInvest = function (id, cb) {
+    this.deleteInvest = function (invID, cb) {
         $http({
             method: "DELETE",
-            url: "/api/investments/" + id
+            url: "/api/investments/" + invID
         }).success(function (data) {
                 cb(data);
             });
@@ -105,6 +105,18 @@ kEX.service("kexInvest", function ($http) {
                 profit: investment.profit
             },
             url: "/api/investments"
+        }).success(function (data) {
+                cb(data);
+            });
+    };
+
+    this.modProfit = function (invID, newProft, cb) {
+        $http({
+            method: "PUT",
+            params:{
+                profit:newProft
+            },
+            url: "/api/investments/" + invID
         }).success(function (data) {
                 cb(data);
             });

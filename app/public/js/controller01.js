@@ -393,38 +393,75 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
         profit: ""
     };
 
-    function hideNewInvest() {
-        newInvest.amount = "";
-        newInvest.profit = "";
-        ui.isShowNwInvest = false;
+    //----------------------------------
+
+    loadInvestments(kexPofiles.getCurrentProfPageID());//initial profile //loaded to profile or reload
+    kexPofiles.onProfileChange(loadInvestments);//profile change event
+
+    //----------------------------------
+
+    var Investment = function (id, amount, date, profit, profitMod, investor, debitor) {
+        this.id = id;
+        this.amount = amount;
+        this.date = date;
+        this.profit = profit;
+        this.profitMod = profitMod;
+        this.investor = investor;
+        this.debitor = debitor;
+        this.ui = {
+            isPrftMod: false,
+            isRmv: false,
+            modPrft: ""
+        };
+    };
+
+    Investment.prototype.modProfit = function (newProft) {
+        kexInvest.modProfit(this.id, newProft, (function (doc) {
+            if (!doc.profit.change) {
+                this.profitMod = null;
+            } else {
+                this.profitMod = {
+                    profit: doc.profit.change.profit,
+                    date: new Date(doc.profit.change.date)//in effect after this date
+                };
+            }
+            this.ui.isPrftMod = false;//hide profit mod inputs
+            this.ui.modPrft = "";//clear mod input
+        }).bind(this));
     }
 
-    $scope.delInvestment = function (invID) {
-        kexInvest.deleteInvest(invID, function (data) {
-            var id = data._id;
-            var len = investments.length;
-            for (var i = 0; i < len; i++) {
-                if (investments[i].id == invID) {
-                    investments.splice(i, 1);
-                    return;
-                }
-            }
+    Investment.prototype.delete = function () {
+        kexInvest.deleteInvest(this.id, function (data) {
+            deleteInv(data._id);
         });
-    };
+    }
 
-    $scope.investMoney = function () {
-        kexInvest.investMoney(newInvest, function newInvestCB(data) {
-            investments.unshift({
-                id: data._id,
-                date: new Date(),
-                profit: data.profit,
-                amount: data.amount,
-                investor: kexPofiles.getLoggedProf(),
-                debitor: null
-            });
-        });
-        hideNewInvest();
-    };
+    //----------------------------------
+
+    function convertDocToInv(doc) {
+        var debitor = null, dispDate;
+        if (doc.debitor) {
+            var _debitor = doc.debitor.id
+            debitor = {
+                name: _debitor.name,
+                shname: _debitor.nickname,
+                propic: _debitor.propic,
+                id: _debitor._id
+            }
+            dispDate = new Date(doc.debitor.date)
+        } else {
+            dispDate = new Date(doc.investor.date)
+        }
+        var profitMod = null;
+        if (doc.profit.change) {
+            profitMod = {
+                profit: doc.profit.change.profit,
+                date: new Date(doc.profit.change.date)//in effect after this date
+            };
+        }
+        var invObj = new Investment(doc._id, doc.amount, dispDate, doc.profit.amount, profitMod, kexPofiles.getLoggedProf(), debitor);
+        return invObj;
+    }
 
     function loadInvestments(profID) {
         if (_curProfID != profID) {
@@ -432,38 +469,38 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
             kexInvest.loadInvestments(profID, function loadInvestCB(data) {
                 var len = data.length;
                 for (var i = 0; i < len; i++) {
-                    var doc = data[i];
-                    var debitor = null,
-                        dispDate;
-                    if (doc.debitor) {
-                        var _debitor = doc.debitor.id
-                        debitor = {
-                            name: _debitor.name,
-                            shname: _debitor.nickname,
-                            propic: _debitor.propic,
-                            id: _debitor._id
-                        }
-                        dispDate = new Date(doc.debitor.date)
-                    } else {
-                        dispDate = new Date(doc.investor.date)
-                    }
-                    investments.push({
-                        id: doc._id,
-                        date: dispDate,
-                        profit: doc.profit,
-                        amount: doc.amount,
-                        investor: kexPofiles.getLoggedProf(),
-                        debitor: debitor
-                    });
+                    var obj = convertDocToInv(data[i])
+                    investments.push(obj);
                 }
                 _curProfID = profID;
             });
         }
     }
 
-    loadInvestments(kexPofiles.getCurrentProfPageID());//initial profile //loaded to profile or  reload
+    function hideNewInvest() {
+        newInvest.amount = "";
+        newInvest.profit = "";
+        ui.isShowNwInvest = false;
+    }
 
-    kexPofiles.onProfileChange(loadInvestments);//profile change event
+    $scope.investMoney = function () {
+        kexInvest.investMoney(newInvest, function newInvestCB(data) {//data format from server is different from normal investment format
+            var invObj = new Investment(data._id, data.amount, new Date(), data.profit, null, kexPofiles.getLoggedProf(), null);
+            investments.unshift(invObj);
+        });
+        hideNewInvest();
+    };
+
+    function deleteInv(invID) {
+        var len = investments.length;
+        for (var i = 0; i < len; i++) {
+            if (investments[i].id == invID) {
+                investments.splice(i, 1);
+                return;
+            }
+        }
+    }
+
 });
 
 kEX.controller("newPrdCtrl", function ($scope) {

@@ -5,20 +5,20 @@
             <li ng-repeat="invst in investments">
                 <!-- You Invested -->
                 <div class="rowtyp01">
-                    <div ng-init="ui={};ui.delete=false;">
+                    <div>
                         <!-- delete confirmation -->
-                        <div ng-show="ui.delete">
+                        <div ng-show="invst.ui.isRmv">
                             <div style="margin: 24px auto;text-align: center;">
-                                <a ng-click="delInvestment(invst.id)" class="link-btn" style="color: #de4747;">Remove</a>
-                                <a ng-click="ui.delete=false;" class="link-btn" style="color: #666666;">Undo</a>
+                                <a ng-click="invst.delete()" class="link-btn btnbg-red">Remove</a>
+                                <a ng-click="invst.ui.isRmv=false;" class="link-btn btnbg-gray">Undo</a>
                             </div>
                         </div>
                         <!-- delete confirmation  end-->
 
                         <!-- invest content -->
-                        <div ng-show="!ui.delete">
-                            <img ng-if="invst.debitor==null" ng-click="ui.delete=true;"
-                                 style="position: absolute;right: 0px;margin-top:3px;"
+                        <div ng-show="!invst.ui.isRmv">
+                            <img ng-if="invst.debitor==null" ng-click="invst.ui.isRmv=true;"
+                                 style="position: absolute;right: 0px;margin-top:4px;"
                                  src="close01.png"/>
 
                             <!-- condinal propic-->
@@ -33,27 +33,34 @@
 
                                 <!-- condinal info-->
                                 <div class="rowL2Typ02">
-                                    <div ng-if="invst.person==null">You invested <span timeago="invst.date"></span></div>
-                                    <div ng-if="invst.person!=null">You invested in {{invst.debitor.shname}}</div>
+                                    <div ng-if="invst.person==null">
+                                        <span>You invested</span>
+                                        <span timediff="invst.date"></span>
+                                    </div>
+                                    <div ng-if="invst.person!=null">
+                                        <span>Taken by {{invst.debitor.shname}}</span>
+                                    </div>
                                 </div>
                                 <!-- condinal info end-->
 
-                                <div ng-init="ui.RateChng=false;" class="rowL2Typ03">
+                                <div class="rowL2Typ03">
                                     <!-- profit readonly -->
-                                    <div ng-show="!ui.RateChng">
+                                    <div ng-show="!invst.ui.isPrftMod">
                                         <span>Profit {{invst.profit}} K$ per week</span>
-                                        <a ng-click="ui.RateChng=true" class="link-btn"
-                                           style="color: #4b87d2;float:right;">Amend Profit</a>
+                                        <a ng-click="invst.ui.isPrftMod=true" class="link-btn btnbg-blue" style="float:right;">Amend Profit</a>
                                     </div>
                                     <!-- profit readonly end-->
                                     <!-- profit mutable -->
-                                    <div ng-show="ui.RateChng" style="text-align: right;">
-                                        <input placeholder="Profit per week" type="text"/>
-                                        <a class="link-btn" style="color: #4b87d2;">Change</a>
-                                        <a ng-click="ui.RateChng=false" class="link-btn"
-                                           style="color: #666666;">Cancel</a>
+                                    <div ng-show="invst.ui.isPrftMod" style="text-align: right;">
+                                        <input ng-model="invst.ui.modPrft" placeholder="Profit" class="rightAlgn type02" type="number"/>
+                                        <a ng-click="invst.modProfit(invst.ui.modPrft)" class="link-btn btnbg-blue">Change</a>
+                                        <a ng-click="invst.ui.isPrftMod=false;invst.ui.modPrft='';" class="link-btn btnbg-gray">Cancel</a>
                                     </div>
                                     <!-- profit mutable end -->
+                                </div>
+                                <div ng-show="!invst.ui.isPrftMod && invst.profitMod!=null" class="rowL2Typ04">
+                                    <span>New profit {{invst.profitMod.profit}}, effects in</span>
+                                    <span timediff="invst.profitMod.date"></span>
                                 </div>
                             </div>
                         </div>
@@ -68,9 +75,7 @@
 
         <!-- invest button -->
         <div ng-show="!ui.isShowNwInvest" class="L-R-margin0 rowtyp01">
-            <button ng-click="ui.isShowNwInvest=true;" onclick="window.utils.scrollToFcs('newInvestmentLoc');"
-                    style="background-color: #4b87d2;">Invest money
-            </button>
+            <button ng-click="ui.isShowNwInvest=true;" onclick="window.utils.scrollToFcs('newInvestmentLoc');" class="btnbg-blue">Invest money</button>
         </div>
         <!-- invest button end-->
     </li>
@@ -93,14 +98,26 @@
             <div class="pad-rightTo-propic">
                 <table>
                     <tr>
-                        <td><div class="input-Labl01 rightspc01">Ammount</div></td>
-                        <td><input class="rightAlgn type01" ng-model="newInvest.amount" placeholder="amount" type="text" /></td>
-                        <td><div class="input-Labl01 rightspc01">K$</div></td>
+                        <td>
+                            <div class="input-Labl01 rightspc01">Ammount</div>
+                        </td>
+                        <td>
+                            <input class="rightAlgn type01" ng-model="newInvest.amount" placeholder="investment" type="text"/>
+                        </td>
+                        <td>
+                            <div class="input-Labl01 rightspc01">K$</div>
+                        </td>
                     </tr>
                     <tr>
-                        <td><div class="input-Labl01 rightspc01">Profit</div></td>
-                        <td><input class="rightAlgn type01" ng-model="newInvest.profit" placeholder="per week" type="text" /></td>
-                        <td><div class="input-Labl01 rightspc01">K$</div></td>
+                        <td>
+                            <div class="input-Labl01 rightspc01">Profit</div>
+                        </td>
+                        <td>
+                            <input class="rightAlgn type01" ng-model="newInvest.profit" placeholder="per week" type="number"/>
+                        </td>
+                        <td>
+                            <div class="input-Labl01 rightspc01">K$</div>
+                        </td>
                     </tr>
                 </table>
             </div>

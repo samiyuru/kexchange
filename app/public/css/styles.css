@@ -44,16 +44,27 @@ button:focus {
     outline: 0;
 }
 
-.btnbg-red{
+button.btnbg-red{
     background-color: #de4747;
 }
 
-.btnbg-blue{
+button.btnbg-blue{
     background-color: #4b87d2;
 }
 
-.btnbg-gray{
+button.btnbg-gray{
  background-color: #666666;
+}
+a.btnbg-red{
+    color: #de4747;
+}
+
+a.btnbg-blue{
+    color: #4b87d2;
+}
+
+a.btnbg-gray{
+    color: #666666;
 }
 
 input, textarea {
@@ -72,6 +83,10 @@ input.rightAlgn, textarea.rightAlgn{
 input.type01{
     max-width: 100px;
     font-size: 16px;
+    padding: 3px 5px !important;
+}
+input.type02{
+    max-width: 80px;
 }
 
 select {
@@ -237,7 +252,7 @@ nav a.active {
 }
 
 .rowtyp01 .rowL2Typ03 {
-    margin-top: 9px; color: #666666;
+    margin-top: 10px; color: #666666;
 }
 
 .rowtyp01 .rowL2Typ03 .confrm{
@@ -246,6 +261,10 @@ nav a.active {
 
 .rowtyp01 .rowL2Typ03 .confrm span{
     color: #000;font-weight: bold;
+}
+
+.rowtyp01 .rowL2Typ04{
+    margin-top: 4px; color: #887972;
 }
 
 .rowtyp01.earning .rowL2Typ02{

@@ -1,5 +1,5 @@
 var fs = require('fs');
-var _testLoggedID = "53421bb56339790321ce19cf";
+var _testLoggedID = "5341380fe2fa98900e2e46d7";
 
 module.exports.route = function (app, ctrls) {
 
@@ -87,17 +87,30 @@ module.exports.route = function (app, ctrls) {
                 res.json({err: "ERROR"});
                 return;
             }
+            console.log("inserted: " + doc);
             res.json(doc);
         });
     });
-    app.delete('/api/investments/:id', function (req, res) {
-        ctrls.investmentCtrl.rmInvestment(req.params.id, function(err, docs){
+    app.delete('/api/investments/:id', function (req, res) {//delete investment
+        ctrls.investmentCtrl.rmInvestment(_testLoggedID, req.params.id, function (err, doc) {
             if (err) {
                 console.warn(err);
                 res.json({err: "ERROR"});
                 return;
             }
-            res.json(docs);
+            console.log("deleted:" + doc);
+            res.json(doc);
+        });
+    });
+    app.put('/api/investments/:id', function (req, res) {//update profit change
+        ctrls.investmentCtrl.changeProfit(_testLoggedID, req.params.id, req.query.profit, function (err, doc) {
+            if (err) {
+                console.warn(err);
+                res.json({err: "ERROR"});
+                return;
+            }
+            console.log("profit updated:" + doc);
+            res.json(doc);
         });
     });
     app.post('/api/investments/:id/pay', function (req, res) {
