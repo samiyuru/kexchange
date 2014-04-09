@@ -17,14 +17,10 @@
 
                         <!-- invest content -->
                         <div ng-show="!invst.ui.isRmv">
-                            <img ng-if="invst.debitor==null" ng-click="invst.ui.isRmv=true;"
-                                 style="position: absolute;right: 0px;margin-top:4px;"
-                                 src="close01.png"/>
+                            <img ng-if="invst.debitor==null" ng-click="invst.ui.isRmv=true;" style="position: absolute;right: 0px;margin-top:4px;" src="close01.png"/>
 
                             <!-- condinal propic-->
-                            <img ng-show="invst.person==null" class="propic-small"
-                                 style="opacity: .4;"
-                                 src="propic01.png"/>
+                            <img ng-show="invst.person==null" class="propic-small" style="opacity: .4;" src="propic01.png"/>
                             <img ng-show="invst.person!=null" class="propic-small" ng-src="{{invst.investor.propic}}"/>
                             <!-- condinal propic end-->
 
@@ -52,14 +48,14 @@
                                     <!-- profit readonly end-->
                                     <!-- profit mutable -->
                                     <div ng-show="invst.ui.isPrftMod" style="text-align: right;">
-                                        <input ng-model="invst.ui.modPrft" placeholder="Profit" class="rightAlgn type02" type="number"/>
+                                        <input ng-model="invst.ui.modPrft" placeholder="Profit per week" class="rightAlgn type02" type="number"/>
                                         <a ng-click="invst.modProfit(invst.ui.modPrft)" class="link-btn btnbg-blue">Change</a>
                                         <a ng-click="invst.ui.isPrftMod=false;invst.ui.modPrft='';" class="link-btn btnbg-gray">Cancel</a>
                                     </div>
                                     <!-- profit mutable end -->
                                 </div>
                                 <div ng-show="!invst.ui.isPrftMod && invst.profitMod!=null" class="rowL2Typ04">
-                                    <span>New profit {{invst.profitMod.profit}}, effects in</span>
+                                    <span>New profit {{invst.profitMod.profit}} K$, effects in</span>
                                     <span timediff="invst.profitMod.date"></span>
                                 </div>
                             </div>

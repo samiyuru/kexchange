@@ -36,7 +36,7 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location) {
         }
     };
 
-    this.getCurrentProfPageID = function () {
+    this.getCurrentProfpageID = function () {
         return _curProfPgID;
     }
 
@@ -79,7 +79,7 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location) {
 });
 
 kEX.service("kexInvest", function ($http) {
-    this.loadInvestments = function (profID, cb) {
+    this.loadMyInvestments = function (profID, cb) {
         $http({
             method: "GET",
             url: "/api/profile/" + profID + "/investments"
@@ -113,10 +113,46 @@ kEX.service("kexInvest", function ($http) {
     this.modProfit = function (invID, newProft, cb) {
         $http({
             method: "PUT",
-            params:{
-                profit:newProft
+            params: {
+                profit: newProft
             },
-            url: "/api/investments/" + invID
+            url: "/api/investments/" + invID + "/profit"
+        }).success(function (data) {
+                cb(data);
+            });
+    };
+
+    this.loadInvestors = function (cb) {
+        $http({
+            method: "GET",
+            url: "/api/investments"
+        }).success(function (data) {
+                cb(data);
+            });
+    };
+
+    this.loadLoans = function (profID, cb) {
+        $http({
+            method: "GET",
+            url: "/api/profile/" + profID + "/moneytaken"
+        }).success(function (data) {
+                cb(data);
+            });
+    };
+
+    this.payBack = function (invID) {
+        $http({
+            method: "PUT",
+            url: "/api/investments/" + invID + "/payback"
+        }).success(function (data) {
+                cb(data);
+            });
+    };
+
+    this.takeLoan = function (invID) {
+        $http({
+            method: "PUT",
+            url: "/api/investments/" + invID + "/take"
         }).success(function (data) {
                 cb(data);
             });

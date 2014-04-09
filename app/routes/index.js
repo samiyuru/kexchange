@@ -41,10 +41,24 @@ module.exports.route = function (app, ctrls) {
         });
     });
     app.get('/api/profile/:id/accounts', function (req, res) {
-
+        ctrls.investmentCtrl.investmentsOf(req.params.id, function (err, doc) {
+            if (err) {
+                console.warn(err);
+                res.json({err: "ERROR"});
+                return;
+            }
+            res.json(doc);
+        });
     });
-    app.get('/api/profile/:id/loans', function (req, res) {
-
+    app.get('/api/profile/:id/moneytaken', function (req, res) {
+        ctrls.investmentCtrl.getMoneyTaken(req.params.id, function (err, doc) {
+            if (err) {
+                console.warn(err);
+                res.json({err: "ERROR"});
+                return;
+            }
+            res.json(doc);
+        });
     });
     app.get('/api/profile/:id/loans/pay', function (req, res) {
 
@@ -78,7 +92,14 @@ module.exports.route = function (app, ctrls) {
 
 
     app.get('/api/investments', function (req, res) {
-
+        ctrls.investmentCtrl.getInvestors(_testLoggedID, function (err, doc) {
+            if (err) {
+                console.warn(err);
+                res.json({err: "ERROR"});
+                return;
+            }
+            res.json(doc);
+        });
     });
     app.post('/api/investments', function (req, res) {
         ctrls.investmentCtrl.newInvestment(_testLoggedID, req.query.amount, req.query.profit, function (err, doc) {
@@ -102,7 +123,7 @@ module.exports.route = function (app, ctrls) {
             res.json(doc);
         });
     });
-    app.put('/api/investments/:id', function (req, res) {//update profit change
+    app.put('/api/investments/:id/profit', function (req, res) {//update profit change
         ctrls.investmentCtrl.changeProfit(_testLoggedID, req.params.id, req.query.profit, function (err, doc) {
             if (err) {
                 console.warn(err);
@@ -113,11 +134,17 @@ module.exports.route = function (app, ctrls) {
             res.json(doc);
         });
     });
-    app.post('/api/investments/:id/pay', function (req, res) {
-
+    app.put('/api/investments/:id/payback', function (req, res) {//update profit change
+        ctrls.investmentCtrl.payBack(_testLoggedID, req.params.id, function (status) {
+            console.log("payback:" + status);
+            res.json(status);
+        });
     });
-    app.get('/api/investments/:id/take', function (req, res) {
-
+    app.put('/api/investments/:id/take', function (req, res) {//update profit change
+        ctrls.investmentCtrl.takeLoan(_testLoggedID, req.params.id, function (status) {
+            console.log("takeLoan:" + status);
+            res.json(status);
+        });
     });
 
 

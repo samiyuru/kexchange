@@ -93,17 +93,20 @@ module.exports.initModel = function (mongoose) {
         }, cb);
     };
 
-    investmentSchema.statics.findInvestments = function (findObj, chunk, cb) {//investmentSchema.statics is used inorder to have a valid this ref inside of the function
+    investmentSchema.statics.findInvestments = function (findObj, chunk, resInvestor, resDebitor, cb) {//investmentSchema.statics is used inorder to have a valid this ref inside of the function
         var query = this.find(findObj)
             .sort('-debitor.date')
             .sort('-investor.date')
-            .populate('investor.id')
-            .populate('debitor.id');
-
+            .select('-__v');
+        if (resInvestor) {
+            query = query.populate('investor.id', {'name': 1, 'nickname': 1, 'wealth': 1, 'propic': 1});
+        }
+        if (resDebitor) {
+            query = query.populate('debitor.id', {'name': 1, 'nickname': 1, 'wealth': 1, 'propic': 1});
+        }
         if (chunk != null) {
             query = query.skip(chunk.skip).limit(chunk.limit);
         }
-
         query.exec(function (err, docs) {
             if (err) {
                 cb(err, docs);
@@ -112,40 +115,31 @@ module.exports.initModel = function (mongoose) {
             var len = docs.length;
             for (var i = 0; i < len; i++) {
                 var doc = docs[i];
-                //doc.profit = doc.profit.amount;
-                doc.investor.id.purchases = undefined;
-                doc.investor.id.lastwealth = undefined;
-                if (doc.debitor && doc.debitor.id) {//both should be checked bcs of mongoose model
-                    doc.debitor.id.purchases = undefined;
-                    doc.debitor.id.lastwealth = undefined;
-                }
             }
             cb(err, docs);
         });
     }
 
-    investmentSchema.statics.getInvestors = function (exclProfID, skip, limit) {
+    investmentSchema.statics.getInvestors = function (exclProfID, chunck, cb) {
         //always order by date
-        this.findInvestments({//this is used becs findInvestments() is assigned to this context by mongoose in the end
+        this.findInvestments({//'this' is used becs findInvestments() is assigned to this context by mongoose in the end
             "investor.id": {
-                $ne: TypObjectID(profId)
-            }
-        }, {
-            skip: skip,
-            limit: limit
-        }, cb);
+                $ne: TypObjectID(exclProfID)
+            },
+            debitor: null
+        }, chunck, true, false, cb);
     };
 
-    investmentSchema.statics.getLoansOf = function (profId, cb) {
+    investmentSchema.statics.getMoneyTaken = function (profId, cb) {
         this.findInvestments({
             "debitor.id": TypObjectID(profId)
-        }, null, cb);
+        }, null, true, false, cb);
     };
 
     investmentSchema.statics.getInvestmentsOf = function (profId, cb) {
         this.findInvestments({
             "investor.id": TypObjectID(profId)
-        }, null, cb);
+        }, null, false, true, cb);
     };
 
     investmentSchema.statics.changeProfit = function (profId, invId, newProfit, cb) {
@@ -158,6 +152,9 @@ module.exports.initModel = function (mongoose) {
             } else {
                 var efctDate = new Date((new Date()).getTime() + PROFIT_CHANGE_EFFECT_GAP);
                 if (doc.profit.amount == newProfit) {
+                    doc.profit.change = null;
+                } else if (!doc.debitor || !doc.debitor.id) {//if the loan is not yet taken
+                    doc.profit.amount = newProfit;
                     doc.profit.change = null;
                 } else {
                     doc.profit.change = {
