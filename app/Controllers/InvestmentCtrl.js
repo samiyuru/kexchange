@@ -5,6 +5,7 @@
 module.exports.initCtrl = function (models) {
 
     var investmentModel = models.investmentModel;
+    var profileModel = models.profileModel;
 
     return new (function (models) {
 
@@ -24,8 +25,8 @@ module.exports.initCtrl = function (models) {
             investmentModel.changeProfit(profId, invId, newProfit, cb);
         };
 
-        this.getMoneyTaken = function (profId, cb) {
-            investmentModel.getMoneyTaken(profId, cb);
+        this.getLoans = function (profId, cb) {
+            investmentModel.getLoans(profId, cb);
         }
 
         this.getInvestors = function (profID, cb) {
@@ -33,11 +34,39 @@ module.exports.initCtrl = function (models) {
         }
 
         this.payBack = function (profID, invID, cb) {
-
+            investmentModel.getInvestmentById(invID, function getInvCB(err, doc) {
+                if (err || doc == null) {
+                    cb({err: "invalid investment ID"});
+                    return;
+                }
+                if (!(doc.debitor.id.toString() == profID)) {
+                    cb({err: "invalid payback"});
+                    return;
+                }
+                profileModel.getMoney(profID, doc.amount, function moneyGetCB(amount) {
+                    if (amount != doc.amount) {
+                        cb({err: "money retrieval error"});
+                        return;
+                    }
+                    profileModel.putMoney(doc.investor.id, amount, function moneyGive(success) {
+                        if (!success) {
+                            cb({err: "money transfer error"});
+                            return;
+                        }
+                        investmentModel.rmInvestmentById(invID, function removeInv(err, doc) {
+                            if (!err) {
+                                cb({err: "Investment could not remove"});
+                                return;
+                            }
+                            cb({err: null, success: true});
+                        });
+                    });
+                });
+            });
         };
 
         this.takeLoan = function (profID, invID, cb) {
-            
+
         };
 
     })();

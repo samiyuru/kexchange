@@ -51,7 +51,7 @@ module.exports.route = function (app, ctrls) {
         });
     });
     app.get('/api/profile/:id/moneytaken', function (req, res) {
-        ctrls.investmentCtrl.getMoneyTaken(req.params.id, function (err, doc) {
+        ctrls.investmentCtrl.getLoans(req.params.id, function (err, doc) {
             if (err) {
                 console.warn(err);
                 res.json({err: "ERROR"});

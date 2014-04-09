@@ -73,6 +73,14 @@ module.exports.initModel = function (mongoose) {
         }
     };
 
+    profileSchema.statics.putMoney = function (profID, amount, cb) {
+        cb(true);
+    };
+
+    profileSchema.statics.getMoney = function (profID, amount, cb) {
+        cb(amount);
+    };
+
     return mongoose.model('profile', profileSchema);
 
 };
