@@ -8,12 +8,12 @@ module.exports.initModel = function (mongoose) {
      * */
     var ObjectId = mongoose.Schema.ObjectId;
 
-    this.ActTypes = {
+    this.TransTypes = {
         EARNING: 0,
         PROFIT_GET: 1,
         PROFIT_PAY: 2,
-        INVEST_GET: 3,
-        INVEST_GIVE: 4,
+        INVEST_ADD: 3,
+        INVEST_REM: 4,
         TAX_PAY: 5,
         SOLD: 6,
         BOUGHT: 7
