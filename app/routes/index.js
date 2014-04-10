@@ -1,5 +1,4 @@
 var fs = require('fs');
-var _testLoggedID = "534619972c62dd290d97daec";
 
 module.exports.route = function (app, ctrls) {
 
@@ -92,7 +91,7 @@ module.exports.route = function (app, ctrls) {
 
 
     app.get('/api/investments', function (req, res) {
-        ctrls.investmentCtrl.getInvestors(_testLoggedID, function (err, doc) {
+        ctrls.investmentCtrl.getInvestors(req.query.auth, function (err, doc) {
             if (err) {
                 console.warn(err);
                 res.json({err: "ERROR"});
@@ -102,7 +101,7 @@ module.exports.route = function (app, ctrls) {
         });
     });
     app.post('/api/investments', function (req, res) {
-        ctrls.investmentCtrl.newInvestment(_testLoggedID, req.query.amount, req.query.profit, function (err, doc) {
+        ctrls.investmentCtrl.newInvestment(req.query.auth, req.query.amount, req.query.profit, function (err, doc) {
             if (err) {
                 console.warn(err);
                 res.json({err: "ERROR"});
@@ -113,7 +112,7 @@ module.exports.route = function (app, ctrls) {
         });
     });
     app.delete('/api/investments/:id', function (req, res) {//delete investment
-        ctrls.investmentCtrl.rmInvestment(_testLoggedID, req.params.id, function (err, doc) {
+        ctrls.investmentCtrl.rmInvestment(req.query.auth, req.params.id, function (err, doc) {
             if (err) {
                 console.warn(err);
                 res.json({err: "ERROR"});
@@ -124,7 +123,7 @@ module.exports.route = function (app, ctrls) {
         });
     });
     app.put('/api/investments/:id/profit', function (req, res) {//update profit change
-        ctrls.investmentCtrl.changeProfit(_testLoggedID, req.params.id, req.query.profit, function (err, doc) {
+        ctrls.investmentCtrl.changeProfit(req.query.auth, req.params.id, req.query.profit, function (err, doc) {
             if (err) {
                 console.warn(err);
                 res.json({err: "ERROR"});
@@ -135,13 +134,13 @@ module.exports.route = function (app, ctrls) {
         });
     });
     app.put('/api/investments/:id/payback', function (req, res) {//update profit change
-        ctrls.investmentCtrl.payBack(_testLoggedID, req.params.id, function (status) {
+        ctrls.investmentCtrl.payBack(req.query.auth, req.params.id, function (status) {
             console.log("payback:" + status);
             res.json(status);
         });
     });
     app.put('/api/investments/:id/take', function (req, res) {//update profit change
-        ctrls.investmentCtrl.takeLoan(_testLoggedID, req.params.id, function (status) {
+        ctrls.investmentCtrl.takeLoan(req.query.auth, req.params.id, function (status) {
             console.log("takeLoan:" + status);
             res.json(status);
         });
