@@ -1,5 +1,5 @@
 var fs = require('fs');
-var _testLoggedID = "5341380fe2fa98900e2e46d7";
+var _testLoggedID = "534619972c62dd290d97daec";
 
 module.exports.route = function (app, ctrls) {
 

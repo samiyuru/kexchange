@@ -16,11 +16,11 @@ module.exports.test = function (app, models, ctrls) {
     }
 
 //    models.profileModel.createProfile({
-//        nickname: 'Samiyuru ' + generateUUID(),
-//        name: 'Samiyuru Senarathne',
+//        nickname: 'Hasith ' + generateUUID(),
+//        name: 'Hasith Senarathne',
 //        lastwealth: 0,
 //        wealth: 0,
-//        propic: '/propics/propic01.png'
+//        propic: '/propics/propic02.png'
 //    }, function cb(err, profile) {
 //        if (err) console.warn(err);
 //        console.log(profile);
@@ -30,6 +30,7 @@ module.exports.test = function (app, models, ctrls) {
     //================route tests=================
     //  http://0.0.0.0:3000/test/132422343?name=samiyuru
     app.get('/test/:id', function (req, res) {
+        //request.body.fieldName //process forms
         app.set('id', req.params.id);
         res.json({
             intId: parseInt(req.params.id),
