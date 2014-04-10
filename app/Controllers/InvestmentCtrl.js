@@ -54,7 +54,7 @@ module.exports.initCtrl = function (models) {
                             return;
                         }
                         investmentModel.rmInvestmentById(invID, function removeInv(err, doc) {
-                            if (!err) {
+                            if (err) {
                                 cb({err: "Investment could not remove"});
                                 return;
                             }
@@ -65,8 +65,14 @@ module.exports.initCtrl = function (models) {
             });
         };
 
-        this.takeLoan = function (profID, invID, cb) {
-
+        this.takeLoan = function (invID, profID, cb) {
+            investmentModel.takeLoan(profID, invID, function (err, numberAffected, rawResponse) {
+                if (err || numberAffected < 1) {
+                    cb({err: "could not obtain money"});
+                    return;
+                }
+                cb({err: null, success: true});
+            });
         };
 
     })();

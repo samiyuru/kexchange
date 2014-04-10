@@ -132,7 +132,9 @@ module.exports.initModel = function (mongoose) {
             "investor.id": {
                 $ne: TypObjectID(exclInvestorID)
             },
-            debitor: null
+            debitor: {
+                $exists: false
+            }
         }, chunck, true, false, cb);
     };
 
@@ -180,7 +182,17 @@ module.exports.initModel = function (mongoose) {
     };
 
     investmentSchema.statics.takeLoan = function (invID, profID, cb) {
-
+        this.update({
+            _id: TypObjectID(invID),
+            debitor: {
+                $exists: false
+            }
+        }, {
+            $set: {
+                "debitor.id": TypObjectID(profID),
+                "debitor.date": new Date()
+            }
+        }, cb);
     };
 
     return mongoose.model('investment', investmentSchema);

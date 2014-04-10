@@ -8,21 +8,22 @@
                     <img class="propic-small" ng-src="{{loan.investor.propic}}"/>
 
                     <div class="pad-rightTo-propic">
-                        <div class="rowL2Typ01">Amount {{loan.amount}} K$ <span>{{loan.timeago}}</span></div>
-                        <div class="rowL2Typ02">Money taken from {{loan.investor.shname}}
+                        <div class="rowL2Typ01">Amount {{loan.amount}} K$</div>
+                        <div class="rowL2Typ02">
+                            <span>from {{loan.investor.nickname}}</span>
+                            <span timediff="loan.date"></span>
                         </div>
 
 
                         <div ng-init="ui={};ui.paybkCnf=false;" class="rowL2Typ03">
                             <div ng-show="!ui.paybkCnf">
-                                <span>Rental {{loan.interest}} K$ per week</span>
-                                <a ng-click="ui.paybkCnf=true;" class="link-btn"
-                                   style="color: #4b87d2;float:right;">Pay Back</a>
+                                <span>Rental {{loan.profit}} K$ per week</span>
+                                <a ng-click="ui.paybkCnf=true;" class="link-btn btnbg-blue" style="float:right;">Pay Back</a>
                             </div>
                             <div ng-show="ui.paybkCnf" class="confrm">
                                 <span>Are you sure?</span>
-                                <a ng-click="" class="link-btn" style="color: #4b87d2;">Pay Back</a>
-                                <a ng-click="ui.paybkCnf=false;" class="link-btn" style="color: #666666;">Cancel</a>
+                                <a ng-click="loan.payBack()" class="link-btn btnbg-blue">Pay Back</a>
+                                <a ng-click="ui.paybkCnf=false;" class="link-btn btnbg-gray">Cancel</a>
                             </div>
                         </div>
 
@@ -57,24 +58,24 @@
             <li ng-repeat="investor in investors">
                 <!-- Investor -->
                 <div class="rowtyp01">
-                    <img class="propic-small"
-                         ng-src="{{investor.investor.propic}}"/>
+                    <img class="propic-small" ng-src="{{investor.investor.propic}}"/>
 
                     <div class="pad-rightTo-propic">
-                        <div class="rowL2Typ01">Amount
-                            {{investor.amount}} K$ <span>1 month ago</span></div>
-                        <div class="rowL2Typ02">Added by {{investor.investor.shname}}</div>
+                        <div class="rowL2Typ01">Amount {{investor.amount}} K$</div>
+                        <div class="rowL2Typ02">
+                            <span>by {{investor.investor.nickname}}</span>
+                            <span timediff="investor.date"></span>
+                        </div>
 
                         <div ng-init="ui={};ui.TakeItCnf=false;" class="rowL2Typ03">
                             <div>
-                                <span>Rental {{investor.interest}} K$ per week</span>
-                                <a ng-show="!ui.TakeItCnf" ng-click="ui.TakeItCnf=true;" class="link-btn"
-                                   style="color: #de4747;float:right;">Take it</a>
+                                <span>Rental {{investor.profit}} K$ per week</span>
+                                <a ng-show="!ui.TakeItCnf" ng-click="ui.TakeItCnf=true;" class="link-btn btnbg-red" style="float:right;">Take it</a>
                             </div>
                             <div ng-show="ui.TakeItCnf" class="confrm">
                                 <span>Are you sure?</span>
-                                <a ng-click="" class="link-btn" style="color: #de4747;">Take it</a>
-                                <a ng-click="ui.TakeItCnf=false;" class="link-btn" style="color: #666666;">Cancel</a>
+                                <a ng-click="investor.take()" class="link-btn btnbg-red">Take it</a>
+                                <a ng-click="ui.TakeItCnf=false;" class="link-btn btnbg-gray">Cancel</a>
                             </div>
                         </div>
                     </div>

@@ -26,7 +26,7 @@ kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles) {
     Investor.prototype.take = function () {
         kexInvest.takeLoan(this.id, (function (status) {
             if (status.success) {
-                loans.unshift(new Loan(this.id, this.amount, this.profitMod, this.investor, kexPofiles.getLoggedProf()));
+                loans.unshift(new Loan(this.id, this.amount, this.date, this.profit, this.profitMod, this.investor, kexPofiles.getLoggedProf()));
                 removeInvestment(this.id);
             }
             this.ui.isTake = false;//hide take it confirmation
@@ -100,8 +100,8 @@ kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles) {
             $scope.showInvestButt = false;//hide 'Need money' button
         }
         if (_curProfID != profID) {
-            $scope.investments = investments = [];
             kexInvest.loadLoans(profID, function loadInvestCB(docs) {
+                loans.length = 0;//clear existing loans
                 var len = docs.length;
                 for (var i = 0; i < len; i++) {
                     var doc = docs[i];
@@ -114,7 +114,7 @@ kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles) {
                             date: new Date(_change.date)
                         };
                     }
-                    var obj = new Loan(doc._id, doc.amount, new Date(doc.debitor.date), profitMod, doc.investor.id, kexPofiles.getLoggedProf());
+                    var obj = new Loan(doc._id, doc.amount, new Date(doc.debitor.date), doc.profit.amount, profitMod, doc.investor.id, kexPofiles.getLoggedProf());
                     loans.push(obj);
                 }
                 _curProfID = profID;
@@ -123,13 +123,13 @@ kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles) {
     }
 
     function loadInvestors() {
-        $scope.investments = investments = [];
         kexInvest.loadInvestors(function loadInvestCB(docs) {
+            investors.length = 0;//clear existing investors
             var len = docs.length;
             for (var i = 0; i < len; i++) {
                 var doc = docs[i];
                 //id, amount, date, profit, profitMod, investor, debitor
-                var obj = new Investor(doc._id, doc.amount, new Date(doc.investor.date), null, doc.investor.id, kexPofiles.getLoggedProf());
+                var obj = new Investor(doc._id, doc.amount, new Date(doc.investor.date), doc.profit.amount, null, doc.investor.id, kexPofiles.getLoggedProf());
                 investors.push(obj);
             }
         });

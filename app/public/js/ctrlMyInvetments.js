@@ -91,7 +91,7 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
 
     function loadMyInvestments(profID) {
         if (_curProfID != profID) {
-            $scope.investments = investments = [];
+            investments.length = 0;//clear existing investments
             kexInvest.loadMyInvestments(profID, function loadInvestCB(data) {
                 var len = data.length;
                 for (var i = 0; i < len; i++) {
