@@ -26,6 +26,17 @@ module.exports.test = function (app, models, ctrls) {
 //        console.log(profile);
 //    });
 
+//    models.profileModel.createProfile({
+//        nickname: 'Samiyuru ' + generateUUID(),
+//        name: 'Samiyuru Senarathne',
+//        lastwealth: 0,
+//        wealth: 0,
+//        propic: '/propics/propic01.png'
+//    }, function cb(err, profile) {
+//        if (err) console.warn(err);
+//        console.log(profile);
+//    });
+
 
     //================route tests=================
     //  http://0.0.0.0:3000/test/132422343?name=samiyuru

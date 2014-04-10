@@ -76,10 +76,10 @@ kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles) {
     };
 
     //----------------------------------
-    function removeInvestment(invID) {
+    function removeInvestment(invstmntID) {
         var len = investors.length;
         for (var i = 0; i < len; i++) {
-            if (investors[i].id == invID) {
+            if (investors[i].id == invstmntID) {
                 investors.splice(i, 1);
                 return;
             }

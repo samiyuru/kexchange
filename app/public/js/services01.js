@@ -5,11 +5,11 @@
 kEX.service("kexPofiles", function ($http, $rootScope, $location) {
 
     var _loggedProf = {
-        id: "534619b8962daa2e0d2dbabe",
+        id: "5346c20b043432d32a7e65b2",
         nickname: "Samiyuru b0fb7d3d",
         name: "Samiyuru Senarathne",
         wealth: 0,
-        propic: "/propics/propic02.png"
+        propic: "/propics/propic01.png"
 
     };
     var _curProfPgID; // currently shown profile page id
@@ -95,13 +95,13 @@ kEX.service("kexInvest", function ($http, kexPofiles) {
             });
     };
 
-    this.deleteInvest = function (invID, cb) {
+    this.deleteInvest = function (invstmntID, cb) {
         $http({
             method: "DELETE",
             params: {
                 auth: kexPofiles.getAuthToken()
             },
-            url: "/api/investments/" + invID
+            url: "/api/investments/" + invstmntID
         }).success(function (data) {
                 cb(data);
             });
@@ -121,14 +121,14 @@ kEX.service("kexInvest", function ($http, kexPofiles) {
             });
     };
 
-    this.modProfit = function (invID, newProft, cb) {
+    this.modProfit = function (invstmntID, newProft, cb) {
         $http({
             method: "PUT",
             params: {
                 auth: kexPofiles.getAuthToken(),
                 profit: newProft
             },
-            url: "/api/investments/" + invID + "/profit"
+            url: "/api/investments/" + invstmntID + "/profit"
         }).success(function (data) {
                 cb(data);
             });
@@ -158,25 +158,25 @@ kEX.service("kexInvest", function ($http, kexPofiles) {
             });
     };
 
-    this.payBack = function (invID, cb) {
+    this.payBack = function (invstmntID, cb) {
         $http({
             method: "PUT",
             params: {
                 auth: kexPofiles.getAuthToken()
             },
-            url: "/api/investments/" + invID + "/payback"
+            url: "/api/investments/" + invstmntID + "/payback"
         }).success(function (data) {
                 cb(data);
             });
     };
 
-    this.takeLoan = function (invID, cb) {
+    this.takeLoan = function (invstmntID, cb) {
         $http({
             method: "PUT",
             params: {
                 auth: kexPofiles.getAuthToken()
             },
-            url: "/api/investments/" + invID + "/take"
+            url: "/api/investments/" + invstmntID + "/take"
         }).success(function (data) {
                 cb(data);
             });

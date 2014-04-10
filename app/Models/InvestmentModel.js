@@ -86,9 +86,9 @@ module.exports.initModel = function (mongoose) {
         });
     };
 
-    investmentSchema.statics.rmInvestment = function (investorID, invID, cb) {
+    investmentSchema.statics.rmInvestmentByInvestor = function (investorID, invstmntID, cb) {
         this.findByIdAndRemove({
-            _id: TypObjectID(invID),
+            _id: TypObjectID(invstmntID),
             "investor.id": TypObjectID(investorID),
             debitor: {
                 $exists: false
@@ -96,9 +96,9 @@ module.exports.initModel = function (mongoose) {
         }, cb);
     };
 
-    investmentSchema.statics.rmInvestmentById = function (invID, cb) {
+    investmentSchema.statics.rmInvestmentById = function (invstmntID, cb) {
         this.findByIdAndRemove({
-            _id: TypObjectID(invID)
+            _id: TypObjectID(invstmntID)
         }, cb);
     };
 
@@ -153,9 +153,9 @@ module.exports.initModel = function (mongoose) {
         }, null, false, true, cb);
     };
 
-    investmentSchema.statics.changeProfit = function (investorId, invId, newProfit, cb) {
+    investmentSchema.statics.changeProfit = function (investorId, invstmntID, newProfit, cb) {
         this.findOne({
-            _id: TypObjectID(invId),
+            _id: TypObjectID(invstmntID),
             "investor.id": TypObjectID(investorId)
         }).exec(function (err, doc) {
             if (err || doc == null) {
@@ -180,13 +180,13 @@ module.exports.initModel = function (mongoose) {
         });
     };
 
-    investmentSchema.statics.getInvestmentById = function (invID, cb) {
-        this.findById(TypObjectID(invID), cb);
+    investmentSchema.statics.getInvestmentById = function (invstmntID, cb) {
+        this.findById(TypObjectID(invstmntID), cb);
     };
 
-    investmentSchema.statics.takeLoan = function (invID, profID, cb) {
+    investmentSchema.statics.takeLoan = function (invstmntID, profID, cb) {
         this.update({
-            _id: TypObjectID(invID),
+            _id: TypObjectID(invstmntID),
             debitor: {
                 $exists: false
             }

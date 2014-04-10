@@ -20,8 +20,8 @@
                             <img ng-if="invst.debitor==null" ng-click="invst.ui.isRmv=true;" style="position: absolute;right: 0px;margin-top:4px;" src="close01.png"/>
 
                             <!-- condinal propic-->
-                            <img ng-show="invst.person==null" class="propic-small" style="opacity: .4;" src="propic01.png"/>
-                            <img ng-show="invst.person!=null" class="propic-small" ng-src="{{invst.investor.propic}}"/>
+                            <img ng-show="invst.debitor==null" class="propic-small" style="opacity: .4;" ng-src="{{invst.investor.propic}}"/>
+                            <img ng-show="invst.debitor!=null" class="propic-small" ng-src="{{invst.debitor.propic}}"/>
                             <!-- condinal propic end-->
 
                             <div class="pad-rightTo-propic">
@@ -29,12 +29,13 @@
 
                                 <!-- condinal info-->
                                 <div class="rowL2Typ02">
-                                    <div ng-if="invst.person==null">
+                                    <div ng-if="invst.debitor==null">
                                         <span>You invested</span>
                                         <span timediff="invst.date"></span>
                                     </div>
-                                    <div ng-if="invst.person!=null">
-                                        <span>Taken by {{invst.debitor.shname}}</span>
+                                    <div ng-if="invst.debitor!=null">
+                                        <span>Taken by {{invst.debitor.nickname}}</span>
+                                        <span timediff="invst.date"></span>
                                     </div>
                                 </div>
                                 <!-- condinal info end-->

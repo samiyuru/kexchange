@@ -72,7 +72,7 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
             var _debitor = doc.debitor.id
             debitor = {
                 name: _debitor.name,
-                shname: _debitor.nickname,
+                nickname: _debitor.nickname,
                 propic: _debitor.propic,
                 id: _debitor._id
             }
@@ -127,10 +127,10 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
         hideNewInvest();
     };
 
-    function deleteInv(invID) {
+    function deleteInv(invstmntID) {
         var len = investments.length;
         for (var i = 0; i < len; i++) {
-            if (investments[i].id == invID) {
+            if (investments[i].id == invstmntID) {
                 investments.splice(i, 1);
                 return;
             }
