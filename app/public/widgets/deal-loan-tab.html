@@ -1,4 +1,4 @@
-<ul ng-init="ui={};ui.isShowInvestors=false;" ng-controller="loanCtrl">
+<ul ng-controller="loanCtrl">
     <li class="L-R-margin0">
         <!-- my loans -->
         <ul>
@@ -40,7 +40,7 @@
         <!-- my loans end -->
 
         <!-- new loan button -->
-        <div ng-show="!ui.isShowInvestors" class="rowtyp01">
+        <div ng-show="((!ui.isShowInvestors) && ui.showInvestButt)" class="rowtyp01">
             <button ng-click="ui.isShowInvestors=true;needMoney();" onclick="window.utils.scrollToFcs('investorsListLoc');" class="btnbg-blue">Need Money</button>
         </div>
         <!-- new loan button end-->

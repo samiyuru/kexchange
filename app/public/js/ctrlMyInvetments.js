@@ -5,7 +5,8 @@
 kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
 
     $scope.ui = ui = {
-        isShowNwInvest: false
+        isShowNwInvest: false,
+        showInvestButt: true
     };
 
     var _curProfID = null;//currently loaded profile id
@@ -92,6 +93,11 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
     }
 
     function loadMyInvestments(profID) {
+        if (profID == kexPofiles.getLoggedProf().id) {//if profile is logged in profile
+            $scope.ui.showInvestButt = true;//show 'Need money' button
+        } else {
+            $scope.ui.showInvestButt = false;//hide 'Need money' button
+        }
         if (_curProfID != profID) {
             investments.length = 0;//clear existing investments
             kexInvest.loadMyInvestments(profID, function loadInvestCB(status) {
