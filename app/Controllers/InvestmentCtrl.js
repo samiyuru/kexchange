@@ -1,6 +1,7 @@
 /**
  * Created by samiyuru on 4/4/14.
  */
+var Utils = require("../utils");
 
 module.exports.initCtrl = function (models) {
 
@@ -10,55 +11,102 @@ module.exports.initCtrl = function (models) {
     return new (function (models) {
 
         this.newInvestment = function (profId, amount, profit, cb) {
-            investmentModel.createInvestment(profId, amount, profit, cb);
+            profileModel.getMoney(profId, amount, function moneyGetCB(_amount) {
+                if (_amount != amount) {
+                    cb(Utils.genResponse("money retrieval error"));
+                    return;
+                }
+                investmentModel.createInvestment(profId, amount, profit, function (err, doc) {
+                    if (err) {
+                        cb(Utils.genResponse("investment creation error"));
+                        return;
+                    }
+                    cb(Utils.genResponse(null, true, doc));
+                });
+            });
         };
 
         this.investmentsOf = function (profId, cb) {
-            investmentModel.getInvestmentsOf(profId, cb);
+            investmentModel.getInvestmentsOf(profId, function (err, docs) {
+                if (err) {
+                    cb(Utils.genResponse("Investments retrieval error"));
+                    return;
+                }
+                cb(Utils.genResponse(null, true, docs));
+            });
         };
 
         this.rmInvestment = function (profId, invID, cb) {
-            investmentModel.rmInvestment(profId, invID, cb);
+            investmentModel.rmInvestment(profId, invID, function (err, doc) {
+                if (err) {
+                    cb(Utils.genResponse("Investment removal failed"));
+                    return;
+                }
+                profileModel.putMoney(doc.investor.id, amount, function moneyGive(success) {
+                    if (!success) {
+                        cb(Utils.genResponse("failed to restore money"));
+                    }
+                    cb(Utils.genResponse(null, true, doc));
+                });
+            });
         };
 
         this.changeProfit = function (profId, invId, newProfit, cb) {
-            investmentModel.changeProfit(profId, invId, newProfit, cb);
+            investmentModel.changeProfit(profId, invId, newProfit, function (err, doc) {
+                if (err) {
+                    cb(Utils.genResponse("Profit change failed"));
+                    return;
+                }
+                cb(Utils.genResponse(null, true, doc));
+            });
         };
 
         this.getLoans = function (profId, cb) {
-            investmentModel.getLoans(profId, cb);
+            investmentModel.getLoans(profId, function (err, docs) {
+                if (err) {
+                    cb(Utils.genResponse("Loan retrieval error"));
+                    return;
+                }
+                cb(Utils.genResponse(null, true, docs));
+            });
         }
 
         this.getInvestors = function (profID, cb) {
-            investmentModel.getInvestors(profID, null, cb);
+            investmentModel.getInvestors(profID, null, function (err, docs) {
+                if (err) {
+                    cb(Utils.genResponse("Investors retrieval error"));
+                    return;
+                }
+                cb(Utils.genResponse(null, true, docs));
+            });
         }
 
         this.payBack = function (profID, invID, cb) {
             investmentModel.getInvestmentById(invID, function getInvCB(err, doc) {
                 if (err || doc == null) {
-                    cb({err: "invalid investment ID"});
+                    cb(Utils.genResponse("invalid payback"));
                     return;
                 }
                 if (!(doc.debitor.id.toString() == profID)) {
-                    cb({err: "invalid payback"});
+                    cb(Utils.genResponse("invalid payback"));
                     return;
                 }
                 profileModel.getMoney(profID, doc.amount, function moneyGetCB(amount) {
                     if (amount != doc.amount) {
-                        cb({err: "money retrieval error"});
+                        cb(Utils.genResponse("money retrieval error"));
                         return;
                     }
                     profileModel.putMoney(doc.investor.id, amount, function moneyGive(success) {
                         if (!success) {
-                            cb({err: "money transfer error"});
+                            cb(Utils.genResponse("money transfer error"));
                             return;
                         }
                         investmentModel.rmInvestmentById(invID, function removeInv(err, doc) {
                             if (err) {
-                                cb({err: "Investment could not remove"});
+                                cb(Utils.genResponse("Investment could not remove"));
                                 return;
                             }
-                            cb({err: null, success: true});
+                            cb(Utils.genResponse(null, true));
                         });
                     });
                 });
@@ -68,10 +116,10 @@ module.exports.initCtrl = function (models) {
         this.takeLoan = function (invID, profID, cb) {
             investmentModel.takeLoan(profID, invID, function (err, numberAffected, rawResponse) {
                 if (err || numberAffected < 1) {
-                    cb({err: "could not obtain money"});
+                    cb(Utils.genResponse("could not obtain money"));
                     return;
                 }
-                cb({err: null, success: true});
+                cb(Utils.genResponse(null, true));
             });
         };
 

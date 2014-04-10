@@ -30,33 +30,18 @@ module.exports.route = function (app, ctrls) {
 
     });
     app.get('/api/profile/:id/investments', function (req, res) {
-        ctrls.investmentCtrl.investmentsOf(req.params.id, function (err, doc) {
-            if (err) {
-                console.warn(err);
-                res.json({err: "ERROR"});
-                return;
-            }
-            res.json(doc);
+        ctrls.investmentCtrl.investmentsOf(req.params.id, function (status) {
+            if (status.success)console.log("inserted: " + status.data);
+            res.json(status);
         });
     });
     app.get('/api/profile/:id/accounts', function (req, res) {
-        ctrls.investmentCtrl.investmentsOf(req.params.id, function (err, doc) {
-            if (err) {
-                console.warn(err);
-                res.json({err: "ERROR"});
-                return;
-            }
-            res.json(doc);
-        });
+
     });
     app.get('/api/profile/:id/moneytaken', function (req, res) {
-        ctrls.investmentCtrl.getLoans(req.params.id, function (err, doc) {
-            if (err) {
-                console.warn(err);
-                res.json({err: "ERROR"});
-                return;
-            }
-            res.json(doc);
+        ctrls.investmentCtrl.getLoans(req.params.id, function (status) {
+            if (status.success)console.log("inserted: " + status.data);
+            res.json(status);
         });
     });
     app.get('/api/profile/:id/loans/pay', function (req, res) {
@@ -91,57 +76,38 @@ module.exports.route = function (app, ctrls) {
 
 
     app.get('/api/investments', function (req, res) {
-        ctrls.investmentCtrl.getInvestors(req.query.auth, function (err, doc) {
-            if (err) {
-                console.warn(err);
-                res.json({err: "ERROR"});
-                return;
-            }
-            res.json(doc);
+        ctrls.investmentCtrl.getInvestors(req.query.auth, function (status) {
+            if (status.success)console.log("inserted: " + status.data);
+            res.json(status);
         });
     });
     app.post('/api/investments', function (req, res) {
-        ctrls.investmentCtrl.newInvestment(req.query.auth, req.query.amount, req.query.profit, function (err, doc) {
-            if (err) {
-                console.warn(err);
-                res.json({err: "ERROR"});
-                return;
-            }
-            console.log("inserted: " + doc);
-            res.json(doc);
+        ctrls.investmentCtrl.newInvestment(req.query.auth, req.query.amount, req.query.profit, function (status) {
+            if (status.success)console.log("inserted: " + status.data);
+            res.json(status);
         });
     });
     app.delete('/api/investments/:id', function (req, res) {//delete investment
-        ctrls.investmentCtrl.rmInvestment(req.query.auth, req.params.id, function (err, doc) {
-            if (err) {
-                console.warn(err);
-                res.json({err: "ERROR"});
-                return;
-            }
-            console.log("deleted:" + doc);
-            res.json(doc);
+        ctrls.investmentCtrl.rmInvestment(req.query.auth, req.params.id, function (status) {
+            if (status.success)console.log("inserted: " + status.data);
+            res.json(status);
         });
     });
     app.put('/api/investments/:id/profit', function (req, res) {//update profit change
-        ctrls.investmentCtrl.changeProfit(req.query.auth, req.params.id, req.query.profit, function (err, doc) {
-            if (err) {
-                console.warn(err);
-                res.json({err: "ERROR"});
-                return;
-            }
-            console.log("profit updated:" + doc);
-            res.json(doc);
+        ctrls.investmentCtrl.changeProfit(req.query.auth, req.params.id, req.query.profit, function (status) {
+            if (status.success)console.log("inserted: " + status.data);
+            res.json(status);
         });
     });
     app.put('/api/investments/:id/payback', function (req, res) {//update profit change
         ctrls.investmentCtrl.payBack(req.query.auth, req.params.id, function (status) {
-            console.log("payback:" + status);
+            if (status.success)console.log("inserted: " + status.data);
             res.json(status);
         });
     });
     app.put('/api/investments/:id/take', function (req, res) {//update profit change
         ctrls.investmentCtrl.takeLoan(req.query.auth, req.params.id, function (status) {
-            console.log("takeLoan:" + status);
+            if (status.success)console.log("inserted: " + status.data);
             res.json(status);
         });
     });

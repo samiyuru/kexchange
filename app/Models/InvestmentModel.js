@@ -89,7 +89,10 @@ module.exports.initModel = function (mongoose) {
     investmentSchema.statics.rmInvestment = function (investorID, invID, cb) {
         this.findByIdAndRemove({
             _id: TypObjectID(invID),
-            "investor.id": TypObjectID(investorID)
+            "investor.id": TypObjectID(investorID),
+            debitor: {
+                $exists: false
+            }
         }, cb);
     };
 
@@ -156,7 +159,7 @@ module.exports.initModel = function (mongoose) {
             "investor.id": TypObjectID(investorId)
         }).exec(function (err, doc) {
             if (err || doc == null) {
-                cb(err, doc);
+                cb(err || {}, doc);
             } else {
                 var efctDate = new Date((new Date()).getTime() + PROFIT_CHANGE_EFFECT_GAP);
                 if (doc.profit.amount == newProfit) {

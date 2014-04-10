@@ -1,7 +1,10 @@
 <ul ng-init="ui={};ui.isShowInvestors=false;" ng-controller="loanCtrl">
     <li class="L-R-margin0">
         <!-- my loans -->
-        <ul style="margin: 0; padding: 0">
+        <ul>
+            <li ng-show="loans.length==0;" class="rowtyp01 listEmptyMsg">
+                You haven't taken money from anyone
+            </li>
             <li ng-repeat="loan in loans">
                 <!-- You took money -->
                 <div class="rowtyp01">
@@ -54,7 +57,10 @@
         <!--investors head end -->
 
         <!--investors list -->
-        <ul class="L-R-margin0" style="margin: 0;padding: 0;">
+        <ul class="L-R-margin0">
+            <li ng-show="investors.length==0;" class="rowtyp01 listEmptyMsg">
+                No Investors available at the moment
+            </li>
             <li ng-repeat="investor in investors">
                 <!-- Investor -->
                 <div class="rowtyp01">

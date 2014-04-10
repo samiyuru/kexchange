@@ -100,7 +100,8 @@ kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles) {
             $scope.showInvestButt = false;//hide 'Need money' button
         }
         if (_curProfID != profID) {
-            kexInvest.loadLoans(profID, function loadInvestCB(docs) {
+            kexInvest.loadLoans(profID, function loadInvestCB(status) {
+                var docs = status.data;
                 loans.length = 0;//clear existing loans
                 var len = docs.length;
                 for (var i = 0; i < len; i++) {
@@ -123,7 +124,8 @@ kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles) {
     }
 
     function loadInvestors() {
-        kexInvest.loadInvestors(function loadInvestCB(docs) {
+        kexInvest.loadInvestors(function loadInvestCB(status) {
+            var docs = status.data;
             investors.length = 0;//clear existing investors
             var len = docs.length;
             for (var i = 0; i < len; i++) {

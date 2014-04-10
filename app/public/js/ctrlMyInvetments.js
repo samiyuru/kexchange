@@ -40,7 +40,8 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
     };
 
     Investment.prototype.modProfit = function (newProft) {
-        kexInvest.modProfit(this.id, newProft, (function (doc) {
+        kexInvest.modProfit(this.id, newProft, (function (status) {
+            var doc = status.data;
             if (!doc.profit.change) {
                 this.profitMod = null;
                 this.profit = doc.profit.amount;
@@ -56,7 +57,8 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
     }
 
     Investment.prototype.delete = function () {
-        kexInvest.deleteInvest(this.id, function (data) {
+        kexInvest.deleteInvest(this.id, function (status) {
+            var data = status.data;
             deleteInv(data._id);
         });
     }
@@ -92,7 +94,8 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
     function loadMyInvestments(profID) {
         if (_curProfID != profID) {
             investments.length = 0;//clear existing investments
-            kexInvest.loadMyInvestments(profID, function loadInvestCB(data) {
+            kexInvest.loadMyInvestments(profID, function loadInvestCB(status) {
+                var data = status.data;
                 var len = data.length;
                 for (var i = 0; i < len; i++) {
                     var obj = convertDocToInv(data[i]);
@@ -110,7 +113,8 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
     }
 
     $scope.investMoney = function () {
-        kexInvest.investMoney(newInvest, function newInvestCB(data) {//data format from server is different from normal investment format
+        kexInvest.investMoney(newInvest, function newInvestCB(status) {//data format from server is different from normal investment format
+            var data = status.data;
             var invObj = new Investment(data._id, data.amount, new Date(), data.profit, null, kexPofiles.getLoggedProf(), null);
             investments.unshift(invObj);
         });
