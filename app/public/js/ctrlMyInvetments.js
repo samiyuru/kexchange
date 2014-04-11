@@ -6,7 +6,7 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
 
     var ui = {
         isShowNwInvest: false,
-        showInvestButt: true
+        isLoggedProfile: true
     };
 
     var _curProfID = null;//currently loaded profile id
@@ -30,6 +30,8 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
 
     var MyInvestment = function () {
         this.ui = {
+            isTake: false,//only applicable in others investments
+            TakeItCnf: false,//only applicable in others investments
             isPrftMod: false,
             isRmv: false,
             modPrft: ""
@@ -84,6 +86,15 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
         });
     }
 
+    MyInvestment.prototype.take = function () {
+        kexInvest.takeLoan(this.id, (function (status) {
+            if (status.success) {
+                deleteInv(this.id);
+            }
+            this.ui.isTake = false;//hide take it confirmation
+        }).bind(this));
+    };
+
     //----------------------------------
 
     loadMyInvestments(kexPofiles.getCurrentProfpageID());//initial profile //loaded to profile or reload
@@ -93,9 +104,9 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
 
     function loadMyInvestments(profID) {
         if (profID == kexPofiles.getLoggedProf()._id) {//if profile is logged in profile
-            ui.showInvestButt = true;//show 'Need money' button
+            ui.isLoggedProfile = true;//hide close, modProfit,
         } else {
-            ui.showInvestButt = false;//hide 'Need money' button
+            ui.isLoggedProfile = false;
         }
         if (_curProfID != profID) {
             investments.length = 0;//clear existing investments
@@ -109,7 +120,7 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
                         , (doc.debitor) ? (new Date(doc.debitor.date)) : (new Date(doc.investor.date))
                         , doc.profit.amount
                         , (doc.profit.change) ? doc.profit.change : null
-                        , kexPofiles.getLoggedProf()
+                        , doc.investor.id
                         , (doc.debitor) ? doc.debitor.id : null);
                     investments.push(obj);
                 }

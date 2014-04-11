@@ -144,13 +144,13 @@ module.exports.initModel = function (mongoose) {
     investmentSchema.statics.getLoans = function (debitorId, cb) {
         this.findInvestments({
             "debitor.id": TypObjectID(debitorId)
-        }, null, true, false, cb);
+        }, null, true, true, cb);
     };
 
     investmentSchema.statics.getInvestmentsOf = function (investorId, cb) {
         this.findInvestments({
             "investor.id": TypObjectID(investorId)
-        }, null, false, true, cb);
+        }, null, true, true, cb);
     };
 
     investmentSchema.statics.changeProfit = function (investorId, invstmntID, newProfit, cb) {

@@ -5,7 +5,7 @@
 kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles) {
     var _curProfID = null;//currently loaded profile id
     var ui = {
-        showInvestButt: true,
+        isLoggedProfile: true,
         isShowInvestors: false
     };
     var investors = [], loans = [];
@@ -104,9 +104,9 @@ kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles) {
 
     function loadLoans(profID) {
         if (profID == kexPofiles.getLoggedProf()._id) {//if profile is logged in profile
-            $scope.ui.showInvestButt = true;//show 'Need money' button
+            ui.isLoggedProfile = true;//show 'Need money' button, pay back
         } else {
-            $scope.ui.showInvestButt = false;//hide 'Need money' button
+            ui.isLoggedProfile = false;//hide 'Need money' button, pay back
         }
         if (_curProfID != profID) {
             kexInvest.loadLoans(profID, function loadInvestCB(status) {

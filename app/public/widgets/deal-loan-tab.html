@@ -2,7 +2,7 @@
     <li class="L-R-margin0">
         <!-- my loans -->
         <ul>
-            <li ng-show="loans.length==0;" class="rowtyp01 listEmptyMsg">
+            <li ng-if="loans.length==0;" class="rowtyp01 listEmptyMsg">
                 You haven't taken money from anyone
             </li>
             <li ng-repeat="loan in loans">
@@ -11,7 +11,7 @@
                     <img class="propic-small" ng-src="{{loan.investor.propic}}"/>
 
                     <div class="pad-rightTo-propic">
-                        <div class="rowL2Typ01">Amount {{loan.amount}} K$</div>
+                        <div class="rowL2Typ01">Amount {{loan.amount.toLocaleString()}} K$</div>
                         <div class="rowL2Typ02">
                             <span>from {{loan.investor.nickname}}</span>
                             <span timediff="loan.date"></span>
@@ -19,11 +19,11 @@
 
 
                         <div ng-init="ui={};ui.paybkCnf=false;" class="rowL2Typ03">
-                            <div ng-show="!ui.paybkCnf">
+                            <div ng-if="!ui.paybkCnf">
                                 <span>Rental {{loan.profit}} K$ per week</span>
-                                <a ng-click="ui.paybkCnf=true;" class="link-btn btnbg-blue" style="float:right;">Pay Back</a>
+                                <a ng-if="ui.isLoggedProfile" ng-click="ui.paybkCnf=true;" class="link-btn btnbg-blue" style="float:right;">Pay Back</a>
                             </div>
-                            <div ng-show="ui.paybkCnf" class="confrm">
+                            <div ng-if="ui.paybkCnf" class="confrm">
                                 <span>Are you sure?</span>
                                 <a ng-click="loan.payBack()" class="link-btn btnbg-blue">Pay Back</a>
                                 <a ng-click="ui.paybkCnf=false;" class="link-btn btnbg-gray">Cancel</a>
@@ -40,13 +40,13 @@
         <!-- my loans end -->
 
         <!-- new loan button -->
-        <div ng-show="((!ui.isShowInvestors) && ui.showInvestButt)" class="rowtyp01">
+        <div ng-if="((!ui.isShowInvestors) && ui.isLoggedProfile)" class="rowtyp01">
             <button ng-click="showInvestors();" onclick="window.utils.scrollToFcs('investorsListLoc');" class="btnbg-blue">Need Money</button>
         </div>
         <!-- new loan button end-->
     </li>
     <li id="investorsListLoc"></li>
-    <li ng-show="ui.isShowInvestors">
+    <li ng-if="ui.isShowInvestors">
         <!--investors head-->
         <div class="rowtyp01 subhead01">
             <div class="L-R-margin0">
@@ -58,7 +58,7 @@
 
         <!--investors list -->
         <ul class="L-R-margin0">
-            <li ng-show="investors.length==0;" class="rowtyp01 listEmptyMsg">
+            <li ng-if="investors.length==0;" class="rowtyp01 listEmptyMsg">
                 No Investors available at the moment
             </li>
             <li ng-repeat="investor in investors">
@@ -67,7 +67,7 @@
                     <img class="propic-small" ng-src="{{investor.investor.propic}}"/>
 
                     <div class="pad-rightTo-propic">
-                        <div class="rowL2Typ01">Amount {{investor.amount}} K$</div>
+                        <div class="rowL2Typ01">Amount {{investor.amount.toLocaleString()}} K$</div>
                         <div class="rowL2Typ02">
                             <span>by {{investor.investor.nickname}}</span>
                             <span timediff="investor.date"></span>
@@ -76,13 +76,15 @@
                         <div ng-init="ui={};ui.TakeItCnf=false;" class="rowL2Typ03">
                             <div>
                                 <span>Rental {{investor.profit}} K$ per week</span>
-                                <a ng-show="!ui.TakeItCnf" ng-click="ui.TakeItCnf=true;" class="link-btn btnbg-red" style="float:right;">Take it</a>
+                                <a ng-if="!ui.TakeItCnf" ng-click="ui.TakeItCnf=true;" class="link-btn btnbg-red" style="float:right;">Take it</a>
                             </div>
-                            <div ng-show="ui.TakeItCnf" class="confrm">
+                            <!-- confirm loan take -->
+                            <div ng-if="ui.TakeItCnf" class="confrm">
                                 <span>Are you sure?</span>
                                 <a ng-click="investor.take()" class="link-btn btnbg-red">Take it</a>
                                 <a ng-click="ui.TakeItCnf=false;" class="link-btn btnbg-gray">Cancel</a>
                             </div>
+                            <!-- confirm loan take end -->
                         </div>
                     </div>
 
