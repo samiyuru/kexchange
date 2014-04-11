@@ -41,7 +41,7 @@
 
         <!-- new loan button -->
         <div ng-show="((!ui.isShowInvestors) && ui.showInvestButt)" class="rowtyp01">
-            <button ng-click="ui.isShowInvestors=true;needMoney();" onclick="window.utils.scrollToFcs('investorsListLoc');" class="btnbg-blue">Need Money</button>
+            <button ng-click="showInvestors();" onclick="window.utils.scrollToFcs('investorsListLoc');" class="btnbg-blue">Need Money</button>
         </div>
         <!-- new loan button end-->
     </li>
@@ -51,7 +51,7 @@
         <div class="rowtyp01 subhead01">
             <div class="L-R-margin0">
                 <h3>Investors</h3>
-                <img class="close" ng-click="ui.isShowInvestors=false;" src="../close01.png">
+                <img class="close" ng-click="hideInvestors();" src="../close01.png">
             </div>
         </div>
         <!--investors head end -->

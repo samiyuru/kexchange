@@ -5,7 +5,7 @@
 kEX.service("kexPofiles", function ($http, $rootScope, $location) {
 
     var _loggedProf = {
-        id: "534619b8962daa2e0d2dbabe",
+        _id: "5346c20b043432d32a7e65b2",
         nickname: "Samiyuru b0fb7d3d",
         name: "Samiyuru Senarathne",
         wealth: 0,
@@ -45,7 +45,7 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location) {
     };
 
     this.getAuthToken = function () {
-        return _loggedProf.id;
+        return _loggedProf._id;
     };
 
     this.setLoggedProf = function (profile) {
@@ -70,7 +70,7 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location) {
         var urlPrts = $location.url().substr(1).split('/');
         if (urlPrts[0] == 'profile') { //url should be like /profile/32324234wfsdfsd or /profile
             if (urlPrts.length == 1) {
-                _curProfPgID = this.getLoggedProf().id;
+                _curProfPgID = this.getLoggedProf()._id;
             } else if (urlPrts.length >= 2) {
                 _curProfPgID = urlPrts[1];
             }
@@ -83,6 +83,16 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location) {
 });
 
 kEX.service("kexInvest", function ($http, kexPofiles) {
+    this.Investment = function (id, amount, date, profit, profitMod, investor, debitor) {
+        this.id = id;
+        this.amount = amount;
+        this.date = date;
+        this.profit = profit;
+        this.profitMod = profitMod;
+        this.investor = investor;
+        this.debitor = debitor;
+    };
+
     this.loadMyInvestments = function (profID, cb) {
         $http({
             method: "GET",

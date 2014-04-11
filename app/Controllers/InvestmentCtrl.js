@@ -51,8 +51,8 @@ module.exports.initCtrl = function (models) {
             });
         };
 
-        this.changeProfit = function (profId, invstmntId, newProfit, cb) {
-            investmentModel.changeProfit(profId, invstmntId, newProfit, function (err, doc) {
+        this.changeProfit = function (investorId, invstmntId, newProfit, cb) {
+            investmentModel.changeProfit(investorId, invstmntId, newProfit, function (err, doc) {
                 if (err) {
                     cb(Utils.genResponse("Profit change failed"));
                     return;

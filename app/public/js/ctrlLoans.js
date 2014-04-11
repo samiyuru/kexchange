@@ -4,32 +4,41 @@
 
 kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles) {
     var _curProfID = null;//currently loaded profile id
-    $scope.ui = {
+    var ui = {
         showInvestButt: true,
         isShowInvestors: false
     };
-    $scope.showInvests = false;
-    var investors, loans;
-    $scope.investors = investors = [];
-    $scope.loans = loans = [];
+    var investors = [], loans = [];
 
-    var Investor = function (id, amount, date, profit, profitMod, investor, debitor) {
-        this.id = id;
-        this.amount = amount;
-        this.date = date;
-        this.profit = profit;
-        this.profitMod = profitMod;
-        this.investor = investor;
-        this.debitor = debitor;
+    $scope.investors = investors;
+    $scope.loans = loans;
+    $scope.ui = ui;
+    $scope.showInvestors = showInvestors;
+    $scope.hideInvestors = hideInvestors;
+
+    //--------------------------------------
+
+    var Investment = kexInvest.Investment;
+
+    var Investor = function () {
         this.ui = {
             isTake: false
         };
+        Investment.apply(this, arguments);
     };
+
+    Investor.prototype = new Investment();
 
     Investor.prototype.take = function () {
         kexInvest.takeLoan(this.id, (function (status) {
             if (status.success) {
-                loans.unshift(new Loan(this.id, this.amount, this.date, this.profit, this.profitMod, this.investor, kexPofiles.getLoggedProf()));
+                loans.unshift(new Loan(this.id
+                    , this.amount
+                    , this.date
+                    , this.profit
+                    , this.profitMod
+                    , this.investor
+                    , kexPofiles.getLoggedProf()));
                 removeInvestment(this.id);
             }
             this.ui.isTake = false;//hide take it confirmation
@@ -38,18 +47,14 @@ kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles) {
 
     //--------------------------------------
 
-    var Loan = function (id, amount, date, profit, profitMod, investor, debitor) {
-        this.id = id;
-        this.amount = amount;
-        this.date = date;
-        this.profit = profit;
-        this.profitMod = profitMod;
-        this.investor = investor;
-        this.debitor = debitor;
+    var Loan = function () {
         this.ui = {
             isPayback: false
         };
+        Investment.apply(this, arguments);
     };
+
+    Loan.prototype = new Investment();
 
     Loan.prototype.payBack = function () {
         kexInvest.payBack(this.id, (function (status) {
@@ -64,18 +69,19 @@ kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles) {
 
     loadLoans(kexPofiles.getCurrentProfpageID());//initial profile //loaded to profile or reload
     kexPofiles.onProfileChange(loadLoans);//profile change event
-
-    //----------------------------------
-
     loadInvestors();//initial profile //loaded to profile or reload
 
     //----------------------------------
 
-    $scope.needMoney = function () {
+    function showInvestors() {
         loadInvestors();
+        ui.isShowInvestors = true;
     };
 
-    //----------------------------------
+    function hideInvestors() {
+        ui.isShowInvestors = false;
+    };
+
     function removeInvestment(invstmntID) {
         var len = investors.length;
         for (var i = 0; i < len; i++) {
@@ -97,7 +103,7 @@ kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles) {
     }
 
     function loadLoans(profID) {
-        if (profID == kexPofiles.getLoggedProf().id) {//if profile is logged in profile
+        if (profID == kexPofiles.getLoggedProf()._id) {//if profile is logged in profile
             $scope.ui.showInvestButt = true;//show 'Need money' button
         } else {
             $scope.ui.showInvestButt = false;//hide 'Need money' button
@@ -110,15 +116,13 @@ kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles) {
                 for (var i = 0; i < len; i++) {
                     var doc = docs[i];
                     //id, amount, date, profit, profitMod, investor, debitor
-                    var profitMod = null;
-                    if (doc.profit.change) {
-                        var _change = doc.profit.change;
-                        profitMod = {
-                            profit: _change.profit,
-                            date: new Date(_change.date)
-                        };
-                    }
-                    var obj = new Loan(doc._id, doc.amount, new Date(doc.debitor.date), doc.profit.amount, profitMod, doc.investor.id, kexPofiles.getLoggedProf());
+                    var obj = new Loan(doc._id
+                        , doc.amount
+                        , new Date(doc.debitor.date)
+                        , doc.profit.amount
+                        , (doc.profit.change) ? doc.profit.change : null
+                        , doc.investor.id
+                        , kexPofiles.getLoggedProf());
                     loans.push(obj);
                 }
                 _curProfID = profID;
@@ -134,7 +138,13 @@ kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles) {
             for (var i = 0; i < len; i++) {
                 var doc = docs[i];
                 //id, amount, date, profit, profitMod, investor, debitor
-                var obj = new Investor(doc._id, doc.amount, new Date(doc.investor.date), doc.profit.amount, null, doc.investor.id, kexPofiles.getLoggedProf());
+                var obj = new Investor(doc._id
+                    , doc.amount
+                    , new Date(doc.investor.date)
+                    , doc.profit.amount
+                    , null
+                    , doc.investor.id
+                    , kexPofiles.getLoggedProf());
                 investors.push(obj);
             }
         });
