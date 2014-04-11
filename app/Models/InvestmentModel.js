@@ -87,7 +87,7 @@ module.exports.initModel = function (mongoose) {
     };
 
     investmentSchema.statics.rmInvestmentByInvestor = function (investorID, invstmntID, cb) {
-        this.findByIdAndRemove({
+        this.findOneAndRemove({
             _id: TypObjectID(invstmntID),
             "investor.id": TypObjectID(investorID),
             debitor: {

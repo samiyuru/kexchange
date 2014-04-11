@@ -10,14 +10,14 @@
                         <div ng-show="invst.ui.isRmv">
                             <div style="margin: 24px auto;text-align: center;">
                                 <a ng-click="invst.delete()" class="link-btn btnbg-red">Remove</a>
-                                <a ng-click="invst.ui.isRmv=false;" class="link-btn btnbg-gray">Undo</a>
+                                <a ng-click="invst.hideDel()" class="link-btn btnbg-gray">Undo</a>
                             </div>
                         </div>
                         <!-- delete confirmation  end-->
 
                         <!-- invest content -->
                         <div ng-show="!invst.ui.isRmv">
-                            <img ng-if="invst.debitor==null" ng-click="invst.ui.isRmv=true;" style="position: absolute;right: 0px;margin-top:4px;" src="close01.png"/>
+                            <img ng-if="invst.debitor==null" ng-click="invst.showDel()" style="position: absolute;right: 0px;margin-top:4px;" src="close01.png"/>
 
                             <!-- condinal propic-->
                             <img ng-show="invst.debitor==null" class="propic-small" style="opacity: .4;" ng-src="{{invst.investor.propic}}"/>
@@ -44,14 +44,14 @@
                                     <!-- profit readonly -->
                                     <div ng-show="!invst.ui.isPrftMod">
                                         <span>Profit {{invst.profit}} K$ per week</span>
-                                        <a ng-click="invst.ui.isPrftMod=true" class="link-btn btnbg-blue" style="float:right;">Amend Profit</a>
+                                        <a ng-click="invst.showProfitMod()" class="link-btn btnbg-blue" style="float:right;">Amend Profit</a>
                                     </div>
                                     <!-- profit readonly end-->
                                     <!-- profit mutable -->
                                     <div ng-show="invst.ui.isPrftMod" style="text-align: right;">
                                         <input ng-model="invst.ui.modPrft" placeholder="Profit per week" class="rightAlgn type02" type="number"/>
                                         <a ng-click="invst.modProfit(invst.ui.modPrft)" class="link-btn btnbg-blue">Change</a>
-                                        <a ng-click="invst.ui.isPrftMod=false;invst.ui.modPrft='';" class="link-btn btnbg-gray">Cancel</a>
+                                        <a ng-click="invst.hideProfitMod();" class="link-btn btnbg-gray">Cancel</a>
                                     </div>
                                     <!-- profit mutable end -->
                                 </div>

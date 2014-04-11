@@ -17,7 +17,7 @@ module.exports.initCtrl = function (models) {
                     return;
                 }
                 investmentModel.createInvestment(profId, amount, profit, function (err, doc) {
-                    if (err) {
+                    if (err || doc == null) {
                         cb(Utils.genResponse("investment creation error"));
                         return;
                     }
@@ -38,7 +38,7 @@ module.exports.initCtrl = function (models) {
 
         this.rmInvestment = function (profId, invstmntID, cb) {
             investmentModel.rmInvestmentByInvestor(profId, invstmntID, function (err, doc) {
-                if (err) {
+                if (err || doc == null) {
                     cb(Utils.genResponse("Investment removal failed"));
                     return;
                 }
@@ -102,7 +102,7 @@ module.exports.initCtrl = function (models) {
                             return;
                         }
                         investmentModel.rmInvestmentById(invstmntID, function removeInv(err, doc) {
-                            if (err) {
+                            if (err || doc == null) {
                                 cb(Utils.genResponse("Investment could not remove"));
                                 return;
                             }

@@ -52,10 +52,31 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
                     date: new Date(doc.profit.change.date)//in effect after this date
                 };
             }
-            this.ui.isPrftMod = false;//hide profit mod inputs
-            this.ui.modPrft = "";//clear mod input
+            this.resetProfitMod();
         }).bind(this));
     }
+
+    Investment.prototype.showDel = function () {
+        this.ui.isRmv = true;
+    };
+
+    Investment.prototype.hideDel = function () {
+        this.ui.isRmv = false;
+    };
+
+    Investment.prototype.showProfitMod = function () {
+        this.ui.isPrftMod = true;
+    };
+
+    Investment.prototype.hideProfitMod = function () {
+        this.ui.isPrftMod = false;
+        this.ui.modPrft = "";
+    };
+
+    Investment.prototype.resetProfitMod = function () {
+        this.ui.hideProfitMod();//hide profit mod inputs
+        this.ui.modPrft = "";//clear mod input
+    };
 
     Investment.prototype.delete = function () {
         kexInvest.deleteInvest(this.id, function (status) {

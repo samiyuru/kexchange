@@ -5,7 +5,7 @@
 kEX.service("kexPofiles", function ($http, $rootScope, $location) {
 
     var _loggedProf = {
-        id: "5346c20b043432d32a7e65b2",
+        id: "534619b8962daa2e0d2dbabe",
         nickname: "Samiyuru b0fb7d3d",
         name: "Samiyuru Senarathne",
         wealth: 0,
