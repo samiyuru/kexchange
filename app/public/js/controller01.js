@@ -289,13 +289,61 @@ kEX.controller("accountCtrl", function ($scope) {
 });
 
 
+kEX.controller("newPrdCtrl", function ($scope, kexProducts) {
+    var ui = {
+        form: false,
+        prdctTypes: [
+            {
+                name: "Session Tickets",
+                value: 0
+            },
+            {
+                name: "Knowledge Transfer",
+                value: 1
+            },
+            {
+                name: "Code Review",
+                value: 2
+            },
+            {
+                name: "Code Help",
+                value: 3
+            }
+        ]
+    };
 
+    var newPrdct = {
+        name: "",
+        detail: "",
+        type: 0,
+        qty: 1,
+        isAuction: false,
+        minBid: 0,
+        price: "",
+        images: [],
+        expire: new Date()
+    };
 
+    $scope.ui = ui;
+    $scope.newPrdct = newPrdct;
+    $scope.submitProduct = submitProduct;
 
-kEX.controller("newPrdCtrl", function ($scope) {
+    function submitProduct() {
+        //isAuction, type, name, detail, qty, price, expire, imgs
+        kexProducts.createProduct(newPrdct.isAuction
+            , newPrdct.type
+            , newPrdct.name
+            , newPrdct.detail
+            , newPrdct.qty
+            , (newPrdct.isAuction) ? newPrdct.minBid : newPrdct.price
+            , newPrdct.expire
+            , newPrdct.images
+        ,function(status){
+
+            });
+    }
 
 });
 
 kEX.controller("mybidsctrl", function ($scope) {
-
 });

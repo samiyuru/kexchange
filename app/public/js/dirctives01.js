@@ -156,12 +156,13 @@ kEX.directive("imgUpload", function () {//parent should be 'imgUploader' //to be
                 for (var i = 0; i < flen; i++) {
                     var file = fInp.files[i];
                     var reader = new FileReader();
-                    reader.onload = function (event) {
+                    reader.onload = (function (event) {
                         imgUploader.addImage({
+                            //imgObj
                             img: event.target.result,
-                            file: file
+                            file: this
                         });
-                    };
+                    }).bind(file);
                     reader.readAsDataURL(file);
                 }
             };
@@ -176,16 +177,22 @@ kEX.directive("imgUpload", function () {//parent should be 'imgUploader' //to be
 kEX.directive("imgUploader", function () {
     return {
         restrict: 'A',
-        scope: {},
+        scope: {
+            imgFiles: "=imgFiles"
+        },
         controller: function ($scope, $element) {
             $scope.imgs = imgs = [];
+            var imgFiles = [];
+            $scope.imgFiles = imgFiles;
             this.addImage = function (imgObj) {
-                imgs.push(imgObj);
+                imgs.push(imgObj.img);
+                imgFiles.push(imgObj.file);
                 $scope.$apply();
             };
             $scope.delImg = function (imgObg) {
                 var indx = imgs.indexOf(imgObg);
                 imgs.splice(indx, 1);
+                imgFiles.splice(indx, 1);
             };
         },
         template: '<div>\
@@ -195,9 +202,9 @@ kEX.directive("imgUploader", function () {
                 <span>No Images added</span>\
             </div>\
             <ul style="margin-bottom: -12px;">\
-                <li ng-repeat="imgOb in imgs" style="display: inline-block; margin: 0 12px 12px 0;position: relative;">\
-                    <img style="height: 66px;padding: 3px;border: 1px solid #d8d8d8;" ng-src="{{imgOb.img}}"/>\
-                    <img ng-click="delImg(imgOb);" style="position: absolute;top:-5px;right: -5px;" src="../close01.png"/>\
+                <li ng-repeat="img in imgs" style="display: inline-block; margin: 0 12px 12px 0;position: relative;">\
+                    <img style="height: 66px;padding: 3px;border: 1px solid #d8d8d8;" ng-src="{{img}}"/>\
+                    <img ng-click="delImg(img);" style="position: absolute;top:-5px;right: -5px;" src="../close01.png"/>\
                 </li>\
             </ul>\
         </div>\

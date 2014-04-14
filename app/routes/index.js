@@ -1,4 +1,5 @@
 var fs = require('fs');
+var formidable = require('formidable');
 
 module.exports.route = function (app, ctrls) {
 
@@ -67,8 +68,13 @@ module.exports.route = function (app, ctrls) {
     app.get('/api/products/:id/newbid', function (req, res) {
 
     });
-    app.get('/api/products/new', function (req, res) {
-
+    app.post('/api/products/', function (req, res) {
+        var form = new formidable.IncomingForm();
+        form.parse(req, function (err, fields, files) {
+            ctrls.productCtrl.createProduct(req.query.auth, fields, files, function(status){
+                res.json(status);
+            });
+        });
     });
     app.get('/api/products/:id/remove', function (req, res) {
 

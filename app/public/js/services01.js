@@ -193,3 +193,34 @@ kEX.service("kexInvest", function ($http, kexPofiles) {
     };
 
 });
+
+kEX.service("kexProducts", function ($http, kexPofiles) {
+
+    this.createProduct = function (isAuction, type, name, detail, qty, price, expire, imgs, cb) {
+        var formData = new FormData();
+        formData.append("type", type);
+        formData.append("name", name);
+        formData.append("detail", detail);
+        formData.append("qty", qty);
+        formData.append("price", price);
+        formData.append("expire", expire);
+        var imgLen = imgs.length;
+        for (var i = 0; i < imgLen; i++) {
+            formData.append("img_" + i, imgs[i]);
+        }
+        $http({
+            method: "POST",
+            params: {
+                auth: kexPofiles.getAuthToken(),
+                isauction: (isAuction) ? 1 : 0
+            },
+            data: formData,
+            headers: {'Content-Type': undefined },
+            transformRequest: angular.identity,
+            url: "/api/products/"
+        }).success(function (data) {
+                cb(data);
+            });
+    }
+
+});

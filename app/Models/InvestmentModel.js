@@ -77,11 +77,9 @@ module.exports.initModel = function (mongoose) {
              *   }
              * }
              * */
-            if (err) {
-                cb(err, docs);
-                return;
+            if (!err && doc) {
+                doc.profit = doc.profit.amount;
             }
-            doc.profit = doc.profit.amount;
             cb(err, doc);
         });
     };
