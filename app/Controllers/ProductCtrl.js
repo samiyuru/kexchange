@@ -30,6 +30,25 @@ module.exports.initCtrl = function (models) {
             });
         };
 
+        this.getProductsFor = function (profID, isAuction, chunk, cb) {
+            productModel.getProducts(profID, false, isAuction, chunk, function (err, docs) {
+                if (err) {
+                    cb(Utils.genResponse("products retrieval error"));
+                    return;
+                }
+                cb(Utils.genResponse(null, true, docs));
+            });
+        };
+
+        this.getProductsOf = function (profID, isAuction, chunk, cb) {
+            productModel.getProducts(profID, true, isAuction, chunk, function (err, docs) {
+                if (err) {
+                    cb(Utils.genResponse("products retrieval error"));
+                    return;
+                }
+                cb(Utils.genResponse(null, true, docs));
+            });
+        };
 
         function saveImages(files, cb) {
             var fileNames = [];
@@ -70,8 +89,6 @@ module.exports.initCtrl = function (models) {
                 cb(null, []);
             }
         }
-
-
     })();
 
 };

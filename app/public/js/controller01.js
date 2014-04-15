@@ -6,86 +6,54 @@ kEX.controller("kexroot", function ($scope, $rootScope, $location, kexPofiles) {
 
 });
 
-kEX.controller("prdctsCtrlr", function ($scope) {
-    $scope.products = [
-        {
-            id: 0002,
-            name: "Domain driven development session",
-            left: 2,
-            prdcover: "product-cover001.png",
-            seller: {
-                id: 0001,
-                shname: "Samiyuru",
-                name: "Samiyuru Senarathne",
-                propic: "propic01.png"
-            }
-        },
+kEX.controller("prdctsCtrlr", function ($scope, kexProducts) {
+    var _curProfID = null;
+    var products = [];
 
-        {
-            id: 0002,
-            name: "Session Tickets",
-            left: 2,
-            prdcover: "product-cover001.png",
-            seller: {
-                id: 0001,
-                shname: "Samiyuru",
-                name: "Samiyuru Senarathne",
-                propic: "propic01.png"
-            }
-        },
+    //-----------------------------------------------
 
-        {
-            id: 0002,
-            name: "Session Tickets",
-            left: 2,
-            prdcover: "product-cover001.png",
-            seller: {
-                id: 0001,
-                shname: "Samiyuru",
-                name: "Samiyuru Senarathne",
-                propic: "propic01.png"
-            }
-        },
+    $scope.products = products;
 
-        {
-            id: 0002,
-            name: "Session Tickets",
-            left: 2,
-            prdcover: "product-cover001.png",
-            seller: {
-                id: 0001,
-                shname: "Samiyuru",
-                name: "Samiyuru Senarathne",
-                propic: "propic01.png"
-            }
-        },
+    //-----------------------------------------------
 
-        {
-            id: 0002,
-            name: "Session Tickets",
-            left: 2,
-            prdcover: "product-cover001.png",
-            seller: {
-                id: 0001,
-                shname: "Samiyuru",
-                name: "Samiyuru Senarathne",
-                propic: "propic01.png"
-            }
-        },
+    var Product = function (prdObj) {
+        this.id = prdObj._id;
+        this.title = prdObj.title;
+        this.qty = prdObj.qty;
+        this.remQty = prdObj.remQty;
+        this.owner = prdObj.owner;
+        this.price = prdObj.price;
+        this.isAuction = prdObj.isAuction;
+        this.type = prdObj.type;
+        this.bids = prdObj.bids;
+        this.expire = new Date(prdObj.expire);
+        this.detail = prdObj.detail;
+        this.dateAdded = new Date(prdObj.date);
+        this.imgs = prdObj.imgs;
+    };
 
-        {
-            id: 0002,
-            name: "Session Tickets",
-            left: 2,
-            prdcover: "product-cover001.png",
-            seller: {
-                id: 0001,
-                shname: "Samiyuru",
-                name: "Samiyuru Senarathne",
-                propic: "propic01.png"
+    Product.prototype.placeBid = function (newBid) {
+        if (this.isAuction)return;
+    };
+
+    Product.prototype.purchase = function (newBid) {
+
+    };
+
+    //-----------------------------------------------
+
+    kexProducts.getProducts(null, function (status) {
+        if (status.success) {
+            products.length = 0;
+            var data = status.data;
+            var dataLen = data.length;
+            for (var i = 0; i < dataLen; i++) {
+                var product = new Product(data[i]);
+                products.push(product);
             }
         }
-    ];
+    });
+
 });
 
 kEX.controller("recntErnngsCtrlr", function ($scope) {
@@ -233,7 +201,7 @@ kEX.controller("tpWlthyCtrler", function ($scope, kexPofiles) {
 
 });
 
-kEX.controller("coverCtrlr", function ($scope) {
+kEX.controller("coverCtrlr", function ($scope, kexPofiles) {
     $scope.name = "Samiyuru Senarathne";
     $scope.status = "Millionaire";
     $scope.balance = 10000;
@@ -338,7 +306,7 @@ kEX.controller("newPrdCtrl", function ($scope, kexProducts) {
             , (newPrdct.isAuction) ? newPrdct.minBid : newPrdct.price
             , newPrdct.expire
             , newPrdct.images
-        ,function(status){
+            , function (status) {
 
             });
     }

@@ -80,15 +80,15 @@
                     <img class="cover" ng-src="{{product.prdcover}}"/>
 
                     <div class="propic">
-                        <img class="propic-small" ng-src="{{product.seller.propic}}"/>
+                        <img class="propic-small" ng-src="{{product.owner.propic}}"/>
                     </div>
                     <div class="dtlPad">
                         <div class="row01">
-                            <span>{{product.name}}</span>
+                            <span>{{product.title}}</span>
                         </div>
-                        <div class="row02">{{product.left}} out of 6 left
+                        <div class="row02">{{product.remQty}} out of {{product.qty}} left
                         </div>
-                        <div class="row03">1,000 K$</div>
+                        <div class="row03">{{product.price}} K$</div>
                     </div>
                 </div>
             </li>

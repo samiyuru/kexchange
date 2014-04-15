@@ -4,7 +4,8 @@
 
 module.exports.initModel = function (mongoose) {
 
-    var ObjectId = mongoose.Schema.ObjectId;
+    var ObjectId = mongoose.Schema.ObjectId,
+        TypObjectID = mongoose.Types.ObjectId;
 
     var profileSchema = new mongoose.Schema({
         nickname: {
@@ -53,24 +54,24 @@ module.exports.initModel = function (mongoose) {
         this.create(profile, cb);
     };
 
-    profileSchema.statics.getProfile = function (id, cb) {
-        this.findById(id, {}, cb);
+    profileSchema.statics.getProfile = function (profID, cb) {
+        this.findOne({
+            _id: TypObjectID(profID)
+        })
+            .select('_id nickname name propic wealth lastwealth')
+            .exec(cb);
     };
 
-    profileSchema.statics.getProfiles = function (skip, limit, cb) {
-        if (limit == null) {
-            this.find({})
-                .select('nickname name propic wealth')
-                .sort('-wealth')
-                .exec(cb);
-        } else {
-            this.find({})
-                .select('nickname name propic wealth lastwealth')
-                .sort('-wealth')
-                .skip(skip)
-                .limit(limit)
-                .exec(cb);
+    profileSchema.statics.getProfiles = function (chunk, cb) {
+        var findObj = {};
+        var query = this.find({})
+            .select('_id nickname name propic wealth lastwealth')
+            .sort('-wealth');
+        if (chunk) {
+            query = query.skip(chunk.skip)
+                .limit(chunk.limit);
         }
+        query.exec(cb);
     };
 
     profileSchema.statics.putMoney = function (profID, amount, cb) {

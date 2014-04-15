@@ -26,7 +26,8 @@ module.exports.initModel = function (mongoose) {
         },
         owner: {
             type: ObjectId,
-            required: true
+            required: true,
+            ref: 'profile'
         },
         type: {
             type: Number,
@@ -86,17 +87,24 @@ module.exports.initModel = function (mongoose) {
 
     };
 
-    productSchema.statics.getProducts = function (profID, profIDOwns, isRem, isAuction, chunk, cb) {
+    productSchema.statics._getProducts = function (profID, profIDOwns, isRem, isAuction, chunk, populate, cb) {
         //always order by date
         var srch = {};
-        if (profIDOwns) {
-            srch.owner = TypObjectID(profID);//owns
-        } else {
-            srch.owner = {
-                $ne: TypObjectID(profID)//not owns
-            };
+        if (profID) {
+            if (profIDOwns) {
+                srch.owner = TypObjectID(profID);//owns
+            } else {
+                srch.owner = {
+                    $ne: TypObjectID(profID)//not owns
+                };
+            }
         }
-        if (isAuction != null) {
+        if (isAuction) {
+            if (isAuction === 1) {
+                isAuction = true;
+            } else if (isAuction === 0) {
+                isAuction = false;
+            }
             srch.isAuction = isAuction;
         }
         if (isRem === true) {//available
@@ -107,6 +115,9 @@ module.exports.initModel = function (mongoose) {
             srch.remQty = 0;
         }
         var query = this.find(srch);
+        if (populate) {
+            query = query.populate('owner', {'name': 1, 'nickname': 1, 'wealth': 1, 'propic': 1});
+        }
         if (chunk) {
             query = query.skip(chunk.skip);
             query = query.limit(chunk.limit);
@@ -115,12 +126,12 @@ module.exports.initModel = function (mongoose) {
             .exec(cb);
     };
 
-    productSchema.statics.getProductsOf = function (ownerID, isAuction, chunk, cb) {
-        this.getProducts(ownerID, true, true, null, null, cb);
-    };
-
-    productSchema.statics.getProductsFor = function (profID, isAuction, chunk, cb) {
-
+    /*
+     * isAuction accepts true, false, 1, 0
+     * */
+    productSchema.statics.getProducts = function (profID, profIDOwns, isAuction, chunk, cb) {
+        //profID, profIDOwns, isRem, isAuction, chunk, populate, cb
+        this._getProducts(profID, profIDOwns, true, isAuction, null, true, cb);
     };
 
     return mongoose.model('product', productSchema);
