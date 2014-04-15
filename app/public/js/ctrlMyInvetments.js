@@ -97,12 +97,14 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
 
     //----------------------------------
 
-    loadMyInvestments(kexPofiles.getCurrentProfpageID());//initial profile //loaded to profile or reload
-    kexPofiles.onProfileChange(loadMyInvestments);//profile change event
+    kexPofiles.getCurrentProfile(function currentProfile(profile){
+        loadMyInvestments(profile);
+    });
 
     //----------------------------------
 
-    function loadMyInvestments(profID) {
+    function loadMyInvestments(profile) {
+        var profID = profile._id;
         if (profID == kexPofiles.getLoggedProf()._id) {//if profile is logged in profile
             ui.isLoggedProfile = true;//hide close, modProfit,
         } else {

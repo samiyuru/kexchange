@@ -67,9 +67,11 @@ kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles) {
 
     //----------------------------------
 
-    loadLoans(kexPofiles.getCurrentProfpageID());//initial profile //loaded to profile or reload
-    kexPofiles.onProfileChange(loadLoans);//profile change event
-    loadInvestors();//initial profile //loaded to profile or reload
+
+    loadInvestors();
+    kexPofiles.getCurrentProfile(function currentProfile(profile){
+        loadLoans(profile);
+    });
 
     //----------------------------------
 
@@ -102,7 +104,8 @@ kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles) {
         }
     }
 
-    function loadLoans(profID) {
+    function loadLoans(profile) {
+        var profID = profile._id;
         if (profID == kexPofiles.getLoggedProf()._id) {//if profile is logged in profile
             ui.isLoggedProfile = true;//show 'Need money' button, pay back
         } else {
