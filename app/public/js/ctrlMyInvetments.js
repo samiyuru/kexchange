@@ -9,8 +9,6 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
         isLoggedProfile: true
     };
 
-    var _curProfID = null;//currently loaded profile id
-
     var investments = [];
 
     var newInvest = {
@@ -110,7 +108,6 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
         } else {
             ui.isLoggedProfile = false;
         }
-        if (_curProfID != profID) {
             investments.length = 0;//clear existing investments
             kexInvest.loadMyInvestments(profID, function loadInvestCB(status) {
                 var data = status.data;
@@ -128,7 +125,6 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
                 }
                 _curProfID = profID;
             });
-        }
     }
 
     function hideNewInvest() {

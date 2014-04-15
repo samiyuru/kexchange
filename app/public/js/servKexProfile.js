@@ -62,7 +62,7 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location) {
         $http({
             method: "GET",
             params: {
-                auth: kexPofiles.getAuthToken()
+                auth: this.getAuthToken()
             },
             url: "/api/profile/" + profID
         }).success(function (data) {
@@ -79,6 +79,7 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location) {
                 var profID = urlPrts[1];
                 if (profID == _loggedProf._id) {
                     cb(_loggedProf);
+                    return;
                 }
                 _profileService.getProfile(profID, function (data) {
                     if (data.success) {
