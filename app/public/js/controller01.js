@@ -2,8 +2,24 @@
  * Samiyuru Senarathne
  */
 
-kEX.controller("kexroot", function ($scope, $rootScope, $location, kexPofiles) {
+kEX.controller("kexroot", function ($scope, kexPofiles) {
+    var user = {
+        username: "",
+        password: ""
+    };
+    $scope.isLogged = false;
+    $scope.user = user;
+    $scope.login = login;
 
+    function login() {
+        kexPofiles.authorize(user.username, user.password, function (status) {
+            if (status.success) {
+                $scope.isLogged = true;
+            } else {
+                $scope.isLogged = false;
+            }
+        });
+    }
 });
 
 kEX.controller("prdctsCtrlr", function ($scope, kexProducts) {
@@ -192,21 +208,26 @@ kEX.controller("topErnrsCtrlr", function ($scope) {
 kEX.controller("tpWlthyCtrler", function ($scope, kexPofiles) {
     $scope.wlthyPrsns = wlthyPrsns = [];
 
-    kexPofiles.loadProfiles(function loadWlthyPplCB(data) {
-        var len = data.length;
+    kexPofiles.loadProfiles(function loadWlthyPplCB(status) {
+        var profiles = status.data;
+        var len = profiles.length;
         for (var i = 0; i < len; i++) {
-            wlthyPrsns.push(data[i]);
+            wlthyPrsns.push(profiles[i]);
         }
     });
 
 });
 
 kEX.controller("coverCtrlr", function ($scope, kexPofiles) {
-    $scope.name = "Samiyuru Senarathne";
-    $scope.status = "Millionaire";
-    $scope.balance = 10000;
-    $scope.loan = 5000;
-    $scope.propic = "propic01.png";
+//    $scope.name = "Samiyuru Senarathne";
+//    $scope.status = "Millionaire";
+//    $scope.balance = 10000;
+//    $scope.loan = 5000;
+//    $scope.propic = "propic01.png";
+
+    kexPofiles.getCurrentProfile(function currentProfile(profile) {
+        $scope.profile = profile;
+    });
 });
 
 kEX.controller("accountCtrl", function ($scope) {

@@ -18,6 +18,14 @@ module.exports.initModel = function (mongoose) {
             type: String,
             required: true
         },
+        status: {
+            type: String,
+            required: true
+        },
+        loan: {
+            type: Number,
+            required: true
+        },
         lastwealth: {
             type: Number,
             required: true
@@ -51,6 +59,10 @@ module.exports.initModel = function (mongoose) {
     });
 
     profileSchema.statics.createProfile = function (profile, cb) {
+        profile.wealth = 0;
+        profile.lastwealth = 0;
+        profile.loan = 0;
+        profile.status = 'Beginner';
         this.create(profile, cb);
     };
 

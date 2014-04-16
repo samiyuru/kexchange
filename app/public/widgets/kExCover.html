@@ -1,26 +1,87 @@
-<div ng-controller="coverCtrlr" style="position: relative;width: 1015px;margin: 0 auto; overflow: hidden;height: 90px;">
-    <img style="position: absolute;" cover-img="cover.png" img-profile="cover01.png" />
+<style type="text/css">
+    .cover {
+        position: relative;
+        width: 1015px;
+        margin: 0 auto;
+        overflow: hidden;
+        height: 90px;
+    }
 
-    <div style="position: relative; margin: 0 auto; width: 880px;">
-        <img class="propic-mid" style="position: absolute; top: 10px; left: 0px;" ng-src="{{propic}}">
+    .cover #coverpic {
+        position: absolute;
+    }
 
-        <div style="top: 0; padding-top: 24px; padding-left: 110px; position: relative;">
+    .cover #detailCont {
+        position: relative;
+        margin: 0 auto;
+        width: 880px;
+    }
+
+    .cover #detailCont2 {
+        top: 0;
+        padding-top: 24px;
+        padding-left: 110px;
+        position: relative;
+    }
+
+    .cover .propic {
+        position: absolute;
+        top: 10px;
+        left: 0px;
+    }
+
+    .cover #detailCont2 table {
+        color: #e5e5e5;
+        font-size: 14px;
+        margin-top: 5px;
+        float: right;
+        margin-right: 25px;
+    }
+
+    .cover #detailCont2 table .col1 {
+        text-align: left;
+    }
+
+    .cover #detailCont2 table .col2 {
+        text-align: right;
+        min-width: 60px
+    }
+
+    .cover #prfname {
+        color: #fff;
+        font-weight: bold;
+        font-size: 16px;
+        padding: 2px;
+    }
+
+    .cover #prfstatus {
+        color: #e5e5e5;
+        font-size: 14px;
+        padding: 2px;
+    }
+</style>
+
+<div ng-controller="coverCtrlr" class="cover">
+    <img style="position: absolute;" cover-img="cover.png" img-profile="cover01.png" id="coverpic"/>
+
+    <div id="detailCont">
+        <img ng-src="{{profile.propic}}" class="propic-mid propic">
+
+        <div id="detailCont2">
             <div style="float: left;">
-                <div style="color: #fff; font-weight: bold; font-size: 16px;padding: 2px;">{{name}}</div>
-                <div style="color: #e5e5e5; font-size: 14px;padding: 2px;">{{status}}</div>
+                <div id="prfname">{{profile.name}}</div>
+                <div id="prfstatus">{{profile.status}}</div>
             </div>
-            <div style="float: right;margin-right: 25px;">
-                <table style="color: #e5e5e5; font-size: 14px;margin-top: 3px;">
-                    <tr>
-                        <td style="text-align: left;">Balance</td>
-                        <td style="text-align: right;">{{balance}} K$</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Loan</td>
-                        <td style="text-align: right;">{{loan}} K$</td>
-                    </tr>
-                </table>
-            </div>
+            <table>
+                <tr>
+                    <td class="col1">Wealth</td>
+                    <td class="col2">{{profile.wealth.toLocaleString()}} K$</td>
+                </tr>
+                <tr>
+                    <td class="col1">Loan</td>
+                    <td class="col2">{{profile.loan.toLocaleString()}} K$</td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>

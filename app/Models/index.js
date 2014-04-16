@@ -18,5 +18,7 @@ module.exports = function (db) {
 
     models.accountModel = require('./AccountModel').initModel(db);
 
+    models.authModel = require('./AuthModel').initModel(db);
+
     return models;
 }

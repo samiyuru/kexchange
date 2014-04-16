@@ -4,37 +4,27 @@
 
 kEX.service("kexPofiles", function ($http, $rootScope, $location) {
 
-    var _loggedProf = {
-        _id: "5346c1ed2466e9ce2a6b577c",
-        nickname: "Samiyuru b0fb7d3d",
-        name: "Samiyuru Senarathne",
-        wealth: 0,
-        propic: "/propics/propic01.png"
-    };
-
+    var _loggedProf = null;
     var _curProfile;// currently shown profile
-
     var _limit = 5;
     var _skip = 0;
-    var _isLoading = false;
     var _profileService = this;
+    var _authToken;
+
+    //----------------------------------------
 
     this.loadProfiles = function (cb) {
-        if (!_isLoading) {
-            $http({
-                method: "GET",
-                url: "/api/profiles",
-                params: {
-                    skip: _skip,
-                    limit: _limit
-                }
-            }).success(function (data) {
-                    cb(data);
-                    _isLoading = false;
-                }).error(function (data) {
-                    _isLoading = false;
-                });
-        }
+        $http({
+            method: "GET",
+            url: "/api/profiles",
+            params: {
+                skip: _skip,
+                limit: _limit,
+                auth: this.getAuthToken()
+            }
+        }).success(function (data) {
+                cb(data);
+            });
     };
 
     this.getCurrentProfpageID = function () {
@@ -49,11 +39,32 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location) {
     };
 
     this.getAuthToken = function () {
-        return _loggedProf._id;
+        return _authToken;
     };
 
     this.setLoggedProf = function (profile) {
         _loggedProf = profile;
+    };
+
+    this.authorize = function (user, pass, cb) {
+        $http({
+            method: "POST",
+            data: {
+                user: user,
+                pass: pass
+            },
+            url: "/api/authorize/"
+        }).success(function (data) {
+                _authToken = (data.success) ? data.data.token : null;
+                if (data.success) {
+                    _authToken = data.data.token;
+                    _loggedProf = data.data.profile;
+                } else {
+                    _authToken = null;
+                    _loggedProf = null;
+                }
+                cb(data);
+            });
     };
 
     //----------------------------------------
@@ -92,5 +103,4 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location) {
             return _loggedProf;
         }
     }
-
 });

@@ -1,118 +1,12 @@
-var fs = require('fs');
 var formidable = require('formidable');
 
 module.exports.route = function (app, ctrls) {
 
     console.log("routing...");
 
-    app.get('/api/profiles', function (req, res) {
-        ctrls.profileCtrl.peopleByWealth(req.query.skip, req.query.limit, function(status) {
-            res.json(status);
-        });
-    });
-    app.get('/api/profile', function (req, res) {
-
-    });
-    app.get('/api/profile/new', function (req, res) {
-
-    });
-    app.get('/api/profile/:id', function (req, res) {
-        ctrls.profileCtrl.getProfile(req.params.id, function (status) {
-            res.json(status);
-        });
-    });
-    app.get('/api/profile/:id/bids', function (req, res) {
-
-    });
-    app.get('/api/profile/:id/purchases', function (req, res) {
-
-    });
-    app.get('/api/profile/:id/investments', function (req, res) {
-        ctrls.investmentCtrl.investmentsOf(req.params.id, function (status) {
-            res.json(status);
-        });
-    });
-    app.get('/api/profile/:id/accounts', function (req, res) {
-
-    });
-    app.get('/api/profile/:id/moneytaken', function (req, res) {
-        ctrls.investmentCtrl.getLoans(req.params.id, function (status) {
-            res.json(status);
-        });
-    });
-    app.get('/api/profile/:id/loans/pay', function (req, res) {
-
-    });
-    app.get('/api/profile/:id/products', function (req, res) {
-        //profID, isAuction, chunk, cb
-        ctrls.productCtrl.getProductsOf(req.params.id, req.query.isauction, null, function (status) {
-            res.json(status);
-        });
-    });
-    app.get('/api/profile/:id/notifications', function (req, res) {
-
-    });
-
-
-    app.get('/api/products', function (req, res) {
-        //profID, isAuction, chunk, cb
-        ctrls.productCtrl.getProductsFor(req.query.auth, req.query.isauction, null, function (status) {
-            res.json(status);
-        });
-    });
-    app.get('/api/products/:id/purchase', function (req, res) {
-
-    });
-    app.get('/api/products/:id/bids', function (req, res) {
-
-    });
-    app.get('/api/products/:id/newbid', function (req, res) {
-
-    });
-    app.post('/api/products/', function (req, res) {
-        var form = new formidable.IncomingForm();
-        form.parse(req, function (err, fields, files) {
-            ctrls.productCtrl.createProduct(req.query.auth, fields, files, function (status) {
-                res.json(status);
-            });
-        });
-    });
-    app.get('/api/products/:id/remove', function (req, res) {
-
-    });
-
-
-    app.get('/api/investments', function (req, res) {
-        ctrls.investmentCtrl.getInvestors(req.query.auth, function (status) {
-            res.json(status);
-        });
-    });
-    app.post('/api/investments', function (req, res) {
-        ctrls.investmentCtrl.newInvestment(req.query.auth, req.query.amount, req.query.profit, function (status) {
-            res.json(status);
-        });
-    });
-    app.delete('/api/investments/:id', function (req, res) {//delete investment
-        ctrls.investmentCtrl.rmInvestment(req.query.auth, req.params.id, function (status) {
-            res.json(status);
-        });
-    });
-    app.put('/api/investments/:id/profit', function (req, res) {//update profit change
-        ctrls.investmentCtrl.changeProfit(req.query.auth, req.params.id, req.query.profit, function (status) {
-            res.json(status);
-        });
-    });
-    app.put('/api/investments/:id/payback', function (req, res) {//update profit change
-        ctrls.investmentCtrl.payBack(req.query.auth, req.params.id, function (status) {
-            res.json(status);
-        });
-    });
-    app.put('/api/investments/:id/take', function (req, res) {//update profit change
-        ctrls.investmentCtrl.takeLoan(req.query.auth, req.params.id, function (status) {
-            res.json(status);
-        });
-    });
-
+    require('./profileRoutes').route(app, ctrls);
+    require('./productsRoutes').route(app, ctrls);
+    require('./investmentRoutes').route(app, ctrls);
 
     app.get('/api/plugins/reload', function (req, res) {
 

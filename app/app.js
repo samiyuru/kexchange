@@ -3,17 +3,6 @@ var http = require('http');
 var config = require('./config')();
 global.__base = __dirname;
 
-var app = express();
-
-
-app.configure(function () {
-    app.use(express.logger('dev'));
-    app.use(express.methodOverride());
-    app.use('/propics', express.static(__base + '/images/propics'));
-    app.use('/productpics', express.static(__base + '/images/products'));
-    app.use(express.static(__base + '/public'));//map static files routes. files needed to render index.html
-    app.use(app.routes);
-});
 
 var mongoose = require('mongoose');
 mongoose.connect(config.mongo, function (err) {
@@ -23,8 +12,28 @@ mongoose.connect(config.mongo, function (err) {
     }
 
     var models = require('./Models')(mongoose);
-
     var ctrls = require('./Controllers')(models);
+
+    var app = express();
+
+    app.configure(function () {
+        app.use(express.logger('dev'));
+        app.use(express.methodOverride());
+        app.use('/propics', express.static(__base + '/images/propics'));
+        app.use('/productpics', express.static(__base + '/images/products'));
+        app.use(express.static(__base + '/public'));//map static files routes. files needed to render index.html
+        app.use(function (req, res, next) {//authentication
+            var authToken = req.query.auth;
+            if (!authToken) {
+                return next();
+            }
+            ctrls.profileCtrl.validateAuth(authToken, function (profile) {
+                req.kexProfile = profile;
+                next();
+            });
+        });
+        app.use(app.routes);
+    });
 
     require(__base + '/routes').route(app, ctrls);
 

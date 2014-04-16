@@ -1,6 +1,7 @@
 /**
  * Created by samiyuru on 4/4/14.
  */
+var Utils = require(__base + "/utils");
 
 module.exports.initModel = function (mongoose) {
 
@@ -106,10 +107,10 @@ module.exports.initModel = function (mongoose) {
             .sort('-investor.date')
             .select('-__v');
         if (resInvestor) {
-            query = query.populate('investor.id', {'name': 1, 'nickname': 1, 'wealth': 1, 'propic': 1});
+            query = query.populate('investor.id', Utils.getProfileFieldsPub());
         }
         if (resDebitor) {
-            query = query.populate('debitor.id', {'name': 1, 'nickname': 1, 'wealth': 1, 'propic': 1});
+            query = query.populate('debitor.id', Utils.getProfileFieldsPub());
         }
         if (chunk != null) {
             query = query.skip(chunk.skip).limit(chunk.limit);

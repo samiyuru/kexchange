@@ -2,8 +2,6 @@
  * Samiyuru Senarathne
  */
 
-var PROFILE_URL_CHANGED = "profile_url_changed";
-
 var kEX = angular.module("kExchange", ['ngRoute']);
 
 kEX.config(['$routeProvider', function ($routeProvider) {

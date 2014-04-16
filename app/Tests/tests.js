@@ -15,31 +15,28 @@ module.exports.test = function (app, models, ctrls) {
         return uuid;
     }
 
-//    models.profileModel.createProfile({
-//        nickname: 'Hasith ' + generateUUID(),
-//        name: 'Hasith Senarathne',
-//        lastwealth: 0,
-//        wealth: 0,
-//        propic: '/propics/propic02.png'
-//    }, function cb(err, profile) {
-//        if (err) console.warn(err);
-//        console.log(profile);
-//    });
-
-//    models.profileModel.createProfile({
-//        nickname: 'Samiyuru ' + generateUUID(),
+//    ctrls.profileCtrl.createProfile({
+//        nickname: 'Samiyuru',
 //        name: 'Samiyuru Senarathne',
 //        lastwealth: 0,
 //        wealth: 0,
 //        propic: '/propics/propic01.png'
-//    }, function cb(err, profile) {
-//        if (err) console.warn(err);
-//        console.log(profile);
+//    }, 'pass1', function (status) {
+//        console.log(status);
+//    });
+//
+//    ctrls.profileCtrl.createProfile({
+//        nickname: 'Hasith',
+//        name: 'Hasith Yaggahawita',
+//        lastwealth: 0,
+//        wealth: 0,
+//        propic: '/propics/propic02.png'
+//    }, 'pass2', function (status) {
+//        console.log(status);
 //    });
 
-
-    //================route tests=================
-    //  http://0.0.0.0:3000/test/132422343?name=samiyuru
+    //============================routetests============================
+    //=========http://0.0.0.0:3000/test/132422343?name=samiyuru=========
     app.get('/test/:id', function (req, res) {
         //request.body.fieldName //process forms
         app.set('id', req.params.id);

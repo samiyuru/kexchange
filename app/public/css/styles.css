@@ -6,6 +6,10 @@
     padding: 0;
 }
 
+html {
+    overflow-y: scroll;
+}
+
 ::-webkit-scrollbar {
     width: 9px;
 }
@@ -77,6 +81,10 @@ input, textarea {
     box-sizing: border-box;
 }
 
+input[type=text]:focus,input[type=password]:focus, textarea:focus {
+    border-color: #4b87d2;
+}
+
 input.rightAlgn, textarea.rightAlgn {
     text-align: right;
 }
@@ -127,12 +135,6 @@ nav a {
     text-decoration: none;
     font-weight: normal;
     font-size: 15px;
-}
-
-input[type=text]:focus {
-    padding: 5px;
-    border: 1px solid #4b87d2;
-    outline: 0;
 }
 
 .input-Labl01 {
