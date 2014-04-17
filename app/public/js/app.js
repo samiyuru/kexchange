@@ -2,7 +2,7 @@
  * Samiyuru Senarathne
  */
 
-var kEX = angular.module("kExchange", ['ngRoute']);
+var kEX = angular.module("kExchange", ['ngRoute', 'ngCookies']);
 
 kEX.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.

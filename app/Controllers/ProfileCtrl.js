@@ -30,7 +30,7 @@ module.exports.initCtrl = function (models) {
             authModel.validateToken(authToken, cb);
         }
 
-        this.getAuthToken = function (user, pass, cb) {
+        this.getAuthToken = function (user, pass, kexProfile, cb) {
             authModel.getAuthToken(user, pass, function (err, doc) {
                 if (err) {
                     cb(Utils.genResponse("auth token retrieval error"));

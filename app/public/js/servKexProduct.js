@@ -11,6 +11,7 @@ kEX.service("kexProducts", function ($http, kexPofiles) {
         formData.append("qty", qty);
         formData.append("price", price);
         formData.append("expire", expire);
+        formData.append("isauction", (isAuction) ? 1 : 0);
         var imgLen = imgs.length;
         for (var i = 0; i < imgLen; i++) {
             formData.append("img_" + i, imgs[i]);
@@ -18,8 +19,7 @@ kEX.service("kexProducts", function ($http, kexPofiles) {
         $http({
             method: "POST",
             params: {
-                auth: kexPofiles.getAuthToken(),
-                isauction: (isAuction) ? 1 : 0
+                auth: kexPofiles.getAuthToken()
             },
             data: formData,
             headers: {'Content-Type': undefined },
@@ -56,5 +56,18 @@ kEX.service("kexProducts", function ($http, kexPofiles) {
                 cb(data);
             });
     }
+
+    this.placeBid = function (productID, newBid) {
+        $http({
+            method: "POST",
+            params: {
+                auth: kexPofiles.getAuthToken(),
+                bid: newBid
+            },
+            url: "/api/products/" + productID + "/newbid"
+        }).success(function (data) {
+                cb(data);
+            });
+    };
 
 });

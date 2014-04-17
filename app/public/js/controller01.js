@@ -7,9 +7,18 @@ kEX.controller("kexroot", function ($scope, kexPofiles) {
         username: "",
         password: ""
     };
-    $scope.isLogged = false;
+    $scope.isLogged = false;//show loggin background
+    $scope.showForm = false;//show loggin form
     $scope.user = user;
     $scope.login = login;
+
+    kexPofiles.validateToken(function (isLoggedin) {
+        if (isLoggedin) {
+            $scope.isLogged = true;//hide loggin n show home
+        } else {
+            $scope.showForm = true;//show loggin form
+        }
+    });
 
     function login() {
         kexPofiles.authorize(user.username, user.password, function (status) {
@@ -22,55 +31,6 @@ kEX.controller("kexroot", function ($scope, kexPofiles) {
     }
 });
 
-kEX.controller("prdctsCtrlr", function ($scope, kexProducts) {
-    var _curProfID = null;
-    var products = [];
-
-    //-----------------------------------------------
-
-    $scope.products = products;
-
-    //-----------------------------------------------
-
-    var Product = function (prdObj) {
-        this.id = prdObj._id;
-        this.title = prdObj.title;
-        this.qty = prdObj.qty;
-        this.remQty = prdObj.remQty;
-        this.owner = prdObj.owner;
-        this.price = prdObj.price;
-        this.isAuction = prdObj.isAuction;
-        this.type = prdObj.type;
-        this.bids = prdObj.bids;
-        this.expire = new Date(prdObj.expire);
-        this.detail = prdObj.detail;
-        this.dateAdded = new Date(prdObj.date);
-        this.imgs = prdObj.imgs;
-    };
-
-    Product.prototype.placeBid = function (newBid) {
-        if (this.isAuction)return;
-    };
-
-    Product.prototype.purchase = function (newBid) {
-
-    };
-
-    //-----------------------------------------------
-
-    kexProducts.getProducts(null, function (status) {
-        if (status.success) {
-            products.length = 0;
-            var data = status.data;
-            var dataLen = data.length;
-            for (var i = 0; i < dataLen; i++) {
-                var product = new Product(data[i]);
-                products.push(product);
-            }
-        }
-    });
-
-});
 
 kEX.controller("recntErnngsCtrlr", function ($scope) {
     $scope.ernngs = [
@@ -219,12 +179,6 @@ kEX.controller("tpWlthyCtrler", function ($scope, kexPofiles) {
 });
 
 kEX.controller("coverCtrlr", function ($scope, kexPofiles) {
-//    $scope.name = "Samiyuru Senarathne";
-//    $scope.status = "Millionaire";
-//    $scope.balance = 10000;
-//    $scope.loan = 5000;
-//    $scope.propic = "propic01.png";
-
     kexPofiles.getCurrentProfile(function currentProfile(profile) {
         $scope.profile = profile;
     });
@@ -310,14 +264,18 @@ kEX.controller("newPrdCtrl", function ($scope, kexProducts) {
         minBid: 0,
         price: "",
         images: [],
-        expire: new Date()
+        expire: null
     };
+
+    var _creationInProg = false;
 
     $scope.ui = ui;
     $scope.newPrdct = newPrdct;
     $scope.submitProduct = submitProduct;
 
     function submitProduct() {
+        if (_creationInProg)return;
+        _creationInProg = true;
         //isAuction, type, name, detail, qty, price, expire, imgs
         kexProducts.createProduct(newPrdct.isAuction
             , newPrdct.type
@@ -328,8 +286,24 @@ kEX.controller("newPrdCtrl", function ($scope, kexProducts) {
             , newPrdct.expire
             , newPrdct.images
             , function (status) {
-
+                if (status.success) {
+                    ui.form = false;
+                    resetFields();
+                }
+                _creationInProg = false;
             });
+    }
+
+    function resetFields() {
+        newPrdct.name = "";
+        newPrdct.detail = "";
+        newPrdct.type = 0;
+        newPrdct.qty = 1;
+        newPrdct.isAuction = false;
+        newPrdct.minBid = 0;
+        newPrdct.price = "";
+        newPrdct.images = [];
+        newPrdct.expire = null;
     }
 
 });

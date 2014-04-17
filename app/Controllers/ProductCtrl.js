@@ -14,6 +14,32 @@ module.exports.initCtrl = function (models) {
 
     return new (function (models) {
 
+        this.placeBid = function (profID, productID, bid, cb) {
+            productModel.placeBid(profID, productID, bid, function (err, doc) {
+
+            });
+        };
+
+        this.getProductsFor = function (profID, isAuction, chunk, cb) {
+            productModel.getProductsFor(profID, isAuction, chunk, function (err, docs) {
+                if (err) {
+                    cb(Utils.genResponse("products retrieval error"));
+                    return;
+                }
+                cb(Utils.genResponse(null, true, docs));
+            });
+        };
+
+        this.getProductsOf = function (profID, isAuction, chunk, cb) {
+            productModel.getProductsOf(profID, isAuction, chunk, function (err, docs) {
+                if (err) {
+                    cb(Utils.genResponse("products retrieval error"));
+                    return;
+                }
+                cb(Utils.genResponse(null, true, docs));
+            });
+        };
+
         this.createProduct = function (profID, product, files, cb) {
             saveImages(files, function (err, fileNames) {
                 if (err) {
@@ -27,26 +53,6 @@ module.exports.initCtrl = function (models) {
                     }
                     cb(Utils.genResponse(null, true, doc));
                 });
-            });
-        };
-
-        this.getProductsFor = function (profID, isAuction, chunk, cb) {
-            productModel.getProducts(profID, false, isAuction, chunk, function (err, docs) {
-                if (err) {
-                    cb(Utils.genResponse("products retrieval error"));
-                    return;
-                }
-                cb(Utils.genResponse(null, true, docs));
-            });
-        };
-
-        this.getProductsOf = function (profID, isAuction, chunk, cb) {
-            productModel.getProducts(profID, true, isAuction, chunk, function (err, docs) {
-                if (err) {
-                    cb(Utils.genResponse("products retrieval error"));
-                    return;
-                }
-                cb(Utils.genResponse(null, true, docs));
             });
         };
 

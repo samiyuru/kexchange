@@ -21,7 +21,7 @@
         color: #d8d8d8;
         font-weight: normal;
         font-size: 16px;
-        max-width: 250px;
+        max-width: 90%;
     }
 
     .productinf .exp {
@@ -32,17 +32,19 @@
     .productinf .desc {
         color: #cccccc;
         margin: 12px 0;
-        max-width: 100%;
+        max-width: 90%;
     }
 
     .productinf .imgs {
-        margin-top: 15px;
-        display: none;
+        margin: 15px -3px -3px 0;
+        line-height: 0;
     }
 
     .productinf .imgs img {
         max-height: 66px;
-        margin: 0 8px 8px 0;
+        margin: 0 3px 3px 0;
+        padding: 1px;
+        border: 1px solid #444;
     }
 
     .productinf #closePrnt {
@@ -74,7 +76,6 @@
     .productinf #purchase {
         white-space: nowrap;
         text-align: right;
-        display: none;
     }
 
     .productinf #purchase button {
@@ -88,26 +89,28 @@
     }
 
     .productinf .bidhist .nwbid {
-        border-color: #666666;padding-top: 0;border-top: none;
+        border-color: #666666;
+        padding-top: 0;
+        border-top: none;
     }
 
-    .productinf .bidhist li{
+    .productinf .bidhist li {
         border-color: #666666;
     }
 
-    .productinf .bidhist .bidcol1{
+    .productinf .bidhist .bidcol1 {
         color: #cccccc;
     }
 
-    .productinf .bidhist .bidcol2{
+    .productinf .bidhist .bidcol2 {
         color: #9a9a9a;
     }
 
-    .productinf .bidhist .bidcol3{
+    .productinf .bidhist .bidcol3 {
         color: #cccccc;
     }
 
-    .productinf .bidhist .loadmr{
+    .productinf .bidhist .loadmr {
         border-color: #666666;
         padding-bottom: 0;
     }
@@ -127,14 +130,12 @@
 
                 <p class="exp">Expires in one day</p>
 
-                <p class="desc">lorem ipsarasan lorem ipsum dorasan lorem ipsum darasan lorem ipsum d re marasan </p>
+                <p class="desc">{{product.detail}}</p>
                 <!-- prd detailes end-->
 
                 <!-- images -->
                 <div class="imgs">
-                    <img src="/img/askjdhkjasd.jpg">
-                    <img src="/img/askjdhkjasd.jpg">
-                    <img src="/img/askjdhkjasd.jpg">
+                    <img ng-repeat="img in product.imgs" ng-src="{{'/productpics/'+img}}"/>
                 </div>
                 <!-- images end -->
             </td>
@@ -147,14 +148,14 @@
                     <!--close button end-->
 
                     <!--purchase-->
-                    <div id="purchase">
-                        <span id="price">1,000 K$</span>
+                    <div ng-if="!product.isAuction" id="purchase">
+                        <span id="price">Price: {{product.price.toLocaleString()}} K$</span>
                         <button>Purchase</button>
                     </div>
                     <!--purchase end-->
 
                     <!-- bids list -->
-                    <div ng-include="'widgets/bidsHistory.html'"></div>
+                    <div ng-if="product.isAuction" ng-include="'widgets/bidsHistory.html'"></div>
                     <!-- bids list end -->
                 </div>
             </td>

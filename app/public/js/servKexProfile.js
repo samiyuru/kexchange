@@ -2,7 +2,7 @@
  * Created by samiyuru on 4/15/14.
  */
 
-kEX.service("kexPofiles", function ($http, $rootScope, $location) {
+kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) {
 
     var _loggedProf = null;
     var _curProfile;// currently shown profile
@@ -46,6 +46,31 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location) {
         _loggedProf = profile;
     };
 
+    this.validateToken = function (cb) {
+        _authToken = $cookieStore.get("authToken");
+        if (_authToken) {
+            $http({
+                method: "GET",
+                params: {
+                    auth: _authToken
+                },
+                url: "/api/authorize/"
+            }).success(function (data) {
+                    if (data.success) {
+                        _loggedProf = data.data;
+                        cb(true);
+                    } else {
+                        _authToken = null;
+                        _loggedProf = null;
+                        $cookieStore.remove("authToken");
+                        cb(false);
+                    }
+                });
+        } else {
+            cb(false);
+        }
+    };
+
     this.authorize = function (user, pass, cb) {
         $http({
             method: "POST",
@@ -59,6 +84,7 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location) {
                 if (data.success) {
                     _authToken = data.data.token;
                     _loggedProf = data.data.profile;
+                    $cookieStore.put("authToken", _authToken);
                 } else {
                     _authToken = null;
                     _loggedProf = null;
