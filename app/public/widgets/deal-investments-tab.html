@@ -3,12 +3,12 @@
         <li>
             <!-- my invetments list -->
             <ul class="L-R-margin0" style="margin: 0;padding: 0;">
-                <li ng-repeat="invst in investments">
+                <li class="investment" ng-repeat="invst in investments">
                     <!-- You Invested -->
                     <div class="rowtyp01">
                         <div>
                             <!-- delete confirmation -->
-                            <div ng-if="invst.ui.isRmv">
+                            <div class="delConf" ng-if="invst.ui.isRmv">
                                 <div style="margin: 24px auto;text-align: center;">
                                     <a ng-click="invst.delete()" class="link-btn btnbg-red">Remove</a>
                                     <a ng-click="invst.hideDel()" class="link-btn btnbg-gray">Undo</a>
@@ -18,10 +18,10 @@
 
                             <!-- invest content -->
                             <div ng-if="!invst.ui.isRmv">
-                                <img ng-if="invst.debitor==null && ui.isLoggedProfile" ng-click="invst.showDel()" style="position: absolute;right: 0px;margin-top:4px;" src="close01.png"/>
+                                <img ng-if="invst.debitor==null && ui.isLoggedProfile" ng-click="invst.showDel()" style="float: right;margin-top:3px;" src="close01.png"/>
 
                                 <!-- condinal propic-->
-                                <img ng-if="invst.debitor==null" class="propic-small" style="opacity: .4;" ng-src="{{invst.investor.propic}}"/>
+                                <img ng-if="invst.debitor==null" class="propic-small" style="opacity: .3;" ng-src="{{invst.investor.propic}}"/>
                                 <img ng-if="invst.debitor!=null" class="propic-small" ng-src="{{invst.debitor.propic}}"/>
                                 <!-- condinal propic end-->
 

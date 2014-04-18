@@ -1,30 +1,48 @@
-<ul ng-controller="mybidsctrl" class="L-R-margin0">
-    <li ng-repeat="product in products">
+<ul ng-controller="mybidsctrl">
+    <li class="mybid" ng-repeat="product in products">
         <!-- My bid -->
         <div class="rowtyp01">
-            <img class="propic-small" ng-src="{{product.prdCover}}"/>
+            <div class="L-R-margin0">
+                <img ng-click="product.showInfo()" class="propic-small" ng-src="{{product.prdCover}}"/>
 
-            <div class="place-circle">
-                <span>{{product.bidRank}}</span>
-            </div>
-
-            <div ng-init="ui.showbids=false;" class="pad-rightTo-propic">
-                <div class="rowL2Typ01">{{product.title}}</div>
-                <div class="rowL2Typ02">Expires in <span timediff="product.expire"></span></div>
-                <div class="rowL2Typ03">
-                    <span>Current price {{product.price.toLocaleString()}} K$</span>
-
-                    <div style="display: inline-block;float:right;">
-                        <a ng-show="!ui.showbids" ng-click="ui.showbids=true;" class="link-btn btnbg-blue">Place Bid</a>
-                        <a ng-show="ui.showbids" ng-click="ui.showbids=false;" class="link-btn btnbg-gray">Cancel</a>
-                    </div>
+                <div class="place-circle">
+                    <span>{{product.bidRank}}</span>
                 </div>
 
-                <!-- bids list -->
-                <div ng-show="ui.showbids" style="margin-top: 12px;" ng-include="'widgets/bidsHistory.html'"></div>
-                <!-- bids list end -->
+                <div class="pad-rightTo-propic">
+                    <div ng-click="product.showInfo()" class="rowL2Typ01">{{product.title}}</div>
+                    <div class="rowL2Typ02">Expires in <span timediff="product.expire"></span></div>
+                    <div class="rowL2Typ03">
+                        <span>Current price {{product.price.toLocaleString()}} K$</span>
+
+                        <div style="display: inline-block;float:right;">
+                            <a ng-show="!product.ui.showbids" ng-click="product.showBids()" class="link-btn btnbg-blue">Place Bid</a>
+                            <a ng-show="product.ui.showbids" ng-click="product.hideBids()" class="link-btn btnbg-gray">Cancel</a>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+
+                </div>
             </div>
-            <div style="clear: both;"></div>
+
+            <!-- product info -->
+            <div ng-if="product.ui.showInfo" class="info">
+                <div class="wrap0">
+                    <img ng-click="product.hideInfo()" class="close" src="close01.png"/>
+                    <p class="by">From {{product.owner.nickname}}</p>
+                    <p class="detail">{{product.detail}}</p>
+                    <!-- images -->
+                    <div class="imgs">
+                        <img ng-repeat="img in product.imgs" ng-src="{{'/productpics/'+img}}"/>
+                    </div>
+                    <!-- images end -->
+                </div>
+            </div>
+            <!-- product info end -->
+
+            <!-- bids list -->
+            <div class="bids pad-rightTo-propic L-R-margin0" ng-if="product.ui.showbids" ng-include="'widgets/bidsHistory.html'"></div>
+            <!-- bids list end -->
         </div>
         <!-- My bid -->
     </li>

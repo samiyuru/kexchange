@@ -17,9 +17,29 @@ kEX.controller("mybidsctrl", function ($scope, $filter, kexProducts, kexPofiles)
     var BiddedProduct = function (prdObj) {
         Product.apply(this, [prdObj]);//parent is inited here. ui prop is inited in parent
         this.ui.showbids = false;
+        this.ui.showInfo = false;
     };
 
     BiddedProduct.prototype = new Product({});
+
+    BiddedProduct.prototype.showInfo = function () {
+        this.ui.showInfo = true;
+        this.ui.showbids = false;
+    };
+
+    BiddedProduct.prototype.hideInfo = function () {
+        this.ui.showInfo = false;
+    };
+
+    BiddedProduct.prototype.showBids = function () {
+        this.ui.showInfo = false;
+        this.ui.showbids = true;
+    };
+
+    BiddedProduct.prototype.hideBids = function () {
+        this.ui.showbids = false;
+    };
+
 
     //-----------------------------------------------
 
@@ -30,6 +50,11 @@ kEX.controller("mybidsctrl", function ($scope, $filter, kexProducts, kexPofiles)
             var dataLen = data.length;
             for (var i = 0; i < dataLen; i++) {
                 var product = new BiddedProduct(data[i]);
+                product.imgs = [
+                    "9dd9a249-6451-4db4-a268-f1b0ab5b8b22.jpg",
+                    "7a0e69cd-6da1-4078-9314-db785169e819.jpg",
+                    "b0be5e7e-c43c-4f6f-a673-8dbd3346ae80.jpg"
+                ];
                 products.push(product);
             }
         }
