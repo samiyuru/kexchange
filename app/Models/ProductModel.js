@@ -43,13 +43,18 @@ module.exports.initModel = function (mongoose) {
             type: Boolean,
             required: true
         },
-        price: Number, /*if auction this is minbid*/
+        price: Number, /*if auction this is minbid or later the max bid after bidding*/
         expire: Date,
+        bidCount: {
+            type: Number,
+            required: true
+        },
         imgs: [String],
         bids: [
             {
                 person: {
-                    type: ObjectId
+                    type: ObjectId,
+                    ref: 'profile'
                 },
                 date: {
                     type: Date
@@ -73,19 +78,115 @@ module.exports.initModel = function (mongoose) {
             qty: product.qty,
             remQty: product.qty,
             isAuction: (product.isauction == 1),
-            price: product.price,
+            price: product.price || 0,
             expire: product.expire,
             imgs: fileNames,
+            bidCount: 0,
             bids: []
         }, cb);
     };
 
+    productSchema.statics.getBidedProducts = function (profID, cb) {
+        var profObjID = TypObjectID(profID);
+        var now = new Date();
+        this._getProducts({
+            isAuction: true,
+            owner: {
+                $ne: TypObjectID(profID)//not owns
+            },
+            remQty: {
+                $gte: 1//items should remain
+            },
+            $or: [
+                {
+                    expire: null
+                },
+                {
+                    expire: {
+                        $gte: now
+                    }
+                }
+            ],
+            "bids.person": profObjID
+        }, null, null, null, true, cb);
+    };
+
     productSchema.statics.placeBid = function (profID, productID, bid, cb) {
-        
+        var now = new Date();
+        var profObjID = TypObjectID(profID);
+        this.update({
+            isAuction: true,
+            _id: TypObjectID(productID),
+            owner: {
+                $ne: profObjID //owner cannot bid
+            },
+            remQty: {
+                $gte: 1//items should remain
+            },
+            price: {
+                $lt: bid //new bid must be bigger than the latest bid or minbid
+            },
+            $or: [
+                {
+                    expire: null
+                },
+                {
+                    expire: {
+                        $gte: now
+                    }
+                }
+            ]
+        }, {
+            $set: {
+                price: bid //now minbid is the latest bid
+            },
+            $inc: {
+                bidCount: 1
+            },
+            $push: {
+                bids: {
+                    $each: [//each is needed for sort
+                        {
+                            person: profObjID,
+                            date: now,
+                            bid: bid
+                        }
+                    ]//,
+//                    $sort: {//sort without slice needs mongodb 2.6
+//                        date: -1//sort descending by date
+//                    }
+                }
+            }
+        }, cb);
     };
 
     productSchema.statics.purchase = function (productID, profID, cb) {
-
+        var now = new Date();
+        var profObjID = TypObjectID(profID);
+        this.update({
+            isAuction: false,
+            _id: TypObjectID(productID),
+            owner: {
+                $ne: profObjID
+            },
+            remQty: {
+                $gte: 1
+            },
+            $or: [
+                {
+                    expire: null
+                },
+                {
+                    expire: {
+                        $gte: now
+                    }
+                }
+            ]
+        }, {
+            $inc: {
+                remQty: -1
+            }
+        }, cb);
     };
 
     productSchema.statics._getProducts = function (srch, isRem, isAuction, chunk, populate, cb) {//isAuction 1 or 0
@@ -110,17 +211,35 @@ module.exports.initModel = function (mongoose) {
             query = query.limit(chunk.limit);
         }
         query.sort('-date')
-            .exec(cb);
+            .exec(function (err, docs) {
+                if (!err) {
+                    for (var i in docs) {
+                        var doc = docs[i];
+                        doc.bids.sort(function compare(a, b) {
+                            if (a.date < b.date)
+                                return 1;
+                            if (a.date > b.date)
+                                return -1;
+                            return 0;
+                        });
+                    }
+                }
+                cb(err, docs);
+            });
     };
 
     /*
      * isAuction accepts true, false, 1, 0
      * */
     productSchema.statics.getProductsFor = function (profID, isAuction, chunk, cb) {
+        var profObjID = TypObjectID(profID);
         //profID, profIDOwns, isRem, isAuction, chunk, populate, cb
         this._getProducts({
             owner: {
-                $ne: TypObjectID(profID)//not owns
+                $ne: profObjID//not owns
+            },
+            "bids.person": {
+                $ne: profObjID//not bidded
             }
         }, true, isAuction, null, true, cb);
     };

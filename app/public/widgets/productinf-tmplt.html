@@ -115,6 +115,23 @@
         padding-bottom: 0;
     }
 
+    .productinf .bidhist ul::-webkit-scrollbar {
+        width: 9px;
+    }
+
+    .productinf .bidhist ul::-webkit-scrollbar-track {
+        background-color: #282828;
+        border-left: 1px solid #666666;
+    }
+
+    .productinf .bidhist ul::-webkit-scrollbar-thumb {
+        background-color: #9a9a9a;
+    }
+
+    .productinf .bidhist ul::-webkit-scrollbar-thumb:hover {
+        background-color: #aaa;
+    }
+
 </style>
 
 <div class="productinf" style="">
@@ -128,7 +145,7 @@
                 <!-- prd detailes -->
                 <h3>{{product.title}}</h3>
 
-                <p class="exp">Expires in one day</p>
+                <p class="exp">Expires in <span timediff="product.expire"></span></p>
 
                 <p class="desc">{{product.detail}}</p>
                 <!-- prd detailes end-->

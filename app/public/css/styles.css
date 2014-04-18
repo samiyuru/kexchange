@@ -81,7 +81,7 @@ input, textarea {
     box-sizing: border-box;
 }
 
-input[type=text]:focus,input[type=password]:focus, textarea:focus {
+input[type=text]:focus, input[type=password]:focus, textarea:focus {
     border-color: #4b87d2;
 }
 
@@ -359,8 +359,6 @@ nav a.active {
     z-index: 1000 !important;
 }
 
-
-
 .place-circle {
     position: absolute;
     display: table-cell;
@@ -382,9 +380,6 @@ nav a.active {
     font-size: 13px;
 }
 
-
-
-
 .input-lable {
     font-size: 13px;
     color: #737373;
@@ -398,35 +393,35 @@ nav a.active {
 }
 
 
-
-
-
 .bidhist .nwbid {
     white-space: nowrap;
     text-align: right;
 }
 
-.bidhist ul{
-    max-height: 170px;
+.bidhist ul {
+    max-height: 195px;
     overflow-y: auto;
 }
 
-.bidhist .nwbid input{
+.bidhist .nwbid input {
     text-align: right;
 }
 
-.bidhist .nwbid button{
+.bidhist .nwbid button {
     background-color: #4b87d2;
 }
 
-.bidhist .bidcol1{
+.bidhist .bidcol1 {
     color: #282828;
 }
 
-.bidhist .bidcol2{
-    color: #9a9a9a;margin-left: 12px;
+.bidhist .bidcol2 {
+    color: #9a9a9a;
+    margin-left: 12px;
 }
 
-.bidhist .bidcol3{
-    color: #000;float: right;padding-right: 2px;
+.bidhist .bidcol3 {
+    color: #000;
+    float: right;
+    padding-right: 4px;
 }

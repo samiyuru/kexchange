@@ -31,6 +31,9 @@ kEX.directive("actLinkCss", function ($rootScope, $location) {
 });
 
 
+
+
+
 kEX.directive("coverImg", function ($rootScope, $location) {
     return {
         restrict: 'A',
@@ -50,6 +53,10 @@ kEX.directive("coverImg", function ($rootScope, $location) {
         }
     };
 });
+
+
+
+
 
 
 kEX.directive("kexWidget", function () {
@@ -140,6 +147,11 @@ kEX.directive("kexTabDelegate", function () {
 });
 
 
+
+
+
+
+
 kEX.directive("imgUpload", function () {//parent should be 'imgUploader' //to be added to a button
     return {
         restrict: 'A',
@@ -213,6 +225,12 @@ kEX.directive("imgUploader", function () {
     </div>'
     };
 });
+
+
+
+
+
+
 
 
 kEX.directive("productscont", function () {
@@ -325,6 +343,11 @@ kEX.directive("pinfarrow", function () {
         }
     }
 });
+
+
+
+
+
 
 
 kEX.directive("timediff", function () {

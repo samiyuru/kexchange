@@ -2,14 +2,9 @@
  * Created by samiyuru on 4/17/14.
  */
 
-kEX.controller("prdctsCtrlr", function ($scope, kexProducts) {
+kEX.controller("mybidsctrl", function ($scope, $filter, kexProducts, kexPofiles) {
     var _curProfID = null;
     var products = [];
-    var prdTypeImgs = [];
-    prdTypeImgs[0] = '/img/prdtypes/tickets.png';
-    prdTypeImgs[1] = '/img/prdtypes/share.png';
-    prdTypeImgs[2] = '/img/prdtypes/review.png';
-    prdTypeImgs[3] = '/img/prdtypes/help.png';
 
     //-----------------------------------------------
 
@@ -17,61 +12,43 @@ kEX.controller("prdctsCtrlr", function ($scope, kexProducts) {
 
     //-----------------------------------------------
 
-    var Product = function (prdObj) {
-        this.id = prdObj._id;
-        this.title = prdObj.title;
-        this.qty = prdObj.qty;
-        this.remQty = prdObj.remQty;
-        this.owner = prdObj.owner;
-        this.price = prdObj.price || 0;
-        this.isAuction = prdObj.isAuction;
-        this.type = prdObj.type;
-        this.bids = [];
-        var bids = prdObj.bids;
-        for (var i in bids) {
-            var bid = bids[i];
-            this.bids.push({
-                person: bid.person,
-                bid: bid.bid,
-                date: new Date(bid.date)
-            });
+    var Product = kexProducts.Product;
+
+    var BiddedProduct = function (prdObj) {
+        Product.apply(this, [prdObj]);//parent is inited here. ui prop is inited in parent
+        this.ui.showbids = false;
+    };
+
+    BiddedProduct.prototype = new Product({});
+
+    //-----------------------------------------------
+
+    kexProducts.getBidedProducts(kexPofiles.getLoggedProf()._id, function (status) {
+        if (status.success) {
+            products.length = 0;
+            var data = status.data;
+            var dataLen = data.length;
+            for (var i = 0; i < dataLen; i++) {
+                var product = new BiddedProduct(data[i]);
+                products.push(product);
+            }
         }
-        this.expire = new Date(prdObj.expire);
-        this.detail = prdObj.detail;
-        this.dateAdded = new Date(prdObj.date);
-        this.imgs = prdObj.imgs;
-        this.prdCover = prdTypeImgs[prdObj.type];
-        this.ui = {
-            newBid: ""
-        };
-    };
+    });
 
-    Product.prototype.addBidToTop = function (person, date, bid) {
-        if (this.bids[0].bid >= newBid) {//newBids must be greater than existing bids
-            return;
-        }
-        this.bids.unshift({
-            person: person,
-            bid: bid,
-            date: date
-        });
-    };
+});
 
-    Product.prototype.placeBid = function () {
-        if (!this.isAuction)return;
-        var newBid = this.ui.newBid;
-        if (this.bids[0].bid >= newBid) {//newBids must be greater than existing bids
-            return;
-        }
-    };
+kEX.controller("prdctsCtrlr", function ($scope, $filter, kexProducts, kexPofiles) {
 
-    Product.prototype.loadMoreBids = function () {
+    var _curProfID = null;
+    var products = [];
 
-    };
+    //-----------------------------------------------
 
-    Product.prototype.purchase = function (newBid) {
-        if (this.isAuction)return;
-    };
+    $scope.products = products;
+
+    //-----------------------------------------------
+
+    var Product = kexProducts.Product;
 
     //-----------------------------------------------
 
@@ -86,5 +63,80 @@ kEX.controller("prdctsCtrlr", function ($scope, kexProducts) {
             }
         }
     });
+});
+
+kEX.controller("newPrdCtrl", function ($scope, kexProducts) {
+    var ui = {
+        form: false,
+        prdctTypes: [
+            {
+                name: "Session Tickets",
+                value: 0
+            },
+            {
+                name: "Knowledge Transfer",
+                value: 1
+            },
+            {
+                name: "Code Review",
+                value: 2
+            },
+            {
+                name: "Code Help",
+                value: 3
+            }
+        ]
+    };
+
+    var newPrdct = {
+        name: "",
+        detail: "",
+        type: 0,
+        qty: 1,
+        isAuction: false,
+        minBid: 0,
+        price: "",
+        images: [],
+        expire: null
+    };
+
+    var _creationInProg = false;
+
+    $scope.ui = ui;
+    $scope.newPrdct = newPrdct;
+    $scope.submitProduct = submitProduct;
+
+    function submitProduct() {
+        if (_creationInProg)return;
+        _creationInProg = true;
+        //isAuction, type, name, detail, qty, price, expire, imgs
+        kexProducts.createProduct(newPrdct.isAuction
+            , newPrdct.type
+            , newPrdct.name
+            , newPrdct.detail
+            , newPrdct.qty
+            , (newPrdct.isAuction) ? newPrdct.minBid : newPrdct.price
+            , newPrdct.expire
+            , newPrdct.images
+            , function (status) {
+                if (status.success) {
+                    ui.form = false;
+                    resetFields();
+                }
+                _creationInProg = false;
+            });
+    }
+
+    function resetFields() {
+        newPrdct.name = "";
+        newPrdct.detail = "";
+        newPrdct.type = 0;
+        newPrdct.qty = 1;
+        newPrdct.isAuction = false;
+        newPrdct.minBid = 0;
+        newPrdct.price = "";
+        newPrdct.images = [];
+        newPrdct.expire = null;
+    }
 
 });

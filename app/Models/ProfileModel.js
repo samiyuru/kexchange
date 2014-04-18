@@ -48,7 +48,7 @@ module.exports.initModel = function (mongoose) {
                     type: ObjectId,
                     required: true
                 },
-                price: {
+                price: {//added here for efficiency in finding price of an auctioned product
                     type: Number,
                     required: true
                 }
@@ -92,6 +92,21 @@ module.exports.initModel = function (mongoose) {
 
     profileSchema.statics.getMoney = function (profID, amount, cb) {
         cb(amount);
+    };
+
+    profileSchema.statics.addProduct = function (profID, productID, cb) {
+        this.update(
+            {
+                _id: TypObjectID(profID)
+            },
+            {
+                $push:{
+                    purchases:{
+
+                    }
+                }
+            }
+        );
     };
 
     return mongoose.model('profile', profileSchema);

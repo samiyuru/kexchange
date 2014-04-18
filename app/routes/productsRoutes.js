@@ -13,14 +13,19 @@ module.exports.route = function (app, ctrls) {
                 res.json(status);
             });
     });
-    app.get('/api/products/:id/purchase', function (req, res) {
-
+    app.post('/api/products/:id/purchase', function (req, res) {
+        if (req.kexProfile)
+        //profID, productID, cb
+            ctrls.productCtrl.purchase(req.kexProfile.id, req.params.id, function (status) {
+                res.json(status);
+            });
     });
-    app.get('/api/products/:id/bids', function (req, res) {
-
-    });
-    app.get('/api/products/:id/newbid', function (req, res) {
-
+    app.post('/api/products/:id/bid', function (req, res) {
+        if (req.kexProfile)
+        //profID, productID, bid, cb
+            ctrls.productCtrl.placeBid(req.kexProfile.id, req.params.id, req.query.bid, function (status) {
+                res.json(status);
+            });
     });
     app.post('/api/products/', function (req, res) {
         if (req.kexProfile) {

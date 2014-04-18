@@ -1,21 +1,22 @@
 <ul ng-controller="mybidsctrl" class="L-R-margin0">
-    <li style="display: block;">
+    <li ng-repeat="product in products">
         <!-- My bid -->
         <div class="rowtyp01">
-            <img class="propic-small" src="product-cover001.png"/>
+            <img class="propic-small" ng-src="{{product.prdCover}}"/>
 
             <div class="place-circle">
-                <span>1</span>
+                <span>{{product.bidRank}}</span>
             </div>
 
-            <div ng-init="ui={};ui.showbids=false;" class="pad-rightTo-propic">
-                <div class="rowL2Typ01">Session Tickets</div>
-                <div class="rowL2Typ02">Expires in one day</div>
+            <div ng-init="ui.showbids=false;" class="pad-rightTo-propic">
+                <div class="rowL2Typ01">{{product.title}}</div>
+                <div class="rowL2Typ02">Expires in <span timediff="product.expire"></span></div>
                 <div class="rowL2Typ03">
-                    <span>Current bid 5,000 K$</span>
+                    <span>Current price {{product.price.toLocaleString()}} K$</span>
+
                     <div style="display: inline-block;float:right;">
-                        <a ng-show="!ui.showbids" ng-click="ui.showbids=true;" class="link-btn" style="color: #4b87d2;">Place Bid</a>
-                        <a ng-show="ui.showbids" ng-click="ui.showbids=false;" class="link-btn" style="color: #666666;">Cancel</a>
+                        <a ng-show="!ui.showbids" ng-click="ui.showbids=true;" class="link-btn btnbg-blue">Place Bid</a>
+                        <a ng-show="ui.showbids" ng-click="ui.showbids=false;" class="link-btn btnbg-gray">Cancel</a>
                     </div>
                 </div>
 

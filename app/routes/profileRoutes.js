@@ -43,7 +43,11 @@ module.exports.route = function (app, ctrls) {
             });
     });
     app.get('/api/profile/:id/bids', function (req, res) {
-
+        if (req.kexProfile)
+        //profID, cb
+            ctrls.productCtrl.getBidedProducts(req.params.id, function (status) {
+                res.json(status);
+            });
     });
     app.get('/api/profile/:id/purchases', function (req, res) {
 

@@ -14,9 +14,33 @@ module.exports.initCtrl = function (models) {
 
     return new (function (models) {
 
-        this.placeBid = function (profID, productID, bid, cb) {
-            productModel.placeBid(profID, productID, bid, function (err, doc) {
+        this.getBidedProducts = function (profID, cb) {
+            productModel.getBidedProducts(profID, function (err, docs) {
+                if (err) {
+                    cb(Utils.genResponse("Bids retrieval error"));
+                    return;
+                }
+                cb(Utils.genResponse(null, true, docs));
+            });
+        };
 
+        this.placeBid = function (profID, productID, bid, cb) {
+            productModel.placeBid(profID, productID, bid, function (err, numberAffected, rawResponse) {
+                if (err || numberAffected < 1) {
+                    cb(Utils.genResponse("could not place bid"));
+                    return;
+                }
+                cb(Utils.genResponse(null, true));
+            });
+        };
+
+        this.purchase = function (profID, productID, cb) {
+            productModel.purchase(profID, productID, function (err, numberAffected, rawResponse) {
+                if (err || numberAffected < 1) {
+                    cb(Utils.genResponse("could not purchase"));
+                    return;
+                }
+                cb(Utils.genResponse(null, true));
             });
         };
 
