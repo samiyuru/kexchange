@@ -476,9 +476,8 @@ nav a.active {
 }
 
 .mybid .info {
-    background-color: #eaeaea;
-    margin-top: 12px;
-    padding: 12px;
+    background-color: #f0f0f0;
+    padding: 12px 12px 18px 12px;
 }
 
 .mybid .info .wrap0 {
@@ -500,7 +499,7 @@ nav a.active {
 }
 
 .mybid .info .imgs img {
-    max-height: 66px;
+    max-height: 60px;
     margin: 0 3px 3px 0;
 }
 

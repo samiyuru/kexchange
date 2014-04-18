@@ -25,25 +25,29 @@
                 </div>
             </div>
 
-            <!-- product info -->
-            <div ng-if="product.ui.showInfo" class="info">
-                <div class="wrap0">
-                    <img ng-click="product.hideInfo()" class="close" src="close01.png"/>
-                    <p class="by">From {{product.owner.nickname}}</p>
-                    <p class="detail">{{product.detail}}</p>
-                    <!-- images -->
-                    <div class="imgs">
-                        <img ng-repeat="img in product.imgs" ng-src="{{'/productpics/'+img}}"/>
-                    </div>
-                    <!-- images end -->
-                </div>
-            </div>
-            <!-- product info end -->
 
             <!-- bids list -->
             <div class="bids pad-rightTo-propic L-R-margin0" ng-if="product.ui.showbids" ng-include="'widgets/bidsHistory.html'"></div>
             <!-- bids list end -->
         </div>
+
+        <!-- product info -->
+        <div ng-if="product.ui.showInfo" class="info">
+            <div class="wrap0">
+                <img ng-click="product.hideInfo()" class="close" src="close01.png"/>
+
+                <p class="by">From {{product.owner.nickname}}</p>
+
+                <p class="detail">{{product.detail}}</p>
+                <!-- images -->
+                <div class="imgs">
+                    <img ng-repeat="img in product.imgs" ng-src="{{'/productpics/'+img}}"/>
+                </div>
+                <!-- images end -->
+            </div>
+        </div>
+        <!-- product info end -->
+
         <!-- My bid -->
     </li>
 </ul>
