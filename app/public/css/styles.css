@@ -12,7 +12,6 @@ html {
 
 /***************************/
 
-
 ::-webkit-scrollbar {
     width: 9px;
 }
@@ -31,7 +30,6 @@ html {
 }
 
 /***************************/
-
 
 body {
     background-color: #e5e5e5;
@@ -79,7 +77,6 @@ a.btnbg-gray {
 }
 
 /***************************/
-
 
 input, textarea {
     padding: 5px;
@@ -148,18 +145,14 @@ nav a {
     text-align: right;
 }
 
-.active {
+nav a.active {
     color: #282828 !important;
     text-decoration: none !important;
     font-weight: bold !important;
-}
-
-nav a.active {
     border-bottom: 3px solid #4b87d2;
 }
 
 /***************************/
-
 
 .rightspc01 {
     margin-right: 5px;
@@ -170,7 +163,6 @@ nav a.active {
 }
 
 /***************************/
-
 
 .swidget {
     border: 1px solid #d8d8d8;
@@ -193,10 +185,14 @@ nav a.active {
 
 .swidget .head-div h3 {
     margin-right: 25px;
-    color: #bbbbbb;
+    color: #cccccc;
     font-weight: normal !important;
     font-size: 17px;
     display: inline;
+}
+
+.swidget .head-div h3.active {
+    color: #282828 !important;
 }
 
 .swidget .subhead01 {
@@ -208,8 +204,14 @@ nav a.active {
 .swidget .subhead01 h3 {
     padding: 10px 0;
     display: inline;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: normal;
+    color: #cccccc;
+}
+
+.swidget .subhead01 h3.active {
+    color: #444;
+    font-weight: bold;
 }
 
 .swidget .subhead01 .close {
@@ -218,7 +220,6 @@ nav a.active {
 }
 
 /***************************/
-
 
 .propic-small {
     border-radius: 50%;
@@ -239,7 +240,6 @@ nav a.active {
 }
 
 /***************************/
-
 
 .rowtyp01 {
     border-top: 1px solid #d8d8d8;
@@ -304,7 +304,6 @@ nav a.active {
 
 /***************************/
 
-
 .rowtyp01.earning .rowL2Typ02 {
     color: #777777;
     font-size: 12px;
@@ -319,7 +318,6 @@ nav a.active {
 
 /***************************/
 
-
 .rowtyp01.loadmr {
     text-align: center;
 }
@@ -329,7 +327,6 @@ nav a.active {
 }
 
 /***************************/
-
 
 .left-col-main {
     width: 595px;
@@ -343,6 +340,7 @@ nav a.active {
 }
 
 .content-body {
+    min-height: 700px;
     position: relative;
     width: 1015px;
     margin: 0 auto;
@@ -351,7 +349,6 @@ nav a.active {
 }
 
 /***************************/
-
 
 .link-btn {
     display: inline-block;
@@ -373,7 +370,6 @@ nav a.active {
 
 /***************************/
 
-
 .L-R-padding0 {
     padding-left: 11px !important;
     padding-right: 11px !important;
@@ -385,7 +381,6 @@ nav a.active {
 }
 
 /***************************/
-
 
 .focusShadow01 {
     box-shadow: 1px 5px 17px 0 #282828;
@@ -466,7 +461,7 @@ nav a.active {
 
 /***************************/
 
-.mybid .rowL2Typ01{
+.mybid .rowL2Typ01 {
     cursor: default;
 }
 
@@ -476,7 +471,7 @@ nav a.active {
 }
 
 .mybid .info {
-    background-color: #f0f0f0;
+    background-color: #282828;
     padding: 12px 12px 18px 12px;
 }
 
@@ -490,7 +485,7 @@ nav a.active {
 }
 
 .mybid .info .detail {
-    color: #9a9a9a;
+    color: #cccccc;
 }
 
 .mybid .info .imgs {
