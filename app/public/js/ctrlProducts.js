@@ -20,7 +20,7 @@ kEX.controller("mybidsctrl", function ($scope, $filter, kexProducts, kexPofiles)
         this.ui.showInfo = false;
     };
 
-    BiddedProduct.prototype = new Product({});
+    BiddedProduct.prototype = Object.create(Product.prototype);
 
     BiddedProduct.prototype.showInfo = function () {
         this.ui.showInfo = true;
@@ -62,7 +62,7 @@ kEX.controller("mybidsctrl", function ($scope, $filter, kexProducts, kexPofiles)
 
 });
 
-kEX.controller("prdctsCtrlr", function ($scope, $filter, kexProducts, kexPofiles) {
+kEX.controller("prdctsCtrlr", function ($scope, $filter, kexProducts, kexPofiles, kexEvent) {
 
     var _curProfID = null;
     var products = [];
@@ -88,6 +88,8 @@ kEX.controller("prdctsCtrlr", function ($scope, $filter, kexProducts, kexPofiles
             }
         }
     });
+
+    kexEvent.subscribe();
 });
 
 kEX.controller("newPrdCtrl", function ($scope, kexProducts) {

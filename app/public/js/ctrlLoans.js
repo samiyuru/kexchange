@@ -27,7 +27,7 @@ kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles) {
         Investment.apply(this, arguments);
     };
 
-    Investor.prototype = new Investment();
+    Investor.prototype = Object.create(Investment.prototype);
 
     Investor.prototype.take = function () {
         kexInvest.takeLoan(this.id, (function (status) {
@@ -54,7 +54,7 @@ kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles) {
         Investment.apply(this, arguments);
     };
 
-    Loan.prototype = new Investment();
+    Loan.prototype = Object.create(Investment.prototype);
 
     Loan.prototype.payBack = function () {
         kexInvest.payBack(this.id, (function (status) {

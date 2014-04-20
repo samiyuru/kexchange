@@ -12,7 +12,7 @@ kEX.service("kexInvest", function ($http, kexPofiles) {
         this.debitor = debitor;
     };
 
-    this.loadMyInvestments = function (profID, cb) {
+    this.loadInvestmentsOf = function (profID, cb) {
         $http({
             method: "GET",
             params: {

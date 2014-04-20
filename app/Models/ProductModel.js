@@ -38,7 +38,14 @@ module.exports.initModel = function (mongoose) {
             type: Number,
             required: true
         },
-        remQty: Number,
+        remQty: {
+            type: Number,
+            required: true
+        },
+        soldQty: {
+            type: Number,
+            required: true
+        },
         isAuction: {
             type: Boolean,
             required: true
@@ -63,6 +70,20 @@ module.exports.initModel = function (mongoose) {
                     type: Number
                 }
             }
+        ],
+        purchases: [
+            {
+                date: {
+                    type: Date
+                },
+                buyer: {
+                    type: ObjectId,
+                    ref: 'profile'
+                },
+                price: {//added here for efficiency in finding price of an auctioned product
+                    type: Number
+                }
+            }
         ]
     }, {
         collection: 'products'
@@ -77,6 +98,7 @@ module.exports.initModel = function (mongoose) {
             type: product.type,
             qty: product.qty,
             remQty: product.qty,
+            soldQty: 0,
             isAuction: (product.isauction == 1),
             price: product.price || 0,
             expire: product.expire,
@@ -84,31 +106,6 @@ module.exports.initModel = function (mongoose) {
             bidCount: 0,
             bids: []
         }, cb);
-    };
-
-    productSchema.statics.getBidedProducts = function (profID, cb) {
-        var profObjID = TypObjectID(profID);
-        var now = new Date();
-        this._getProducts({
-            isAuction: true,
-            owner: {
-                $ne: TypObjectID(profID)//not owns
-            },
-            remQty: {
-                $gte: 1//items should remain
-            },
-            $or: [
-                {
-                    expire: null
-                },
-                {
-                    expire: {
-                        $gte: now
-                    }
-                }
-            ],
-            "bids.person": profObjID
-        }, null, null, null, true, cb);
     };
 
     productSchema.statics.placeBid = function (profID, productID, bid, cb) {
@@ -184,7 +181,8 @@ module.exports.initModel = function (mongoose) {
             ]
         }, {
             $inc: {
-                remQty: -1
+                remQty: -1,
+                soldQty: 1
             }
         }, cb);
     };
@@ -192,7 +190,7 @@ module.exports.initModel = function (mongoose) {
     productSchema.statics._getProducts = function (srch, isRem, isAuction, chunk, populate, cb) {//isAuction 1 or 0
         //always order by date
         if (isAuction) {
-            srch.isAuction = (isAuction === 1);
+            srch.isAuction = (isAuction === 1) || (isAuction === true);
         }
         if (isRem === true) {//available
             srch.remQty = {
@@ -203,9 +201,9 @@ module.exports.initModel = function (mongoose) {
         }
         var query = this.find(srch);
         if (populate) {
-            query = query.populate('owner', Utils.getProfileFieldsPub());
+            query = query.populate('bids.person', Utils.getProfileFieldsPub());
         }
-        query = query.populate('bids.person', Utils.getProfileFieldsPub());
+        query = query.populate('owner', Utils.getProfileFieldsPub());
         if (chunk) {
             query = query.skip(chunk.skip);
             query = query.limit(chunk.limit);
@@ -233,22 +231,73 @@ module.exports.initModel = function (mongoose) {
      * */
     productSchema.statics.getProductsFor = function (profID, isAuction, chunk, cb) {
         var profObjID = TypObjectID(profID);
-        //profID, profIDOwns, isRem, isAuction, chunk, populate, cb
+        //srch, isRem, isAuction, chunk, populate, cb
         this._getProducts({
             owner: {
                 $ne: profObjID//not owns
             },
+            remQty: {
+                $gte: 1//items should remain
+            },
             "bids.person": {
                 $ne: profObjID//not bidded
             }
-        }, true, isAuction, null, true, cb);
+        }, null, isAuction, null, true, cb);
     };
 
     productSchema.statics.getProductsOf = function (profID, isAuction, chunk, cb) {
-        //profID, profIDOwns, isRem, isAuction, chunk, populate, cb
+        //srch, isRem, isAuction, chunk, populate, cb
         this._getProducts({
             owner: TypObjectID(profID)
         }, null, isAuction, null, true, cb);
+    };
+
+    productSchema.statics.getPurchasesOf = function (profID, chunk, cb) {
+        var profObjID = TypObjectID(profID);
+        //srch, isRem, isAuction, chunk, populate, cb
+        this._getProducts({
+            owner: {
+                $ne: profObjID//not owns
+            },
+            "purchases.buyer": profObjID
+        }, null, null, null, true, cb);
+    };
+
+    productSchema.statics.getSoldsOf = function (profID, chunk, cb) {
+        var profObjID = TypObjectID(profID);
+        //srch, isRem, isAuction, chunk, populate, cb
+        this._getProducts({
+            owner: profObjID,
+            soldQty: {
+                $gt: 0
+            }
+        }, null, null, null, true, cb);
+    };
+
+    productSchema.statics.getBidedProducts = function (profID, cb) {
+        var profObjID = TypObjectID(profID);
+        var now = new Date();
+        //srch, isRem, isAuction, chunk, populate, cb
+        this._getProducts({
+            isAuction: true,
+            owner: {
+                $ne: TypObjectID(profID)//not owns
+            },
+            remQty: {
+                $gte: 1//items should remain
+            },
+            $or: [
+                {
+                    expire: null
+                },
+                {
+                    expire: {
+                        $gte: now
+                    }
+                }
+            ],
+            "bids.person": profObjID
+        }, null, null, null, true, cb);
     };
 
     return mongoose.model('product', productSchema);

@@ -1,7 +1,7 @@
 /**
  * Created by samiyuru on 4/15/14.
  */
-kEX.service("kexProducts", function ($http, kexPofiles) {
+kEX.service("kexProducts", function ($http, kexPofiles, kexEvent) {
 
     var kexProducts = this;
 
@@ -46,6 +46,8 @@ kEX.service("kexProducts", function ($http, kexPofiles) {
         this.ui = {
             newBid: ""
         };
+
+        this.isTaken = false;//is a purchased or bidded product (required for the event when taken)
 
         this.updateBidRank();
 
@@ -94,6 +96,10 @@ kEX.service("kexProducts", function ($http, kexPofiles) {
                 this.addBidToTop(kexPofiles.getLoggedProf(), now, newBid);
                 this.bidRank = 1;//most recent bid is mine so rank = 1
                 this.ui.newBid = "";//clear bid field if success
+                if (!this.isTaken) {
+                    this.isTaken = true;
+                    kexEvent.publish(PRODUCT_TAKEN_EVENT, this);
+                }
             }
         }).bind(this));
     };
@@ -101,7 +107,9 @@ kEX.service("kexProducts", function ($http, kexPofiles) {
     Product.prototype.purchase = function (newBid) {
         if (this.isAuction)return;
         kexProducts.purchase(this.id, function (status) {
-
+            if (status.success) {
+            
+            }
         });
     };
 

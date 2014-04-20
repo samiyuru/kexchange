@@ -38,7 +38,7 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
         Investment.apply(this, arguments);
     };
 
-    MyInvestment.prototype = new Investment();
+    MyInvestment.prototype = Object.create(Investment.prototype);
 
     MyInvestment.prototype.modProfit = function (newProft) {
         kexInvest.modProfit(this.id, newProft, (function (status) {
@@ -97,12 +97,12 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
     //----------------------------------
 
     kexPofiles.getCurrentProfile(function currentProfile(profile) {
-        loadMyInvestments(profile);
+        loadInvestmentsOf(profile);
     });
 
     //----------------------------------
 
-    function loadMyInvestments(profile) {
+    function loadInvestmentsOf(profile) {
         var profID = profile._id;
         if (profID == kexPofiles.getLoggedProf()._id) {//if profile is logged in profile
             ui.isLoggedProfile = true;//hide close, modProfit,
@@ -110,7 +110,7 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
             ui.isLoggedProfile = false;
         }
         investments.length = 0;//clear existing investments
-        kexInvest.loadMyInvestments(profID, function loadInvestCB(status) {
+        kexInvest.loadInvestmentsOf(profID, function loadInvestCB(status) {
             var data = status.data;
             var len = data.length;
             for (var i = 0; i < len; i++) {
@@ -137,7 +137,13 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
     function investMoney() {
         kexInvest.investMoney(newInvest, function newInvestCB(status) {//data format from server is different from normal MyInvestment format
             var data = status.data;
-            var invObj = new MyInvestment(data._id, data.amount, new Date(), data.profit, null, kexPofiles.getLoggedProf(), null);
+            var invObj = new MyInvestment(data._id
+                , data.amount
+                , new Date()
+                , data.profit
+                , null
+                , kexPofiles.getLoggedProf()
+                , null);
             investments.unshift(invObj);
         });
         hideNewInvest();
