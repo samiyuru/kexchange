@@ -108,7 +108,7 @@ kEX.service("kexProducts", function ($http, kexPofiles, kexEvent) {
         if (this.isAuction)return;
         kexProducts.purchase(this.id, function (status) {
             if (status.success) {
-            
+
             }
         });
     };

@@ -1,4 +1,7 @@
 <ul ng-controller="mybidsctrl">
+    <li ng-if="products.length==0;" class="rowtyp01 listEmptyMsg">
+        No bided products available
+    </li>
     <li class="mybid" ng-repeat="product in products">
         <!-- My bid -->
         <div class="rowtyp01">

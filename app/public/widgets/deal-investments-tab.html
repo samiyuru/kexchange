@@ -3,6 +3,9 @@
         <li>
             <!-- my invetments list -->
             <ul class="L-R-margin0" style="margin: 0;padding: 0;">
+                <li ng-if="investments.length==0;" class="rowtyp01 listEmptyMsg">
+                    No investments have made
+                </li>
                 <li class="investment" ng-repeat="invst in investments">
                     <!-- You Invested -->
                     <div class="rowtyp01">
@@ -136,6 +139,9 @@
 
     <!-- Someone else's invetments list -->
     <ul ng-if="!ui.isLoggedProfile" class="L-R-margin0" style="margin: 0;padding: 0;">
+        <li ng-if="investments.length==0;" class="rowtyp01 listEmptyMsg">
+            No investments have made
+        </li>
         <li ng-repeat="invst in investments">
             <!-- Someone Invested -->
             <div class="rowtyp01">
