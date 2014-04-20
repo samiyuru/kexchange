@@ -93,36 +93,6 @@ kEX.controller("recntErnngsCtrlr", function ($scope) {
                 name: "Samiyuru Senarathne",
                 propic: "propic02.png"
             }
-        },
-        {
-            head: "Blogger Earning",
-            amount: 100,
-            detail: "For the blogger you mentioned",
-            srcimg: "earning-ico001.png",
-            timeago: "Yesterday",
-            link: "#",
-            person: {
-                id: 0001,
-                wealth: 3000,
-                shname: "Samiyuru",
-                name: "Samiyuru Senarathne",
-                propic: "propic02.png"
-            }
-        },
-        {
-            head: "Blogger Earning",
-            amount: 100,
-            detail: "For the blogger you mentioned",
-            srcimg: "earning-ico001.png",
-            timeago: "Yesterday",
-            link: "#",
-            person: {
-                id: 0001,
-                wealth: 3000,
-                shname: "Samiyuru",
-                name: "Samiyuru Senarathne",
-                propic: "propic02.png"
-            }
         }
     ];
 });

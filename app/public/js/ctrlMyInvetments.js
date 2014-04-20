@@ -16,6 +16,7 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
         profit: ""
     };
 
+    $scope.myProfId = kexPofiles.getLoggedProf()._id;//for profile link in ui
     $scope.ui = ui;
     $scope.newInvest = newInvest;
     $scope.investments = investments;
@@ -95,7 +96,7 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
 
     //----------------------------------
 
-    kexPofiles.getCurrentProfile(function currentProfile(profile){
+    kexPofiles.getCurrentProfile(function currentProfile(profile) {
         loadMyInvestments(profile);
     });
 
@@ -108,23 +109,23 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
         } else {
             ui.isLoggedProfile = false;
         }
-            investments.length = 0;//clear existing investments
-            kexInvest.loadMyInvestments(profID, function loadInvestCB(status) {
-                var data = status.data;
-                var len = data.length;
-                for (var i = 0; i < len; i++) {
-                    var doc = data[i];
-                    var obj = new MyInvestment(doc._id
-                        , doc.amount
-                        , (doc.debitor) ? (new Date(doc.debitor.date)) : (new Date(doc.investor.date))
-                        , doc.profit.amount
-                        , (doc.profit.change) ? doc.profit.change : null
-                        , doc.investor.id
-                        , (doc.debitor) ? doc.debitor.id : null);
-                    investments.push(obj);
-                }
-                _curProfID = profID;
-            });
+        investments.length = 0;//clear existing investments
+        kexInvest.loadMyInvestments(profID, function loadInvestCB(status) {
+            var data = status.data;
+            var len = data.length;
+            for (var i = 0; i < len; i++) {
+                var doc = data[i];
+                var obj = new MyInvestment(doc._id
+                    , doc.amount
+                    , (doc.debitor) ? (new Date(doc.debitor.date)) : (new Date(doc.investor.date))
+                    , doc.profit.amount
+                    , (doc.profit.change) ? doc.profit.change : null
+                    , doc.investor.id
+                    , (doc.debitor) ? doc.debitor.id : null);
+                investments.push(obj);
+            }
+            _curProfID = profID;
+        });
     }
 
     function hideNewInvest() {

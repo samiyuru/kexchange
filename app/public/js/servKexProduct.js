@@ -27,7 +27,8 @@ kEX.service("kexProducts", function ($http, kexPofiles) {
         this.bidsLimit = RECENT_BIDS_LIMIT;
         this.bids = [];
         var bids = prdObj.bids;
-        for (var i in bids) {
+        var bidLen = bids.length;
+        for (var i = 0; i < bidLen; i++) {
             var bid = bids[i];
             if (!this.bidRank && bid.person._id == kexPofiles.getLoggedProf()._id) this.bidRank = i + 1;
             this.bids.push({
@@ -72,7 +73,8 @@ kEX.service("kexProducts", function ($http, kexPofiles) {
 
     Product.prototype.updateBidRank = function () {
         var loggedProfile = kexPofiles.getLoggedProf();
-        for (var i in this.bids) {
+        var bidLen = this.bids.length;
+        for (var i = 0; i < bidLen; i++) {
             var bid = this.bids[i];
             if (bid.person._id == loggedProfile._id) {
                 this.bidRank = i + 1;

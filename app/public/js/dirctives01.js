@@ -31,9 +31,6 @@ kEX.directive("actLinkCss", function ($rootScope, $location) {
 });
 
 
-
-
-
 kEX.directive("coverImg", function ($rootScope, $location) {
     return {
         restrict: 'A',
@@ -53,10 +50,6 @@ kEX.directive("coverImg", function ($rootScope, $location) {
         }
     };
 });
-
-
-
-
 
 
 kEX.directive("kexWidget", function () {
@@ -147,11 +140,6 @@ kEX.directive("kexTabDelegate", function () {
 });
 
 
-
-
-
-
-
 kEX.directive("imgUpload", function () {//parent should be 'imgUploader' //to be added to a button
     return {
         restrict: 'A',
@@ -227,12 +215,6 @@ kEX.directive("imgUploader", function () {
 });
 
 
-
-
-
-
-
-
 kEX.directive("productscont", function () {
     return {
         restrict: 'A',
@@ -279,7 +261,7 @@ kEX.directive("productscont", function () {
                 _iPrdInfo.show();
             }
         }
-    }
+    };
 });
 
 kEX.directive("product", function () {
@@ -332,7 +314,7 @@ kEX.directive("productinfo", function () {
             });
         },
         templateUrl: 'widgets/productinf-tmplt.html'
-    }
+    };
 });
 
 kEX.directive("pinfarrow", function () {
@@ -341,13 +323,8 @@ kEX.directive("pinfarrow", function () {
         link: function (scope, elem, attr) {
             scope.arwElm = elem;
         }
-    }
+    };
 });
-
-
-
-
-
 
 
 kEX.directive("timediff", function () {
@@ -366,6 +343,102 @@ kEX.directive("timediff", function () {
                 if (time != null)elem.html(utils.timeDiff(time));
             }, 60000);
         }
-    }
+    };
 });
+
+
+kEX.directive("subcontentHolder", function () {
+    return {
+        restrict: 'A',
+        transclude: true,
+        scope: {},
+        controller: function ($scope, $element) {
+            var subConts = [];
+            this.registerSubCont = function (selfIntrfc) {
+                if (subConts.length == 0) {
+                    selfIntrfc.showCont();//show first subcont by default
+                }
+                subConts.push(selfIntrfc);
+            };
+            this.showSubCont = function (subContA) {
+                var len = subConts.length;
+                for (var i = 0; i < len; i++) {
+                    var subCont = subConts[i];
+                    if (subCont === subContA) {
+                        subCont.showCont();
+                    } else {
+                        //subCont.hideCont();
+                    }
+                }
+            };
+        },
+        template: '<ul ng-transclude></ul>'
+    };
+});
+
+kEX.directive("subcontent", function () {
+    return {
+        restrict: 'A',
+        require: "^subcontentHolder",
+        transclude: true,
+        scope: {
+            title: "@subcontent"
+        },
+        link: function (scope, elem, attr, subCntHlder) {
+            scope.showCont = false;
+            var subCont = {
+                showCont: function () {
+                    scope.showCont = true;
+                },
+                hideCont: function () {
+                    scope.showCont = false;
+                }
+            };
+            subCntHlder.registerSubCont(subCont);
+
+            scope.headClicked = function () {
+                subCntHlder.showSubCont(subCont);
+            };
+            scope.closeClicked = function (e) {
+                e.stopPropagation();
+                scope.showCont = false;
+            };
+
+        },
+        template: '<!-- sub container -->\
+            <li>\
+                <!-- new investment head -->\
+                <div ng-click="headClicked()" class="rowtyp01 subhead01">\
+                    <div class="L-R-margin0">\
+                        <h3 ng-class="{active:showCont}">{{title}}</h3>\
+                        <img ng-if="showCont" ng-click="closeClicked($event)" class="close" src="../close01.png">\
+                    </div>\
+                </div>\
+                <!-- new investment head end-->\
+                <!-- content -->\
+                <div class="L-R-margin0" ng-if="showCont" ng-transclude></div>\
+                <!-- content end -->\
+            </li>\
+            <!-- sub container end -->'
+    };
+});
+
+
+kEX.directive("proflnk", function () {
+    return {
+        restrict: 'A',
+        replace: true,
+        transclude: true,
+        scope: {
+            profId: "=proflnk"
+        },
+        link: function (scope, elem, attr) {
+
+        },
+        template: '<a ng-ref="/#/profile/{{profId}}" ng-transclude></a>'
+    };
+});
+
+
+
 

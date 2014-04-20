@@ -36,7 +36,7 @@
             <div class="wrap0">
                 <img ng-click="product.hideInfo()" class="close" src="close01.png"/>
 
-                <p class="by">From {{product.owner.nickname}}</p>
+                <p class="by">From <a ng-href="/#/profile/{{product.owner._id}}">{{product.owner.nickname}}</a></p>
 
                 <p class="detail">{{product.detail}}</p>
                 <!-- images -->

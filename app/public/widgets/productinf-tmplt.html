@@ -11,7 +11,7 @@
         bottom: 100%;
         height: 0;
         width: 0;
-        border-bottom: 10px solid  #282828;
+        border-bottom: 10px solid #282828;
         border-left: 10px solid transparent;
         border-right: 10px solid transparent;
     }
@@ -28,7 +28,7 @@
         margin: 3px 0;
     }
 
-    .productinf .owner{
+    .productinf .owner {
         color: #4b87d2;
     }
 
@@ -145,8 +145,11 @@
             <td>
                 <!-- prd detailes -->
                 <h3>{{product.title}}</h3>
+
                 <p class="exp">Expires in <span timediff="product.expire"></span></p>
-                <p class="owner">From {{product.owner.nickname}}</p>
+
+                <p class="owner">From <a ng-href="/#/profile/{{product.owner._id}}">{{product.owner.nickname}}</a></p>
+
                 <p class="desc">{{product.detail}}</p>
                 <!-- prd detailes end-->
 

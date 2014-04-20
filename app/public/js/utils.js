@@ -7,7 +7,7 @@ window.utils = new (function () {
 
         function currentYPosition() {
             // Firefox, Chrome, Opera, Safari
-            if (self.pageYOffset) return self.pageYOffset;
+            if (window.pageYOffset) return window.pageYOffset;
             // Internet Explorer 6 - standards mode
             if (document.documentElement && document.documentElement.scrollTop)
                 return document.documentElement.scrollTop;
@@ -33,13 +33,13 @@ window.utils = new (function () {
         }
 
         var startY = currentYPosition();
-        var stopY = elmYPosition(el);
+        var stopY = elmYPosition(el) - 150;
         var distance = stopY > startY ? stopY - startY : startY - stopY;
         if (distance < 100) {
             scrollTo(0, stopY);
             return;
         }
-        var speed = Math.round(distance / 100);
+        var speed = Math.round(distance / 90);
         if (speed >= 20) speed = 20;
         var step = Math.round(distance / 90);
         var leapY = stopY > startY ? startY + step : startY - step;
@@ -60,7 +60,7 @@ window.utils = new (function () {
             }
         }
 
-    }
+    };
 
     this.timeDiff = function (date) {
         var units = [
@@ -87,6 +87,6 @@ window.utils = new (function () {
                 return diff + " " + unit.name + (diff > 1 ? "s" : "") + ((isFuture) ? "" : " ago");
             }
         }
-    }
+    };
 
 })();

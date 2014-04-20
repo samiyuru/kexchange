@@ -8,12 +8,14 @@
             <li ng-repeat="loan in loans">
                 <!-- You took money -->
                 <div class="rowtyp01">
-                    <img class="propic-small" ng-src="{{loan.investor.propic}}"/>
+                    <a ng-href="/#/profile/{{loan.investor._id}}">
+                        <img class="propic-small" ng-src="{{loan.investor.propic}}"/>
+                    </a>
 
                     <div class="pad-rightTo-propic">
                         <div class="rowL2Typ01">Amount {{loan.amount.toLocaleString()}} K$</div>
                         <div class="rowL2Typ02">
-                            <span>from {{loan.investor.nickname}}</span>
+                            <span>from <a ng-href="/#/profile/{{loan.investor._id}}">{{loan.investor.nickname}}</a></span>
                             <span timediff="loan.date"></span>
                         </div>
 
@@ -64,12 +66,14 @@
             <li ng-repeat="investor in investors">
                 <!-- Investor -->
                 <div class="rowtyp01">
-                    <img class="propic-small" ng-src="{{investor.investor.propic}}"/>
+                    <a ng-href="/#/profile/{{investor.investor._id}}">
+                        <img class="propic-small" ng-src="{{investor.investor.propic}}"/>
+                    </a>
 
                     <div class="pad-rightTo-propic">
                         <div class="rowL2Typ01">Amount {{investor.amount.toLocaleString()}} K$</div>
                         <div class="rowL2Typ02">
-                            <span>by {{investor.investor.nickname}}</span>
+                            <span>by <a ng-href="/#/profile/{{investor.investor._id}}">{{investor.investor.nickname}}</a></span>
                             <span timediff="investor.date"></span>
                         </div>
 

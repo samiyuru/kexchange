@@ -39,6 +39,12 @@ span {
     font-size: inherit; /*spans dint inherit from parent*/
 }
 
+a {
+    text-decoration: inherit;
+    color: inherit;
+    cursor: default;
+}
+
 button {
     background-color: #de4747;
     border: none;
@@ -202,9 +208,9 @@ nav a.active {
 }
 
 .swidget .subhead01 h3 {
-    padding: 10px 0;
+    padding: 8px 0;
     display: inline;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: normal;
     color: #cccccc;
 }
