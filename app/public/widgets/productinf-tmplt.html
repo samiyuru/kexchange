@@ -79,6 +79,15 @@
         text-align: right;
     }
 
+    .productinf #purchase .confrm {
+        margin-top: 8px;
+        color: #9a9a9a;
+    }
+
+    .productinf .btnbg-gray {
+        color: #9a9a9a;
+    }
+
     .productinf #purchase button {
         background-color: #4b87d2;
     }
@@ -168,9 +177,18 @@
                     <!--close button end-->
 
                     <!--purchase-->
-                    <div ng-if="!product.isAuction" id="purchase">
-                        <span id="price">Price: {{product.price.toLocaleString()}} K$</span>
-                        <button>Purchase</button>
+                    <div ng-init="ui={purchConf:false}" ng-if="!product.isAuction"id="purchase">
+                        <div ng-if="!ui.purchConf" >
+                            <span id="price">Price: {{product.price.toLocaleString()}} K$</span>
+                            <button ng-click="ui.purchConf=true;">Purchase</button>
+                        </div>
+                        <!-- confirm Purchase -->
+                        <div ng-if="ui.purchConf" class="confrm">
+                            <span>Are you sure?</span>
+                            <a ng-click="product.purchase()" class="link-btn btnbg-blue">Purchase</a>
+                            <a ng-click="ui.purchConf=false;" class="link-btn btnbg-gray">Cancel</a>
+                        </div>
+                        <!-- confirm Purchase end -->
                     </div>
                     <!--purchase end-->
 

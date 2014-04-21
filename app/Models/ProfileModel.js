@@ -1,6 +1,7 @@
 /**
  * Created by samiyuru on 4/4/14.
  */
+var Utils = require(__base + "/utils");
 
 module.exports.initModel = function (mongoose) {
 
@@ -70,14 +71,14 @@ module.exports.initModel = function (mongoose) {
         this.findOne({
             _id: TypObjectID(profID)
         })
-            .select('_id nickname name propic wealth lastwealth')
+            .select('_id', Utils.getProfileFieldsPub())
             .exec(cb);
     };
 
     profileSchema.statics.getProfiles = function (chunk, cb) {
         var findObj = {};
         var query = this.find({})
-            .select('_id nickname name propic wealth lastwealth')
+            .select('_id', Utils.getProfileFieldsPub())
             .sort('-wealth');
         if (chunk) {
             query = query.skip(chunk.skip)
@@ -94,20 +95,20 @@ module.exports.initModel = function (mongoose) {
         cb(amount);
     };
 
-    profileSchema.statics.addProduct = function (profID, productID, cb) {
-        this.update(
-            {
-                _id: TypObjectID(profID)
-            },
-            {
-                $push:{
-                    purchases:{
-
-                    }
-                }
-            }
-        );
-    };
+//    profileSchema.statics.addProduct = function (profID, productID, cb) {
+//        this.update(
+//            {
+//                _id: TypObjectID(profID)
+//            },
+//            {
+//                $push: {
+//                    purchases: {
+//
+//                    }
+//                }
+//            }
+//        );
+//    };
 
     return mongoose.model('profile', profileSchema);
 
