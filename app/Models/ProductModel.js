@@ -187,28 +187,23 @@ module.exports.initModel = function (mongoose) {
         }, cb);
     };
 
-    productSchema.statics._getProducts = function (srch, isRem, isAuction, chunk, populate, cb) {//isAuction 1 or 0
-        //always order by date
+
+    productSchema.statics.makeQuery = function (srch, isAuction, chunk) {
         if (isAuction) {
             srch.isAuction = (isAuction === 1) || (isAuction === true);
         }
-        if (isRem === true) {//available
-            srch.remQty = {
-                $gte: 1
-            };
-        } else if (isRem === false) {//out of stock
-            srch.remQty = 0;
-        }
         var query = this.find(srch);
-        if (populate) {
-            query = query.populate('bids.person', Utils.getProfileFieldsPub());
-        }
-        query = query.populate('owner', Utils.getProfileFieldsPub());
         if (chunk) {
             query = query.skip(chunk.skip);
             query = query.limit(chunk.limit);
         }
-        query.sort('-date')
+        query = query.populate('owner', Utils.getProfileFieldsPub());
+        return query;
+    };
+
+    productSchema.statics.execQuery = function (query, cb) {
+        query.populate('owner', Utils.getProfileFieldsPub())
+            .sort('-date')
             .exec(function (err, docs) {
                 if (!err) {
                     for (var i in docs) {
@@ -231,8 +226,7 @@ module.exports.initModel = function (mongoose) {
      * */
     productSchema.statics.getProductsFor = function (profID, isAuction, chunk, cb) {
         var profObjID = TypObjectID(profID);
-        //srch, isRem, isAuction, chunk, populate, cb
-        this._getProducts({
+        var query = this.makeQuery({
             owner: {
                 $ne: profObjID//not owns
             },
@@ -242,43 +236,47 @@ module.exports.initModel = function (mongoose) {
             "bids.person": {
                 $ne: profObjID//not bidded
             }
-        }, null, isAuction, null, true, cb);
+        }, isAuction)
+            .populate('bids.person', Utils.getProfileFieldsPub());
+        this.execQuery(query, cb)
     };
 
     productSchema.statics.getProductsOf = function (profID, isAuction, chunk, cb) {
-        //srch, isRem, isAuction, chunk, populate, cb
-        this._getProducts({
+        var query = this.makeQuery({
             owner: TypObjectID(profID)
-        }, null, isAuction, null, true, cb);
+        }, isAuction)
+            .populate('bids.person', Utils.getProfileFieldsPub());
+        this.execQuery(query, cb)
     };
 
     productSchema.statics.getPurchasesOf = function (profID, chunk, cb) {
         var profObjID = TypObjectID(profID);
-        //srch, isRem, isAuction, chunk, populate, cb
-        this._getProducts({
+        var query = this.makeQuery({
             owner: {
                 $ne: profObjID//not owns
             },
             "purchases.buyer": profObjID
-        }, null, null, null, true, cb);
+        })
+            .populate('bids.person', Utils.getProfileFieldsPub());
+        this.execQuery(query, cb)
     };
 
     productSchema.statics.getSoldsOf = function (profID, chunk, cb) {
         var profObjID = TypObjectID(profID);
-        //srch, isRem, isAuction, chunk, populate, cb
-        this._getProducts({
+        var query = this.makeQuery({
             owner: profObjID,
             soldQty: {
                 $gt: 0
             }
-        }, null, null, null, true, cb);
+        })
+            .populate('bids.person', Utils.getProfileFieldsPub());
+        this.execQuery(query, cb)
     };
 
     productSchema.statics.getBidedProducts = function (profID, cb) {
         var profObjID = TypObjectID(profID);
         var now = new Date();
-        //srch, isRem, isAuction, chunk, populate, cb
-        this._getProducts({
+        var query = this.makeQuery({
             isAuction: true,
             owner: {
                 $ne: TypObjectID(profID)//not owns
@@ -297,7 +295,9 @@ module.exports.initModel = function (mongoose) {
                 }
             ],
             "bids.person": profObjID
-        }, null, null, null, true, cb);
+        })
+            .populate('bids.person', Utils.getProfileFieldsPub());
+        this.execQuery(query, cb)
     };
 
     return mongoose.model('product', productSchema);

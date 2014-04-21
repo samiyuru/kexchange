@@ -16,6 +16,6 @@ module.exports = {
     },
 
     getProfileFieldsPub: function () {
-        return {name: 1, nickname: 1, wealth: 1, propic: 1, loan: 1, status: 1};
+        return {name: 1, nickname: 1, wealth: 1, propic: 1, loan: 1, status: 1, soldQty: 1};
     }
 };
