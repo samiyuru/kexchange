@@ -20,7 +20,7 @@
                         </div>
 
 
-                        <div ng-init="ui={};ui.paybkCnf=false;" class="rowL2Typ03">
+                        <div ng-init="ui.paybkCnf=false;" class="rowL2Typ03">
                             <div ng-if="!ui.paybkCnf">
                                 <span>Rental {{loan.profit}} K$ per week</span>
                                 <a ng-if="ui.isLoggedProfile" ng-click="ui.paybkCnf=true;" class="link-btn btnbg-blue" style="float:right;">Pay Back</a>

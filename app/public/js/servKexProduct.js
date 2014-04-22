@@ -124,7 +124,8 @@ kEX.service("kexProducts", function ($http, kexPofiles, kexEvent) {
         formData.append("detail", detail);
         formData.append("qty", qty);
         formData.append("price", price);
-        formData.append("expire", expire);
+        if (expire)
+            formData.append("expire", expire);
         formData.append("isauction", (isAuction) ? 1 : 0);
         var imgLen = imgs.length;
         for (var i = 0; i < imgLen; i++) {

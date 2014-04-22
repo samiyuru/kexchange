@@ -34,13 +34,25 @@ module.exports.initCtrl = function (models) {
             });
         };
 
-        this.purchase = function (profID, productID, cb) {
-            productModel.purchase(profID, productID, function (err, numberAffected, rawResponse) {
-                if (err || numberAffected < 1) {
-                    cb(Utils.genResponse("could not purchase"));
+        this.purchase = function (profID, productID, cb) {//buy fixed price product
+            productModel.getProductById(productID, function getProductCB(err, product) {
+                if (err || product == null) {
+                    cb(Utils.genResponse("invalid product"));
                     return;
                 }
-                cb(Utils.genResponse(null, true));
+                profileModel.transferMoney(profID, product.owner, product.price, function (err, isSuccess) {
+                    if (err) {
+                        cb(Utils.genResponse(err));
+                        return;
+                    }
+                    productModel.purchase(profID, productID, product.price, function (err, numberAffected, rawResponse) {
+                        if (err || numberAffected < 1) {
+                            cb(Utils.genResponse("could not purchase"));
+                            return;
+                        }
+                        cb(Utils.genResponse(null, true));
+                    });
+                });
             });
         };
 
@@ -72,7 +84,7 @@ module.exports.initCtrl = function (models) {
                 }
                 productModel.createProduct(profID, product, fileNames, function (err, doc) {
                     if (err) {
-                        cb(Utils.genResponse("product creation error error"));
+                        cb(Utils.genResponse("product creation error"));
                         return;
                     }
                     cb(Utils.genResponse(null, true, doc));

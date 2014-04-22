@@ -71,14 +71,14 @@ module.exports.initModel = function (mongoose) {
         this.findOne({
             _id: TypObjectID(profID)
         })
-            .select('_id', Utils.getProfileFieldsPub())
+            .select(Utils.getProfileFieldsPub())
             .exec(cb);
     };
 
     profileSchema.statics.getProfiles = function (chunk, cb) {
         var findObj = {};
         var query = this.find({})
-            .select('_id', Utils.getProfileFieldsPub())
+            .select(Utils.getProfileFieldsPub())
             .sort('-wealth');
         if (chunk) {
             query = query.skip(chunk.skip)
@@ -94,6 +94,23 @@ module.exports.initModel = function (mongoose) {
     profileSchema.statics.getMoney = function (profID, amount, cb) {
         cb(amount);
     };
+
+    profileSchema.statics.transferMoney = function (formProfID, toProfID, amount, cb) {// cb(err, isSuccess)
+        var self = this;
+        self.getMoney(formProfID, amount, function moneyGetCB(_amount) {
+            if (amount != _amount) {
+                cb("money retrieval error", false);
+                return;
+            }
+            self.putMoney(toProfID, amount, function moneyGiveCB(success) {
+                if (!success) {
+                    cb("money transfer error", false);
+                    return;
+                }
+                cb(null, true);
+            });
+        });
+    }
 
 //    profileSchema.statics.addProduct = function (profID, productID, cb) {
 //        this.update(

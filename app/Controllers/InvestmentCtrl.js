@@ -82,6 +82,27 @@ module.exports.initCtrl = function (models) {
         }
 
         this.payBack = function (profID, invstmntID, cb) {
+
+            productModel.getProductById(productID, function getProductCB(err, product) {
+                if (err || product == null) {
+                    cb(Utils.genResponse("invalid product"));
+                    return;
+                }
+                profileModel.transferMoney(profID, product.owner, product.price, function (err, isSuccess) {
+                    if (err) {
+                        cb(Utils.genResponse(err));
+                        return;
+                    }
+                    productModel.purchase(profID, productID, product.price, function (err, numberAffected, rawResponse) {
+                        if (err || numberAffected < 1) {
+                            cb(Utils.genResponse("could not purchase"));
+                            return;
+                        }
+                        cb(Utils.genResponse(null, true));
+                    });
+                });
+            });
+
             investmentModel.getInvestmentById(invstmntID, function getInvCB(err, doc) {
                 if (err || doc == null) {
                     cb(Utils.genResponse("invalid payback"));
@@ -91,23 +112,17 @@ module.exports.initCtrl = function (models) {
                     cb(Utils.genResponse("invalid payback"));
                     return;
                 }
-                profileModel.getMoney(profID, doc.amount, function moneyGetCB(amount) {
-                    if (amount != doc.amount) {
-                        cb(Utils.genResponse("money retrieval error"));
+                profileModel.transferMoney(profID, doc.investor.id, doc.amount, function (err, isSuccess) {
+                    if (err) {
+                        cb(Utils.genResponse("money transfer error"));
                         return;
                     }
-                    profileModel.putMoney(doc.investor.id, amount, function moneyGive(success) {
-                        if (!success) {
-                            cb(Utils.genResponse("money transfer error"));
+                    investmentModel.rmInvestmentById(invstmntID, function removeInv(err, doc) {
+                        if (err || doc == null) {
+                            cb(Utils.genResponse("Investment could not be removed"));
                             return;
                         }
-                        investmentModel.rmInvestmentById(invstmntID, function removeInv(err, doc) {
-                            if (err || doc == null) {
-                                cb(Utils.genResponse("Investment could not remove"));
-                                return;
-                            }
-                            cb(Utils.genResponse(null, true));
-                        });
+                        cb(Utils.genResponse(null, true));
                     });
                 });
             });
