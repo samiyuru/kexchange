@@ -42,21 +42,14 @@ module.exports.route = function (app, ctrls) {
                 res.json(status);
             });
     });
-    app.get('/api/profile/:id/bids', function (req, res) {
-        if (req.kexProfile)
-        //profID, cb
-            ctrls.productCtrl.getBidedProducts(req.params.id, function (status) {
-                res.json(status);
-            });
-    });
-    app.get('/api/profile/:id/purchases', function (req, res) {
-
-    });
     app.get('/api/profile/:id/investments', function (req, res) {
         if (req.kexProfile)
             ctrls.investmentCtrl.investmentsOf(req.params.id, function (status) {
                 res.json(status);
             });
+    });
+    app.get('/api/profile/:id/notifications', function (req, res) {
+
     });
     app.get('/api/profile/:id/accounts', function (req, res) {
 
@@ -67,15 +60,33 @@ module.exports.route = function (app, ctrls) {
                 res.json(status);
             });
     });
-    app.get('/api/profile/:id/products', function (req, res) {
+    app.get('/api/profile/:id/products/bids', function (req, res) {
         if (req.kexProfile)
-        //profID, isAuction, chunk, cb
-            ctrls.productCtrl.getProductsOf(req.params.id, req.query.isauction, null, function (status) {
+        //profID, cb
+            ctrls.productCtrl.getBidedProducts(req.params.id, function (status) {
                 res.json(status);
             });
     });
-    app.get('/api/profile/:id/notifications', function (req, res) {
-
+    app.get('/api/profile/:id/products/instore', function (req, res) {
+        if (req.kexProfile)
+        //profID, isAuction, chunk, cb
+            ctrls.productCtrl.getInstorPrdsOf(req.params.id, req.query.isauction, null, function (status) {
+                res.json(status);
+            });
+    });
+    app.get('/api/profile/:id/products/purchased', function (req, res) {
+        if (req.kexProfile)
+        //profID, isAuction, chunk, cb
+            ctrls.productCtrl.getPurchasesOf(req.params.id, req.query.isauction, null, function (status) {
+                res.json(status);
+            });
+    });
+    app.get('/api/profile/:id/products/sold', function (req, res) {
+        if (req.kexProfile)
+        //profID, isAuction, chunk, cb
+            ctrls.productCtrl.getSoldPrdsOf(req.params.id, req.query.isauction, null, function (status) {
+                res.json(status);
+            });
     });
 
 }

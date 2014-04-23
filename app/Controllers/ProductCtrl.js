@@ -66,8 +66,28 @@ module.exports.initCtrl = function (models) {
             });
         };
 
-        this.getProductsOf = function (profID, isAuction, chunk, cb) {
-            productModel.getProductsOf(profID, isAuction, chunk, function (err, docs) {
+        this.getInstorPrdsOf = function (profID, isAuction, chunk, cb) {
+            productModel.getInstorPrdsOf(profID, isAuction, chunk, function (err, docs) {
+                if (err) {
+                    cb(Utils.genResponse("products retrieval error"));
+                    return;
+                }
+                cb(Utils.genResponse(null, true, docs));
+            });
+        };
+
+        this.getPurchasesOf = function (profID, isAuction, chunk, cb) {
+            productModel.getPurchasesOf(profID, isAuction, chunk, function (err, docs) {
+                if (err) {
+                    cb(Utils.genResponse("products retrieval error"));
+                    return;
+                }
+                cb(Utils.genResponse(null, true, docs));
+            });
+        };
+
+        this.getSoldPrdsOf = function (profID, isAuction, chunk, cb) {
+            productModel.getSoldPrdsOf(profID, isAuction, chunk, function (err, docs) {
                 if (err) {
                     cb(Utils.genResponse("products retrieval error"));
                     return;

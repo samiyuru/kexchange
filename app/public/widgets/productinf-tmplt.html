@@ -177,7 +177,7 @@
                     <!--close button end-->
 
                     <!--purchase-->
-                    <div ng-init="ui={purchConf:false}" ng-if="!product.isAuction"id="purchase">
+                    <div ng-if="!product.isAuction"id="purchase">
                         <div ng-if="!ui.purchConf" >
                             <span id="price">Price: {{product.price.toLocaleString()}} K$</span>
                             <button ng-click="ui.purchConf=true;">Purchase</button>

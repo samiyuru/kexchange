@@ -62,18 +62,14 @@ kEX.controller("mybidsctrl", function ($scope, $filter, kexProducts, kexPofiles)
 
 });
 
-kEX.controller("prdctsCtrlr", function ($scope, $filter, kexProducts, kexPofiles, kexEvent) {
+kEX.controller("prdctsCtrlr", function ($scope, kexProducts, kexPofiles, kexEvent) {
 
-    var _curProfID = null;
     var products = [];
+    var Product = kexProducts.Product;
 
     //-----------------------------------------------
 
     $scope.products = products;
-
-    //-----------------------------------------------
-
-    var Product = kexProducts.Product;
 
     //-----------------------------------------------
 

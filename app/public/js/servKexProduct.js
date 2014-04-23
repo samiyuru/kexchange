@@ -145,20 +145,6 @@ kEX.service("kexProducts", function ($http, kexPofiles, kexEvent) {
             });
     }
 
-    this.getProductsOf = function (profID, isAuction, cb) {
-        $http({
-            method: "GET",
-            params: {
-                isauction: isAuction,
-                auth: kexPofiles.getAuthToken()
-            },
-            url: "/api/profile/" + kexPofiles.getLoggedProf()._id + "/products"
-        }).success(function (data) {
-                cb(data);
-            });
-    }
-
-
     this.getProducts = function (isAuction, cb) {
         $http({
             method: "GET",
@@ -171,6 +157,18 @@ kEX.service("kexProducts", function ($http, kexPofiles, kexEvent) {
                 cb(data);
             });
     }
+
+    this.purchase = function (productID, cb) {
+        $http({
+            method: "POST",
+            params: {
+                auth: kexPofiles.getAuthToken()
+            },
+            url: "/api/products/" + productID + "/purchase"
+        }).success(function (data) {
+                cb(data);
+            });
+    };
 
     this.placeBid = function (productID, newBid, cb) {
         $http({
@@ -192,22 +190,67 @@ kEX.service("kexProducts", function ($http, kexPofiles, kexEvent) {
             params: {
                 auth: kexPofiles.getAuthToken()
             },
-            url: "/api/profile/" + profID + "/bids"
+            url: "/api/profile/" + profID + "/products/bids"
         }).success(function (data) {
                 cb(data);
             });
     };
 
-    this.purchase = function (productID, cb) {
+
+    this.getSoldProductsOf = function (profID, cb) {
         $http({
-            method: "POST",
+            method: "GET",
             params: {
                 auth: kexPofiles.getAuthToken()
             },
-            url: "/api/products/" + productID + "/purchase"
+            url: "/api/profile/" + profID + "/products/sold"
+        }).success(function (data) {
+                cb(data);
+            });
+    };
+
+    this.getInstoreProductsOf = function (profID, cb) {
+        $http({
+            method: "GET",
+            params: {
+                auth: kexPofiles.getAuthToken()
+            },
+            url: "/api/profile/" + profID + "/products/instore"
+        }).success(function (data) {
+                cb(data);
+            });
+    };
+
+    this.getPurchasedProductsOf = function (profID, cb) {
+        $http({
+            method: "GET",
+            params: {
+                auth: kexPofiles.getAuthToken()
+            },
+            url: "/api/profile/" + profID + "/products/purchased"
         }).success(function (data) {
                 cb(data);
             });
     };
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -3,7 +3,6 @@
  */
 
 kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles) {
-    var _curProfID = null;//currently loaded profile id
     var ui = {
         isLoggedProfile: true,
         isShowInvestors: false
@@ -67,10 +66,32 @@ kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles) {
 
     //----------------------------------
 
-
     loadInvestors();
+
     kexPofiles.getCurrentProfile(function currentProfile(profile) {
-        loadLoans(profile);
+        var profID = profile._id;
+        if (profID == kexPofiles.getLoggedProf()._id) {//if profile is logged in profile
+            ui.isLoggedProfile = true;//show 'Need money' button, pay back
+        } else {
+            ui.isLoggedProfile = false;//hide 'Need money' button, pay back
+        }
+        kexInvest.loadLoans(profID, function loadInvestCB(status) {
+            var docs = status.data;
+            loans.length = 0;//clear existing loans
+            var len = docs.length;
+            for (var i = 0; i < len; i++) {
+                var doc = docs[i];
+                //id, amount, date, profit, profitMod, investor, debitor
+                var obj = new Loan(doc._id
+                    , doc.amount
+                    , new Date(doc.debitor.date)
+                    , doc.profit.amount
+                    , (doc.profit.change) ? doc.profit.change : null
+                    , doc.investor.id
+                    , kexPofiles.getLoggedProf());
+                loans.push(obj);
+            }
+        });
     });
 
     //----------------------------------
@@ -102,33 +123,6 @@ kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles) {
                 return;
             }
         }
-    }
-
-    function loadLoans(profile) {
-        var profID = profile._id;
-        if (profID == kexPofiles.getLoggedProf()._id) {//if profile is logged in profile
-            ui.isLoggedProfile = true;//show 'Need money' button, pay back
-        } else {
-            ui.isLoggedProfile = false;//hide 'Need money' button, pay back
-        }
-        kexInvest.loadLoans(profID, function loadInvestCB(status) {
-            var docs = status.data;
-            loans.length = 0;//clear existing loans
-            var len = docs.length;
-            for (var i = 0; i < len; i++) {
-                var doc = docs[i];
-                //id, amount, date, profit, profitMod, investor, debitor
-                var obj = new Loan(doc._id
-                    , doc.amount
-                    , new Date(doc.debitor.date)
-                    , doc.profit.amount
-                    , (doc.profit.change) ? doc.profit.change : null
-                    , doc.investor.id
-                    , kexPofiles.getLoggedProf());
-                loans.push(obj);
-            }
-            _curProfID = profID;
-        });
     }
 
     function loadInvestors() {

@@ -257,7 +257,7 @@ module.exports.initModel = function (mongoose) {
         this.execQuery(query, cb)
     };
 
-    productSchema.statics.getProductsOf = function (profID, isAuction, chunk, cb) {
+    productSchema.statics.getInstorPrdsOf = function (profID, isAuction, chunk, cb) {
         var query = this.makeQuery({
             owner: TypObjectID(profID)
         }, isAuction)
@@ -265,7 +265,7 @@ module.exports.initModel = function (mongoose) {
         this.execQuery(query, cb)
     };
 
-    productSchema.statics.getPurchasesOf = function (profID, chunk, cb) {
+    productSchema.statics.getPurchasesOf = function (profID, isAuction, chunk, cb) {
         var profObjID = TypObjectID(profID);
         var query = this.makeQuery({
             owner: {
@@ -277,7 +277,7 @@ module.exports.initModel = function (mongoose) {
         this.execQuery(query, cb)
     };
 
-    productSchema.statics.getSoldsOf = function (profID, chunk, cb) {
+    productSchema.statics.getSoldPrdsOf = function (profID, isAuction, chunk, cb) {
         var profObjID = TypObjectID(profID);
         var query = this.makeQuery({
             owner: profObjID,

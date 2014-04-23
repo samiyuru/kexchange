@@ -289,6 +289,8 @@ kEX.directive("productinfo", function () {
         scope: {},
         link: function (scope, elem, attr, productscont) {
 
+            scope.ui = {purchConf: false};
+
             function _setProduct(product, pMidX) {
                 scope.product = product;
                 scope.arwElm.css("left", pMidX - 10 + "px");
@@ -407,16 +409,16 @@ kEX.directive("subcontent", function () {
         },
         template: '<!-- sub container -->\
             <li>\
-                <!-- new investment head -->\
+                <!-- sub content head -->\
                 <div ng-click="headClicked()" class="rowtyp01 subhead01">\
                     <div class="L-R-margin0">\
                         <h3 ng-class="{active:showCont}">{{title}}</h3>\
                         <img ng-if="showCont" ng-click="closeClicked($event)" class="close" src="../close01.png">\
                     </div>\
                 </div>\
-                <!-- new investment head end-->\
+                <!-- sub content head end-->\
                 <!-- content -->\
-                <div class="L-R-margin0" ng-if="showCont" ng-transclude></div>\
+                <div class="L-R-margin0" ng-transclude></div>\
                 <!-- content end -->\
             </li>\
             <!-- sub container end -->'

@@ -97,12 +97,6 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
     //----------------------------------
 
     kexPofiles.getCurrentProfile(function currentProfile(profile) {
-        loadInvestmentsOf(profile);
-    });
-
-    //----------------------------------
-
-    function loadInvestmentsOf(profile) {
         var profID = profile._id;
         if (profID == kexPofiles.getLoggedProf()._id) {//if profile is logged in profile
             ui.isLoggedProfile = true;//hide close, modProfit,
@@ -124,9 +118,10 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles) {
                     , (doc.debitor) ? doc.debitor.id : null);
                 investments.push(obj);
             }
-            _curProfID = profID;
         });
-    }
+    });
+
+    //----------------------------------
 
     function hideNewInvest() {
         newInvest.amount = "";
