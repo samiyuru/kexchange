@@ -1,57 +1,72 @@
-<div ng-controller="prsnProducts" subcontent-holder>
+<div subcontent-holder>
 
-    <ul subcontent="Products In Store">
-        samiyuru
-        <!-- My Item -->
-        <li ng-repeat="product in instoreProducts" class="rowtyp01">
-            <img class="propic-small" src="product-cover001.png"/>
+    <div subcontent="Products In Store">
+        <ul ng-controller="instrProducts">
+            <li ng-if="instoreProducts.length==0;" class="rowtyp01 listEmptyMsg">
+                No Items in store
+            </li>
+            <!-- My Item -->
+            <li ng-repeat="product in instoreProducts" class="rowtyp01">
+                <img class="propic-small" ng-src="{{product.prdCover}}"/>
 
-            <div class="pad-rightTo-propic">
-                <div class="rowL2Typ01">Session Tickets</div>
-                <div class="rowL2Typ02">from Hasith Yaggahawita</div>
-                <div class="rowL2Typ03">
-                    <span>Bought for 3,000 K$</span>
-                    <a class="link-btn" style="color: #4b87d2;float:right;">Sell Back</a>
+                <div class="pad-rightTo-propic">
+                    <div class="rowL2Typ01">{{product.title}}</div>
+                    <div class="rowL2Typ02">from {{product.owner.nickname}}</div>
+                    <div class="rowL2Typ03">
+                        <span>price {{product.price.toLocaleString()}} K$</span>
+                        <a class="link-btn" style="color: #4b87d2;float:right;">Sell Back</a>
+                    </div>
                 </div>
-            </div>
-            <div style="clear: both;"></div>
-        </li>
-        <!-- My Item -->
-    </ul>
+                <div style="clear: both;"></div>
+            </li>
+            <!-- My Item -->
+        </ul>
+    </div>
 
-    <ul subcontent="Sold Products">
-        <!-- My Item -->
-        <li ng-repeat="product in soldProducts" class="rowtyp01">
-            <img class="propic-small" src="product-cover001.png"/>
+    <div subcontent="Sold Products">
+        <ul ng-controller="soldProducts">
+            <li ng-if="soldProducts.length==0;" class="rowtyp01 listEmptyMsg">
+                No products sold
+            </li>
+            <!-- My Item -->
+            <li ng-repeat="product in soldProducts" class="rowtyp01">
+                <img class="propic-small" src="product-cover001.png"/>
 
-            <div class="pad-rightTo-propic">
-                <div class="rowL2Typ01">Session Tickets</div>
-                <div class="rowL2Typ02">from Hasith Yaggahawita</div>
-                <div class="rowL2Typ03">
-                    <span>Bought for 3,000 K$</span>
-                    <a class="link-btn" style="color: #4b87d2;float:right;">Sell Back</a>
+                <div class="pad-rightTo-propic">
+                    <div class="rowL2Typ01">Session Tickets</div>
+                    <div class="rowL2Typ02">from Hasith Yaggahawita</div>
+                    <div class="rowL2Typ03">
+                        <span>Bought for 3,000 K$</span>
+                        <a class="link-btn" style="color: #4b87d2;float:right;">Sell Back</a>
+                    </div>
                 </div>
-            </div>
-            <div style="clear: both;"></div>
-        </li>
-        <!-- My Item -->
-    </ul>
+                <div style="clear: both;"></div>
+            </li>
+            <!-- My Item -->
+        </ul>
+    </div>
 
-    <ul subcontent="Purchases">
-        <!-- My Item -->
-        <li ng-repeat="product in purchProducts" class="rowtyp01">
-            <img class="propic-small" src="product-cover001.png"/>
+    <div subcontent="Purchases">
+        <ul ng-controller="purchProducts">
+            <li ng-if="purchProducts.length==0;" class="rowtyp01 listEmptyMsg">
+                No purchases available
+            </li>
+            <!-- My Item -->
+            <li ng-repeat="product in purchProducts" class="rowtyp01">
+                <img class="propic-small" src="product-cover001.png"/>
 
-            <div class="pad-rightTo-propic">
-                <div class="rowL2Typ01">Session Tickets</div>
-                <div class="rowL2Typ02">from Hasith Yaggahawita</div>
-                <div class="rowL2Typ03">
-                    <span>Bought for 3,000 K$</span>
-                    <a class="link-btn" style="color: #4b87d2;float:right;">Sell Back</a>
+                <div class="pad-rightTo-propic">
+                    <div class="rowL2Typ01">Session Tickets</div>
+                    <div class="rowL2Typ02">from Hasith Yaggahawita</div>
+                    <div class="rowL2Typ03">
+                        <span>Bought for 3,000 K$</span>
+                        <a class="link-btn" style="color: #4b87d2;float:right;">Sell Back</a>
+                    </div>
                 </div>
-            </div>
-            <div style="clear: both;"></div>
-        </li>
-        <!-- My Item -->
-    </ul>
+                <div style="clear: both;"></div>
+            </li>
+            <!-- My Item -->
+        </ul>
+    </div>
+
 </div>

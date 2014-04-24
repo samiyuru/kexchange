@@ -418,7 +418,7 @@ kEX.directive("subcontent", function () {
                 </div>\
                 <!-- sub content head end-->\
                 <!-- content -->\
-                <div class="L-R-margin0" ng-transclude></div>\
+                <div ng-if="showCont" class="L-R-margin0" ng-transclude></div>\
                 <!-- content end -->\
             </li>\
             <!-- sub container end -->'
