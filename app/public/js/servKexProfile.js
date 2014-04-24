@@ -126,7 +126,7 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
                 });
             }
         } else {
-            return _loggedProf;
+            cb(_loggedProf);
         }
     }
 });
