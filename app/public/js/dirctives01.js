@@ -62,26 +62,9 @@ kEX.directive("kexWidget", function () {
 
             $scope.tabDelgate = null;//if set, pass selected tab title to this function
 
-            this.addTab = function (title, contElem) {
+            this.addTab = function (tabIntrfc) {
                 $scope.tabDelgate = null;//disable delegate
-                $scope.tabs.push({
-                    title: title,//header of tab
-                    cont: contElem,//tab content div jqlt obj
-                    isShow: false//is this the visible tab
-                });
-            };
-
-            this.setTabDelegate = function (delegate, titles) {
-                $scope.tabs = [];//disable kexTabs
-                $scope.tabDelgate = delegate;
-                var ttlsL = titles.length;
-                for (var i = 0; i < ttlsL; i++) {
-                    $scope.tabs.push({
-                        title: titles[i],//header of tab
-                        cont: null,//tab content div jqlt obj
-                        isShow: false//is this the visible tab
-                    });
-                }
+                $scope.tabs.push(tabIntrfc);
             };
 
         },
@@ -92,11 +75,9 @@ kEX.directive("kexWidget", function () {
                 for (var i = 0; i < tbsl; i++) {//traverse tab objects
                     var tab = scope.tabs[i];
                     if (i == indx) {//if this is the tab to be shown
-                        tab.isShow = true;
-                        if (tab.cont)tab.cont.css('display', 'block');
+                        tab.showTab();
                     } else {//not to be shown
-                        tab.isShow = false;
-                        if (tab.cont)tab.cont.css('display', 'none');//hide content
+                        tab.hideTab();//hide content
                     }
                 }
                 if (scope.tabDelgate) {//if tabDelgate is set,
@@ -116,26 +97,26 @@ kEX.directive("kexTab", function () {
     return {
         restrict: 'A',
         require: "^kexWidget",
+        transclude: true,
         scope: {
             title: "@kexTab"
         },
         link: function (scope, elem, attr, kexWidget) {
-            kexWidget.addTab(scope.title, elem);
-        }
-    };
-});
-
-kEX.directive("kexTabDelegate", function () {
-    return {
-        restrict: 'A',
-        require: "^kexWidget",
-        scope: {
-            delegate: "&kexTabDelegate",
-            titles: "=kexTitles"
+            scope.showTab = false;
+            kexWidget.addTab({
+                title: scope.title,
+                isShow: false,
+                showTab: function () {
+                    this.isShow = true;
+                    scope.showTab = true;
+                },
+                hideTab: function () {
+                    this.isShow = false;
+                    scope.showTab = false;
+                }
+            });
         },
-        link: function (scope, elem, attr, kexWidget) {
-            kexWidget.setTabDelegate(scope.delegate, scope.titles);
-        }
+        template: '<div ng-if="showTab" ng-transclude></div>'
     };
 });
 
@@ -418,10 +399,48 @@ kEX.directive("subcontent", function () {
                 </div>\
                 <!-- sub content head end-->\
                 <!-- content -->\
-                <div ng-if="showCont" class="L-R-margin0" ng-transclude></div>\
+                <div ng-if="showCont" ng-transclude></div>\
                 <!-- content end -->\
             </li>\
             <!-- sub container end -->'
+    };
+});
+
+
+kEX.directive("listScroller", function () {
+    return {
+        restrict: 'A',
+        scope: {
+            showCount: "=listScroller"
+        },
+        controller: function ($scope, $element) {
+            var MAX_SHOW = $scope.showCount;
+            var maxHeight = 0
+            var count = 0;
+
+            $element.css("overflow-y", "auto");
+
+            this.addListItemH = function (height) {
+                if (count < MAX_SHOW) {
+                    maxHeight += height;
+                    count++;
+                } else {
+                    $element.css("max-height", maxHeight + "px");
+                }
+            }
+        }
+    };
+});
+
+
+kEX.directive("listItem", function () {
+    return {
+        restrict: 'A',
+        require: "^listScroller",
+        scope: {},
+        link: function (scope, elem, attr, listScrlCtrl) {
+            listScrlCtrl.addListItemH(elem.prop('offsetHeight'));
+        }
     };
 });
 
@@ -440,7 +459,6 @@ kEX.directive("proflnk", function () {
         template: '<a ng-ref="/#/profile/{{profId}}" ng-transclude></a>'
     };
 });
-
 
 
 

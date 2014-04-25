@@ -1,12 +1,12 @@
 <div subcontent-holder>
 
     <div subcontent="Products In Store">
-        <ul ng-controller="instrProducts">
-            <li ng-if="instoreProducts.length==0;" class="rowtyp01 listEmptyMsg">
+        <ul list-scroller="5" ng-controller="instrProducts" class="L-R-padding0">
+            <li list-item ng-if="instoreProducts.length==0;" class="rowtyp01 listEmptyMsg">
                 No Items in store
             </li>
             <!-- My Item -->
-            <li ng-repeat="product in instoreProducts" class="rowtyp01">
+            <li list-item ng-repeat="product in instoreProducts" class="rowtyp01">
                 <img class="propic-small" ng-src="{{product.prdCover}}"/>
 
                 <div class="pad-rightTo-propic">
