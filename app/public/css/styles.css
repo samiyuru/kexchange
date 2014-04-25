@@ -225,6 +225,23 @@ nav a.active {
     margin: 5px 0;
 }
 
+.swidget .tabScroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.swidget .tabScroll::-webkit-scrollbar-track {
+    background-color: #fff;
+    border-left: 1px solid #fff;
+}
+
+.swidget .tabScroll::-webkit-scrollbar-thumb {
+    background-color: #ddd;
+}
+
+.swidget .tabScroll::-webkit-scrollbar-thumb:hover {
+    background-color: #ccc;
+}
+
 /***************************/
 
 .propic-small {

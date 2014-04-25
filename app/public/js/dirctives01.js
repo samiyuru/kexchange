@@ -419,6 +419,7 @@ kEX.directive("listScroller", function () {
             var count = 0;
 
             $element.css("overflow-y", "auto");
+            $element.addClass("tabScroll");
 
             this.addListItemH = function (height) {
                 if (count < MAX_SHOW) {
