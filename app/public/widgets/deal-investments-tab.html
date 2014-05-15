@@ -21,7 +21,7 @@
 
                             <!-- invest content -->
                             <div ng-if="!invst.ui.isRmv">
-                                <img ng-if="invst.debitor==null && ui.isLoggedProfile" ng-click="invst.showDel()" style="float: right;margin-top:3px;" src="close01.png"/>
+                                <img ng-if="invst.debitor==null && ui.isLoggedProfile" ng-click="invst.showDel()" style="float: right;margin-top:3px;" src="/img/close01.png"/>
 
                                 <!-- condinal propic-->
                                 <a ng-if="invst.debitor==null" ng-href="/#/profile/{{invst.investor._id}}"><img class="propic-small" style="opacity: .3;" ng-src="{{invst.investor.propic}}"/></a>
@@ -88,7 +88,7 @@
             <div class="rowtyp01 subhead01">
                 <div class="L-R-margin0">
                     <h3 class="active">Invest Money</h3>
-                    <img class="close" ng-click="ui.isShowNwInvest=false" src="../close01.png">
+                    <img class="close" ng-click="ui.isShowNwInvest=false" src="/img/close01.png">
                 </div>
             </div>
             <!-- new investment head end-->
@@ -97,7 +97,7 @@
             <!-- new investment input -->
             <div class="L-R-margin0 rowtyp01">
                 <a ng-href="/#/profile/{{myProfId}}">
-                    <img class="propic-small" src="propic01.png"/>
+                    <img class="propic-small" src="/img/propic01.png"/>
                 </a>
 
                 <div class="pad-rightTo-propic">

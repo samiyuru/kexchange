@@ -63,7 +63,7 @@ Samiyuru Senarathne
 <div id="loginparent" ng-if="!isLogged">
     <div ng-if="showForm" class="login">
         <div class="head">
-            <img class="logo" src="logo.png"/>
+            <img class="logo" src="/img/logo.png"/>
             <span class="text">KExchange</span>
         </div>
         <input ng-model="user.username" type="text" placeholder="username"/>
@@ -76,7 +76,7 @@ Samiyuru Senarathne
 </div>
 <div ng-if="isLogged">
     <div style="position: fixed;width: 100%;z-index: 100;background-color:#f5f5f5;box-shadow: 0 0 5px 0 #000;">
-        <img style="position: absolute;top: 0px;left: 0px;height: 100%;" src="logo.png"/>
+        <img style="position: absolute;top: 0px;left: 0px;height: 100%;" src="/img/logo.png"/>
         <nav style="position: relative;">
             <ul act-link-css="active">
                 <li><a href="#/">Home</a></li>
@@ -105,21 +105,22 @@ Samiyuru Senarathne
     <!-- footer end -->
 </div>
 
+
 <script src="js/utils.js" type="text/javascript"></script>
 <script src="js/libs/angular/angular.js" type="text/javascript"></script>
 <script src="js/libs/angular/angular-route.js" type="text/javascript"></script>
 <script src="js/libs/angular/angular-cookies.js" type="text/javascript"></script>
 <script src="js/app.js" type="text/javascript"></script>
-<script src="js/dirctives01.js" type="text/javascript"></script>
-<script src="js/services01.js" type="text/javascript"></script>
-<script src="js/servKexProfile.js" type="text/javascript"></script>
-<script src="js/servKexInvest.js" type="text/javascript"></script>
-<script src="js/servKexProduct.js" type="text/javascript"></script>
-<script src="js/controller01.js" type="text/javascript"></script>
-<script src="js/ctrlMyInvetments.js" type="text/javascript"></script>
-<script src="js/ctrlLoans.js" type="text/javascript"></script>
-<script src="js/ctrlProducts.js" type="text/javascript"></script>
-<script src="js/ctrlPersonProducts.js" type="text/javascript"></script>
+<script src="js/directives/dirctives01.js" type="text/javascript"></script>
+<script src="js/services/services01.js" type="text/javascript"></script>
+<script src="js/services/servKexProfile.js" type="text/javascript"></script>
+<script src="js/services/servKexInvest.js" type="text/javascript"></script>
+<script src="js/services/servKexProduct.js" type="text/javascript"></script>
+<script src="js/controllers/controller01.js" type="text/javascript"></script>
+<script src="js/controllers/ctrlMyInvetments.js" type="text/javascript"></script>
+<script src="js/controllers/ctrlLoans.js" type="text/javascript"></script>
+<script src="js/controllers/ctrlProducts.js" type="text/javascript"></script>
+<script src="js/controllers/ctrlPersonProducts.js" type="text/javascript"></script>
 <script type="text/javascript">
     angular.element(document).ready(function () {
         angular.bootstrap(document, ['kExchange']);

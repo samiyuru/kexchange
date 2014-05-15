@@ -30,14 +30,14 @@
 
 
             <!-- bids list -->
-            <div class="bids pad-rightTo-propic L-R-margin0" ng-if="product.ui.showbids" ng-include="'widgets/bidsHistory.html'"></div>
+            <div class="bids pad-rightTo-propic L-R-margin0" ng-if="product.ui.showbids" ng-include="'/widgets/bidsHistory.html'"></div>
             <!-- bids list end -->
         </div>
 
         <!-- product info -->
         <div ng-if="product.ui.showInfo" class="info">
             <div class="wrap0">
-                <img ng-click="product.hideInfo()" class="close" src="close01.png"/>
+                <img ng-click="product.hideInfo()" class="close" src="/img/close01.png"/>
 
                 <p class="by">From <a ng-href="/#/profile/{{product.owner._id}}">{{product.owner.nickname}}</a></p>
 
