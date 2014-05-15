@@ -38,7 +38,7 @@ kEX.controller("recntErnngsCtrlr", function ($scope) {
             head: "Blogger Earning",
             amount: 100,
             detail: "For the blogger you mentioned",
-            srcimg: "earning-ico001.png",
+            srcimg: "/img/earning-ico001.png",
             timeago: "Yesterday",
             link: "#",
             person: {
@@ -46,14 +46,14 @@ kEX.controller("recntErnngsCtrlr", function ($scope) {
                 wealth: 3000,
                 shname: "Samiyuru",
                 name: "Samiyuru Senarathne",
-                propic: "propic02.png"
+                propic: "/img/propic02.png"
             }
         },
         {
             head: "Blogger Earning",
             amount: 100,
             detail: "For the blogger you mentioned",
-            srcimg: "earning-ico001.png",
+            srcimg: "/img/earning-ico001.png",
             timeago: "Yesterday",
             link: "#",
             person: {
@@ -61,14 +61,14 @@ kEX.controller("recntErnngsCtrlr", function ($scope) {
                 wealth: 3000,
                 shname: "Samiyuru",
                 name: "Samiyuru Senarathne",
-                propic: "propic02.png"
+                propic: "/img/propic02.png"
             }
         },
         {
             head: "Blogger Earning",
             amount: 100,
             detail: "For the blogger you mentioned",
-            srcimg: "earning-ico001.png",
+            srcimg: "/img/earning-ico001.png",
             timeago: "Yesterday",
             link: "#",
             person: {
@@ -76,14 +76,14 @@ kEX.controller("recntErnngsCtrlr", function ($scope) {
                 wealth: 3000,
                 shname: "Samiyuru",
                 name: "Samiyuru Senarathne",
-                propic: "propic02.png"
+                propic: "/img/propic02.png"
             }
         },
         {
             head: "Blogger Earning",
             amount: 100,
             detail: "For the blogger you mentioned",
-            srcimg: "earning-ico001.png",
+            srcimg: "/img/earning-ico001.png",
             timeago: "Yesterday",
             link: "#",
             person: {
@@ -91,7 +91,7 @@ kEX.controller("recntErnngsCtrlr", function ($scope) {
                 wealth: 3000,
                 shname: "Samiyuru",
                 name: "Samiyuru Senarathne",
-                propic: "propic02.png"
+                propic: "/img/propic02.png"
             }
         }
     ];
@@ -105,7 +105,7 @@ kEX.controller("topErnrsCtrlr", function ($scope) {
                 wealth: 3000,
                 shname: "Samiyuru",
                 name: "Samiyuru Senarathne",
-                propic: "propic01.png"
+                propic: "/img/propic01.png"
             },
             earning: 10000,
             place: 01
@@ -116,7 +116,7 @@ kEX.controller("topErnrsCtrlr", function ($scope) {
                 wealth: 3000,
                 shname: "Samiyuru",
                 name: "Samiyuru Senarathne",
-                propic: "propic01.png"
+                propic: "/img/propic01.png"
             },
             earning: 10000,
             place: 02
@@ -127,7 +127,7 @@ kEX.controller("topErnrsCtrlr", function ($scope) {
                 wealth: 3000,
                 shname: "Samiyuru",
                 name: "Samiyuru Senarathne",
-                propic: "propic01.png"
+                propic: "/img/propic01.png"
             },
             earning: 10000,
             place: 03

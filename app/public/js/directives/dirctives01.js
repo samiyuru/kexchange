@@ -185,7 +185,7 @@ kEX.directive("imgUploader", function () {
             <ul style="margin-bottom: -12px;">\
                 <li ng-repeat="img in imgs" style="display: inline-block; margin: 0 12px 12px 0;position: relative;">\
                     <img style="height: 66px;padding: 3px;border: 1px solid #d8d8d8;" ng-src="{{img}}"/>\
-                    <img ng-click="delImg(img);" style="position: absolute;top:-5px;right: -5px;" src="../close01.png"/>\
+                    <img ng-click="delImg(img);" style="position: absolute;top:-5px;right: -5px;" src="/img/close01.png"/>\
                 </li>\
             </ul>\
         </div>\
@@ -394,7 +394,7 @@ kEX.directive("subcontent", function () {
                 <div ng-click="headClicked()" class="rowtyp01 subhead01">\
                     <div class="L-R-margin0">\
                         <h3 ng-class="{active:showCont}">{{title}}</h3>\
-                        <img ng-if="showCont" ng-click="closeClicked($event)" class="close" src="../close01.png">\
+                        <img ng-if="showCont" ng-click="closeClicked($event)" class="close" src="/img/close01.png">\
                     </div>\
                 </div>\
                 <!-- sub content head end-->\
