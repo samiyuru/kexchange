@@ -1,6 +1,7 @@
 /**
  * Created by samiyuru on 4/4/14.
  */
+var formidable = require('formidable');
 var Utils = require(__base + "/utils");
 var fs = require('fs');
 var path = require('path');
@@ -14,102 +15,108 @@ module.exports.initCtrl = function (models) {
 
     return new (function (models) {
 
-        this.getBidedProducts = function (profID, cb) {
+        this.getBidedProducts = function (req, res) {
+            if (!req.kexProfile)
+                return res.json({});
+            var profID = req.params.id;
             productModel.getBidedProducts(profID, function (err, docs) {
-                if (err) {
-                    cb(Utils.genResponse("Bids retrieval error"));
-                    return;
-                }
-                cb(Utils.genResponse(null, true, docs));
+                if (err)
+                    return res.json(Utils.genResponse("Bids retrieval error"));
+                res.json(Utils.genResponse(null, true, docs));
             });
         };
 
-        this.placeBid = function (profID, productID, bid, cb) {
+        this.placeBid = function (req, res) {
+            if (!req.kexProfile)
+                return res.json({});
+            var profID = req.kexProfile.id, productID = req.params.prdId, bid = req.query.bid;
             productModel.placeBid(profID, productID, bid, function (err, numberAffected, rawResponse) {
-                if (err || numberAffected < 1) {
-                    cb(Utils.genResponse("could not place bid"));
-                    return;
-                }
-                cb(Utils.genResponse(null, true));
+                if (err || numberAffected < 1)
+                    return res.json(Utils.genResponse("could not place bid"));
+                res.json(Utils.genResponse(null, true));
             });
         };
 
-        this.purchase = function (profID, productID, cb) {//buy fixed price product
+        this.purchase = function (req, res) {//buy fixed price product
+            if (!req.kexProfile)
+                return res.json({});
+            var profID = req.kexProfile.id, productID = req.params.prdId;
             productModel.getProductById(productID, function getProductCB(err, product) {
-                if (err || product == null) {
-                    cb(Utils.genResponse("invalid product"));
-                    return;
-                }
+                if (err || product == null)
+                    return res.json(Utils.genResponse("invalid product"));
                 profileModel.transferMoney(profID, product.owner, product.price, function (err, isSuccess) {
-                    if (err) {
-                        cb(Utils.genResponse(err));
-                        return;
-                    }
+                    if (err)
+                        return res.json(Utils.genResponse(err));
                     productModel.purchase(profID, productID, product.price, function (err, numberAffected, rawResponse) {
-                        if (err || numberAffected < 1) {
-                            cb(Utils.genResponse("could not purchase"));
-                            return;
-                        }
-                        cb(Utils.genResponse(null, true));
+                        if (err || numberAffected < 1)
+                            return res.json(Utils.genResponse("could not purchase"));
+                        res.json(Utils.genResponse(null, true));
                     });
                 });
             });
         };
 
-        this.getProductsFor = function (profID, isAuction, chunk, cb) {
+        this.getProductsFor = function (req, res) {
+            if (!req.kexProfile)
+                return res.json({});
+            var profID = req.kexProfile.id, isAuction = req.query.isauction, chunk = null;
             productModel.getProductsFor(profID, isAuction, chunk, function (err, docs) {
-                if (err) {
-                    cb(Utils.genResponse("products retrieval error"));
-                    return;
-                }
-                cb(Utils.genResponse(null, true, docs));
+                if (err)
+                    return res.json(Utils.genResponse("products retrieval error"));
+                res.json(Utils.genResponse(null, true, docs));
             });
         };
 
-        this.getInstorPrdsOf = function (profID, isAuction, chunk, cb) {
+        this.getInstorPrdsOf = function (req, res) {
+            if (!req.kexProfile)
+                return res.json({});
+            var profID = req.params.id, isAuction = req.query.isauction, chunk = null;
             productModel.getInstorPrdsOf(profID, isAuction, chunk, function (err, docs) {
-                if (err) {
-                    cb(Utils.genResponse("products retrieval error"));
-                    return;
-                }
-                cb(Utils.genResponse(null, true, docs));
+                if (err)
+                    return res.json(Utils.genResponse("products retrieval error"));
+                res.json(Utils.genResponse(null, true, docs));
             });
         };
 
-        this.getPurchasesOf = function (profID, isAuction, chunk, cb) {
+        this.getPurchasesOf = function (req, res) {
+            if (!req.kexProfile)
+                return res.json({});
+            var profID = req.params.id, isAuction = req.query.isauction, chunk = null;
             productModel.getPurchasesOf(profID, isAuction, chunk, function (err, docs) {
-                if (err) {
-                    cb(Utils.genResponse("products retrieval error"));
-                    return;
-                }
-                cb(Utils.genResponse(null, true, docs));
+                if (err)
+                    return res.json(Utils.genResponse("products retrieval error"));
+                res.json(Utils.genResponse(null, true, docs));
             });
         };
 
-        this.getSoldPrdsOf = function (profID, isAuction, chunk, cb) {
+        this.getSoldPrdsOf = function (req, res) {
+            if (!req.kexProfile)
+                return res.json({});
+            var profID = req.params.id, isAuction = req.query.isauction, chunk = null;
             productModel.getSoldPrdsOf(profID, isAuction, chunk, function (err, docs) {
-                if (err) {
-                    cb(Utils.genResponse("products retrieval error"));
-                    return;
-                }
-                cb(Utils.genResponse(null, true, docs));
+                if (err)
+                    return res.json(Utils.genResponse("products retrieval error"));
+                res.json(Utils.genResponse(null, true, docs));
             });
         };
 
-        this.createProduct = function (profID, product, files, cb) {
-            saveImages(files, function (err, fileNames) {
-                if (err) {
-                    cb(Utils.genResponse("file upload error"));
-                    return;
-                }
-                productModel.createProduct(profID, product, fileNames, function (err, doc) {
-                    if (err) {
-                        cb(Utils.genResponse("product creation error"));
-                        return;
-                    }
-                    cb(Utils.genResponse(null, true, doc));
+        this.createProduct = function (req, res) {
+            if (!req.kexProfile)
+                return res.json({});
+            var form = new formidable.IncomingForm();
+            form.parse(req, function (err, fields, files) {
+                var profID = req.kexProfile.id, product = fields, files = files;
+                saveImages(files, function (err, fileNames) {
+                    if (err)
+                        return res.json(Utils.genResponse("file upload error"));
+                    productModel.createProduct(profID, product, fileNames, function (err, doc) {
+                        if (err)
+                            return res.json(Utils.genResponse("product creation error"));
+                        res.json(Utils.genResponse(null, true, doc));
+                    });
                 });
             });
+
         };
 
         function saveImages(files, cb) {

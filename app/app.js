@@ -15,8 +15,8 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
         cluster.fork();
     });
 } else {
+    var morgan = require('morgan');
     var express = require('express');
-    var http = require('http');
     var config = require('./config')();
     global.__base = __dirname;
 
@@ -31,32 +31,25 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
         var ctrls = require('./Controllers')(models);
 
         var app = express();
-
-        app.configure(function () {
-            app.use(express.logger('dev'));
-            app.use(express.methodOverride());
-            app.use('/propics', express.static(__base + '/images/propics'));
-            app.use('/productpics', express.static(__base + '/images/products'));
-            app.use(express.static(__base + '/public'));//map static files routes. files needed to render index.html
-            app.use(function (req, res, next) {//authentication
-                var authToken = req.query.auth;
-                if (!authToken) {
-                    return next();
-                }
-                ctrls.profileCtrl.validateAuth(authToken, function (profile) {
-                    req.kexProfile = profile;
-                    next();
-                });
+        app.use(morgan());
+        app.use('/propics', express.static(__base + '/images/propics'));
+        app.use('/productpics', express.static(__base + '/images/products'));
+        app.use('/', express.static(__base + '/public'));//map static files routes. files needed to render index.html
+        app.use(function (req, res, next) {//authentication
+            var authToken = req.query.auth;
+            if (!authToken) {
+                return next();
+            }
+            ctrls.profileCtrl.validateAuth(authToken, function (profile) {
+                req.kexProfile = profile;
+                next();
             });
-            app.use(app.routes);
         });
 
         require(__base + '/routes').route(app, ctrls);
 
-        http.createServer(app).listen(config.port, function () {
+        app.listen(config.port, function () {
             console.log('Express server listening on port ' + config.port);
-            console.log('Tests started..');
-            require('./Tests/tests').test(app, models, ctrls);
         });
     });
 }
