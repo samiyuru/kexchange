@@ -1,16 +1,13 @@
 /**
  * Created by samiyuru on 4/15/14.
  */
-kEX.service("kexInvest", function ($http, kexPofiles) {
-    this.Investment = function (id, amount, date, profit, profitMod, investor, debitor) {
-        this.id = id;
-        this.amount = amount;
-        this.date = date;
-        this.profit = profit;
-        this.profitMod = profitMod;
-        this.investor = investor;
-        this.debitor = debitor;
-    };
+kEX.service("kexInvest", function ($http, kexPofiles, kexInvestTypes) {
+
+    this.InvestmentBase = kexInvestTypes.InvestmentBase;
+    this.MyInvestment = kexInvestTypes.MyInvestment;
+    this.OthersInvestment = kexInvestTypes.OthersInvestment;
+    this.MyLoan = kexInvestTypes.MyLoan;
+    this.OthersLoan = kexInvestTypes.OthersLoan;
 
     this.loadInvestmentsOf = function (profID, cb) {
         $http({

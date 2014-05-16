@@ -1,7 +1,7 @@
-<ul ng-controller="loanCtrl">
-    <li class="L-R-margin0">
+<div>
+    <div ng-controller="loanCtrl">
         <!-- my loans -->
-        <ul>
+        <ul class="L-R-margin0">
             <li ng-if="loans.length==0;" class="rowtyp01 listEmptyMsg">
                 No money has taken from anyone
             </li>
@@ -18,8 +18,6 @@
                             <span>from <a ng-href="/#/profile/{{loan.investor._id}}">{{loan.investor.nickname}}</a></span>
                             <span timediff="loan.date"></span>
                         </div>
-
-
                         <div ng-init="ui.paybkCnf=false;" class="rowL2Typ03">
                             <div ng-if="!ui.paybkCnf">
                                 <span>Rental {{loan.profit}} K$ per week</span>
@@ -31,9 +29,7 @@
                                 <a ng-click="ui.paybkCnf=false;" class="link-btn btnbg-gray">Cancel</a>
                             </div>
                         </div>
-
                     </div>
-
                     <div style="clear: both;"></div>
                 </div>
                 <!-- You took money end -->
@@ -42,67 +38,63 @@
         <!-- my loans end -->
 
         <!-- new loan button -->
-        <div ng-if="((!ui.isShowInvestors) && ui.isLoggedProfile)" class="rowtyp01">
+        <div ng-if="ui.isTakeMoneyButt && ui.isLoggedProfile" class="rowtyp01 L-R-margin0">
             <button ng-click="showInvestors();" onclick="window.utils.scrollToFcs('investorsListLoc');" class="btnbg-blue">Need Money</button>
         </div>
         <!-- new loan button end-->
-    </li>
-    <li id="investorsListLoc"></li>
-    <li ng-if="ui.isShowInvestors">
-        <!--investors head-->
-        <div class="rowtyp01 subhead01">
-            <div class="L-R-margin0">
-                <h3 class="active">Investors</h3>
-                <img class="close" ng-click="hideInvestors();" src="/img/close01.png">
-            </div>
-        </div>
-        <!--investors head end -->
-
-        <!--investors list -->
-        <ul class="L-R-margin0">
-            <li ng-if="investors.length==0;" class="rowtyp01 listEmptyMsg">
-                No Investors available at the moment
-            </li>
-            <li ng-repeat="investor in investors">
-                <!-- Investor -->
-                <div class="rowtyp01">
-                    <a ng-href="/#/profile/{{investor.investor._id}}">
-                        <img class="propic-small" ng-src="{{investor.investor.propic}}"/>
-                    </a>
-
-                    <div class="pad-rightTo-propic">
-                        <div class="rowL2Typ01">Amount {{investor.amount.toLocaleString()}} K$</div>
-                        <div class="rowL2Typ02">
-                            <span>by <a ng-href="/#/profile/{{investor.investor._id}}">{{investor.investor.nickname}}</a></span>
-                            <span timediff="investor.date"></span>
-                        </div>
-
-                        <div ng-init="ui.TakeItCnf=false;" class="rowL2Typ03">
-                            <div>
-                                <span>Rental {{investor.profit}} K$ per week</span>
-                                <a ng-if="!ui.TakeItCnf" ng-click="ui.TakeItCnf=true;" class="link-btn btnbg-red" style="float:right;">Take it</a>
-                            </div>
-                            <!-- confirm loan take -->
-                            <div ng-if="ui.TakeItCnf" class="confrm">
-                                <span>Are you sure?</span>
-                                <a ng-click="investor.take()" class="link-btn btnbg-red">Take it</a>
-                                <a ng-click="ui.TakeItCnf=false;" class="link-btn btnbg-gray">Cancel</a>
-                            </div>
-                            <!-- confirm loan take end -->
-                        </div>
-                    </div>
-
-                    <div style="clear: both;"></div>
+    </div>
+    <div ng-controller="investorsCtrl">
+        <div id="investorsListLoc"></div>
+        <div ng-if="ui.isShowInvestors">
+            <!--investors head-->
+            <div class="rowtyp01 subhead01">
+                <div class="L-R-margin0">
+                    <h3 class="active">Investors</h3>
+                    <img class="close" ng-click="hideInvestors();" src="/img/close01.png">
                 </div>
-                <!-- Investor end -->
-            </li>
-        </ul>
-        <!--investors list end-->
+            </div>
+            <!--investors head end -->
 
-        <!--investors close button
-        <div class="L-R-margin0 rowtyp01">
-            <button ng-click="ui.isShowInvestors=false;" class="btnbg-blue">Cancel</button>
+            <!--investors list -->
+            <ul class="L-R-margin0">
+                <li ng-if="investors.length==0;" class="rowtyp01 listEmptyMsg">
+                    No Investors available at the moment
+                </li>
+                <li ng-repeat="investor in investors">
+                    <!-- Investor -->
+                    <div class="rowtyp01">
+                        <a ng-href="/#/profile/{{investor.investor._id}}">
+                            <img class="propic-small" ng-src="{{investor.investor.propic}}"/>
+                        </a>
+
+                        <div class="pad-rightTo-propic">
+                            <div class="rowL2Typ01">Amount {{investor.amount.toLocaleString()}} K$</div>
+                            <div class="rowL2Typ02">
+                                <span>by <a ng-href="/#/profile/{{investor.investor._id}}">{{investor.investor.nickname}}</a></span>
+                                <span timediff="investor.date"></span>
+                            </div>
+
+                            <div ng-init="ui.TakeItCnf=false;" class="rowL2Typ03">
+                                <div>
+                                    <span>Rental {{investor.profit}} K$ per week</span>
+                                    <a ng-if="!investor.ui.TakeItCnf" ng-click="investor.showTakeConfirm()" class="link-btn btnbg-red" style="float:right;">Take it</a>
+                                </div>
+                                <!-- confirm loan take -->
+                                <div ng-if="investor.ui.TakeItCnf" class="confrm">
+                                    <span>Are you sure?</span>
+                                    <a ng-click="investor.take()" class="link-btn btnbg-red">Take it</a>
+                                    <a ng-click="investor.hideTakeConfirm()" class="link-btn btnbg-gray">Cancel</a>
+                                </div>
+                                <!-- confirm loan take end -->
+                            </div>
+                        </div>
+
+                        <div style="clear: both;"></div>
+                    </div>
+                    <!-- Investor end -->
+                </li>
+            </ul>
+            <!--investors list end-->
         </div>
-        <!--investors close button end-->
-    </li>
-</ul>
+    </div>
+</div>

@@ -259,7 +259,20 @@ kEX.directive("product", function () {
                 var pMidX = elem.prop('offsetLeft') + elem.prop('offsetWidth') / 2 - lMrg;
                 productscont.showPrdInfo(scope.product, scope.indx, pMidX);
             });
-        }
+        },
+        template: '\
+            <div onclick="window.utils.scrollToFcs(this)">\
+                <img class="cover" ng-src="{{product.prdCover}}"/>\
+                <div class="propic">\
+                    <img class="propic-small" ng-src="{{product.owner.propic}}"/>\
+                </div>\
+                <div class="dtlPad">\
+                    <div class="row01"><span>{{product.title}}</span></div>\
+                    <div class="row02">{{product.remQty}} out of {{product.qty}} left</div>\
+                    <div ng-if="product.isAuction || product.price!=0" class="row03">{{product.price.toLocaleString()}} K$</div>\
+                    <div ng-if="!product.isAuction && product.price==0" class="row03">Free</div>\
+                </div>\
+            </div>'
     }
 });
 

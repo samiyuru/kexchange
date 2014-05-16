@@ -2,21 +2,7 @@
     <div kex-tab="KE Products">
         <ul productscont ng-controller="prdctsCtrlr" style="margin: 0 -19px -6px 12px;">
             <!-- product -->
-            <li ng-repeat="product in products" product="product" indx="$index" class="product">
-                <div onclick="window.utils.scrollToFcs(this)">
-                    <img class="cover" ng-src="{{product.prdCover}}"/>
-
-                    <div class="propic">
-                        <img class="propic-small" ng-src="{{product.owner.propic}}"/>
-                    </div>
-                    <div class="dtlPad">
-                        <div class="row01"><span>{{product.title}}</span></div>
-                        <div class="row02">{{product.remQty}} out of {{product.qty}} left</div>
-                        <div ng-if="product.isAuction || product.price!=0" class="row03">{{product.price.toLocaleString()}} K$</div>
-                        <div ng-if="!product.isAuction && product.price==0" class="row03">Free</div>
-                    </div>
-                </div>
-            </li>
+            <li ng-repeat="product in products" product="product" indx="$index" class="product"></li>
             <!-- product end -->
             <li productinfo class="product-inf">
             </li>

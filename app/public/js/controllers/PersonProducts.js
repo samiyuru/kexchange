@@ -7,11 +7,7 @@ kEX.controller("instrProducts", function ($scope, kexProducts, kexPofiles, kexEv
     var ui = {
         isLoggedProfile: false
     };
-
     var instoreProducts = [];
-    var Product = kexProducts.Product;
-
-    $scope.instoreProducts = instoreProducts;
 
     kexPofiles.getCurrentProfile(function currentProfile(profile) {
         var profID = profile._id;
@@ -25,13 +21,14 @@ kEX.controller("instrProducts", function ($scope, kexProducts, kexPofiles, kexEv
                 var data = status.data;
                 var dataLen = data.length;
                 for (var i = 0; i < dataLen; i++) {
-                    var product = new Product(data[i]);
+                    var product = kexProducts.Factory.getProductForData(data[i]);
                     instoreProducts.push(product);
                 }
             }
         });
     });
 
+    $scope.instoreProducts = instoreProducts;
 });
 
 kEX.controller("soldProducts", function ($scope, kexProducts, kexPofiles, kexEvent) {
@@ -39,11 +36,7 @@ kEX.controller("soldProducts", function ($scope, kexProducts, kexPofiles, kexEve
     var ui = {
         isLoggedProfile: false
     };
-
     var soldProducts = [];
-    var Product = kexProducts.Product;
-
-    $scope.soldProducts = soldProducts;
 
     kexPofiles.getCurrentProfile(function currentProfile(profile) {
         var profID = profile._id;
@@ -57,13 +50,14 @@ kEX.controller("soldProducts", function ($scope, kexProducts, kexPofiles, kexEve
                 var data = status.data;
                 var dataLen = data.length;
                 for (var i = 0; i < dataLen; i++) {
-                    var product = new Product(data[i]);
+                    var product = kexProducts.Factory.getProductForData(data[i]);
                     soldProducts.push(product);
                 }
             }
         });
     });
 
+    $scope.soldProducts = soldProducts;
 });
 
 kEX.controller("purchProducts", function ($scope, kexProducts, kexPofiles, kexEvent) {
@@ -71,11 +65,9 @@ kEX.controller("purchProducts", function ($scope, kexProducts, kexPofiles, kexEv
     var ui = {
         isLoggedProfile: false
     };
-
     var purchProducts = [];
-    var Product = kexProducts.Product;
 
-    $scope.purchProducts = purchProducts;
+
 
     kexPofiles.getCurrentProfile(function currentProfile(profile) {
         var profID = profile._id;
@@ -89,11 +81,12 @@ kEX.controller("purchProducts", function ($scope, kexProducts, kexPofiles, kexEv
                 var data = status.data;
                 var dataLen = data.length;
                 for (var i = 0; i < dataLen; i++) {
-                    var product = new Product(data[i]);
+                    var product = kexProducts.Factory.getProductForData(data[i]);
                     purchProducts.push(product);
                 }
             }
         });
     });
 
+    $scope.purchProducts = purchProducts;
 });

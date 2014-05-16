@@ -5,18 +5,18 @@
 kEX.service("kexEvent", function () {
     var events = {};
 
-    this.publish = function (event, args) {
+    this.pub = function (event, args) {
         var fList = events[event];
         if (fList) {
             var len = fList.length;
             for (var i = 0; i < len; i++) {
                 var hndl = fList[i];
-                hndl.apply(window, args);//publish event for all handlers
+                hndl.apply(window, [args]);//publish event for all handlers
             }
         }
     };
 
-    this.subscribe = function (event, hndl) {
+    this.sub = function (event, hndl) {
         var fList = events[event];
         if (fList) {
             var len = fList.length;
@@ -30,7 +30,7 @@ kEX.service("kexEvent", function () {
         }
     };
 
-    this.unsubscribe = function (event, hndl) {
+    this.unsub = function (event, hndl) {
         var fList = events[event];
         if (fList) {
             var len = fList.length;
