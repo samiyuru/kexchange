@@ -33,12 +33,7 @@ kEX.service("kexProductTypes", function (kexPofiles) {
 
     var AuctionProduct = function (prdObj) {
         ProductBase.apply(this, [prdObj]);
-
-        this.RECENT_BIDS_LIMIT = 4;
-        this.ALL_BIDS_LIMIT = 999999;
-
         this.isAuction = true;
-        this.bidsLimit = this.RECENT_BIDS_LIMIT;
         this.bids = [];
         var bids = prdObj.bids;
         var bidLen = bids.length;
@@ -82,18 +77,6 @@ kEX.service("kexProductTypes", function (kexPofiles) {
         this.delegate.initBid(this);
     };
 
-    AuctionProduct.prototype.showAllBids = function () {
-        this.bidsLimit = this.ALL_BIDS_LIMIT;
-    };
-
-    AuctionProduct.prototype.showRecentBids = function () {
-        this.bidsLimit = this.RECENT_BIDS_LIMIT;
-    };
-
-    AuctionProduct.prototype.isRecentBids = function () {//returns true if only recent bids are shown
-        return (this.bidsLimit == this.RECENT_BIDS_LIMIT);
-    };
-
     //-----------------------------------------------
 
     var FixedProduct = function (prdObj) {
@@ -113,30 +96,32 @@ kEX.service("kexProductTypes", function (kexPofiles) {
         var Decorated = function () {
             this.ui.showbids = false;
             this.ui.showInfo = false;
-
-            this.placeBid = function () {
-                this.delegate.placeBid(this);
-            }
-
-            this.showInfo = function () {
-                this.ui.showInfo = true;
-                this.ui.showbids = false;
-            };
-
-            this.hideInfo = function () {
-                this.ui.showInfo = false;
-            };
-
-            this.showBids = function () {
-                this.ui.showInfo = false;
-                this.ui.showbids = true;
-            };
-
-            this.hideBids = function () {
-                this.ui.showbids = false;
-            };
         };
+
         Decorated.prototype = auctionObj;
+
+        Decorated.prototype.placeBid = function () {
+            this.delegate.placeBid(this);
+        }
+
+        Decorated.prototype.showInfo = function () {
+            this.ui.showInfo = true;
+            this.ui.showbids = false;
+        };
+
+        Decorated.prototype.hideInfo = function () {
+            this.ui.showInfo = false;
+        };
+
+        Decorated.prototype.showBids = function () {
+            this.ui.showInfo = false;
+            this.ui.showbids = true;
+        };
+
+        Decorated.prototype.hideBids = function () {
+            this.ui.showbids = false;
+        };
+
         return new Decorated();
     };
 
