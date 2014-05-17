@@ -21,12 +21,12 @@
                         <div ng-init="ui.paybkCnf=false;" class="rowL2Typ03">
                             <div ng-if="!ui.paybkCnf">
                                 <span>Rental {{loan.profit}} K$ per week</span>
-                                <a ng-if="ui.isLoggedProfile" ng-click="ui.paybkCnf=true;" class="link-btn btnbg-blue" style="float:right;">Pay Back</a>
+                                <a ng-if="ui.isLoggedProfile" ng-click="loan.showPayBackConfirm()" class="link-btn btnbg-blue" style="float:right;">Pay Back</a>
                             </div>
                             <div ng-if="ui.paybkCnf" class="confrm">
                                 <span>Are you sure?</span>
                                 <a ng-click="loan.payBack()" class="link-btn btnbg-blue">Pay Back</a>
-                                <a ng-click="ui.paybkCnf=false;" class="link-btn btnbg-gray">Cancel</a>
+                                <a ng-click="loan.hidePayBackConfirm()" class="link-btn btnbg-gray">Cancel</a>
                             </div>
                         </div>
                     </div>

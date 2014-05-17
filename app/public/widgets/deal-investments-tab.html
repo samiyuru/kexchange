@@ -115,7 +115,7 @@
                             <div ng-if="!invst.ui.isPrftMod">
                                 <span>Profit {{invst.profit}} K$ per week</span>
                                 <!-- take loan -->
-                                <a ng-if="!invst.ui.TakeItCnf && invst.debitor==null && !ui.isLoggedProfile" ng-click="invst.ui.TakeItCnf=true;" class="link-btn btnbg-red" style="float:right;">Take it</a>
+                                <a ng-if="!invst.ui.TakeItCnf && invst.debitor==null" ng-click="invst.showTakeConfirm()" class="link-btn btnbg-red" style="float:right;">Take it</a>
                                 <!-- take loan  end-->
                             </div>
                             <!-- profit amount end-->
@@ -123,7 +123,7 @@
                             <div ng-if="invst.ui.TakeItCnf" class="confrm">
                                 <span>Are you sure?</span>
                                 <a ng-click="invst.take()" class="link-btn btnbg-red">Take it</a>
-                                <a ng-click="invst.ui.TakeItCnf=false;" class="link-btn btnbg-gray">Cancel</a>
+                                <a ng-click="invst.hideTakeConfirm()" class="link-btn btnbg-gray">Cancel</a>
                             </div>
                             <!-- confirm loan take end -->
                         </div>
