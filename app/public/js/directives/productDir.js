@@ -82,6 +82,8 @@ kEX.directive("product", function () {
     }
 });
 
+//-----------------------------------------------
+
 kEX.directive("productinfo", function () {
     return {
         restrict: 'A',
@@ -119,7 +121,7 @@ kEX.directive("productinfo", function () {
     };
 });
 
-kEX.directive("pinfarrow", function () {
+kEX.directive("pinfarrow", function () {//pass ref for arrow to parent scope
     return {
         restrict: 'A',
         link: function (scope, elem, attr) {
@@ -127,3 +129,60 @@ kEX.directive("pinfarrow", function () {
         }
     };
 });
+
+//-----------------------------------------------
+
+kEX.directive("bidhistory", function () {//pass ref for arrow to parent scope
+    return {
+        restrict: 'A',
+        scope: {
+            product: "=bidhistory"
+        },
+        link: function (scope, elem, attr) {
+            var RECENT_LIMIT = 4;
+            var ALL_LIMIT = 9999;
+
+            scope.onlyRead = elem.attr('onlyread');
+
+            scope.bidsLimit = RECENT_LIMIT;
+            scope.isRecentBids = true;
+
+            scope.showAllBids = function () {
+                scope.isRecentBids = false;
+                scope.bidsLimit = ALL_LIMIT;
+            };
+
+            scope.showRecentBids = function () {
+                scope.isRecentBids = true;
+                scope.bidsLimit = RECENT_LIMIT;
+            };
+        },
+        template: '\
+        <div class="bidhist">\
+            <!-- new bid input -->\
+            <div ng-if="!onlyRead" class="rowtyp01 nwbid">\
+                <input ng-model="product.newBid" type="text" placeholder="Place new bid K$"/>\
+                <button ng-click="product.placeBid()">Bid</button>\
+            </div>\
+            <!-- new bid input end -->\
+            \
+            <!-- bids hist -->\
+            <ul list-scroller="6">\
+                <li list-item ng-repeat="bid in product.bids | limitTo:bidsLimit" class="rowtyp01">\
+                    <span class="bidcol1"><a prfid="bid.person._id">{{bid.person.nickname}}</a></span>\
+                    <span class="bidcol2" timediff="bid.date"></span>\
+                    <span class="bidcol3">{{bid.bid.toLocaleString()}} K$</span>\
+                </li>\
+            </ul>\
+            <!-- bids hist end-->\
+            \
+            <!--load more --->\
+                <div ng-if="product.bids.length>4" class="rowtyp01 loadmr">\
+                    <a ng-if="isRecentBids" ng-click="showAllBids()" class="link-btn">Show all bids</a>\
+                    <a ng-if="!isRecentBids" ng-click="showRecentBids()" class="link-btn">Show recent bids</a>\
+                </div>\
+                <!--load more end -->\
+            </div>'
+    };
+});
+

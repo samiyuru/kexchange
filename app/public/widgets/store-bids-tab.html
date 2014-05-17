@@ -2,8 +2,8 @@
     <li ng-if="products.length==0;" class="rowtyp01 listEmptyMsg">
         No bided products available
     </li>
+    <!-- My bid -->
     <li class="mybid" ng-repeat="product in products">
-        <!-- My bid -->
         <div class="rowtyp01">
             <div class="L-R-margin0">
                 <img ng-click="product.showInfo()" class="propic-small" ng-src="{{product.prdCover}}"/>
@@ -28,9 +28,8 @@
                 </div>
             </div>
 
-
             <!-- bids list -->
-            <div class="bids pad-rightTo-propic L-R-margin0" ng-if="product.ui.showbids" ng-include="'/widgets/bidsHistory.html'"></div>
+            <div ng-if="product.ui.showbids" bidhistory="product" class="bids pad-rightTo-propic L-R-margin0"></div>
             <!-- bids list end -->
         </div>
 
@@ -50,7 +49,6 @@
             </div>
         </div>
         <!-- product info end -->
-
-        <!-- My bid -->
     </li>
+    <!-- My bid end -->
 </ul>

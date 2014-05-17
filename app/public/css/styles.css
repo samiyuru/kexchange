@@ -225,6 +225,8 @@ nav a.active {
     margin: 5px 0;
 }
 
+/****scroll style inside widget****/
+
 .swidget .tabScroll::-webkit-scrollbar {
     width: 6px;
 }
@@ -454,10 +456,10 @@ nav a.active {
     text-align: right;
 }
 
-.bidhist ul {
-    max-height: 195px;
-    overflow-y: auto;
-}
+/*.bidhist ul {*/
+    /*max-height: 195px;*/
+    /*overflow-y: auto;*/
+/*}*/
 
 .bidhist .nwbid input {
     text-align: right;

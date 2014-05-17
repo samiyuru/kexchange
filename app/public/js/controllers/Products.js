@@ -67,6 +67,7 @@ kEX.controller("prdctsCtrlr", function ($scope, kexProducts, kexPofiles) {
             var dataLen = data.length;
             for (var i = 0; i < dataLen; i++) {
                 var product = kexProducts.Factory.getProductForData(data[i]);
+                product.delegate = iProductHandler;
                 products.push(product);
             }
         }
