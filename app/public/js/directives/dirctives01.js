@@ -52,8 +52,6 @@ kEX.directive("coverImg", function ($rootScope, $location) {
 });
 
 
-
-
 kEX.directive("timediff", function () {
     return {
         restrict: 'A',
@@ -74,20 +72,15 @@ kEX.directive("timediff", function () {
 });
 
 
-
-
-kEX.directive("proflnk", function () {
+kEX.directive("prfid", function () {
     return {
         restrict: 'A',
-        replace: true,
-        transclude: true,
         scope: {
-            profId: "=proflnk"
+            pid: "=prfid"
         },
         link: function (scope, elem, attr) {
-
-        },
-        template: '<a ng-ref="/#/profile/{{profId}}" ng-transclude></a>'
+            elem.attr('href', '/#/profile/' + scope.pid);
+        }
     };
 });
 

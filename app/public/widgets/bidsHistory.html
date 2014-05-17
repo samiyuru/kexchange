@@ -10,7 +10,7 @@
     <!-- bids hist -->
     <ul>
         <li ng-repeat="bid in product.bids | limitTo:product.bidsLimit" class="rowtyp01">
-            <span class="bidcol1"><a ng-href="/#/profile/{{bid.person._id}}">{{bid.person.nickname}}</a></span>
+            <span class="bidcol1"><a prfid="bid.person._id">{{bid.person.nickname}}</a></span>
             <span class="bidcol2" timediff="bid.date"></span>
             <span class="bidcol3">{{bid.bid.toLocaleString()}} K$</span>
         </li>

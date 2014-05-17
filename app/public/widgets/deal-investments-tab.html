@@ -23,8 +23,8 @@
                         <img ng-if="invst.debitor==null && ui.isLoggedProfile" ng-click="invst.showDel()" style="float: right;margin-top:3px;" src="/img/close01.png"/>
 
                         <!-- condinal propic-->
-                        <a ng-if="invst.debitor==null" ng-href="/#/profile/{{invst.investor._id}}"><img class="propic-small" style="opacity: .3;" ng-src="{{invst.investor.propic}}"/></a>
-                        <a ng-if="invst.debitor!=null" ng-href="/#/profile/{{invst.debitor._id}}"><img class="propic-small" ng-src="{{invst.debitor.propic}}"/></a>
+                        <a ng-if="invst.debitor==null" prfid="invst.investor._id"><img class="propic-small" style="opacity: .3;" ng-src="{{invst.investor.propic}}"/></a>
+                        <a ng-if="invst.debitor!=null" prfid="invst.debitor._id"><img class="propic-small" ng-src="{{invst.debitor.propic}}"/></a>
                         <!-- condinal propic end-->
 
                         <div class="pad-rightTo-propic">
@@ -33,11 +33,11 @@
                             <!-- condinal info-->
                             <div class="rowL2Typ02">
                                 <div ng-if="invst.debitor==null">
-                                    <span><a ng-href="/#/profile/{{invst.investor._id}}">You</a> invested</span>
+                                    <span><a prfid="invst.investor._id">You</a> invested</span>
                                     <span timediff="invst.date"></span>
                                 </div>
                                 <div ng-if="invst.debitor!=null">
-                                    <span>Taken by <a ng-href="/#/profile/{{invst.debitor._id}}">{{invst.debitor.nickname}}</a></span>
+                                    <span>Taken by <a prfid="invst.debitor._id">{{invst.debitor.nickname}}</a></span>
                                     <span timediff="invst.date"></span>
                                 </div>
                             </div>
@@ -87,8 +87,8 @@
                 <!-- Someone Invested -->
                 <div class="rowtyp01">
                     <!-- condinal propic-->
-                    <a ng-if="invst.debitor==null" ng-href="/#/profile/{{invst.investor._id}}"><img class="propic-small" style="opacity: .4;" ng-src="{{invst.investor.propic}}"/></a>
-                    <a ng-if="invst.debitor!=null" ng-href="/#/profile/{{invst.debitor._id}}"><img class="propic-small" ng-src="{{invst.debitor.propic}}"/></a>
+                    <a ng-if="invst.debitor==null" prfid="invst.investor._id"><img class="propic-small" style="opacity: .4;" ng-src="{{invst.investor.propic}}"/></a>
+                    <a ng-if="invst.debitor!=null" prfid="invst.debitor._id"><img class="propic-small" ng-src="{{invst.debitor.propic}}"/></a>
                     <!-- condinal propic end-->
 
                     <div class="pad-rightTo-propic">
@@ -97,11 +97,11 @@
                         <!-- condinal info-->
                         <div class="rowL2Typ02">
                             <div ng-if="invst.debitor==null">
-                                <span><a ng-href="/#/profile/{{invst.investor._id}}">{{invst.investor.nickname}}</a> invested</span>
+                                <span><a prfid="invst.investor._id">{{invst.investor.nickname}}</a> invested</span>
                                 <span timediff="invst.date"></span>
                             </div>
                             <div ng-if="invst.debitor!=null">
-                                <span>Taken by <a ng-href="/#/profile/{{invst.debitor._id}}">{{invst.debitor.nickname}}</a></span>
+                                <span>Taken by <a prfid="invst.debitor._id">{{invst.debitor.nickname}}</a></span>
                                 <span timediff="invst.date"></span>
                             </div>
                         </div>
@@ -157,7 +157,7 @@
 
             <!-- new investment input -->
             <div class="L-R-margin0 rowtyp01">
-                <a ng-href="/#/profile/{{myProfId}}">
+                <a prfid="myProfId">
                     <img class="propic-small" src="/img/propic01.png"/>
                 </a>
 
