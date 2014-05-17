@@ -150,6 +150,7 @@ kEX.controller("investorsCtrl", function ($scope, kexInvest, kexPofiles, kexEven
 
     function hideInvestors() {
         ui.isShowInvestors = false;
+        iListner.onInvestorsHide();
     }
 
     function hndlShowInvestors(_iListner) {

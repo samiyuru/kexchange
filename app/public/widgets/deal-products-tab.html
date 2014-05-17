@@ -1,29 +1,75 @@
 <div subcontent-holder>
 
-    <div subcontent="Products In Store">
-        <ul list-scroller="5" ng-controller="instrProducts" class="L-R-padding0">
-            <li ng-if="instoreProducts.length==0;" class="rowtyp01 listEmptyMsg">
+    <div class="instore" subcontent="Products In Store">
+        <ul list-scroller="5" ng-controller="instrProducts">
+            <li class="L-R-margin0" ng-if="instoreProducts.length==0;" class="rowtyp01 listEmptyMsg">
                 No Items in store
             </li>
             <!-- My Item -->
-            <li list-item ng-repeat="product in instoreProducts" class="rowtyp01">
-                <img class="propic-small" ng-src="{{product.prdCover}}"/>
+            <li list-item ng-repeat="product in instoreProducts">
+                <div class="rowtyp01">
+                    <div class="L-R-margin0">
+                        <img ng-click="product.showInfo()" class="propic-small" ng-src="{{product.prdCover}}"/>
 
-                <div class="pad-rightTo-propic">
-                    <div class="rowL2Typ01">{{product.title}}</div>
-                    <div class="rowL2Typ02">from {{product.owner.nickname}}</div>
-                    <div class="rowL2Typ03">
-                        <span>price {{product.price.toLocaleString()}} K$</span>
-                        <a class="link-btn" style="color: #4b87d2;float:right;">Sell Back</a>
+                        <div class="pad-rightTo-propic">
+                            <div ng-click="product.showInfo()" class="rowL2Typ01">{{product.title}}</div>
+                            <div class="rowL2Typ02">{{product.remQty}} out of {{product.qty}} left</div>
+
+                            <div ng-if="product.isAuction" class="rowL2Typ03">
+                                <span class="leftPull">Current price {{product.price.toLocaleString()}} K$</span>
+
+                                <!-- auction product -->
+                                <div ng-if="product.isBidded" class="rightPull">
+                                    <a ng-show="!product.ui.showbids" ng-click="product.showBids()" class="link-btn btnbg-blue">View Bids</a>
+                                    <a ng-show="product.ui.showbids" ng-click="product.hideBids()" class="link-btn btnbg-gray">Cancel</a>
+                                </div>
+                                <!-- auction product end -->
+                            </div>
+
+                            <div ng-if="!product.isAuction">
+                                <div ng-if="!product.ui.purchConf" class="rowL2Typ03">
+                                    <span class="leftPull">Item price {{product.price.toLocaleString()}} K$</span>
+                                    <a ng-show="!ui.isLoggedProfile" ng-click="product.showPurchConf()" class="link-btn btnbg-blue rightPull">Purchase</a>
+                                </div>
+                                <div ng-if="product.ui.purchConf" class="rowL2Typ03">
+                                    <!-- purchasable for others profiles -->
+                                    <div class="rightPull confrm">
+                                        <!-- confirm Purchase -->
+                                        <span>Are you sure to purchase?</span>
+                                        <a ng-click="product.purchase()" class="link-btn btnbg-blue">Purchase</a>
+                                        <a ng-click="product.hidePurchConf()" class="link-btn btnbg-gray">Cancel</a>
+                                        <!-- confirm Purchase end -->
+                                    </div>
+                                    <!-- purchasable for others profiles end -->
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear: both;"></div>
                     </div>
+
+                    <!-- bids list -->
+                    <div ng-if="product.ui.showbids" bidhistory="product" onlyread="ui.isLoggedProfile" class="bids pad-rightTo-propic L-R-margin0"></div>
+                    <!-- bids list end -->
                 </div>
-                <div style="clear: both;"></div>
+
+                <!-- product info -->
+                <div ng-if="product.ui.showInfo" productinfo-li="product"></div>
+                <!-- product info end -->
             </li>
             <!-- My Item -->
         </ul>
     </div>
 
+
     <!--div subcontent="Sold Products">
+     <div class="row01"><span>{{product.title}}</span></div>
+
+    <div class="row02">{{product.remQty}} out of {{product.qty}} left</div>
+
+    <div ng-if="product.isAuction || product.price!=0" class="row03">{{product.price.toLocaleString()}} K$</div>
+
+    <div ng-if="!product.isAuction && product.price==0" class="row03">Free</div>
+
         <ul ng-controller="soldProducts" class="L-R-padding0">
             <li ng-if="soldProducts.length==0;" class="rowtyp01 listEmptyMsg">
                 No products sold
@@ -59,8 +105,8 @@
                     <div class="rowL2Typ01">Session Tickets</div>
                     <div class="rowL2Typ02">from Hasith Yaggahawita</div>
                     <div class="rowL2Typ03">
-                        <span>Bought for 3,000 K$</span>
-                        <a class="link-btn" style="color: #4b87d2;float:right;">Sell Back</a>
+                        <span class="leftPull">Bought for 3,000 K$</span>
+                        <a class="link-btn btnbg-blue rightPull">Sell Back</a>
                     </div>
                 </div>
                 <div style="clear: both;"></div>

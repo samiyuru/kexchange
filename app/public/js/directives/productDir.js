@@ -136,7 +136,8 @@ kEX.directive("bidhistory", function () {//pass ref for arrow to parent scope
     return {
         restrict: 'A',
         scope: {
-            product: "=bidhistory"
+            product: "=bidhistory",
+            onlyread:"=onlyread"
         },
         link: function (scope, elem, attr) {
             var RECENT_LIMIT = 4;
@@ -177,11 +178,37 @@ kEX.directive("bidhistory", function () {//pass ref for arrow to parent scope
             <!-- bids hist end-->\
             \
             <!--load more --->\
-                <div ng-if="product.bids.length>4" class="rowtyp01 loadmr">\
-                    <a ng-if="isRecentBids" ng-click="showAllBids()" class="link-btn">Show all bids</a>\
-                    <a ng-if="!isRecentBids" ng-click="showRecentBids()" class="link-btn">Show recent bids</a>\
-                </div>\
-                <!--load more end -->\
+            <div ng-if="product.bids.length>4" class="rowtyp01 loadmr">\
+                <a ng-if="isRecentBids" ng-click="showAllBids()" class="link-btn">Show all bids</a>\
+                <a ng-if="!isRecentBids" ng-click="showRecentBids()" class="link-btn">Show recent bids</a>\
+            </div>\
+            <!--load more end -->\
+        </div>'
+    };
+});
+
+//-----------------------------------------------
+
+kEX.directive("productinfoLi", function () {//pass ref for arrow to parent scope
+    return {
+        restrict: 'A',
+        scope: {
+            product: "=productinfoLi"
+        },
+        link: function (scope, elem, attr) {
+        },
+        template: '\
+            <div class="productinfo-li">\
+                <div class="wrap0">\
+                    <img ng-click="product.hideInfo()" class="close" src="/img/close01.png"/>\
+                    <p class="by">From <a prfid="product.owner._id">{{product.owner.nickname}}</a></p>\
+                    <p class="detail">{{product.detail}}</p>\
+                        <!-- images -->\
+                        <div class="imgs">\
+                            <img ng-repeat="img in product.imgs" ng-src="{{\'/productpics/\'+img}}"/>\
+                        </div>\
+                        <!-- images end -->\
+                    </div>\
             </div>'
     };
 });

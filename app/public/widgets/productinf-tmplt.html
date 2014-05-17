@@ -30,15 +30,15 @@
 
                     <!--purchase-->
                     <div ng-if="!product.isAuction"id="purchase">
-                        <div ng-if="!ui.purchConf" >
+                        <div ng-if="!product.ui.purchConf" >
                             <span id="price">Price: {{product.price.toLocaleString()}} K$</span>
-                            <button ng-click="ui.purchConf=true;">Purchase</button>
+                            <button ng-click="product.showPurchConf()">Purchase</button>
                         </div>
                         <!-- confirm Purchase -->
-                        <div ng-if="ui.purchConf" class="confrm">
+                        <div ng-if="product.ui.purchConf" class="confrm">
                             <span>Are you sure?</span>
                             <a ng-click="product.purchase()" class="link-btn btnbg-blue">Purchase</a>
-                            <a ng-click="ui.purchConf=false;" class="link-btn btnbg-gray">Cancel</a>
+                            <a ng-click="product.hidePurchConf()" class="link-btn btnbg-gray">Cancel</a>
                         </div>
                         <!-- confirm Purchase end -->
                     </div>

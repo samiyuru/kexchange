@@ -7,6 +7,7 @@ kEX.controller("instrProducts", function ($scope, kexProducts, kexPofiles, kexEv
     var ui = {
         isLoggedProfile: false
     };
+    var BiddedProductDeco = kexProducts.BiddedProductDeco;
     var instoreProducts = [];
 
     kexPofiles.getCurrentProfile(function currentProfile(profile) {
@@ -19,9 +20,12 @@ kEX.controller("instrProducts", function ($scope, kexProducts, kexPofiles, kexEv
         kexProducts.getInstoreProductsOf(profID, function (status) {
             if (status.success) {
                 var data = status.data;
-                var dataLen = data.length;
-                for (var i = 0; i < dataLen; i++) {
+                var len = data.length;
+                for (var i = 0; i < len; i++) {
                     var product = kexProducts.Factory.getProductForData(data[i]);
+                    if (product.isAuction && product.bids.length > 0) {
+                        product = BiddedProductDeco(product);
+                    }
                     instoreProducts.push(product);
                 }
             }
@@ -29,6 +33,7 @@ kEX.controller("instrProducts", function ($scope, kexProducts, kexPofiles, kexEv
     });
 
     $scope.instoreProducts = instoreProducts;
+    $scope.ui = ui;
 });
 
 kEX.controller("soldProducts", function ($scope, kexProducts, kexPofiles, kexEvent) {
@@ -58,6 +63,7 @@ kEX.controller("soldProducts", function ($scope, kexProducts, kexPofiles, kexEve
     });
 
     $scope.soldProducts = soldProducts;
+    $scope.ui = ui;
 });
 
 kEX.controller("purchProducts", function ($scope, kexProducts, kexPofiles, kexEvent) {
@@ -66,7 +72,6 @@ kEX.controller("purchProducts", function ($scope, kexProducts, kexPofiles, kexEv
         isLoggedProfile: false
     };
     var purchProducts = [];
-
 
 
     kexPofiles.getCurrentProfile(function currentProfile(profile) {
@@ -89,4 +94,5 @@ kEX.controller("purchProducts", function ($scope, kexProducts, kexPofiles, kexEv
     });
 
     $scope.purchProducts = purchProducts;
+    $scope.ui = ui;
 });

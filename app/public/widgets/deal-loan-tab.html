@@ -22,13 +22,14 @@
                                 <span timediff="loan.date"></span>
                             </div>
 
-                            <div class="rowL2Typ03">
-                                <div ng-if="!loan.ui.payBkCnf">
-                                    <span>Rental {{loan.profit}} K$ per week</span>
-                                    <a ng-click="loan.showPayBackConfirm()" class="link-btn btnbg-blue" style="float:right;">Pay Back</a>
-                                </div>
-                                <div ng-if="loan.ui.payBkCnf" class="confrm">
-                                    <span>Are you sure?</span>
+                            <div ng-if="!loan.ui.payBkCnf" class="rowL2Typ03">
+                                <span class="leftPull">Rental {{loan.profit}} K$ per week</span>
+                                <a ng-if="!loan.ui.payBkCnf" ng-click="loan.showPayBackConfirm()" class="link-btn btnbg-blue rightPull">Pay Back</a>
+                            </div>
+
+                            <div ng-if="loan.ui.payBkCnf" class="rowL2Typ03">
+                                <div ng-if="loan.ui.payBkCnf" class="confrm rightPull">
+                                    <span>Payback the amount?</span>
                                     <a ng-click="loan.payBack()" class="link-btn btnbg-blue">Pay Back</a>
                                     <a ng-click="loan.hidePayBackConfirm()" class="link-btn btnbg-gray">Cancel</a>
                                 </div>
@@ -121,23 +122,26 @@
                                 <span timediff="investor.date"></span>
                             </div>
 
-                            <div class="rowL2Typ03">
-                                <div>
-                                    <span>Rental {{investor.profit}} K$ per week</span>
-                                    <a ng-if="!investor.ui.TakeItCnf" ng-click="investor.showTakeConfirm()" class="link-btn btnbg-red" style="float:right;">Take it</a>
-                                </div>
+                            <div ng-if="!investor.ui.TakeItCnf" class="rowL2Typ03">
+                                <!-- profit amount -->
+                                <span>Rental {{invst.profit}} K$ per week</span>
+                                <a ng-click="investor.showTakeConfirm()" class="link-btn btnbg-red rightPull">Take it</a>
+                                <!-- profit amount end-->
+                            </div>
+
+                            <div ng-if="investor.ui.TakeItCnf" class="rowL2Typ03">
                                 <!-- confirm loan take -->
-                                <div ng-if="investor.ui.TakeItCnf" class="confrm">
-                                    <span>Are you sure?</span>
+                                <div class="confrm rightPull">
+                                    <span>Take the amount for sure?</span>
                                     <a ng-click="investor.take()" class="link-btn btnbg-red">Take it</a>
                                     <a ng-click="investor.hideTakeConfirm()" class="link-btn btnbg-gray">Cancel</a>
                                 </div>
                                 <!-- confirm loan take end -->
                             </div>
-                        </div>
 
-                        <div style="clear: both;"></div>
+                        </div>
                     </div>
+                    <div style="clear: both;"></div>
                     <!-- Investor end -->
                 </li>
             </ul>

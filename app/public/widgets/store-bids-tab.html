@@ -16,13 +16,12 @@
                     <div ng-click="product.showInfo()" class="rowL2Typ01">{{product.title}}</div>
                     <div class="rowL2Typ02">Expires in <span timediff="product.expire"></span></div>
                     <div class="rowL2Typ03">
-                        <span>Current price {{product.price.toLocaleString()}} K$</span>
+                        <span class="leftPull">Current price {{product.price.toLocaleString()}} K$</span>
 
-                        <div style="display: inline-block;float:right;">
+                        <div class="rightPull">
                             <a ng-show="!product.ui.showbids" ng-click="product.showBids()" class="link-btn btnbg-blue">Place Bid</a>
                             <a ng-show="product.ui.showbids" ng-click="product.hideBids()" class="link-btn btnbg-gray">Cancel</a>
                         </div>
-                        <div style="clear: both;"></div>
                     </div>
 
                 </div>
@@ -34,20 +33,7 @@
         </div>
 
         <!-- product info -->
-        <div ng-if="product.ui.showInfo" class="info">
-            <div class="wrap0">
-                <img ng-click="product.hideInfo()" class="close" src="/img/close01.png"/>
-
-                <p class="by">From <a prfid="product.owner._id">{{product.owner.nickname}}</a></p>
-
-                <p class="detail">{{product.detail}}</p>
-                <!-- images -->
-                <div class="imgs">
-                    <img ng-repeat="img in product.imgs" ng-src="{{'/productpics/'+img}}"/>
-                </div>
-                <!-- images end -->
-            </div>
-        </div>
+        <div ng-if="product.ui.showInfo" productinfo-li="product"></div>
         <!-- product info end -->
     </li>
     <!-- My bid end -->

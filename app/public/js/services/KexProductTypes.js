@@ -29,6 +29,14 @@ kEX.service("kexProductTypes", function (kexPofiles) {
         };
     };
 
+    ProductBase.prototype.showInfo = function () {
+        this.ui.showInfo = true;
+    };
+
+    ProductBase.prototype.hideInfo = function () {
+        this.ui.showInfo = false;
+    };
+
     //-----------------------------------------------
 
     var AuctionProduct = function (prdObj) {
@@ -82,9 +90,18 @@ kEX.service("kexProductTypes", function (kexPofiles) {
     var FixedProduct = function (prdObj) {
         ProductBase.apply(this, [prdObj]);
         this.isAuction = false;
+        this.ui.purchConf = false;
     }
 
     FixedProduct.prototype = Object.create(ProductBase.prototype);
+
+    FixedProduct.prototype.showPurchConf = function () {
+        this.ui.purchConf = true;
+    };
+
+    FixedProduct.prototype.hidePurchConf = function () {
+        this.ui.purchConf = false;
+    };
 
     FixedProduct.prototype.purchase = function () {
         this.delegate.purchase(this);
@@ -96,6 +113,7 @@ kEX.service("kexProductTypes", function (kexPofiles) {
         var Decorated = function () {
             this.ui.showbids = false;
             this.ui.showInfo = false;
+            this.isBidded = true;
         };
 
         Decorated.prototype = auctionObj;
