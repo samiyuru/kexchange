@@ -44,26 +44,24 @@
                             <!-- condinal info end-->
 
                             <div class="rowL2Typ03">
-
                                 <!-- profit amount -->
-                                <div ng-if="!invst.ui.isPrftMod">
+                                <div ng-if="!invst.ui.isPrftModVw">
                                     <span>Profit {{invst.profit}} K$ per week</span>
                                     <a ng-if="ui.isLoggedProfile" ng-click="invst.showProfitMod()" class="link-btn btnbg-blue" style="float:right;">Amend Profit</a>
                                 </div>
                                 <!-- profit amount end-->
 
                                 <!-- profit change inputs -->
-                                <div ng-if="invst.ui.isPrftMod" style="text-align: right;">
-                                    <input ng-model="invst.ui.modPrft" placeholder="Profit per week" class="rightAlgn type02" type="number"/>
+                                <div ng-if="invst.ui.isPrftModVw" style="text-align: right;">
+                                    <input ng-model="invst.newProft" placeholder="Profit per week" class="rightAlgn type02" type="number"/>
                                     <a ng-click="invst.modProfit()" class="link-btn btnbg-blue">Change</a>
                                     <a ng-click="invst.hideProfitMod();" class="link-btn btnbg-gray">Cancel</a>
                                 </div>
                                 <!-- profit change inputs end -->
-
                             </div>
 
                             <!-- modified profit -->
-                            <div ng-if="!invst.ui.isPrftMod && invst.profitMod!=null" class="rowL2Typ04">
+                            <div ng-if="!invst.ui.isPrftModVw && invst.profitMod!=null" class="rowL2Typ04">
                                 <span>New profit {{invst.profitMod.profit}} K$, effects in</span>
                                 <span timediff="invst.profitMod.date"></span>
                             </div>
@@ -78,7 +76,6 @@
             </li>
         </ul>
         <!-- my invetments list end -->
-
 
 
         <!-- Someone else's invetments list -->
@@ -134,7 +131,6 @@
             </li>
         </ul>
         <!-- Someone else's invetments list end -->
-
 
 
         <!-- invest button -->

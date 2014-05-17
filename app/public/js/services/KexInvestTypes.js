@@ -31,22 +31,6 @@ kEX.service("kexInvestTypes", function (kexPofiles) {
         this.delegate.onInvestTake(this);
     };
 
-    /*OthersInvestment.prototype.take = function () {
-     kexInvest.takeLoan(this.id, (function (status) {
-     if (status.success) {
-     loans.unshift(new Loan(this.id
-     , this.amount
-     , this.date
-     , this.profit
-     , this.profitMod
-     , this.investor
-     , kexPofiles.getLoggedProf()));
-     removeInvestment(this.id);
-     }
-     this.ui.isTake = false;//hide take it confirmation
-     }).bind(this));
-     };*/
-
     OthersInvestment.prototype.showTakeConfirm = function () {
         this.ui.TakeItCnf = true;
     };
@@ -60,19 +44,18 @@ kEX.service("kexInvestTypes", function (kexPofiles) {
     var MyLoan = function () {
         InvestmentBase.apply(this, arguments);
         this.ui = {
-            isPayback: false,
-            payBackConf: false
+            payBkCnf: false
         };
     };
 
     MyLoan.prototype = Object.create(InvestmentBase.prototype);
 
     MyLoan.prototype.showPayBackConfirm = function () {
-        this.ui.payBackConf = true;
+        this.ui.payBkCnf = true;
     };
 
     MyLoan.prototype.hidePayBackConfirm = function () {
-        this.ui.payBackConf = false;
+        this.ui.payBkCnf = false;
     };
 
     MyLoan.prototype.payBack = function () {
@@ -92,16 +75,16 @@ kEX.service("kexInvestTypes", function (kexPofiles) {
     var MyInvestment = function () {
         InvestmentBase.apply(this, arguments);
         this.ui = {
-            isPrftMod: false,
-            delConf: false,
-            modPrft: ""
+            isPrftModVw: false,
+            delConf: false
         };
+        this.newProft = "";
     };
 
     MyInvestment.prototype = Object.create(InvestmentBase.prototype);
 
     MyInvestment.prototype.modProfit = function () {
-        this.delegate.onProfitChange(this, this.ui.modPrft);
+        this.delegate.onProfitChange(this, this.newProft);
     }
 
     MyInvestment.prototype.showDel = function () {
@@ -113,17 +96,17 @@ kEX.service("kexInvestTypes", function (kexPofiles) {
     };
 
     MyInvestment.prototype.showProfitMod = function () {
-        this.ui.isPrftMod = true;
+        this.ui.isPrftModVw = true;
     };
 
     MyInvestment.prototype.hideProfitMod = function () {
-        this.ui.isPrftMod = false;
-        this.ui.modPrft = "";
+        this.ui.isPrftModVw = false;
+        this.newProft = "";
     };
 
     MyInvestment.prototype.resetProfitMod = function () {
         this.hideProfitMod();//hide profit mod inputs
-        this.ui.modPrft = "";//clear mod input
+        this.newProft = "";//clear mod input
     };
 
     MyInvestment.prototype.delete = function () {

@@ -1,51 +1,98 @@
 <div>
     <div ng-controller="loanCtrl">
-        <!-- my loans -->
-        <ul class="L-R-margin0">
-            <li ng-if="loans.length==0;" class="rowtyp01 listEmptyMsg">
-                No money has taken from anyone
-            </li>
-            <li ng-repeat="loan in loans">
-                <!-- You took money -->
-                <div class="rowtyp01">
-                    <a ng-href="/#/profile/{{loan.investor._id}}">
-                        <img class="propic-small" ng-src="{{loan.investor.propic}}"/>
-                    </a>
 
-                    <div class="pad-rightTo-propic">
-                        <div class="rowL2Typ01">Amount {{loan.amount.toLocaleString()}} K$</div>
-                        <div class="rowL2Typ02">
-                            <span>from <a ng-href="/#/profile/{{loan.investor._id}}">{{loan.investor.nickname}}</a></span>
-                            <span timediff="loan.date"></span>
-                        </div>
-                        <div ng-init="ui.paybkCnf=false;" class="rowL2Typ03">
-                            <div ng-if="!ui.paybkCnf">
-                                <span>Rental {{loan.profit}} K$ per week</span>
-                                <a ng-if="ui.isLoggedProfile" ng-click="loan.showPayBackConfirm()" class="link-btn btnbg-blue" style="float:right;">Pay Back</a>
+        <!-- my loans ui -->
+        <div ng-if="ui.isLoggedProfile">
+            <!-- my loans -->
+            <ul class="L-R-margin0">
+                <li ng-if="loans.length==0;" class="rowtyp01 listEmptyMsg">
+                    No money has taken from anyone
+                </li>
+                <li ng-repeat="loan in loans">
+                    <!-- You took money -->
+                    <div class="rowtyp01">
+                        <a ng-href="/#/profile/{{loan.investor._id}}">
+                            <img class="propic-small" ng-src="{{loan.investor.propic}}"/>
+                        </a>
+
+                        <div class="pad-rightTo-propic">
+                            <div class="rowL2Typ01">Amount {{loan.amount.toLocaleString()}} K$</div>
+                            <div class="rowL2Typ02">
+                                <span>from <a ng-href="/#/profile/{{loan.investor._id}}">{{loan.investor.nickname}}</a></span>
+                                <span timediff="loan.date"></span>
                             </div>
-                            <div ng-if="ui.paybkCnf" class="confrm">
-                                <span>Are you sure?</span>
-                                <a ng-click="loan.payBack()" class="link-btn btnbg-blue">Pay Back</a>
-                                <a ng-click="loan.hidePayBackConfirm()" class="link-btn btnbg-gray">Cancel</a>
+
+                            <div class="rowL2Typ03">
+                                <div ng-if="!loan.ui.payBkCnf">
+                                    <span>Rental {{loan.profit}} K$ per week</span>
+                                    <a ng-click="loan.showPayBackConfirm()" class="link-btn btnbg-blue" style="float:right;">Pay Back</a>
+                                </div>
+                                <div ng-if="loan.ui.payBkCnf" class="confrm">
+                                    <span>Are you sure?</span>
+                                    <a ng-click="loan.payBack()" class="link-btn btnbg-blue">Pay Back</a>
+                                    <a ng-click="loan.hidePayBackConfirm()" class="link-btn btnbg-gray">Cancel</a>
+                                </div>
                             </div>
+
+                            <!-- modified profit -->
+                            <div ng-if="loan.profitMod!=null" class="rowL2Typ04">
+                                <span>New profit {{loan.profitMod.profit}} K$, effects in</span>
+                                <span timediff="loan.profitMod.date"></span>
+                            </div>
+                            <!-- modified profit end -->
                         </div>
+                        <div style="clear: both;"></div>
                     </div>
-                    <div style="clear: both;"></div>
-                </div>
-                <!-- You took money end -->
-            </li>
-        </ul>
-        <!-- my loans end -->
+                    <!-- You took money end -->
+                </li>
+            </ul>
+            <!-- my loans end -->
 
-        <!-- new loan button -->
-        <div ng-if="ui.isTakeMoneyButt && ui.isLoggedProfile" class="rowtyp01 L-R-margin0">
-            <button ng-click="showInvestors();" onclick="window.utils.scrollToFcs('investorsListLoc');" class="btnbg-blue">Need Money</button>
+            <!-- new loan button -->
+            <div ng-if="ui.isTakeMoneyButt" class="rowtyp01 L-R-margin0">
+                <button ng-click="showInvestors();" onclick="window.utils.scrollToFcs('investorsListLoc');" class="btnbg-blue">Need Money</button>
+            </div>
+            <!-- new loan button end-->
         </div>
-        <!-- new loan button end-->
+        <!-- my loans ui end -->
+
+        <!-- other's loans -->
+        <div ng-if="!ui.isLoggedProfile">
+            <ul class="L-R-margin0">
+                <li ng-if="loans.length==0;" class="rowtyp01 listEmptyMsg">
+                    No money has taken from anyone
+                </li>
+                <li ng-repeat="loan in loans">
+                    <!-- You took money -->
+                    <div class="rowtyp01">
+                        <a ng-href="/#/profile/{{loan.investor._id}}">
+                            <img class="propic-small" ng-src="{{loan.investor.propic}}"/>
+                        </a>
+
+                        <div class="pad-rightTo-propic">
+                            <div class="rowL2Typ01">Amount {{loan.amount.toLocaleString()}} K$</div>
+                            <div class="rowL2Typ02">
+                                <span>from <a ng-href="/#/profile/{{loan.investor._id}}">{{loan.investor.nickname}}</a></span>
+                                <span timediff="loan.date"></span>
+                            </div>
+                            <div class="rowL2Typ03">
+                                <span>Rental {{loan.profit}} K$ per week</span>
+                            </div>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                    <!-- You took money end -->
+                </li>
+            </ul>
+        </div>
+        <!-- other's loans end -->
     </div>
+
+
     <div ng-controller="investorsCtrl">
         <div id="investorsListLoc"></div>
         <div ng-if="ui.isShowInvestors">
+
             <!--investors head-->
             <div class="rowtyp01 subhead01">
                 <div class="L-R-margin0">
@@ -74,7 +121,7 @@
                                 <span timediff="investor.date"></span>
                             </div>
 
-                            <div ng-init="ui.TakeItCnf=false;" class="rowL2Typ03">
+                            <div class="rowL2Typ03">
                                 <div>
                                     <span>Rental {{investor.profit}} K$ per week</span>
                                     <a ng-if="!investor.ui.TakeItCnf" ng-click="investor.showTakeConfirm()" class="link-btn btnbg-red" style="float:right;">Take it</a>
@@ -97,4 +144,5 @@
             <!--investors list end-->
         </div>
     </div>
+
 </div>
