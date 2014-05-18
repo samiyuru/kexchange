@@ -56,8 +56,10 @@ module.exports.initModel = function (mongoose) {
         collection: 'investments'
     });
 
-    investmentSchema.statics.createInvestment = function (investorId, amount, profit, cb) {
-        this.create({
+    var model = mongoose.model('investment', investmentSchema)
+
+    function createInvestment(investorId, amount, profit, cb) {
+        model.create({
             amount: amount,
             profit: {
                 amount: profit
@@ -85,8 +87,8 @@ module.exports.initModel = function (mongoose) {
         });
     };
 
-    investmentSchema.statics.rmInvestmentByInvestor = function (investorID, invstmntID, cb) {
-        this.findOneAndRemove({
+    function rmInvestmentByInvestor(investorID, invstmntID, cb) {
+        model.findOneAndRemove({
             _id: TypObjectID(invstmntID),
             "investor.id": TypObjectID(investorID),
             debitor: {
@@ -95,14 +97,14 @@ module.exports.initModel = function (mongoose) {
         }, cb);
     };
 
-    investmentSchema.statics.rmInvestmentById = function (invstmntID, cb) {
-        this.findByIdAndRemove({
+    function rmInvestmentById(invstmntID, cb) {
+        model.findByIdAndRemove({
             _id: TypObjectID(invstmntID)
         }, cb);
     };
 
-    investmentSchema.statics.findInvestments = function (findObj, chunk, resInvestor, resDebitor, cb) {//investmentSchema.statics is used inorder to have a valid this ref inside of the function
-        var query = this.find(findObj)
+    function findInvestments(findObj, chunk, resInvestor, resDebitor, cb) {//investmentSchema.statics is used inorder to have a valid this ref inside of the function
+        var query = model.find(findObj)
             .sort('-debitor.date')
             .sort('-investor.date')
             .select('-__v');
@@ -128,9 +130,9 @@ module.exports.initModel = function (mongoose) {
         });
     }
 
-    investmentSchema.statics.getInvestors = function (exclInvestorID, chunck, cb) {
+    function getInvestors(exclInvestorID, chunck, cb) {
         //always order by date
-        this.findInvestments({//'this' is used becs findInvestments() is assigned to this context by mongoose in the end
+        findInvestments({//'this' is used becs findInvestments() is assigned to this context by mongoose in the end
             "investor.id": {
                 $ne: TypObjectID(exclInvestorID)
             },
@@ -140,20 +142,20 @@ module.exports.initModel = function (mongoose) {
         }, chunck, true, false, cb);
     };
 
-    investmentSchema.statics.getLoans = function (debitorId, cb) {
-        this.findInvestments({
+    function getLoans(debitorId, cb) {
+        findInvestments({
             "debitor.id": TypObjectID(debitorId)
         }, null, true, true, cb);
     };
 
-    investmentSchema.statics.getInvestmentsOf = function (investorId, cb) {
-        this.findInvestments({
+    function getInvestmentsOf(investorId, cb) {
+        findInvestments({
             "investor.id": TypObjectID(investorId)
         }, null, true, true, cb);
     };
 
-    investmentSchema.statics.changeProfit = function (investorId, invstmntID, newProfit, cb) {
-        this.findOne({
+    function changeProfit(investorId, invstmntID, newProfit, cb) {
+        model.findOne({
             _id: TypObjectID(invstmntID),
             "investor.id": TypObjectID(investorId)
         }).exec(function (err, doc) {
@@ -179,12 +181,12 @@ module.exports.initModel = function (mongoose) {
         });
     };
 
-    investmentSchema.statics.getInvestmentById = function (invstmntID, cb) {
-        this.findById(TypObjectID(invstmntID), cb);
+    function getInvestmentById(invstmntID, cb) {
+        model.findById(TypObjectID(invstmntID), cb);
     };
 
-    investmentSchema.statics.takeLoan = function (invstmntID, profID, cb) {
-        this.update({
+    function takeLoan(invstmntID, profID, cb) {
+        model.update({
             _id: TypObjectID(invstmntID),
             debitor: {
                 $exists: false
@@ -197,5 +199,15 @@ module.exports.initModel = function (mongoose) {
         }, cb);
     };
 
-    return mongoose.model('investment', investmentSchema);
+    return {
+        createInvestment: createInvestment,
+        rmInvestmentByInvestor: rmInvestmentByInvestor,
+        rmInvestmentById: rmInvestmentById,
+        getInvestors: getInvestors,
+        getLoans: getLoans,
+        getInvestmentsOf: getInvestmentsOf,
+        changeProfit: changeProfit,
+        getInvestmentById: getInvestmentById,
+        takeLoan: takeLoan
+    };
 };

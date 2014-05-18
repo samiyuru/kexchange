@@ -12,6 +12,10 @@ module.exports.initModel = function (mongoose) {
         collection: 'plugins'
     });
 
-    return mongoose.model('plugin', pluginSchema);
+    var model = mongoose.model('plugin', pluginSchema);
+
+    return {
+
+    };
 };
 

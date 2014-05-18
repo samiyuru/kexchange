@@ -3,7 +3,7 @@
  */
 var Utils = require(__base + "/utils");
 
-module.exports.initModel = function (mongoose) {
+module.exports.initModel = function (mongoose, accEvent) {
 
     var ObjectId = mongoose.Schema.ObjectId,
         TypObjectID = mongoose.Types.ObjectId;
@@ -59,25 +59,27 @@ module.exports.initModel = function (mongoose) {
         collection: 'profiles'
     });
 
-    profileSchema.statics.createProfile = function (profile, cb) {
+    var model = mongoose.model('profile', profileSchema);
+
+    function createProfile(profile, cb) {
         profile.wealth = 0;
         profile.lastwealth = 0;
         profile.loan = 0;
         profile.status = 'Beginner';
-        this.create(profile, cb);
+        model.create(profile, cb);
     };
 
-    profileSchema.statics.getProfile = function (profID, cb) {
-        this.findOne({
+    function getProfile(profID, cb) {
+        model.findOne({
             _id: TypObjectID(profID)
         })
             .select(Utils.getProfileFieldsPub())
             .exec(cb);
     };
 
-    profileSchema.statics.getProfiles = function (chunk, cb) {
+    function getProfiles(chunk, cb) {
         var findObj = {};
-        var query = this.find({})
+        var query = model.find({})
             .select(Utils.getProfileFieldsPub())
             .sort('-wealth');
         if (chunk) {
@@ -87,22 +89,21 @@ module.exports.initModel = function (mongoose) {
         query.exec(cb);
     };
 
-    profileSchema.statics.putMoney = function (profID, amount, cb) {
+    function putMoney(profID, amount, cb) {
         cb(true);
     };
 
-    profileSchema.statics.getMoney = function (profID, amount, cb) {
+    function getMoney(profID, amount, cb) {
         cb(amount);
     };
 
-    profileSchema.statics.transferMoney = function (formProfID, toProfID, amount, cb) {// cb(err, isSuccess)
-        var self = this;
-        self.getMoney(formProfID, amount, function moneyGetCB(_amount) {
+    function transferMoney(formProfID, toProfID, amount, cb) {// cb(err, isSuccess)
+        getMoney(formProfID, amount, function moneyGetCB(_amount) {
             if (amount != _amount) {
                 cb("money retrieval error", false);
                 return;
             }
-            self.putMoney(toProfID, amount, function moneyGiveCB(success) {
+            putMoney(toProfID, amount, function moneyGiveCB(success) {
                 if (!success) {
                     cb("money transfer error", false);
                     return;
@@ -112,22 +113,14 @@ module.exports.initModel = function (mongoose) {
         });
     }
 
-//    profileSchema.statics.addProduct = function (profID, productID, cb) {
-//        this.update(
-//            {
-//                _id: TypObjectID(profID)
-//            },
-//            {
-//                $push: {
-//                    purchases: {
-//
-//                    }
-//                }
-//            }
-//        );
-//    };
-
-    return mongoose.model('profile', profileSchema);
+    return {
+        createProfile: createProfile,
+        getProfile: getProfile,
+        getProfiles: getProfiles,
+        putMoney: putMoney,
+        getMoney: getMoney,
+        transferMoney: transferMoney
+    };
 
 };
 

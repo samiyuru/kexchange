@@ -39,8 +39,10 @@ module.exports.initModel = function (mongoose) {
         collection: 'authorization'
     });
 
-    authSchema.statics.createAuth = function (profile, password, cb) {
-        this.create({
+    var model = mongoose.model('auth', authSchema);
+
+    function createAuth(profile, password, cb) {
+        model.create({
             nickname: profile.nickname,
             password: password,
             profile: profile._id,
@@ -57,12 +59,12 @@ module.exports.initModel = function (mongoose) {
         });
     };
 
-    authSchema.statics.validateToken = function (authToken, cb) {
+    function validateToken(authToken, cb) {
         var profile = tokenCache[authToken];
         if (profile) {
             cb(profile);
         } else {
-            this.findOne({
+            model.findOne({
                 token: authToken
             })
                 .populate('profile', Utils.getProfileFieldsPub())
@@ -79,8 +81,8 @@ module.exports.initModel = function (mongoose) {
         }
     };
 
-    authSchema.statics.getAuthToken = function (user, pass, cb) {
-        this.findOne({
+    function getAuthToken(user, pass, cb) {
+        model.findOne({
             nickname: user,
             password: pass
         })
@@ -89,7 +91,11 @@ module.exports.initModel = function (mongoose) {
             .exec(cb);
     };
 
-    return mongoose.model('auth', authSchema);
+    return {
+        createAuth: createAuth,
+        validateToken: validateToken,
+        getAuthToken: getAuthToken
+    };
 
 };
 

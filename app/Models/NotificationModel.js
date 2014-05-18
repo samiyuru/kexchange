@@ -12,5 +12,7 @@ module.exports.initModel = function (mongoose) {
         collection: 'notifications'
     });
 
-    return mongoose.model('notification', notificationSchema);
+    var model = mongoose.model('notification', notificationSchema);
+
+    return {};
 };

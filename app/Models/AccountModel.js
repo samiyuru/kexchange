@@ -2,13 +2,11 @@
  * Created by samiyuru on 4/4/14.
  */
 
-module.exports.initModel = function (mongoose) {
-    /*
-     * types -> earning, profitpay, profit receive, tax, product sold, product bought
-     * */
+module.exports.initModel = function (mongoose, accEvent) {
+
     var ObjectId = mongoose.Schema.ObjectId;
 
-    this.TransTypes = {
+    var TransTypes = {
         EARNING: 0,
         PROFIT_GET: 1,
         PROFIT_PAY: 2,
@@ -19,13 +17,30 @@ module.exports.initModel = function (mongoose) {
         BOUGHT: 7
     };
 
+    accEvent.sub();
+
     var accountSchema = new mongoose.Schema({
         owner: {
             type: ObjectId,
             required: true
         },
-        description: {
-            type: String,
+        subject: {
+            id: {
+                type: ObjectId
+            },
+            nickname: {
+                type: String
+            }
+        },
+        object: {
+            type: ObjectId
+        },
+        amount: {
+            type: Number,
+            required: true
+        },
+        balance: {
+            type: Number,
             required: true
         },
         type: {
@@ -36,27 +51,18 @@ module.exports.initModel = function (mongoose) {
             type: Date,
             required: true,
             index: true
-        },
-        amount: {
-            type: Number,
-            required: true
-        },
-        balance: {
-            type: Number,
-            required: true
-        },
-        subject: {
-            type: ObjectId
         }
     }, {
         collection: 'accounts'
     });
 
-    accountSchema.statics.addTransaction = function (personID, deal) {
+    var model = mongoose.model('account', accountSchema);
+
+    function addTransaction(ownerID, type, deal) {
 
     };
 
-    accountSchema.statics.getTransactions = function (personID, opt) {
+    function getTransactions(ownerID, options) {
         /*
          *opt:{
          *   limit:
@@ -65,6 +71,9 @@ module.exports.initModel = function (mongoose) {
          * */
     };
 
-    return mongoose.model('account', accountSchema);
+    return {
+        addTransaction: addTransaction,
+        getTransactions: getTransactions
+    };
 
 };

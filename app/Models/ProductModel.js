@@ -89,7 +89,9 @@ module.exports.initModel = function (mongoose) {
         collection: 'products'
     });
 
-    productSchema.statics.createProduct = function (profID, product, fileNames, cb) {
+    var model = mongoose.model('product', productSchema);
+
+    function createProduct(profID, product, fileNames, cb) {
         var prdctMdl = {
             date: new Date(),
             title: product.name,
@@ -106,13 +108,13 @@ module.exports.initModel = function (mongoose) {
             bidCount: 0,
             bids: []
         };
-        this.create(prdctMdl, cb);
+        model.create(prdctMdl, cb);
     };
 
-    productSchema.statics.placeBid = function (profID, productID, bid, cb) {
+    function placeBid(profID, productID, bid, cb) {
         var now = new Date();
         var profObjID = TypObjectID(profID);
-        this.update({
+        model.update({
             isAuction: true,
             _id: TypObjectID(productID),
             owner: {
@@ -158,10 +160,10 @@ module.exports.initModel = function (mongoose) {
         }, cb);
     };
 
-    productSchema.statics.purchase = function (profID, productID, price, cb) {
+    function purchase(profID, productID, price, cb) {
         var now = new Date();
         var profObjID = TypObjectID(profID);
-        this.update({
+        model.update({
             isAuction: false,
             _id: TypObjectID(productID),
             owner: {
@@ -195,15 +197,11 @@ module.exports.initModel = function (mongoose) {
         }, cb);
     };
 
-
-    /*
-     * isAuction accepts true, false, 1, 0
-     * */
-    productSchema.statics.makeQuery = function (srch, isAuction, chunk) {
+    function makeQuery(srch, isAuction, chunk) {
         if (isAuction) {
             srch.isAuction = (isAuction === 1) || (isAuction === true);
         }
-        var query = this.find(srch);
+        var query = model.find(srch);
         if (chunk) {
             query = query.skip(chunk.skip);
             query = query.limit(chunk.limit);
@@ -213,7 +211,7 @@ module.exports.initModel = function (mongoose) {
         return query;
     };
 
-    productSchema.statics.execQuery = function (query, cb) {
+    function execQuery(query, cb) {
         query.populate('owner', Utils.getProfileFieldsPub())
             .sort('-date')
             .exec(function (err, docs) {
@@ -233,13 +231,13 @@ module.exports.initModel = function (mongoose) {
             });
     };
 
-    productSchema.statics.getProductById = function (productID, cb) {
-        this.findById(TypObjectID(productID), cb);
+    function getProductById(productID, cb) {
+        model.findById(TypObjectID(productID), cb);
     };
 
-    productSchema.statics.getProductsFor = function (profID, isAuction, chunk, cb) {
+    function getProductsFor(profID, isAuction, chunk, cb) {
         var profObjID = TypObjectID(profID);
-        var query = this.makeQuery({
+        var query = makeQuery({
             owner: {
                 $ne: profObjID//not owns
             },
@@ -254,45 +252,45 @@ module.exports.initModel = function (mongoose) {
             }
         }, isAuction)
             .populate('bids.person', Utils.getProfileFieldsPub());
-        this.execQuery(query, cb)
+        execQuery(query, cb)
     };
 
-    productSchema.statics.getInstorPrdsOf = function (profID, isAuction, chunk, cb) {
-        var query = this.makeQuery({
+    function getInstorPrdsOf(profID, isAuction, chunk, cb) {
+        var query = makeQuery({
             owner: TypObjectID(profID)
         }, isAuction)
             .populate('bids.person', Utils.getProfileFieldsPub());
-        this.execQuery(query, cb)
+        execQuery(query, cb)
     };
 
-    productSchema.statics.getPurchasesOf = function (profID, isAuction, chunk, cb) {
+    function getPurchasesOf(profID, isAuction, chunk, cb) {
         var profObjID = TypObjectID(profID);
-        var query = this.makeQuery({
+        var query = makeQuery({
             owner: {
                 $ne: profObjID//not owns
             },
             "purchases.buyer": profObjID
         })
             .populate('bids.person', Utils.getProfileFieldsPub());
-        this.execQuery(query, cb)
+        execQuery(query, cb)
     };
 
-    productSchema.statics.getSoldPrdsOf = function (profID, isAuction, chunk, cb) {
+    function getSoldPrdsOf(profID, isAuction, chunk, cb) {
         var profObjID = TypObjectID(profID);
-        var query = this.makeQuery({
+        var query = makeQuery({
             owner: profObjID,
             soldQty: {
                 $gt: 0
             }
         })
             .populate('bids.person', Utils.getProfileFieldsPub());
-        this.execQuery(query, cb)
+        execQuery(query, cb)
     };
 
-    productSchema.statics.getBidedProducts = function (profID, cb) {
+    function getBidedProducts(profID, cb) {
         var profObjID = TypObjectID(profID);
         var now = new Date();
-        var query = this.makeQuery({
+        var query = makeQuery({
             isAuction: true,
             owner: {
                 $ne: TypObjectID(profID)//not owns
@@ -313,9 +311,19 @@ module.exports.initModel = function (mongoose) {
             "bids.person": profObjID
         })
             .populate('bids.person', Utils.getProfileFieldsPub());
-        this.execQuery(query, cb)
+        execQuery(query, cb)
     };
 
-    return mongoose.model('product', productSchema);
+    return {
+        createProduct: createProduct,
+        placeBid: placeBid,
+        purchase: purchase,
+        getProductById: getProductById,
+        getProductsFor: getProductsFor,
+        getInstorPrdsOf: getInstorPrdsOf,
+        getPurchasesOf: getPurchasesOf,
+        getSoldPrdsOf: getSoldPrdsOf,
+        getBidedProducts: getBidedProducts
+    };
 };
 
