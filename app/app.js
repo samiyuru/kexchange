@@ -27,7 +27,8 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
             return;
         }
 
-        var models = require('./Models')(mongoose);
+        var accEvent = require('./services/EventService').init();
+        var models = require('./Models')(mongoose, accEvent);
         var ctrls = require('./Controllers')(models);
 
         var app = express();

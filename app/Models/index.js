@@ -2,11 +2,11 @@
  * Created by samiyuru on 4/4/14.
  */
 
-module.exports = function (db) {
+module.exports = function (db, accEvent) {
 
     var models = {};
 
-    models.profileModel = require('./ProfileModel').initModel(db);
+    models.profileModel = require('./ProfileModel').initModel(db, accEvent);
 
     models.productModel = require('./ProductModel').initModel(db);
 
@@ -16,7 +16,7 @@ module.exports = function (db) {
 
     models.pluginModel = require('./PluginModel').initModel(db);
 
-    models.accountModel = require('./AccountModel').initModel(db);
+    models.accountModel = require('./AccountModel').initModel(db, accEvent);
 
     models.authModel = require('./AuthModel').initModel(db);
 
