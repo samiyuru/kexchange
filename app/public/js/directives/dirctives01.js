@@ -79,7 +79,9 @@ kEX.directive("prfid", function () {
             pid: "=prfid"
         },
         link: function (scope, elem, attr) {
-            elem.attr('href', '/#/profile/' + scope.pid);
+            scope.$watch("pid", function () {
+                elem.attr('href', '/#/profile/' + scope.pid);
+            });
         }
     };
 });

@@ -161,7 +161,7 @@ kEX.directive("bidhistory", function () {//pass ref for arrow to parent scope
         template: '\
         <div class="bidhist">\
             <!-- new bid input -->\
-            <div ng-if="!onlyRead" class="rowtyp01 nwbid">\
+            <div ng-if="!onlyread" class="rowtyp01 nwbid">\
                 <input ng-model="product.newBid" type="text" placeholder="Place new bid K$"/>\
                 <button ng-click="product.placeBid()">Bid</button>\
             </div>\
