@@ -124,9 +124,9 @@ kEX.controller("newInvestCtrl", function ($scope, kexInvest, kexPofiles, kexEven
         profit: ""
     };
     var ui = {
-        isShowNwInvest: false,
-        myProfId: kexPofiles.getLoggedProf()._id//for profile link in ui
+        isShowNwInvest: false
     };
+    var myProfile = kexPofiles.getLoggedProf();//for profile link & pic in ui
     var ilistner = null;
 
     kexEvent.sub(INVEST_NEW_SHOW, hndlShowForm);
@@ -162,6 +162,7 @@ kEX.controller("newInvestCtrl", function ($scope, kexInvest, kexPofiles, kexEven
     $scope.investMoney = investMoney;
     $scope.hideNewInvest = hideNewInvest;
     $scope.ui = ui;
+    $scope.myProfile = myProfile;
     $scope.$on('$destroy', function () {
         kexEvent.unsub(INVEST_NEW_SHOW, hndlShowForm);
     });
