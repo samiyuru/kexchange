@@ -4,6 +4,7 @@
 var Utils = require(__base + "/utils");
 
 module.exports.initModel = function (mongoose, accEvent) {
+    var EV_ACC_TRANS = require(__base + "/constants").events.EVENT_ACCOUNT_TRANS;
 
     var ObjectId = mongoose.Schema.ObjectId,
         TypObjectID = mongoose.Types.ObjectId;
@@ -89,21 +90,83 @@ module.exports.initModel = function (mongoose, accEvent) {
         query.exec(cb);
     };
 
-    function putMoney(profID, amount, cb) {
-        cb(true);
+    function publishTransInfo(transInfo) {
+        var subject = transInfo.subject;
+        if (subject) {
+            model.findById(subject, function (err, doc) {
+                if (err || !doc) {
+                    transInfo.subject = null;
+                } else {
+                    transInfo.subject = {
+                        nickname: doc.nickname,
+                        id: subject
+                    };
+                }
+                accEvent.pub(EV_ACC_TRANS, transInfo);
+            });
+        } else {
+            accEvent.pub(EV_ACC_TRANS, transInfo);
+        }
+    }
+
+    function putMoney(profID, amount, transInfo, cb) {
+        model.findByIdAndUpdate(TypObjectID(profID.toString()), {
+            $inc: {
+                wealth: amount
+            }
+        }, function (err, doc) {
+            if (err || !doc)
+                return cb(false);
+            //--------------
+            transInfo.owner = TypObjectID(profID.toString());
+            transInfo.balance = doc.wealth;
+            transInfo.amount = amount;
+            publishTransInfo(transInfo);
+            cb(true);
+        });
     };
 
-    function getMoney(profID, amount, cb) {
-        cb(amount);
+    function getMoney(profID, amount, transInfo, cb) {
+        model.findOneAndUpdate({
+            _id: TypObjectID(profID.toString()),
+            wealth: {
+                $gte: amount
+            }
+        }, {
+            $inc: {
+                wealth: 0 - amount
+            }
+        }, function (err, doc) {
+            if (err || !doc)
+                return cb(0);
+            //--------------
+            transInfo.owner = TypObjectID(profID.toString());
+            transInfo.balance = doc.wealth;
+            transInfo.amount = 0 - amount;
+            publishTransInfo(transInfo);
+            cb(amount);
+        });
     };
 
-    function transferMoney(formProfID, toProfID, amount, cb) {// cb(err, isSuccess)
-        getMoney(formProfID, amount, function moneyGetCB(_amount) {
+    function transferMoney(fromProfID, toProfID, amount, transInfo, cb) {// cb(err, isSuccess)
+        fromProfID = TypObjectID(fromProfID.toString());
+        toProfID = TypObjectID(toProfID.toString());
+        var objOfTrans = TypObjectID(transInfo.object.toString());
+
+        getMoney(fromProfID, amount, {
+            type: transInfo.type,
+            subject: toProfID,
+            object: objOfTrans
+        }, function moneyGetCB(_amount) {
             if (amount != _amount) {
                 cb("money retrieval error", false);
                 return;
             }
-            putMoney(toProfID, amount, function moneyGiveCB(success) {
+            putMoney(toProfID, amount, {
+                type: transInfo.type,
+                subject: fromProfID,
+                object: objOfTrans
+            }, function moneyGiveCB(success) {
                 if (!success) {
                     cb("money transfer error", false);
                     return;

@@ -8,13 +8,19 @@ module.exports.initCtrl = function (models) {
     var investmentModel = models.investmentModel;
     var profileModel = models.profileModel;
 
+    var transTypes = require(__base + "/constants").accounts.transTypes;
+
     return new (function (models) {
 
         this.newInvestment = function (req, res) {
             if (!req.kexProfile)
                 return res.json({});
             var profId = req.kexProfile.id, amount = req.query.amount, profit = req.query.profit;
-            profileModel.getMoney(profId, amount, function moneyGetCB(_amount) {
+            var transInfo = {
+                type: transTypes.INVEST_ADD,
+                object: null
+            }
+            profileModel.getMoney(profId, amount, transInfo, function moneyGetCB(_amount) {
                 if (_amount != amount)
                     return res.json(Utils.genResponse("money retrieval error"));
                 investmentModel.createInvestment(profId, amount, profit, function (err, doc) {
@@ -43,7 +49,11 @@ module.exports.initCtrl = function (models) {
             investmentModel.rmInvestmentByInvestor(profId, invstmntID, function (err, doc) {
                 if (err || doc == null)
                     return res.json(Utils.genResponse("Investment removal failed"));
-                profileModel.putMoney(doc.investor.id, doc.amount, function moneyGive(success) {
+                var transInfo = {
+                    type: transTypes.INVEST_REM,
+                    object: invstmntID
+                }
+                profileModel.putMoney(doc.investor.id, doc.amount, transInfo, function moneyGive(success) {
                     if (!success)
                         return res.json(Utils.genResponse("failed to restore money"));
                     res.json(Utils.genResponse(null, true, doc));
@@ -93,11 +103,15 @@ module.exports.initCtrl = function (models) {
                     return res.json(Utils.genResponse("invalid payback"));
                 if (!(doc.debitor.id.toString() == profID))
                     return res.json(Utils.genResponse("invalid payback"));
-                profileModel.transferMoney(profID, doc.investor.id, doc.amount, function (err, isSuccess) {
+                var transInfo = {
+                    type: transTypes.LOANPAY,
+                    object: invstmntID
+                }
+                profileModel.transferMoney(profID, doc.investor.id, doc.amount, transInfo, function (err, isSuccess) {
                     if (err)
                         return res.json(Utils.genResponse("money transfer error"));
                     investmentModel.rmInvestmentById(invstmntID, function removeInv(err, doc) {
-                        if (err || doc == null)
+                        if (err || !doc)
                             return res.json(Utils.genResponse("Investment could not be removed"));
                         res.json(Utils.genResponse(null, true));
                     });
@@ -108,11 +122,24 @@ module.exports.initCtrl = function (models) {
         this.takeLoan = function (req, res) {
             if (!req.kexProfile)
                 return res.json({});
-            var invstmntID = req.kexProfile.id, profID = req.params.invId;
-            investmentModel.takeLoan(profID, invstmntID, function (err, numberAffected, rawResponse) {
+            var profID = req.kexProfile.id, invstmntID = req.params.invId;
+            investmentModel.takeLoan(invstmntID, profID, function (err, numberAffected, rawResponse) {
                 if (err || numberAffected < 1)
                     return res.json(Utils.genResponse("could not obtain money"));
-                res.json(Utils.genResponse(null, true));
+                investmentModel.getInvestmentById(invstmntID, function getInvCB(err, doc) {
+                    if (err || !doc)
+                        return res.json(Utils.genResponse("invalid investment"));
+                    var transInfo = {
+                        type: transTypes.LOANGET,
+                        object: invstmntID,
+                        subject: doc.investor.id
+                    }
+                    profileModel.putMoney(doc.debitor.id, doc.amount, transInfo, function moneyGive(success) {
+                        if (!success)
+                            return res.json(Utils.genResponse("failed to put money"));
+                        res.json(Utils.genResponse(null, true));
+                    });
+                });
             });
         };
 

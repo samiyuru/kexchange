@@ -13,6 +13,8 @@ module.exports.initCtrl = function (models) {
     var productModel = models.productModel;
     var profileModel = models.profileModel;
 
+    var transTypes = require(__base + "/constants").accounts.transTypes;
+
     return new (function (models) {
 
         this.getBidedProducts = function (req, res) {
@@ -44,7 +46,11 @@ module.exports.initCtrl = function (models) {
             productModel.getProductById(productID, function getProductCB(err, product) {
                 if (err || product == null)
                     return res.json(Utils.genResponse("invalid product"));
-                profileModel.transferMoney(profID, product.owner, product.price, function (err, isSuccess) {
+                var transInfo = {
+                    type: transTypes.PRODUCT,
+                    object: productID
+                }
+                profileModel.transferMoney(profID, product.owner, product.price, transInfo, function (err, isSuccess) {
                     if (err)
                         return res.json(Utils.genResponse(err));
                     productModel.purchase(profID, productID, product.price, function (err, numberAffected, rawResponse) {

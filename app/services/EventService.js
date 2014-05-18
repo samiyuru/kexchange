@@ -12,7 +12,7 @@ module.exports.init = function () {
                 var len = fList.length;
                 for (var i = 0; i < len; i++) {
                     var hndl = fList[i];
-                    hndl.apply(window, [args]);//publish event for all handlers
+                    hndl.apply(null, [args]);//publish event for all handlers
                 }
             }
         };

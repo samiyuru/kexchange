@@ -3,7 +3,7 @@
  */
 
 var uuid = require('node-uuid');
-var tokenCache = {};
+//var tokenCache = {};
 var Utils = require(__base + "/utils");
 
 module.exports.initModel = function (mongoose) {
@@ -60,25 +60,25 @@ module.exports.initModel = function (mongoose) {
     };
 
     function validateToken(authToken, cb) {
-        var profile = tokenCache[authToken];
-        if (profile) {
-            cb(profile);
-        } else {
-            model.findOne({
-                token: authToken
-            })
-                .populate('profile', Utils.getProfileFieldsPub())
-                .select("profile")
-                .exec(function (err, doc) {
-                    if (!err && doc) {
-                        profile = doc.profile;
-                        tokenCache[authToken] = profile;
-                        cb(profile);
-                        return;
-                    }
-                    cb(null);
-                });
-        }
+//        var profile = tokenCache[authToken];
+//        if (profile) {
+//            cb(profile);
+//        } else {
+        model.findOne({
+            token: authToken
+        })
+            .populate('profile', Utils.getProfileFieldsPub())
+            .select("profile")
+            .exec(function (err, doc) {
+                if (!err && doc) {
+                    profile = doc.profile;
+//                    tokenCache[authToken] = profile;
+                    cb(profile);
+                    return;
+                }
+                cb(null);
+            });
+//        }
     };
 
     function getAuthToken(user, pass, cb) {

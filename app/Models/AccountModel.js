@@ -4,20 +4,11 @@
 
 module.exports.initModel = function (mongoose, accEvent) {
 
-    var ObjectId = mongoose.Schema.ObjectId;
+    var ObjectId = mongoose.Schema.ObjectId,
+        TypObjectID = mongoose.Types.ObjectId;
 
-    var TransTypes = {
-        EARNING: 0,
-        PROFIT_GET: 1,
-        PROFIT_PAY: 2,
-        INVEST_ADD: 3,
-        INVEST_REM: 4,
-        TAX_PAY: 5,
-        SOLD: 6,
-        BOUGHT: 7
-    };
-
-    accEvent.sub();
+    var EV_ACC_TRANS = require(__base + "/constants").events.EVENT_ACCOUNT_TRANS;
+    var transTypes = require(__base + "/constants").accounts.transTypes;
 
     var accountSchema = new mongoose.Schema({
         owner: {
@@ -58,21 +49,24 @@ module.exports.initModel = function (mongoose, accEvent) {
 
     var model = mongoose.model('account', accountSchema);
 
-    function addTransaction(ownerID, type, deal) {
+    accEvent.sub(EV_ACC_TRANS, function (transInf) {
+        transInf.date = new Date();
+        model.create(transInf);
+    });
 
-    };
-
-    function getTransactions(ownerID, options) {
-        /*
-         *opt:{
-         *   limit:
-         *   skip:
-         * }
-         * */
+    function getTransactions(ownerID, chunk, cb) {
+        var query = model.find({
+            owner: TypObjectID(ownerID)
+        })
+            .sort('-date')
+            .select('-__v');
+        if (chunk != null) {
+            query = query.skip(chunk.skip).limit(chunk.limit);
+        }
+        query.exec(cb);
     };
 
     return {
-        addTransaction: addTransaction,
         getTransactions: getTransactions
     };
 
