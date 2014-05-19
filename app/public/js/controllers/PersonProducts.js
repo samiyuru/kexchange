@@ -28,6 +28,8 @@ kEX.controller("instrProducts", function ($scope, kexProducts, kexPofiles, kexEv
                     }
                     instoreProducts.push(product);
                 }
+            }else {
+                alert(status.err);
             }
         });
     });
@@ -58,6 +60,8 @@ kEX.controller("soldProducts", function ($scope, kexProducts, kexPofiles, kexEve
                     var product = kexProducts.Factory.getProductForData(data[i]);
                     soldProducts.push(product);
                 }
+            }else {
+                alert(status.err);
             }
         });
     });
@@ -89,6 +93,8 @@ kEX.controller("purchProducts", function ($scope, kexProducts, kexPofiles, kexEv
                     var product = kexProducts.Factory.getProductForData(data[i]);
                     purchProducts.push(product);
                 }
+            }else {
+                alert(status.err);
             }
         });
     });

@@ -24,6 +24,8 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles, kexEvent
             kexInvest.takeLoan(investment.id, function (status) {
                 if (status.success) {
                     removeInvestment(investment)
+                }else {
+                    alert(status.err);
                 }
                 investment.hideTakeConfirm();
             });
@@ -147,9 +149,13 @@ kEX.controller("newInvestCtrl", function ($scope, kexInvest, kexPofiles, kexEven
 
     function investMoney() {
         kexInvest.investMoney(newInvest, function newInvestCB(status) {//data format from server is different from normal MyInvestment format
-            var data = status.data;
-            if (ilistner)ilistner.onNewInvestment(data);
-            hideNewInvest();
+            if (status.success) {
+                var data = status.data;
+                if (ilistner)ilistner.onNewInvestment(data);
+                hideNewInvest();
+            } else {
+                alert(status.err);
+            }
         });
     };
 

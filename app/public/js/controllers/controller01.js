@@ -26,6 +26,7 @@ kEX.controller("kexroot", function ($scope, kexPofiles) {
                 $scope.isLogged = true;
             } else {
                 $scope.isLogged = false;
+                alert(status.err);
             }
         });
     }

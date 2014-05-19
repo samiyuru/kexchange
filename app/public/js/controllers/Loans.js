@@ -16,6 +16,8 @@ kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles, kexEvent) {
             kexInvest.payBack(investment.id, function (status) {
                 if (status.success) {
                     removeLoan(investment.id);
+                }else {
+                    alert(status.err);
                 }
                 investment.ui.isPayback = false;//hide payback confirmation
             });
@@ -107,6 +109,8 @@ kEX.controller("investorsCtrl", function ($scope, kexInvest, kexPofiles, kexEven
                 if (status.success) {
                     iListner.onInvestTaken(investment);
                     removeInvestment(investment);
+                }else {
+                    alert(status.err);
                 }
             });
         }

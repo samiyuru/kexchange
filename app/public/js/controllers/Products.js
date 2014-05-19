@@ -30,6 +30,8 @@ kEX.controller("mybidsctrl", function ($scope, $filter, kexProducts, kexPofiles)
                 ];
                 products.push(product);
             }
+        }else {
+            alert(status.err);
         }
     });
 
@@ -43,6 +45,8 @@ kEX.controller("mybidsctrl", function ($scope, $filter, kexProducts, kexPofiles)
                 product.addBidToTop(kexPofiles.getLoggedProf(), now, newBid);
                 product.bidRank = 1;//most recent bid is mine so rank = 1
                 product.newBid = "";//clear bid field if success
+            }else {
+                alert(status.err);
             }
         });
     }
@@ -70,6 +74,8 @@ kEX.controller("prdctsCtrlr", function ($scope, kexProducts, kexPofiles) {
                 product.delegate = iProductHandler;
                 products.push(product);
             }
+        }else {
+            alert(status.err);
         }
     });
 
@@ -83,6 +89,8 @@ kEX.controller("prdctsCtrlr", function ($scope, kexProducts, kexPofiles) {
                 product.addBidToTop(kexPofiles.getLoggedProf(), now, newBid);
                 product.bidRank = 1;//most recent bid is mine so rank = 1
                 product.newBid = "";//clear bid field if success
+            }else {
+                alert(status.err);
             }
         });
     }
@@ -91,6 +99,8 @@ kEX.controller("prdctsCtrlr", function ($scope, kexProducts, kexPofiles) {
         kexProducts.purchase(product.id, function (status) {
             if (status.success) {
 
+            }else {
+                alert(status.err);
             }
         });
     }
@@ -151,6 +161,8 @@ kEX.controller("newPrdCtrl", function ($scope, kexProducts) {
                 if (status.success) {
                     ui.form = false;
                     resetFields();
+                }else {
+                    alert(status.err);
                 }
                 _creationInProg = false;
             });
