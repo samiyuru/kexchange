@@ -20,7 +20,7 @@ module.exports.route = function (app, ctrls) {
 
     app.get('/api/profile/:id/notifications', function(){});
 
-    app.get('/api/profile/:id/accounts', function(){});
+    app.get('/api/profile/:id/accounts', ctrls.profileCtrl.getAccounts);
 
     app.get('/api/profile/:id/moneytaken', ctrls.investmentCtrl.getLoans);
 

@@ -40,6 +40,8 @@ span {
 }
 
 a {
+    font-size: inherit;
+    font-weight: inherit;
     text-decoration: inherit;
     color: inherit;
     cursor: default;
@@ -296,6 +298,7 @@ nav a.active {
 }
 
 .rowtyp01 .rowL2Typ01 {
+    text-transform: capitalize;
     color: #737373;
     font-size: 15px;
     font-weight: bold;
@@ -363,7 +366,7 @@ nav a.active {
 }
 
 .rowtyp01.loadmr .link-btn {
-    color: #737373;
+    color: #9a9a9a;;
 }
 
 /***************************/
@@ -770,6 +773,52 @@ nav a.active {
 
 .instore .rowL2Typ01 {
     cursor: default;
+}
+
+/*************************************/
+
+
+table.accounts {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table.accounts .desc {
+    text-align: left;
+}
+
+table.accounts .date {
+    width: 115px;
+    text-align: right;
+}
+
+table.accounts .amt {
+    width: 100px;
+    text-align: right;
+}
+
+table.accounts .bal {
+    width: 100px;
+    text-align: right;
+}
+
+table.accounts th {
+    color: #9a9a9a;
+    font-size: 14px;
+    font-weight: bold;
+    border-top: 1px solid #ececec;
+    border-left: none;
+    border-right: none;
+    padding: 8px 0 8px 0;
+}
+
+table.accounts td {
+    color: #282828;
+    font-size: 14px;
+    border-top: 1px solid #ececec;
+    border-left: none;
+    border-right: none;
+    padding: 8px 0 8px 0;
 }
 
 /*************************************/

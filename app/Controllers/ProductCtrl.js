@@ -139,8 +139,7 @@ module.exports.initCtrl = function (models) {
                     if (isPrevErr) return;//stop processing rem if one went wrong
                     if (err) {
                         isPrevErr = true;
-                        cb({err: "ERROR"});
-                        return;
+                        return cb({err: "ERROR"});
                     }
                     var fileName = uuid.v4() + path.extname(file.name);
                     if (isPrevErr) return;//stop processing rem if one went wrong
@@ -148,14 +147,12 @@ module.exports.initCtrl = function (models) {
                         if (isPrevErr) return;//stop processing rem if one went wrong
                         if (err) {
                             isPrevErr = true;
-                            cb({err: "ERROR"});
-                            return;
+                            return cb({err: "ERROR"});
                         }
                         fileNames.push(fileName);
                         fileCount--;
                         if (fileCount == 0) {//all files have been written
-                            cb(null, fileNames);
-                            return;
+                            return cb(null, fileNames);
                         }
                     });
                 });

@@ -8,6 +8,7 @@ module.exports.initCtrl = function (models) {
 
     var profileModel = models.profileModel;
     var authModel = models.authModel;
+    var accModel = models.accountModel;
 
     return new (function (models) {
 
@@ -73,6 +74,17 @@ module.exports.initCtrl = function (models) {
                 if (err)
                     return res.json(Utils.genResponse("profile retrieval error"));
                 res.json(Utils.genResponse(null, true, doc));
+            });
+        };
+
+        this.getAccounts = function (req, res) {
+            if (!req.kexProfile)
+                return res.json({});
+            var profID = req.params.id;
+            accModel.getTransactions(profID, null, function (err, docs) {
+                if (err)
+                    return  res.json(Utils.genResponse("could not get transactions"));
+                res.json(Utils.genResponse(null, true, docs));
             });
         };
 

@@ -1,48 +1,4 @@
 <div kex-widget>
-    <style type="text/css">
-        table.accounts {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table.accounts .desc {
-            text-align: left;
-        }
-
-        table.accounts .date {
-            width: 100px;
-            text-align: right;
-        }
-
-        table.accounts .amt {
-            width: 100px;
-            text-align: right;
-        }
-
-        table.accounts .bal {
-            width: 100px;
-            text-align: right;
-        }
-
-        table.accounts th {
-            color: #9a9a9a;
-            font-size: 14px;
-            font-weight: bold;
-            border-top: 1px solid #ececec;
-            border-left: none;
-            border-right: none;
-            padding: 8px 0 8px 0;
-        }
-
-        table.accounts td {
-            color: #282828;
-            font-size: 14px;
-            border-top: 1px solid #ececec;
-            border-left: none;
-            border-right: none;
-            padding: 8px 0 8px 0;
-        }
-    </style>
     <div kex-tab="Account History">
         <ul class="L-R-margin0" ng-controller="accountCtrl">
             <table class="accounts">
@@ -53,8 +9,10 @@
                     <th class="bal">Balance</th>
                 </tr>
                 <tr ng-repeat="accLog in accLogs">
-                    <td class="desc">{{accLog.detail}}</td>
-                    <td class="date">{{accLog.timeago}}</td>
+                    <td class="desc">
+                        <span>{{accLog.detail}}</span><a ng-if="accLog.subject" prfid="accLog.subject && accLog.subject.id">{{accLog.subject.nickname}}</a>
+                    </td>
+                    <td class="date"><span timediff="accLog.date"></span></td>
                     <td class="amt">{{accLog.amount}}</td>
                     <td class="bal">{{accLog.balance}}</td>
                 </tr>

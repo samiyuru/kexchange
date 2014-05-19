@@ -155,51 +155,5 @@ kEX.controller("coverCtrlr", function ($scope, kexPofiles) {
     });
 });
 
-kEX.controller("accountCtrl", function ($scope) {
-    $scope.accLogs = [
-        {
-            detail: "Loan from Saman",
-            timeago: "1 month ago",
-            amount: 300,
-            balance: 3000
-        },
-        {
-            detail: "Blog earning",
-            timeago: "2 days ago",
-            amount: 800,
-            balance: 6000
-        },
-        {
-            detail: "Investment in Gayan",
-            timeago: "1 week ago",
-            amount: 200,
-            balance: 7000
-        },
-        {
-            detail: "Loan from Saman",
-            timeago: "1 day ago",
-            amount: 300,
-            balance: 3300
-        },
-        {
-            detail: "Loan from Saman",
-            timeago: "1 min ago",
-            amount: 200,
-            balance: 9000
-        },
-        {
-            detail: "Loan from Saman",
-            timeago: "1 hour ago",
-            amount: 800,
-            balance: 6000
-        },
-        {
-            detail: "Loan from Anil",
-            timeago: "1 day ago",
-            amount: 40,
-            balance: 1000
-        }
-    ];
-});
 
 

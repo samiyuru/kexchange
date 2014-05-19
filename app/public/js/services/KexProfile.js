@@ -27,6 +27,20 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
             });
     };
 
+    this.loadAccounts = function (profId, cb) {
+        $http({
+            method: "GET",
+            params: {
+                auth: this.getAuthToken()
+            },
+            url: "/api/profile/" + profId + "/accounts"
+        }).success(function (data) {
+                cb(data);
+            });
+    };
+
+    //----------------------------------------
+
     this.getCurrentProfpageID = function () {
         if (_curProfile)
             return _curProfile._id;
