@@ -31,12 +31,24 @@ module.exports.initCtrl = function (models) {
         this.placeBid = function (req, res) {
             if (!req.kexProfile)
                 return res.json({});
-            var profID = req.kexProfile.id, productID = req.params.prdId, bid = req.query.bid;
-            productModel.placeBid(profID, productID, bid, function (err, numberAffected, rawResponse) {
+            var profID = req.kexProfile.id, productID = req.params.prdId, amount = req.query.bid;
+            /*productModel.getProductById(productID, function getProductCB(err, product) {
+             if (err || product == null)
+             return res.json(Utils.genResponse("invalid product"));
+             var transInfo = {
+             type: transTypes.BID_PLACE,
+             object: productID
+             };
+             profileModel.getMoney(profID, amount, transInfo, function moneyGetCB(_amount) {
+             if (_amount != amount)
+             return res.json(Utils.genResponse("money retrieval error"));*/
+            productModel.placeBid(profID, productID, amount, function (err, numberAffected, rawResponse) {
                 if (err || numberAffected < 1)
                     return res.json(Utils.genResponse("could not place bid"));
                 res.json(Utils.genResponse(null, true));
             });
+            /*});
+             });*/
         };
 
         this.purchase = function (req, res) {//buy fixed price product
@@ -49,7 +61,7 @@ module.exports.initCtrl = function (models) {
                 var transInfo = {
                     type: transTypes.PRODUCT,
                     object: productID
-                }
+                };
                 profileModel.transferMoney(profID, product.owner, product.price, transInfo, function (err, isSuccess) {
                     if (err)
                         return res.json(Utils.genResponse(err));

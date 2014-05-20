@@ -5,7 +5,8 @@
 module.exports.initModel = function (mongoose, accEvent) {
 
     var ObjectId = mongoose.Schema.ObjectId,
-        TypObjectID = mongoose.Types.ObjectId;
+        TypObjectID = mongoose.Types.ObjectId,
+        TypMixed = mongoose.Types.Mixed;
 
     var EV_ACC_TRANS = require(__base + "/constants").events.EVENT_ACCOUNT_TRANS;
     var transTypes = require(__base + "/constants").accounts.transTypes;
@@ -24,7 +25,7 @@ module.exports.initModel = function (mongoose, accEvent) {
             }
         },
         object: {
-            type: ObjectId
+            type: TypMixed
         },
         amount: {
             type: Number,

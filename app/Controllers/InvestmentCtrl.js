@@ -19,7 +19,7 @@ module.exports.initCtrl = function (models) {
             var transInfo = {
                 type: transTypes.INVEST_ADD,
                 object: null
-            }
+            };
             profileModel.getMoney(profId, amount, transInfo, function moneyGetCB(_amount) {
                 if (_amount != amount)
                     return res.json(Utils.genResponse("money retrieval error"));
@@ -52,7 +52,7 @@ module.exports.initCtrl = function (models) {
                 var transInfo = {
                     type: transTypes.INVEST_REM,
                     object: invstmntID
-                }
+                };
                 profileModel.putMoney(doc.investor.id, doc.amount, transInfo, function moneyGive(success) {
                     if (!success)
                         return res.json(Utils.genResponse("failed to restore money"));
@@ -106,7 +106,7 @@ module.exports.initCtrl = function (models) {
                 var transInfo = {
                     type: transTypes.LOANPAY,
                     object: invstmntID
-                }
+                };
                 profileModel.transferMoney(profID, doc.investor.id, doc.amount, transInfo, function (err, isSuccess) {
                     if (err)
                         return res.json(Utils.genResponse("money transfer error"));
