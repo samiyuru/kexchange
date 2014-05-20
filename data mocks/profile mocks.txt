@@ -1,0 +1,24 @@
+{
+	"__v" : 0,
+	"_id" : ObjectId("5354a11e73451d3507407567"),
+	"lastwealth" : 0,
+	"loan" : 0,
+	"name" : "Samiyuru Senarathne",
+	"nickname" : "Samiyuru",
+	"propic" : "/propics/propic01.png",
+	"purchases" : [ ],
+	"status" : "Beginner",
+	"wealth" : 84000
+}
+{
+	"__v" : 0,
+	"_id" : ObjectId("5354a11e73451d3507407568"),
+	"lastwealth" : 0,
+	"loan" : 0,
+	"name" : "Hasith Yaggahawita",
+	"nickname" : "Hasith",
+	"propic" : "/propics/propic02.png",
+	"purchases" : [ ],
+	"status" : "Beginner",
+	"wealth" : 92000
+}
