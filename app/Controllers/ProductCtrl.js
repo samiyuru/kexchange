@@ -29,26 +29,44 @@ module.exports.initCtrl = function (models) {
         };
 
         this.placeBid = function (req, res) {
-            if (!req.kexProfile)
-                return res.json({});
-            var profID = req.kexProfile.id, productID = req.params.prdId, amount = req.query.bid;
-            /*productModel.getProductById(productID, function getProductCB(err, product) {
-             if (err || product == null)
-             return res.json(Utils.genResponse("invalid product"));
-             var transInfo = {
-             type: transTypes.BID_PLACE,
-             object: productID
-             };
-             profileModel.getMoney(profID, amount, transInfo, function moneyGetCB(_amount) {
-             if (_amount != amount)
-             return res.json(Utils.genResponse("money retrieval error"));*/
-            productModel.placeBid(profID, productID, amount, function (err, numberAffected, rawResponse) {
+            var profID, productID, amount, rqAmount;
+
+            function onProduct(err, product) {
+                if (err || product == null)
+                    return res.json(Utils.genResponse("invalid product"));
+                var transInfo = {
+                    type: transTypes.BID_PLACE,
+                    object: productID
+                };
+                rqAmount = amount;
+                var bl = product.bids.length;
+                for (var i = 0; i < bl; i++) {
+                    var bid = product.bids[i];
+                    if (bid.person == profID) {
+                        rqAmount -= bid.bid;//deduct prev bid price
+                        break;
+                    }
+                }
+                profileModel.getMoney(profID, rqAmount, transInfo, onMoneyGet);
+            }
+
+            function onMoneyGet(gotAmount) {
+                if (gotAmount != rqAmount)
+                    return res.json(Utils.genResponse("money retrieval error"));
+                productModel.placeBid(profID, productID, amount, onBid);
+            }
+
+            function onBid(err, numberAffected, rawResponse) {
                 if (err || numberAffected < 1)
                     return res.json(Utils.genResponse("could not place bid"));
                 res.json(Utils.genResponse(null, true));
-            });
-            /*});
-             });*/
+            }
+
+            if (!req.kexProfile)
+                return res.json({});
+            profID = req.kexProfile.id, productID = req.params.prdId, amount = req.query.bid;
+            productModel.getProductById(productID, onProduct);
+
         };
 
         this.purchase = function (req, res) {//buy fixed price product

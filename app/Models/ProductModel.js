@@ -151,10 +151,10 @@ module.exports.initModel = function (mongoose) {
                             date: now,
                             bid: bid
                         }
-                    ]//,
-//                    $sort: {//sort without slice needs mongodb 2.6
-//                        date: -1//sort descending by date
-//                    }
+                    ],
+                    $sort: {//sort without slice needs mongodb 2.6
+                        date: -1//sort descending by date
+                    }
                 }
             }
         }, cb);
@@ -214,21 +214,22 @@ module.exports.initModel = function (mongoose) {
     function execQuery(query, cb) {
         query.populate('owner', Utils.getProfileFieldsPub())
             .sort('-date')
-            .exec(function (err, docs) {
-                if (!err) {
-                    for (var i in docs) {
-                        var doc = docs[i];
-                        doc.bids.sort(function compare(a, b) {
-                            if (a.date < b.date)
-                                return 1;
-                            if (a.date > b.date)
-                                return -1;
-                            return 0;
-                        });
-                    }
-                }
-                cb(err, docs);
-            });
+            .exec(cb);
+//            function (err, docs) {
+//                if (!err) {
+//                    for (var i in docs) {
+//                        var doc = docs[i];
+//                        doc.bids.sort(function compare(a, b) {
+//                            if (a.date < b.date)
+//                                return 1;
+//                            if (a.date > b.date)
+//                                return -1;
+//                            return 0;
+//                        });
+//                    }
+//                }
+//                cb(err, docs);
+//            });
     };
 
     function getProductById(productID, cb) {
