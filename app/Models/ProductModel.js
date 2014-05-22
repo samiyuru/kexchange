@@ -126,16 +126,9 @@ module.exports.initModel = function (mongoose) {
             price: {
                 $lt: bid //new bid must be bigger than the latest bid or minbid
             },
-            $or: [
-                {
-                    expire: null
-                },
-                {
-                    expire: {
-                        $gte: now
-                    }
-                }
-            ]
+            expire: {
+                $gte: now
+            }
         }, {
             $set: {
                 price: bid //now minbid is the latest bid
@@ -172,16 +165,9 @@ module.exports.initModel = function (mongoose) {
             remQty: {
                 $gte: 1
             },
-            $or: [
-                {
-                    expire: null
-                },
-                {
-                    expire: {
-                        $gte: now
-                    }
-                }
-            ]
+            expire: {
+                $gte: now
+            }
         }, {
             $inc: {
                 remQty: -1,
@@ -215,21 +201,6 @@ module.exports.initModel = function (mongoose) {
         query.populate('owner', Utils.getProfileFieldsPub())
             .sort('-date')
             .exec(cb);
-//            function (err, docs) {
-//                if (!err) {
-//                    for (var i in docs) {
-//                        var doc = docs[i];
-//                        doc.bids.sort(function compare(a, b) {
-//                            if (a.date < b.date)
-//                                return 1;
-//                            if (a.date > b.date)
-//                                return -1;
-//                            return 0;
-//                        });
-//                    }
-//                }
-//                cb(err, docs);
-//            });
     };
 
     function getProductById(productID, cb) {
@@ -238,6 +209,7 @@ module.exports.initModel = function (mongoose) {
 
     function getProductsFor(profID, isAuction, chunk, cb) {
         var profObjID = TypObjectID(profID);
+        var now = new Date();
         var query = makeQuery({
             owner: {
                 $ne: profObjID//not owns
@@ -250,6 +222,9 @@ module.exports.initModel = function (mongoose) {
             },
             "purchases.buyer": {
                 $ne: profObjID//not bought
+            },
+            expire: {
+                $gte: now
             }
         }, isAuction)
             .populate('bids.person', Utils.getProfileFieldsPub());
@@ -257,8 +232,12 @@ module.exports.initModel = function (mongoose) {
     };
 
     function getInstorPrdsOf(profID, isAuction, chunk, cb) {
+        var now = new Date();
         var query = makeQuery({
-            owner: TypObjectID(profID)
+            owner: TypObjectID(profID),
+            expire: {
+                $gte: now
+            }
         }, isAuction)
             .populate('bids.person', Utils.getProfileFieldsPub());
         execQuery(query, cb)
@@ -299,16 +278,9 @@ module.exports.initModel = function (mongoose) {
             remQty: {
                 $gte: 1//items should remain
             },
-            $or: [
-                {
-                    expire: null
-                },
-                {
-                    expire: {
-                        $gte: now
-                    }
-                }
-            ],
+            expire: {
+                $gte: now
+            },
             "bids.person": profObjID
         })
             .populate('bids.person', Utils.getProfileFieldsPub());
