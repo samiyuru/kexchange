@@ -215,25 +215,16 @@ module.exports.initModel = function (mongoose) {
         query.populate('owner', Utils.getProfileFieldsPub())
             .sort('-date')
             .exec(cb);
-//            function (err, docs) {
-//                if (!err) {
-//                    for (var i in docs) {
-//                        var doc = docs[i];
-//                        doc.bids.sort(function compare(a, b) {
-//                            if (a.date < b.date)
-//                                return 1;
-//                            if (a.date > b.date)
-//                                return -1;
-//                            return 0;
-//                        });
-//                    }
-//                }
-//                cb(err, docs);
-//            });
     };
 
     function getProductById(productID, cb) {
         model.findById(TypObjectID(productID), cb);
+    };
+
+    function removeProductById(productID, cb) {
+        model.findByIdAndRemove({
+            _id: TypObjectID(productID)
+        }, cb);
     };
 
     function getProductsFor(profID, isAuction, chunk, cb) {
@@ -320,6 +311,7 @@ module.exports.initModel = function (mongoose) {
         placeBid: placeBid,
         purchase: purchase,
         getProductById: getProductById,
+        removeProductById: removeProductById,
         getProductsFor: getProductsFor,
         getInstorPrdsOf: getInstorPrdsOf,
         getPurchasesOf: getPurchasesOf,

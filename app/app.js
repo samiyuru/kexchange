@@ -34,9 +34,10 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
                 collection: 'agendaJobs'
             },
             concurrency: 10,
-            processEvery: '30 seconds',
+            processEvery: '30 minutes',
             defaultLockLifetime: 10000
         });
+        agenda.start();
         var accEvent = require('./services/EventService').init();
         var models = require('./Models')(mongoose, accEvent);
         var ctrls = require('./Controllers')(models, agenda);

@@ -151,7 +151,7 @@ module.exports.initModel = function (mongoose, accEvent) {
     function transferMoney(fromProfID, toProfID, amount, transInfo, cb) {// cb(err, isSuccess)
         fromProfID = TypObjectID(fromProfID.toString());
         toProfID = TypObjectID(toProfID.toString());
-        var objOfTrans = TypObjectID(transInfo.object.toString());
+        var objOfTrans = transInfo.object;
 
         getMoney(fromProfID, amount, {
             type: transInfo.type,

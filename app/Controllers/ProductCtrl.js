@@ -36,7 +36,10 @@ module.exports.initCtrl = function (models, agenda) {
                     return res.json(Utils.genResponse("invalid product"));
                 var transInfo = {
                     type: transTypes.BID_PLACE,
-                    object: productID
+                    object: {
+                        title: product.title,
+                        id: productID
+                    }
                 };
                 rqAmount = amount;
                 var bl = product.bids.length;
@@ -78,7 +81,10 @@ module.exports.initCtrl = function (models, agenda) {
                     return res.json(Utils.genResponse("invalid product"));
                 var transInfo = {
                     type: transTypes.PRODUCT,
-                    object: productID
+                    object: {
+                        title: product.title,
+                        id: productID
+                    }
                 };
                 profileModel.transferMoney(profID, product.owner, product.price, transInfo, function (err, isSuccess) {
                     if (err)
@@ -149,11 +155,69 @@ module.exports.initCtrl = function (models, agenda) {
                         if (err)
                             return res.json(Utils.genResponse("product creation error"));
                         res.json(Utils.genResponse(null, true, doc));
+                        agenda.schedule(new Date(doc.expire), "productExpire", {id: doc.id});
                     });
                 });
             });
 
         };
+
+        agenda.define('productRemove', function (job, done) {
+            var prdId = job.attrs.data.id;
+            productModel.removeProductById(prdId, function (err, doc) {
+                if (err) return console.warn("failed to remove product");
+            });
+            done();
+        });
+
+        agenda.define('productExpire', function (job, done) {
+            var prdId = job.attrs.data.id;
+            productModel.getProductById(prdId, function (err, doc) {
+                if (err)return console.warn("failed to get product");
+                if (doc.isAuction == true) {
+                    processBids(doc)
+                }
+                agenda.schedule("1 week", "productRemove", {id: doc.id});
+            });
+            done();
+        });
+
+        function processBids(product) {
+            var bids = product.bids;//bids are sorted desc
+            var bL = bids.length;
+            var selected = {};
+            var selCnt = 0;
+            for (var i = 0; i < bL; i++) {
+                var bid = bids[i];
+                if (selCnt < product.qty) {
+                    if (!selected[bid.person]) {
+                        selected[bid.person] = true;
+                        selCnt++;
+                        product.purchases.push({
+                            price: bid.bid,
+                            person: bid.person,
+                            date: bid.date
+                        });
+                    }
+                } else {
+                    var bidReturned = {};
+                    if (!selected[bid.person] && !bidReturned[bid.person]) {
+                        var transInfo = {
+                            type: transTypes.BID_RETURN,
+                            object: {
+                                title: product.title,
+                                id: product.id
+                            }
+                        };
+                        productModel.putMoney(bid.person, bid.amount, transInfo, function (success) {
+                            if (!success)console.warn("failed to refund " + bid.amount + " bid to " + bid.person);
+                        });
+                        bidReturned[bid.person] = true;
+                    }
+                }
+            }
+            product.save();
+        }
 
         function saveImages(files, cb) {
             var fileNames = [];

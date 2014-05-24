@@ -43,6 +43,7 @@ module.exports.init = function () {
                 }
             }
         };
+
     })();
 };
 
