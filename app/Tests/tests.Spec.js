@@ -19,7 +19,7 @@ module.exports.test = function (app, models, ctrls) {
 //        nickname: 'Samiyuru',
 //        name: 'Samiyuru Senarathne',
 //        lastwealth: 0,
-//        wealth: 0,
+//        wealth: 90000,
 //        propic: '/propics/propic01.png'
 //    }, 'pass1', function (status) {
 //        console.log(status);
@@ -29,25 +29,35 @@ module.exports.test = function (app, models, ctrls) {
 //        nickname: 'Hasith',
 //        name: 'Hasith Yaggahawita',
 //        lastwealth: 0,
-//        wealth: 0,
+//        wealth: 90000,
 //        propic: '/propics/propic02.png'
 //    }, 'pass2', function (status) {
+//        console.log(status);
+//    });
+//
+//    ctrls.profileCtrl.createProfile({
+//        nickname: 'Mekhala',
+//        name: 'Mekhala Jayalath',
+//        lastwealth: 0,
+//        wealth: 90000,
+//        propic: '/propics/propic03.png'
+//    }, 'pass1', function (status) {
 //        console.log(status);
 //    });
 
 }
 
-describe("server side tests", function() {
+describe("server side tests", function () {
 
-    beforeEach(function() {
+    beforeEach(function () {
 
     });
 
-    it("should be true 1", function() {
+    it("should be true 1", function () {
         expect(true).toBe(false);
     });
 
-    it("should be true 2", function() {
+    it("should be true 2", function () {
         expect(true).toBe(true);
     });
 
