@@ -5,7 +5,7 @@ var Utils = require(__base + "/utils");
 
 module.exports.initCtrl = function(models){
 
-    return new (function(models){
+    return new (function(){
 
 
 

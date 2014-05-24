@@ -10,7 +10,7 @@ module.exports.initCtrl = function (models) {
     var authModel = models.authModel;
     var accModel = models.accountModel;
 
-    return new (function (models) {
+    return new (function () {
 
         this.createProfile = function (profile, password, cb) {
             profileModel.createProfile(profile, function (err, doc) {

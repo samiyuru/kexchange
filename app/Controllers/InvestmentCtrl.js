@@ -3,14 +3,14 @@
  */
 var Utils = require(__base + "/utils");
 
-module.exports.initCtrl = function (models) {
+module.exports.initCtrl = function (models, agenda) {
 
     var investmentModel = models.investmentModel;
     var profileModel = models.profileModel;
 
     var transTypes = require(__base + "/constants").accounts.transTypes;
 
-    return new (function (models) {
+    return new (function () {
 
         this.newInvestment = function (req, res) {
             if (!req.kexProfile)

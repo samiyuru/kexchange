@@ -15,6 +15,7 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
         cluster.fork();
     });
 } else {
+    var Agenda = require('agenda');
     var morgan = require('morgan');
     var express = require('express');
     var config = require('./config')();
@@ -27,9 +28,18 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
             return;
         }
 
+        var agenda = new Agenda({
+            db: {
+                address: config.mongo,
+                collection: 'agendaJobs'
+            },
+            concurrency: 10,
+            processEvery: '30 seconds',
+            defaultLockLifetime: 10000
+        });
         var accEvent = require('./services/EventService').init();
         var models = require('./Models')(mongoose, accEvent);
-        var ctrls = require('./Controllers')(models);
+        var ctrls = require('./Controllers')(models, agenda);
 
         var app = express();
         app.use(morgan());

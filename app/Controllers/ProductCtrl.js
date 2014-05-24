@@ -8,14 +8,14 @@ var path = require('path');
 var uuid = require('node-uuid');
 var PRODUCT_IMG_DIR = __base + "/images/products/";
 
-module.exports.initCtrl = function (models) {
+module.exports.initCtrl = function (models, agenda) {
 
     var productModel = models.productModel;
     var profileModel = models.profileModel;
 
     var transTypes = require(__base + "/constants").accounts.transTypes;
 
-    return new (function (models) {
+    return new (function () {
 
         this.getBidedProducts = function (req, res) {
             if (!req.kexProfile)
