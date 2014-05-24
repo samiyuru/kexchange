@@ -72,11 +72,17 @@ kEX.service("kexProductTypes", function (kexPofiles) {
     AuctionProduct.prototype.updateBidRank = function () {
         var loggedProfile = kexPofiles.getLoggedProf();
         var bidLen = this.bids.length;
+        var rank = 0;
+        var prevIds = {};
         for (var i = 0; i < bidLen; i++) {
             var bid = this.bids[i];
             if (bid.person._id == loggedProfile._id) {
-                this.bidRank = i + 1;
+                this.bidRank = rank + 1;
                 return;
+            }
+            if (!prevIds[bid.person._id]) {
+                prevIds[bid.person._id] = true;
+                rank++;
             }
         }
     }
