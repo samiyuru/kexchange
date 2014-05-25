@@ -93,6 +93,8 @@ input, textarea {
     font-size: 13px;
     margin: 0;
     box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
 }
 
 input[type=text]:focus, input[type=password]:focus, textarea:focus {
@@ -702,7 +704,8 @@ nav a.active {
     margin-top: 8px;
     color: #9a9a9a;
 }
-.productinf #purchase .confrm  span{
+
+.productinf #purchase .confrm span {
     font-weight: bold;
 }
 
@@ -776,7 +779,6 @@ nav a.active {
 }
 
 /*************************************/
-
 
 table.accounts {
     width: 100%;
