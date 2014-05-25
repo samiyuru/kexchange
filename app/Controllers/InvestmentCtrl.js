@@ -53,7 +53,7 @@ module.exports.initCtrl = function (models, agenda) {
                     type: transTypes.INVEST_REM,
                     object: invstmntID
                 };
-                profileModel.putMoney(doc.investor.id, doc.amount, transInfo, function moneyGive(success) {
+                profileModel.putMoney(doc.investor.id.toString(), doc.amount, transInfo, function moneyGive(success) {
                     if (!success)
                         return res.json(Utils.genResponse("failed to restore money"));
                     res.json(Utils.genResponse(null, true, doc));
@@ -107,7 +107,7 @@ module.exports.initCtrl = function (models, agenda) {
                     type: transTypes.LOANPAY,
                     object: invstmntID
                 };
-                profileModel.transferMoney(profID, doc.investor.id, doc.amount, transInfo, function (err, isSuccess) {
+                profileModel.transferMoney(profID, doc.investor.id.toString(), doc.amount, transInfo, function (err, isSuccess) {
                     if (err)
                         return res.json(Utils.genResponse("money transfer error"));
                     investmentModel.rmInvestmentById(invstmntID, function removeInv(err, doc) {
@@ -134,7 +134,7 @@ module.exports.initCtrl = function (models, agenda) {
                         object: invstmntID,
                         subject: doc.investor.id
                     }
-                    profileModel.putMoney(doc.debitor.id, doc.amount, transInfo, function moneyGive(success) {
+                    profileModel.putMoney(doc.debitor.id.toString(), doc.amount, transInfo, function moneyGive(success) {
                         if (!success)
                             return res.json(Utils.genResponse("failed to put money"));
                         res.json(Utils.genResponse(null, true));

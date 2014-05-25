@@ -231,7 +231,7 @@ module.exports.initCtrl = function (models, agenda) {
                                 id: product.id
                             }
                         };
-                        profileModel.putMoney(bid.person, bid.bid, transInfo, function (success) {
+                        profileModel.putMoney(bid.person.toString(), bid.bid, transInfo, function (success) {
                             if (!success)console.warn("failed to refund " + bid.bid + " bid to " + bid.person);
                         });
                         bidReturned[bid.person] = true;
