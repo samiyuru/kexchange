@@ -1,11 +1,22 @@
 <div kex-widget>
     <div kex-tab="KE Products">
-        <ul productscont ng-controller="prdctsCtrlr" style="margin: 0 -19px -6px 12px;">
-            <!-- product -->
-            <li ng-repeat="product in products" product="product" indx="$index" class="product"></li>
-            <!-- product end -->
-            <li productinfo class="product-inf">
-            </li>
-        </ul>
+        <div ng-controller="prdctsCtrlr">
+            <!-- no product -->
+            <div ng-if="products.length==0;" class="rowtyp01 listEmptyMsg L-R-margin0">
+                No products available
+            </div>
+            <!-- no product end -->
+
+            <ul ng-if="products.length!=0;" productscont style="margin: 0 -19px -6px 12px;">
+                <!-- product -->
+                <li ng-repeat="product in products" product="product" indx="$index" class="product"></li>
+                <!-- product end -->
+
+                <!-- product info -->
+                <li productinfo class="product-inf">
+                </li>
+                <!-- product info end -->
+            </ul>
+        </div>
     </div>
 </div>
