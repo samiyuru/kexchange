@@ -120,7 +120,7 @@ select {
     margin: 0;
     padding: 5px;
     font-weight: bold;
-    font-size: 18px;
+    border: 1px solid #cccccc;
 }
 
 /***************************/
@@ -787,6 +787,20 @@ table.accounts {
 
 table.accounts .desc {
     text-align: left;
+}
+
+table.accounts .desc .obj {
+    font-size: inherit;
+    color: inherit;
+    text-decoration: underline;
+    text-transform: capitalize;
+}
+
+table.accounts .desc .subj {
+    font-size: inherit;
+    color: inherit;
+    text-decoration: underline;
+    text-transform: capitalize;
 }
 
 table.accounts .date {

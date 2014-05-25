@@ -63,7 +63,7 @@ kEX.controller("accountCtrl", function ($scope, kexPofiles) {
                         }
                         case transTypes.PRODUCT:
                         {
-                            logItm.detail = (logItm.amount > 0) ? "Product sold to " : "Product bought from ";
+                            logItm.detail = (logItm.amount > 0) ? " sold to " : " bought from ";
                             break;
                         }
                         case transTypes.PROFIT:
@@ -78,12 +78,12 @@ kEX.controller("accountCtrl", function ($scope, kexPofiles) {
                         }
                         case  transTypes.BID_PLACE:
                         {
-                            logItm.detail = "Bidded for product ";
+                            logItm.detail = " bid";
                             break
                         }
                         case  transTypes.BID_RETURN:
                         {
-                            logItm.detail = "Bid returned ";
+                            logItm.detail = " bid refund";
                             break
                         }
                     }

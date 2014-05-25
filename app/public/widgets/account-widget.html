@@ -1,6 +1,7 @@
 <div kex-widget>
     <div kex-tab="Account History">
-        <ul class="L-R-margin0" ng-controller="accountCtrl">
+        <div ng-controller="accountCtrl" class="L-R-margin0">
+
             <table class="accounts">
                 <tr>
                     <th class="desc">Description</th>
@@ -10,13 +11,20 @@
                 </tr>
                 <tr ng-repeat="accLog in accLogs">
                     <td class="desc">
-                        <span>{{accLog.detail}}</span><a ng-if="accLog.subject" prfid="accLog.subject && accLog.subject.id">{{accLog.subject.nickname}}</a>
+                        <span ng-if="accLog.object.title" class="obj">{{accLog.object.title}}</span>
+                        <span>{{accLog.detail}}</span>
+                        <a ng-if="accLog.subject" prfid="accLog.subject && accLog.subject.id" class="subj">{{accLog.subject.nickname}}</a>
                     </td>
                     <td class="date"><span timediff="accLog.date"></span></td>
                     <td class="amt">{{accLog.amount}}</td>
-                    <td class="bal">{{accLog.balance}}</td>
+                    <td class="bal">{{accLog.balance.toLocaleString()}}</td>
                 </tr>
             </table>
-        </ul>
+
+            <!--div ng-if="accLogs.length==0;" class="rowtyp01 listEmptyMsg">
+                No transactions available
+            </div-->
+
+        </div>
     </div>
 </div>
