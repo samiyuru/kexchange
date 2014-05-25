@@ -9,6 +9,9 @@ module.exports.initCtrl = function (models, agenda) {
     var profileModel = models.profileModel;
 
     var transTypes = require(__base + "/constants").accounts.transTypes;
+    var PROFIT_COLLECT_FREQ = require(__base + "/constants").investments.PROFIT_COLLECT_FREQ;
+
+    agenda.every('20 seconds', 'loanProfitCollect');
 
     return new (function () {
 
@@ -142,6 +145,44 @@ module.exports.initCtrl = function (models, agenda) {
                 });
             });
         };
+
+        agenda.define('loanProfitCollect', function (job, done) {
+            investmentModel.getAllLoans(function (err, docs) {
+                if (err) return console.warn("could not get all loans to profit process");
+                var lL = docs.length;
+                var now = new Date();
+                var mNow = now.getTime();
+                for (var i = 0; i < lL; i++) {
+                    var loan = docs[i];
+                    var lastDate = new Date(loan.profit.lastDate);
+                    if (mNow - lastDate.getTime() >= PROFIT_COLLECT_FREQ) {//collect profit
+                        if (loan.profit.change && (new Date(loan.profit.change.date)).getTime() < mNow) {
+                            loan.profit.amount = loan.profit.change.profit;
+                            loan.profit.change = null;
+                        }
+                        var profit = loan.profit.amount;
+                        var investorId = loan.investor.id.toString();
+                        var debitorId = loan.debitor.id.toString();
+                        var transInfo = {
+                            type: transTypes.PROFIT,
+                            object: {
+                                amount: loan.amount,
+                                id: loan.id
+                            }
+                        };
+                        profileModel.transferMoney(debitorId, investorId, profit, transInfo, function (err, isSuccess) {
+                            if (err || !isSuccess) {
+                                if (err == "money retrieval error")loan.amount = loan.amount + profit;//add profit to loan
+                                console.warn("loan " + loan.id + " profit transfer failed");
+                            }
+                            loan.profit.lastDate = new Date(lastDate.getTime() + PROFIT_COLLECT_FREQ);//last profit collect date (stabilize cycle)
+                            loan.save();
+                        });
+                    }
+                }
+            });
+            done();
+        });
 
     })();
 

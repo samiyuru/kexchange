@@ -38,6 +38,15 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
             defaultLockLifetime: 10000
         });
         agenda.start();
+
+        function graceful() {
+            agenda.stop(function () {
+                process.exit(0);
+            });
+        }
+        process.on('SIGTERM', graceful);
+        process.on('SIGINT', graceful);
+
         var accEvent = require('./services/EventService').init();
         var models = require('./Models')(mongoose, accEvent);
         var ctrls = require('./Controllers')(models, agenda);

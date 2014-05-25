@@ -5,7 +5,7 @@ var Utils = require(__base + "/utils");
 
 module.exports.initModel = function (mongoose) {
 
-    var PROFIT_CHANGE_EFFECT_GAP = 14 * 24 * 3600 * 1000;//days
+    var PROFIT_CHANGE_GAP = require(__base + "/constants").investments.PROFIT_CHANGE_GAP;
 
     var ObjectId = mongoose.Schema.ObjectId,
         TypObjectID = mongoose.Types.ObjectId;
@@ -59,27 +59,18 @@ module.exports.initModel = function (mongoose) {
     var model = mongoose.model('investment', investmentSchema)
 
     function createInvestment(investorId, amount, profit, cb) {
+        var now = new Date();
         model.create({
             amount: amount,
             profit: {
-                amount: profit
+                amount: profit,
+                lastDate: now
             },
             investor: {
-                date: new Date(),
+                date: now,
                 id: TypObjectID(investorId)
             }
         }, function (err, doc) {
-            /*
-             * {
-             *   _id
-             *   profit
-             *   amount
-             *   investor{
-             *       date
-             *       id
-             *   }
-             * }
-             * */
             if (!err && doc) {
                 doc.profit = doc.profit.amount;
             }
@@ -148,6 +139,14 @@ module.exports.initModel = function (mongoose) {
         }, null, true, true, cb);
     };
 
+    function getAllLoans(cb) {//get loans of all users for profit process cron
+        findInvestments({
+            debitor: {
+                $exists: true
+            }
+        }, null, false, false, cb);
+    }
+
     function getInvestmentsOf(investorId, cb) {
         findInvestments({
             "investor.id": TypObjectID(investorId)
@@ -162,13 +161,13 @@ module.exports.initModel = function (mongoose) {
             if (err || doc == null) {
                 cb(err || {}, doc);
             } else {
-                var efctDate = new Date((new Date()).getTime() + PROFIT_CHANGE_EFFECT_GAP);
+                var efctDate = new Date((new Date()).getTime() + PROFIT_CHANGE_GAP);
                 if (doc.profit.amount == newProfit) {
                     doc.profit.change = null;
                 } else if (!doc.debitor || !doc.debitor.id) {//if the loan is not yet taken
                     doc.profit.amount = newProfit;
                     doc.profit.change = null;
-                } else {
+                } else {//if loan is already taken
                     doc.profit.change = {
                         date: efctDate,
                         profit: newProfit
@@ -205,6 +204,7 @@ module.exports.initModel = function (mongoose) {
         rmInvestmentById: rmInvestmentById,
         getInvestors: getInvestors,
         getLoans: getLoans,
+        getAllLoans: getAllLoans,
         getInvestmentsOf: getInvestmentsOf,
         changeProfit: changeProfit,
         getInvestmentById: getInvestmentById,

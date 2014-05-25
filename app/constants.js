@@ -6,6 +6,10 @@ module.exports = {
     events: {
         EVENT_ACCOUNT_TRANS: 0
     },
+    investments: {
+        PROFIT_COLLECT_FREQ: 30 * 1000,
+        PROFIT_CHANGE_GAP: 40 * 1000
+    },
     accounts: {
         transTypes: {
             EARNING: 0, // +
