@@ -15,7 +15,7 @@ kEX.controller("loanCtrl", function ($scope, kexInvest, kexPofiles, kexEvent) {
         onInvestPayback: function (investment) {
             kexInvest.payBack(investment.id, function (status) {
                 if (status.success) {
-                    removeLoan(investment.id);
+                    removeLoan(investment);
                 }else {
                     alert(status.err);
                 }

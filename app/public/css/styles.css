@@ -806,6 +806,7 @@ table.accounts .desc .subj {
 table.accounts .date {
     width: 115px;
     text-align: right;
+    color: #666666;
 }
 
 table.accounts .amt {

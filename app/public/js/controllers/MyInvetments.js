@@ -23,7 +23,7 @@ kEX.controller("myInvestCtrl", function ($scope, kexInvest, kexPofiles, kexEvent
         onInvestTake: function (investment) {
             kexInvest.takeLoan(investment.id, function (status) {
                 if (status.success) {
-                    removeInvestment(investment)
+                    removeInvestment(investment);
                 }else {
                     alert(status.err);
                 }
