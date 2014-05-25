@@ -16,6 +16,7 @@ kEX.service("kexProducts", function ($http, kexPofiles, kexEvent, kexProductType
     this.BiddedProductDeco = kexProductTypes.BiddedProductDeco;
     this.AuctionProduct = AuctionProduct;
     this.FixedProduct = FixedProduct;
+    this.BoughtProduct = kexProductTypes.BoughtProduct;
 
     //-----------------------------------------------
 

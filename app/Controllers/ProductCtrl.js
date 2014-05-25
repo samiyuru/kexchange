@@ -155,7 +155,7 @@ module.exports.initCtrl = function (models, agenda) {
                         if (err)
                             return res.json(Utils.genResponse("product creation error"));
                         res.json(Utils.genResponse(null, true, doc));
-                        agenda.schedule(new Date(doc.expire), "productExpire", {id: doc.id});
+                        agenda.schedule(new Date((new Date()).getTime() + 3 * 60 * 1000), "productExpire", {id: doc.id});
                     });
                 });
             });
@@ -195,7 +195,7 @@ module.exports.initCtrl = function (models, agenda) {
                         selCnt++;
                         product.purchases.push({
                             price: bid.bid,
-                            person: bid.person,
+                            buyer: bid.person,
                             date: bid.date
                         });
                     }
@@ -216,6 +216,8 @@ module.exports.initCtrl = function (models, agenda) {
                     }
                 }
             }
+            product.soldQty = selCnt;
+            product.remQty = product.qty - selCnt;
             product.save();
         }
 

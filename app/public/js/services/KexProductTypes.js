@@ -20,6 +20,7 @@ kEX.service("kexProductTypes", function (kexPofiles) {
         this.type = prdObj.type;
         this.expire = new Date(prdObj.expire);
         this.detail = prdObj.detail;
+        this.purchases = prdObj.purchases;
         this.dateAdded = new Date(prdObj.date);
         this.imgs = prdObj.imgs;
         this.prdCover = prdTypeImgs[this.type];
@@ -151,9 +152,28 @@ kEX.service("kexProductTypes", function (kexPofiles) {
 
     //----------------------------------------------
 
+    var BoughtProduct = function (prdObj, buyerId) {
+        ProductBase.apply(this, [prdObj]);
+        var purchs = this.purchases;
+        var pL = purchs.length;
+        for (var j = 0; j < pL; j++) {
+            var purch = purchs[j];
+            purch.date = new Date(purch.date);
+            if (purch.buyer == buyerId) {
+                this.purchased = purch;
+                this.purchases = undefined;
+                break;
+            }
+        }
+    }
+
+    BoughtProduct.prototype = Object.create(ProductBase.prototype);
+//----------------------------------------------
+
     this.ProductBase = ProductBase;
     this.AuctionProduct = AuctionProduct;
     this.FixedProduct = FixedProduct;
     this.BiddedProductDeco = BiddedProductDeco;
+    this.BoughtProduct = BoughtProduct;
 
 });

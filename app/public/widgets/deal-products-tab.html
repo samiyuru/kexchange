@@ -93,23 +93,29 @@
     </div-->
 
     <div subcontent="Purchases">
-        <ul ng-controller="purchProducts" class="L-R-padding0">
-            <li ng-if="purchProducts.length==0;" class="rowtyp01 listEmptyMsg">
+        <ul ng-controller="purchProducts">
+            <li ng-if="purchProducts.length==0;" class="rowtyp01 listEmptyMsg L-R-margin0">
                 No purchases available
             </li>
             <!-- My Item -->
-            <li ng-repeat="product in purchProducts" class="rowtyp01">
-                <img class="propic-small" src="/img/product-cover001.png"/>
+            <li ng-repeat="product in purchProducts">
+                <div class="rowtyp01 L-R-margin0">
+                    <img ng-click="product.showInfo()" class="propic-small" src="/img/product-cover001.png"/>
 
-                <div class="pad-rightTo-propic">
-                    <div class="rowL2Typ01">Session Tickets</div>
-                    <div class="rowL2Typ02">from Hasith Yaggahawita</div>
-                    <div class="rowL2Typ03">
-                        <span class="leftPull">Bought for 3,000 K$</span>
-                        <a class="link-btn btnbg-blue rightPull">Sell Back</a>
+                    <div class="pad-rightTo-propic">
+                        <div ng-click="product.showInfo()" class="rowL2Typ01">{{product.title}}</div>
+                        <div class="rowL2Typ02">purchased <span timediff="product.purchased.date"></span></div>
+                        <div class="rowL2Typ03">
+                            <span class="leftPull">Bought for {{product.purchased.price.toLocaleString()}} K$</span>
+                            <!--a class="link-btn btnbg-blue rightPull">Sell Back</a-->
+                        </div>
                     </div>
+                    <div style="clear: both;"></div>
                 </div>
-                <div style="clear: both;"></div>
+
+                <!-- product info -->
+                <div ng-if="product.ui.showInfo" productinfo-li="product"></div>
+                <!-- product info end -->
             </li>
             <!-- My Item -->
         </ul>

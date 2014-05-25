@@ -193,13 +193,11 @@ module.exports.initModel = function (mongoose) {
             query = query.limit(chunk.limit);
         }
         query = query.populate('owner', Utils.getProfileFieldsPub());
-        query = query.populate('purchases.buyer', Utils.getProfileFieldsPub());
         return query;
     };
 
     function execQuery(query, cb) {
-        query.populate('owner', Utils.getProfileFieldsPub())
-            .sort('-date')
+        query.sort('-date')
             .exec(cb);
     };
 
@@ -245,6 +243,7 @@ module.exports.initModel = function (mongoose) {
                 $gte: now
             }
         }, isAuction)
+            .populate('purchases.buyer', Utils.getProfileFieldsPub())
             .populate('bids.person', Utils.getProfileFieldsPub());
         execQuery(query, cb)
     };
@@ -256,9 +255,8 @@ module.exports.initModel = function (mongoose) {
                 $ne: profObjID//not owns
             },
             "purchases.buyer": profObjID
-        })
-            .populate('bids.person', Utils.getProfileFieldsPub());
-        execQuery(query, cb)
+        }).select('-bids');
+        execQuery(query, cb);
     };
 
     function getSoldPrdsOf(profID, isAuction, chunk, cb) {

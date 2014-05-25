@@ -28,7 +28,7 @@ kEX.controller("instrProducts", function ($scope, kexProducts, kexPofiles, kexEv
                     }
                     instoreProducts.push(product);
                 }
-            }else {
+            } else {
                 alert(status.err);
             }
         });
@@ -60,7 +60,7 @@ kEX.controller("soldProducts", function ($scope, kexProducts, kexPofiles, kexEve
                     var product = kexProducts.Factory.getProductForData(data[i]);
                     soldProducts.push(product);
                 }
-            }else {
+            } else {
                 alert(status.err);
             }
         });
@@ -77,7 +77,6 @@ kEX.controller("purchProducts", function ($scope, kexProducts, kexPofiles, kexEv
     };
     var purchProducts = [];
 
-
     kexPofiles.getCurrentProfile(function currentProfile(profile) {
         var profID = profile._id;
         if (profID == kexPofiles.getLoggedProf()._id) {//if profile is logged in profile
@@ -90,10 +89,10 @@ kEX.controller("purchProducts", function ($scope, kexProducts, kexPofiles, kexEv
                 var data = status.data;
                 var dataLen = data.length;
                 for (var i = 0; i < dataLen; i++) {
-                    var product = kexProducts.Factory.getProductForData(data[i]);
+                    var product = new kexProducts.BoughtProduct(data[i], profID);
                     purchProducts.push(product);
                 }
-            }else {
+            } else {
                 alert(status.err);
             }
         });
