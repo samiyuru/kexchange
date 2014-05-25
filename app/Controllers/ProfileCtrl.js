@@ -71,7 +71,7 @@ module.exports.initCtrl = function (models) {
                 return res.json({});
             var profID = req.params.id;
             profileModel.getProfile(profID, function (err, doc) {
-                if (err)
+                if (err || !doc)
                     return res.json(Utils.genResponse("profile retrieval error"));
                 res.json(Utils.genResponse(null, true, doc));
             });

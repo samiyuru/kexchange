@@ -86,7 +86,7 @@ module.exports.initCtrl = function (models, agenda) {
                         id: productID
                     }
                 };
-                profileModel.transferMoney(profID, product.owner, product.price, transInfo, function (err, isSuccess) {
+                profileModel.transferMoney(profID, product.owner.toString(), product.price, transInfo, function (err, isSuccess) {
                     if (err)
                         return res.json(Utils.genResponse(err));
                     productModel.purchase(profID, productID, product.price, function (err, numberAffected, rawResponse) {
@@ -177,16 +177,37 @@ module.exports.initCtrl = function (models, agenda) {
                 if (doc.isAuction == true) {
                     processBids(doc)
                 }
-                agenda.schedule("1 week", "productRemove", {id: doc.id});
+                if (doc.purchases.length === 0) {//remove pproduct if no purchases
+                    productModel.removeProductById(prdId, function (err, doc) {
+                        if (err) return console.warn("failed to remove product");
+                    });
+                } else {
+                    agenda.schedule("3 minutes", "productRemove", {id: doc.id});
+                }
             });
             done();
         });
 
         function processBids(product) {
+            function giveMoney(product, bid) {
+                var transInfo = {
+                    type: transTypes.PRODUCT,
+                    object: {
+                        title: product.title,
+                        id: product.id
+                    },
+                    subject: bid.person.toString()
+                };
+                profileModel.putMoney(product.owner.toString(), bid.bid, transInfo, function (success) {
+                    if (!success)console.warn("failed to pay " + bid.bid + " for product " + product.id + " of " + product.owner.toString());
+                });
+            }
+
             var bids = product.bids;//bids are sorted desc
             var bL = bids.length;
             var selected = {};
             var selCnt = 0;
+
             for (var i = 0; i < bL; i++) {
                 var bid = bids[i];
                 if (selCnt < product.qty) {
@@ -198,6 +219,7 @@ module.exports.initCtrl = function (models, agenda) {
                             buyer: bid.person,
                             date: bid.date
                         });
+                        giveMoney(product, bid);
                     }
                 } else {
                     var bidReturned = {};
@@ -209,13 +231,14 @@ module.exports.initCtrl = function (models, agenda) {
                                 id: product.id
                             }
                         };
-                        productModel.putMoney(bid.person, bid.amount, transInfo, function (success) {
-                            if (!success)console.warn("failed to refund " + bid.amount + " bid to " + bid.person);
+                        profileModel.putMoney(bid.person, bid.bid, transInfo, function (success) {
+                            if (!success)console.warn("failed to refund " + bid.bid + " bid to " + bid.person);
                         });
                         bidReturned[bid.person] = true;
                     }
                 }
             }
+
             product.soldQty = selCnt;
             product.remQty = product.qty - selCnt;
             product.save();
