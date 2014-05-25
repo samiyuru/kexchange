@@ -280,10 +280,10 @@ module.exports.initModel = function (mongoose) {
                 $ne: TypObjectID(profID)//not owns
             },
             remQty: {
-                $gte: 1//items should remain
+                $gt: 0//items should remain
             },
             expire: {
-                $gte: now
+                $gt: now
             },
             "bids.person": profObjID
         })
