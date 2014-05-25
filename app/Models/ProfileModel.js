@@ -9,6 +9,8 @@ module.exports.initModel = function (mongoose, accEvent) {
     var ObjectId = mongoose.Schema.ObjectId,
         TypObjectID = mongoose.Types.ObjectId;
 
+    var transTypes = require(__base + "/constants").accounts.transTypes;
+
     var profileSchema = new mongoose.Schema({
         nickname: {
             type: String,
@@ -110,11 +112,15 @@ module.exports.initModel = function (mongoose, accEvent) {
     }
 
     function putMoney(profID, amount, transInfo, cb) { //all params must be string
-        model.findByIdAndUpdate(TypObjectID(profID), {
+        var update = {
             $inc: {
                 wealth: amount
             }
-        }, function (err, doc) {
+        };
+        if (transInfo.type == transTypes.LOANGET) {
+            update.$inc.loan = amount;
+        }
+        model.findByIdAndUpdate(TypObjectID(profID), update, function (err, doc) {
             if (err || !doc)
                 return cb(false);
             //--------------
@@ -128,16 +134,23 @@ module.exports.initModel = function (mongoose, accEvent) {
     };
 
     function getMoney(profID, amount, transInfo, cb) { //all params must be string
-        model.findOneAndUpdate({
+        var srch = {
             _id: TypObjectID(profID),
             wealth: {
                 $gte: amount
             }
-        }, {
+        };
+        var update = {
             $inc: {
                 wealth: 0 - amount
             }
-        }, function (err, doc) {
+        };
+
+        if (transInfo.type == transTypes.LOANPAY) {
+            update.$inc.loan = 0 - amount;
+        }
+
+        model.findOneAndUpdate(srch, update, function (err, doc) {
             if (err || !doc)
                 return cb(0);
             //--------------
@@ -152,21 +165,22 @@ module.exports.initModel = function (mongoose, accEvent) {
 
     function transferMoney(fromProfID, toProfID, amount, transInfo, cb) { //all params must be string
         var objOfTrans = transInfo.object;
-
-        getMoney(fromProfID, amount, {
+        var transInfoGet = {
             type: transInfo.type,
             subject: toProfID,
             object: objOfTrans
-        }, function moneyGetCB(_amount) {
+        };
+        getMoney(fromProfID, amount, transInfoGet, function moneyGetCB(_amount) {
             if (amount != _amount) {
                 cb("money retrieval error", false);
                 return;
             }
-            putMoney(toProfID, amount, {
+            var transInfoPut = {
                 type: transInfo.type,
                 subject: fromProfID,
                 object: objOfTrans
-            }, function moneyGiveCB(success) {
+            };
+            putMoney(toProfID, amount, transInfoPut, function moneyGiveCB(success) {
                 if (!success) {
                     cb("money transfer error", false);
                     return;

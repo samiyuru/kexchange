@@ -25,7 +25,7 @@ module.exports.initModel = function (mongoose, accEvent) {
             }
         },
         object: {
-            type: Mixed
+            type: Mixed//can contain string object ids
         },
         amount: {
             type: Number,
