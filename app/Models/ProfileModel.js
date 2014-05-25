@@ -118,6 +118,7 @@ module.exports.initModel = function (mongoose, accEvent) {
             if (err || !doc)
                 return cb(false);
             //--------------
+            transInfo.date = new Date();
             transInfo.owner = profID;
             transInfo.balance = doc.wealth;
             transInfo.amount = amount;
@@ -140,6 +141,7 @@ module.exports.initModel = function (mongoose, accEvent) {
             if (err || !doc)
                 return cb(0);
             //--------------
+            transInfo.date = new Date();
             transInfo.owner = profID;
             transInfo.balance = doc.wealth;
             transInfo.amount = 0 - amount;

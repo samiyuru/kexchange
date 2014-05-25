@@ -51,7 +51,6 @@ module.exports.initModel = function (mongoose, accEvent) {
     var model = mongoose.model('account', accountSchema);
 
     accEvent.sub(EV_ACC_TRANS, function (transInf) {
-        transInf.date = new Date();
         transInf.owner = TypObjectID(transInf.owner);
         if (transInf.subject)
             transInf.subject.id = TypObjectID(transInf.subject.id);
