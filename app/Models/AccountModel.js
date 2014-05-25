@@ -52,6 +52,9 @@ module.exports.initModel = function (mongoose, accEvent) {
 
     accEvent.sub(EV_ACC_TRANS, function (transInf) {
         transInf.date = new Date();
+        transInf.owner = TypObjectID(transInf.owner);
+        if (transInf.subject)
+            transInf.subject.id = TypObjectID(transInf.subject.id);
         model.create(transInf);
     });
 

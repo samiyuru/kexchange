@@ -90,16 +90,16 @@ module.exports.initModel = function (mongoose, accEvent) {
         query.exec(cb);
     };
 
-    function publishTransInfo(transInfo) {
-        var subject = transInfo.subject;
-        if (subject) {
-            model.findById(subject, function (err, doc) {
+    function publishTransInfo(transInfo) {//trans info does not contain objIds
+        var subjId = transInfo.subject;
+        if (subjId) {
+            model.findById(TypObjectID(subjId), function (err, doc) {
                 if (err || !doc) {
                     transInfo.subject = null;
                 } else {
                     transInfo.subject = {
                         nickname: doc.nickname,
-                        id: subject
+                        id: subjId
                     };
                 }
                 accEvent.pub(EV_ACC_TRANS, transInfo);
@@ -109,8 +109,8 @@ module.exports.initModel = function (mongoose, accEvent) {
         }
     }
 
-    function putMoney(profID, amount, transInfo, cb) {
-        model.findByIdAndUpdate(TypObjectID(profID.toString()), {
+    function putMoney(profID, amount, transInfo, cb) { //all params must be string
+        model.findByIdAndUpdate(TypObjectID(profID), {
             $inc: {
                 wealth: amount
             }
@@ -118,7 +118,7 @@ module.exports.initModel = function (mongoose, accEvent) {
             if (err || !doc)
                 return cb(false);
             //--------------
-            transInfo.owner = TypObjectID(profID.toString());
+            transInfo.owner = profID;
             transInfo.balance = doc.wealth;
             transInfo.amount = amount;
             publishTransInfo(transInfo);
@@ -126,9 +126,9 @@ module.exports.initModel = function (mongoose, accEvent) {
         });
     };
 
-    function getMoney(profID, amount, transInfo, cb) {
+    function getMoney(profID, amount, transInfo, cb) { //all params must be string
         model.findOneAndUpdate({
-            _id: TypObjectID(profID.toString()),
+            _id: TypObjectID(profID),
             wealth: {
                 $gte: amount
             }
@@ -140,7 +140,7 @@ module.exports.initModel = function (mongoose, accEvent) {
             if (err || !doc)
                 return cb(0);
             //--------------
-            transInfo.owner = TypObjectID(profID.toString());
+            transInfo.owner = profID;
             transInfo.balance = doc.wealth;
             transInfo.amount = 0 - amount;
             publishTransInfo(transInfo);
@@ -148,9 +148,7 @@ module.exports.initModel = function (mongoose, accEvent) {
         });
     };
 
-    function transferMoney(fromProfID, toProfID, amount, transInfo, cb) {// cb(err, isSuccess)
-        fromProfID = TypObjectID(fromProfID.toString());
-        toProfID = TypObjectID(toProfID.toString());
+    function transferMoney(fromProfID, toProfID, amount, transInfo, cb) { //all params must be string
         var objOfTrans = transInfo.object;
 
         getMoney(fromProfID, amount, {
