@@ -132,7 +132,7 @@ module.exports.initCtrl = function (models, agenda) {
                     var transInfo = {
                         type: transTypes.LOANGET,
                         object: invstmntID,
-                        subject: doc.investor.id
+                        subject: doc.investor.id.toString()
                     }
                     profileModel.putMoney(doc.debitor.id.toString(), doc.amount, transInfo, function moneyGive(success) {
                         if (!success)
