@@ -11,7 +11,7 @@ module.exports.initCtrl = function (models, agenda) {
     var transTypes = require(__base + "/constants").accounts.transTypes;
     var PROFIT_COLLECT_FREQ = require(__base + "/constants").investments.PROFIT_COLLECT_FREQ;
 
-    agenda.every('20 seconds', 'loanProfitCollect');
+    agenda.every('3 minutes', 'loanProfitCollect');
 
     return new (function () {
 
