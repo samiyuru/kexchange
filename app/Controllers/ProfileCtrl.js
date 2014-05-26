@@ -10,6 +10,8 @@ module.exports.initCtrl = function (models) {
     var authModel = models.authModel;
     var accModel = models.accountModel;
 
+    agenda.every('10 minutes', 'updateLastWealth');
+
     return new (function () {
 
         this.createProfile = function (profile, password, cb) {
@@ -87,6 +89,18 @@ module.exports.initCtrl = function (models) {
                 res.json(Utils.genResponse(null, true, docs));
             });
         };
+
+        agenda.define('updateLastWealth', function (job, done) {
+            profileModel.getAllProfiles(function (err, docs) {
+                if (err)return console.warn("couldnot fetch accounts for last profit calculation");
+                var pL = docs.length;
+                for (var i = 0; i < pL; i++) {
+                    var profile = docs[i];
+                    profile.lastwealth = profile.wealth;
+                    profile.save();
+                }
+            });
+        });
 
     })();
 

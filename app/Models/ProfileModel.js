@@ -92,6 +92,10 @@ module.exports.initModel = function (mongoose, accEvent) {
         query.exec(cb);
     };
 
+    function getAllProfiles(cb) {//for last profit calculation
+        model.find({}).exec(cb);
+    };
+
     function publishTransInfo(transInfo) {//trans info does not contain objIds
         var subjId = transInfo.subject;
         if (subjId) {
@@ -194,6 +198,7 @@ module.exports.initModel = function (mongoose, accEvent) {
         createProfile: createProfile,
         getProfile: getProfile,
         getProfiles: getProfiles,
+        getAllProfiles: getAllProfiles,
         putMoney: putMoney,
         getMoney: getMoney,
         transferMoney: transferMoney
