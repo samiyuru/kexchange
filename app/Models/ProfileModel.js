@@ -65,7 +65,7 @@ module.exports.initModel = function (mongoose, accEvent) {
     var model = mongoose.model('profile', profileSchema);
 
     function createProfile(profile, cb) {
-        profile.wealth = 0;
+        //profile.wealth = 0;
         profile.lastwealth = 0;
         profile.loan = 0;
         profile.status = 'Beginner';

@@ -7,8 +7,8 @@ module.exports = {
         EVENT_ACCOUNT_TRANS: 0
     },
     investments: {
-        PROFIT_COLLECT_FREQ: 5 * 60 * 1000,
-        PROFIT_CHANGE_GAP: 8 * 60 * 1000
+        PROFIT_COLLECT_FREQ: 7 * 60 * 1000,
+        PROFIT_CHANGE_GAP: 10 * 60 * 1000
     },
     accounts: {
         transTypes: {

@@ -155,7 +155,7 @@ module.exports.initCtrl = function (models, agenda) {
                         if (err)
                             return res.json(Utils.genResponse("product creation error"));
                         res.json(Utils.genResponse(null, true, doc));
-                        agenda.schedule(new Date((new Date()).getTime() + 3 * 60 * 1000), "productExpire", {id: doc.id});
+                        agenda.schedule(new Date((new Date()).getTime() + 4 * 60 * 1000), "productExpire", {id: doc.id});
                     });
                 });
             });
@@ -182,7 +182,7 @@ module.exports.initCtrl = function (models, agenda) {
                         if (err) return console.warn("failed to remove product");
                     });
                 } else {
-                    agenda.schedule("3 minutes", "productRemove", {id: doc.id});
+                    agenda.schedule("5 minutes", "productRemove", {id: doc.id});
                 }
             });
             done();

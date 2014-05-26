@@ -15,6 +15,7 @@ module.exports.test = function (app, models, ctrls) {
         return uuid;
     }
 
+
 //    ctrls.profileCtrl.createProfile({
 //        nickname: 'Samiyuru',
 //        name: 'Samiyuru Senarathne',
@@ -36,12 +37,12 @@ module.exports.test = function (app, models, ctrls) {
 //    });
 //
 //    ctrls.profileCtrl.createProfile({
-//        nickname: 'Mekhala',
-//        name: 'Mekhala Jayalath',
+//        nickname: 'Ishan',
+//        name: 'Ishan Gunasekara',
 //        lastwealth: 0,
 //        wealth: 90000,
-//        propic: '/propics/propic03.png'
-//    }, 'pass1', function (status) {
+//        propic: '/propics/propic03.jpg'
+//    }, 'pass3', function (status) {
 //        console.log(status);
 //    });
 
