@@ -23,11 +23,6 @@ kEX.controller("mybidsctrl", function ($scope, $filter, kexProducts, kexPofiles)
                 var product = new AuctionProduct(data[i]);
                 product = BiddedProductDeco(product);
                 product.delegate = iProductHandler;
-                product.imgs = [
-                    "9dd9a249-6451-4db4-a268-f1b0ab5b8b22.jpg",
-                    "7a0e69cd-6da1-4078-9314-db785169e819.jpg",
-                    "b0be5e7e-c43c-4f6f-a673-8dbd3346ae80.jpg"
-                ];
                 products.push(product);
             }
         }else {
