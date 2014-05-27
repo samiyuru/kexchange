@@ -4,7 +4,7 @@
 var formidable = require('formidable');
 var Utils = require(__base + "/utils");
 
-module.exports.initCtrl = function (models) {
+module.exports.initCtrl = function (models, agenda) {
 
     var profileModel = models.profileModel;
     var authModel = models.authModel;
@@ -83,7 +83,10 @@ module.exports.initCtrl = function (models) {
             if (!req.kexProfile)
                 return res.json({});
             var profID = req.params.id;
-            accModel.getTransactions(profID, null, function (err, docs) {
+            accModel.getTransactions(profID, {
+                skip: 0,
+                limit: 50
+            }, function (err, docs) {
                 if (err)
                     return  res.json(Utils.genResponse("could not get transactions"));
                 res.json(Utils.genResponse(null, true, docs));

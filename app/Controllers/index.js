@@ -12,7 +12,7 @@ module.exports = function(models, agenda){
 
     ctrls.productCtrl = require('./ProductCtrl').initCtrl(models, agenda);
 
-    ctrls.profileCtrl = require('./ProfileCtrl').initCtrl(models);
+    ctrls.profileCtrl = require('./ProfileCtrl').initCtrl(models, agenda);
 
     return ctrls;
 }
