@@ -59,9 +59,9 @@ module.exports.initModel = function (mongoose) {
     }
 
     function installApp(userId, appId, cb) {
-        model.updateById(TypObjectID(userId), {
+        model.updateById(TypObjectID(appId), {
             $push: {
-                users: TypObjectID(user)
+                users: TypObjectID(userId)
             }
         }, cb);
     }
@@ -72,7 +72,7 @@ module.exports.initModel = function (mongoose) {
             users: TypObjectID(userId)
         }, {
             $pull: {
-                users: TypObjectID(user)
+                users: TypObjectID(userId)
             }
         }, cb);
     }

@@ -12,7 +12,7 @@ module.exports = {
     },
     accounts: {
         transTypes: {
-            EARNING: 0, // +
+            APP_PROFIT: 0, // +
             TAX: 1,     // -
             LOANGET: 7, // +
             INVEST_ADD: 2,  // -

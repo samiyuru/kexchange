@@ -15,4 +15,6 @@ module.exports.route = function (app, ctrls) {
 
     app.post('/apps/:appId/moneytransfer', ctrls.appsCtrl.moneyTransfer);//by app
 
+    app.post('/apps/:appId/users', ctrls.appsCtrl.moneyTransfer);//by app
+
 }

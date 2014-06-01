@@ -159,7 +159,6 @@ module.exports.initCtrl = function (models, agenda) {
                     });
                 });
             });
-
         };
 
         agenda.define('productRemove', function (job, done) {
