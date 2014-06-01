@@ -66,8 +66,7 @@ module.exports.initModel = function (mongoose) {
             .select("profile")
             .exec(function (err, doc) {
                 if (!err && doc) {
-                    profile = doc.profile;
-
+                    var profile = doc.profile;
                     cb(profile);
                     return;
                 }

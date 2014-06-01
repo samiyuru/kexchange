@@ -12,8 +12,6 @@ module.exports.route = function (app, ctrls) {
 
     require('./investmentRoutes').route(app, ctrls);
 
-    app.get('/api/plugins/reload', function (req, res) {
-
-    });
+    require('./appRoutes').route(app, ctrls);
 
 };

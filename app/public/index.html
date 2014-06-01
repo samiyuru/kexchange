@@ -4,78 +4,16 @@ Samiyuru Senarathne
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="css/login.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
-    <title></title>
+    <title>KExchange</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body ng-controller="kexroot">
 
-<style type="text/css">
-    #loginparent {
-        height: 100%;
-    }
 
-    .login {
-        width: 250px;
-        margin: 200px auto;
-        background-color: #ffffff;
-        border: 1px solid #d8d8d8;
-        border-bottom-width: 2px;
-        border-top-width: 0px;
-        padding: 18px;
-    }
-
-    .login .head {
-        margin-bottom: 6px;
-    }
-
-    .login .btnPane {
-        margin-top: 6px;
-        text-align: right;
-    }
-
-    .login input {
-        font-size: 14px;
-        padding: 6px;
-        margin: 6px 0 0 0;
-        width: 100%;
-    }
-
-    .login input:focus {
-
-    }
-
-    .login .logo {
-        height: 100%;
-        display: inline;
-        vertical-align: middle;
-    }
-
-    .login .text {
-        padding: 0 5px;
-        position: relative;
-        line-height: 40px;
-        vertical-align: middle;
-        font-size: 24px;
-        color: #666666;
-    }
-</style>
-<div id="loginparent" ng-if="!isLogged">
-    <div ng-if="showForm" class="login">
-        <div class="head">
-            <img class="logo" src="/img/logo.png"/>
-            <span class="text">KExchange</span>
-        </div>
-        <input ng-model="user.username" type="text" placeholder="username"/>
-        <input ng-model="user.password" type="password" placeholder="password"/>
-
-        <div class="btnPane">
-            <button ng-click="login()" class="btnbg-blue">Login</button>
-        </div>
-    </div>
-</div>
-<div ng-if="isLogged">
-    <div style="position: fixed;width: 100%;z-index: 100;background-color:#f5f5f5;box-shadow: 0 0 5px 0 #000;">
+<div ng-if="isLoginChecked">
+    <div ng-if="isLogged" style="position: fixed;width: 100%;z-index: 100;background-color:#f5f5f5;box-shadow: 0 0 5px 0 #000;">
         <img style="position: absolute;top: 0px;left: 0px;height: 100%;" src="/img/logo.png"/>
         <nav style="position: relative;">
             <ul act-link-css="active">
@@ -87,12 +25,10 @@ Samiyuru Senarathne
         </nav>
     </div>
 
-
     <!--content wrapper -->
     <div style="padding-top: 45px;" ng-view>
     </div>
     <!--content wrapper end -->
-
 
     <!-- footer -->
     <div style="clear: both;"></div>

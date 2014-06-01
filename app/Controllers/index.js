@@ -8,7 +8,7 @@ module.exports = function(models, agenda){
 
     ctrls.investmentCtrl = require('./InvestmentCtrl').initCtrl(models, agenda);
 
-    ctrls.pluginCtrl = require('./PluginCtrl').initCtrl(models);
+    ctrls.appsCtrl = require('./AppsCtrl').initCtrl(models);
 
     ctrls.productCtrl = require('./ProductCtrl').initCtrl(models, agenda);
 

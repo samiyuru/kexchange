@@ -2,34 +2,46 @@
  * Samiyuru Senarathne
  */
 
-kEX.controller("kexroot", function ($scope, kexPofiles) {
+kEX.controller("kexroot", function ($scope, kexPofiles, $rootScope, $location) {
+    $scope.isLogged = false;//hide ui controllers
+    $scope.isLoginChecked = false;
+
+    function loginCheck() {
+        kexPofiles.validateToken(function (isLoggedin) {
+            $scope.isLoginChecked = true;
+            if (isLoggedin) {
+                $scope.isLogged = true;
+            } else {
+                if ($location.url() != '/login') $location.path('/login');
+                $scope.isLogged = false;
+            }
+        });
+    }
+
+    $rootScope.$on("$routeChangeSuccess", function () {
+        $scope.isLoginChecked = false;
+        loginCheck();
+    });
+});
+
+kEX.controller("loginCtrl", function ($scope, kexPofiles, $location) {
     var user = {
         username: "",
         password: ""
     };
-    $scope.isLogged = false;//show loggin background
-    $scope.showForm = false;//show loggin form
-    $scope.user = user;
-    $scope.login = login;
-
-    kexPofiles.validateToken(function (isLoggedin) {
-        if (isLoggedin) {
-            $scope.isLogged = true;//hide loggin n show home
-        } else {
-            $scope.showForm = true;//show loggin form
-        }
-    });
 
     function login() {
         kexPofiles.authorize(user.username, user.password, function (status) {
             if (status.success) {
-                $scope.isLogged = true;
+                $location.path('/');
             } else {
-                $scope.isLogged = false;
                 alert(status.err);
             }
         });
     }
+
+    $scope.user = user;
+    $scope.login = login;
 });
 
 

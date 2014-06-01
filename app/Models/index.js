@@ -14,7 +14,7 @@ module.exports = function (db, accEvent) {
 
     models.notificationModel = require('./NotificationModel').initModel(db);
 
-    models.pluginModel = require('./PluginModel').initModel(db);
+    models.pluginModel = require('./AppsModel').initModel(db);
 
     models.accountModel = require('./AccountModel').initModel(db, accEvent);
 

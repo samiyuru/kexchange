@@ -18,11 +18,11 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
     var Agenda = require('agenda');
     var morgan = require('morgan');
     var express = require('express');
-    var config = require('./config')();
+    var config = require('./config');
     global.__base = __dirname;
 
     var mongoose = require('mongoose');
-    mongoose.connect(config.mongo, function (err) {
+    mongoose.connect(config.deployment.mongo, function (err) {
         if (err) {
             console.warn(err);
             return;
@@ -30,7 +30,7 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
 
         var agenda = new Agenda({
             db: {
-                address: config.mongo,
+                address: config.deployment.mongo,
                 collection: 'agendaJobs'
             },
             concurrency: 10,
@@ -44,6 +44,7 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
                 process.exit(0);
             });
         }
+
         process.on('SIGTERM', graceful);
         process.on('SIGINT', graceful);
 
@@ -55,7 +56,8 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
         app.use(morgan());
         app.use('/propics', express.static(__base + '/images/propics'));
         app.use('/productpics', express.static(__base + '/images/products'));
-        app.use('/', express.static(__base + '/public'));//map static files routes. files needed to render index.html
+        app.use('/', express.static(__base + '/public'));//map static files routes.
+        app.use('/admin', express.static(__base + '/admin'));//map static files routes.
         app.use(function (req, res, next) {//authentication
             var authToken = req.query.auth;
             if (!authToken) {
@@ -69,8 +71,8 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
 
         require(__base + '/routes').route(app, ctrls);
 
-        app.listen(config.port, function () {
-            console.log('Express server listening on port ' + config.port);
+        app.listen(config.deployment.port, function () {
+            console.log('Express server listening on port ' + config.deployment.port);
         });
     });
 }
