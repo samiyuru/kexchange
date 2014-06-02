@@ -90,7 +90,7 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
             method: "POST",
             data: {
                 user: user,
-                pass: pass
+                pass: CryptoJS.SHA3(pass)
             },
             url: "/api/authorize/"
         }).success(function (data) {
