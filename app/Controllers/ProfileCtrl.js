@@ -56,7 +56,7 @@ module.exports.initCtrl = function (models, agenda) {
 
         this.peopleByWealth = function (req, res) {
             if (!req.kexProfile)
-                return res.json({});
+                return res.json(Utils.genResponse("Unauthorized"));
             var skip = req.query.skip, limit = req.query.limit;
             profileModel.getProfiles({
                 skip: skip,
@@ -70,7 +70,7 @@ module.exports.initCtrl = function (models, agenda) {
 
         this.getProfile = function (req, res) {
             if (!req.kexProfile)
-                return res.json({});
+                return res.json(Utils.genResponse("Unauthorized"));
             var profID = req.params.id;
             profileModel.getProfile(profID, function (err, doc) {
                 if (err || !doc)
@@ -81,7 +81,7 @@ module.exports.initCtrl = function (models, agenda) {
 
         this.getAccounts = function (req, res) {
             if (!req.kexProfile)
-                return res.json({});
+                return res.json(Utils.genResponse("Unauthorized"));
             var profID = req.params.id;
             accModel.getTransactions(profID, {
                 skip: 0,

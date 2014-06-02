@@ -19,7 +19,7 @@ module.exports.initCtrl = function (models, agenda) {
 
         this.getBidedProducts = function (req, res) {
             if (!req.kexProfile)
-                return res.json({});
+                return res.json(Utils.genResponse("Unauthorized"));
             var profID = req.params.id;
             productModel.getBidedProducts(profID, function (err, docs) {
                 if (err)
@@ -66,7 +66,7 @@ module.exports.initCtrl = function (models, agenda) {
             }
 
             if (!req.kexProfile)
-                return res.json({});
+                return res.json(Utils.genResponse("Unauthorized"));
             profID = req.kexProfile.id, productID = req.params.prdId, amount = req.query.bid;
             productModel.getProductById(productID, onProduct);
 
@@ -74,7 +74,7 @@ module.exports.initCtrl = function (models, agenda) {
 
         this.purchase = function (req, res) {//buy fixed price product
             if (!req.kexProfile)
-                return res.json({});
+                return res.json(Utils.genResponse("Unauthorized"));
             var profID = req.kexProfile.id, productID = req.params.prdId;
             productModel.getProductById(productID, function getProductCB(err, product) {
                 if (err || product == null)
@@ -100,7 +100,7 @@ module.exports.initCtrl = function (models, agenda) {
 
         this.getProductsFor = function (req, res) {
             if (!req.kexProfile)
-                return res.json({});
+                return res.json(Utils.genResponse("Unauthorized"));
             var profID = req.kexProfile.id, isAuction = req.query.isauction, chunk = null;
             productModel.getProductsFor(profID, isAuction, chunk, function (err, docs) {
                 if (err)
@@ -111,7 +111,7 @@ module.exports.initCtrl = function (models, agenda) {
 
         this.getInstorPrdsOf = function (req, res) {
             if (!req.kexProfile)
-                return res.json({});
+                return res.json(Utils.genResponse("Unauthorized"));
             var profID = req.params.id, isAuction = req.query.isauction, chunk = null;
             productModel.getInstorPrdsOf(profID, isAuction, chunk, function (err, docs) {
                 if (err)
@@ -122,7 +122,7 @@ module.exports.initCtrl = function (models, agenda) {
 
         this.getPurchasesOf = function (req, res) {
             if (!req.kexProfile)
-                return res.json({});
+                return res.json(Utils.genResponse("Unauthorized"));
             var profID = req.params.id, isAuction = req.query.isauction, chunk = null;
             productModel.getPurchasesOf(profID, isAuction, chunk, function (err, docs) {
                 if (err)
@@ -133,7 +133,7 @@ module.exports.initCtrl = function (models, agenda) {
 
         this.getSoldPrdsOf = function (req, res) {
             if (!req.kexProfile)
-                return res.json({});
+                return res.json(Utils.genResponse("Unauthorized"));
             var profID = req.params.id, isAuction = req.query.isauction, chunk = null;
             productModel.getSoldPrdsOf(profID, isAuction, chunk, function (err, docs) {
                 if (err)
@@ -144,7 +144,7 @@ module.exports.initCtrl = function (models, agenda) {
 
         this.createProduct = function (req, res) {
             if (!req.kexProfile)
-                return res.json({});
+                return res.json(Utils.genResponse("Unauthorized"));
             var form = new formidable.IncomingForm();
             form.parse(req, function (err, fields, files) {
                 var profID = req.kexProfile.id, product = fields, files = files;

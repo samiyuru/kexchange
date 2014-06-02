@@ -14,13 +14,14 @@ module.exports.initModel = function (mongoose) {
     var appsSchema = new mongoose.Schema({
         name: {
             type: String,
-            required: true
+            required: true,
+            unique: true
         },
         secret: {
             type: String,
             required: true
         },
-        description: {
+        desc: {
             type: String,
             required: true
         },
@@ -30,6 +31,10 @@ module.exports.initModel = function (mongoose) {
         },
         iconUrl: {
             type: String,
+            required: true
+        },
+        userCount: {
+            type: Number,
             required: true
         },
         users: [
@@ -48,18 +53,26 @@ module.exports.initModel = function (mongoose) {
         model.create({
             name: name,
             secret: uuid.v4(),
-            description: desc,
+            desc: desc,
             url: url,
-            iconUrl: iconUrl
+            iconUrl: iconUrl,
+            userCount: 0
         }, cb);
     }
 
     function unregisterApp(appId, cb) {
-        model.removeById(TypObjectID(appId), cb);
+        model.findByIdAndRemove(TypObjectID(appId), cb);
+    }
+
+    function getAppById(appId, cb) {
+        model.findById(TypObjectID(appId)).exec(cb);
     }
 
     function installApp(userId, appId, cb) {
         model.updateById(TypObjectID(appId), {
+            $inc: {
+                userCount: 1
+            },
             $push: {
                 users: TypObjectID(userId)
             }
@@ -71,6 +84,9 @@ module.exports.initModel = function (mongoose) {
             _id: TypObjectID(appId),
             users: TypObjectID(userId)
         }, {
+            $inc: {
+                userCount: -1
+            },
             $pull: {
                 users: TypObjectID(userId)
             }
@@ -91,12 +107,22 @@ module.exports.initModel = function (mongoose) {
             });
     }
 
+    function getAllApps(isAdmin, cb) {
+        var query = model.find({});
+        query.select('-users');
+        if (!isAdmin)
+            query.select('-secret');
+        query.exec(cb);
+    }
+
     return {
         registerApp: registerApp,
         unregisterApp: unregisterApp,
         installApp: installApp,
         uninstallApp: uninstallApp,
-        getUsersOf: getUsersOf
+        getUsersOf: getUsersOf,
+        getAppById: getAppById,
+        getAllApps: getAllApps
     };
 };
 

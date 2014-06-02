@@ -2,6 +2,7 @@
  * Created by samiyuru on 4/4/14.
  */
 var Utils = require(__base + "/utils");
+var formidable = require('formidable');
 
 module.exports.initCtrl = function (models) {
 
@@ -16,13 +17,19 @@ module.exports.initCtrl = function (models) {
             return true;
         }
 
-        function isAppValid(req) {
+        function isAppValid(appId, secret, cb) {
+            appsModel.getAppById(appId, function (err, doc) {
+                if (doc.secret == secret)
+                    cb(doc);
+                else
+                    cb(null);
+            });
             return true;
         }
 
         this.registerApp = function (req, res) {
             if (!isAdmin(req))
-                return res.json({});
+                return res.json(Utils.genResponse("Unauthorized"));
             var form = new formidable.IncomingForm();
             form.parse(req, function (err, fields, files) {
                 var appData = fields;
@@ -36,7 +43,7 @@ module.exports.initCtrl = function (models) {
 
         this.unRegisterApp = function (req, res) {
             if (!isAdmin(req))
-                return res.json({});
+                return res.json(Utils.genResponse("Unauthorized"));
             var appId = req.query.appid;
             appsModel.unregisterApp(appId, function (err, doc) {
                 if (err)
@@ -47,7 +54,7 @@ module.exports.initCtrl = function (models) {
 
         this.installApp = function (req, res) {
             if (!req.kexProfile)
-                return res.json({});
+                return res.json(Utils.genResponse("Unauthorized"));
             var appId = req.params.appId;
             var userId = req.kexProfile.id;
             appsModel.installApp(userId, appId, function (err, numberAffected, rawResponse) {
@@ -59,7 +66,7 @@ module.exports.initCtrl = function (models) {
 
         this.uninstallApp = function (req, res) {
             if (!req.kexProfile)
-                return res.json({});
+                return res.json(Utils.genResponse("Unauthorized"));
             var appId = req.params.appId;
             var userId = req.kexProfile.id;
             appsModel.uninstallApp(userId, appId, function (err, numberAffected, rawResponse) {
@@ -70,31 +77,48 @@ module.exports.initCtrl = function (models) {
         }
 
         this.moneyTransfer = function (req, res) {
-            if (!isAppValid(req))
-                return res.json({});
+            var appId = req.params.appId;
+            var appKey = req.query.key;
             var detail = req.query.detail;
-            var transInfo = {
-                type: transTypes.APP_PROFIT,
-                object: {
-                    app: "",
-                    detail: detail
-                }
-            };
-            profileModel.putMoney(doc.investor.id.toString(), doc.amount, transInfo, function moneyGive(success) {
-                if (!success)
-                    return res.json(Utils.genResponse("failed to restore money"));
-                res.json(Utils.genResponse(null, true, doc));
+            var batchId = req.query.batch;//uuid identifies a set of people receive money for single purpose
+            isAppValid(appId, appKey, function (app) {
+                if (!app)
+                    return res.json(Utils.genResponse("Unauthorized"));
+                var transInfo = {
+                    type: transTypes.APP_PROFIT,
+                    object: {
+                        app: app.name,
+                        detail: detail,
+                        batchId: batchId
+                    }
+                };
+                profileModel.putMoney(doc.investor.id.toString(), doc.amount, transInfo, function moneyGive(success) {
+                    if (!success)
+                        return res.json(Utils.genResponse("failed to restore money"));
+                    res.json(Utils.genResponse(null, true));
+                });
             });
         }
 
         this.getUsers = function (req, res) {
-            if (!isAppValid(req))
-                return res.json({});
             var appId = req.params.appId;
-            appsModel.getUsersOf(appId, function (users) {
-                if (!users)
-                    return res.json(Utils.genResponse("user retrieval failed"));
-                res.json(Utils.genResponse(null, true, users));
+            var appKey = req.query.key;
+            isAppValid(appId, appKey, function (app) {
+                if (!app)
+                    return res.json(Utils.genResponse("Unauthorized"));
+                appsModel.getUsersOf(appId, function (users) {
+                    if (!users)
+                        return res.json(Utils.genResponse("user retrieval failed"));
+                    res.json(Utils.genResponse(null, true, users));
+                });
+            });
+        }
+
+        this.getApps = function (req, res) {
+            appsModel.getAllApps(isAdmin(req), function (err, docs) {
+                if (err)
+                    return res.json(Utils.genResponse("could not get app list"));
+                res.json(Utils.genResponse(null, true, docs));
             });
         }
 

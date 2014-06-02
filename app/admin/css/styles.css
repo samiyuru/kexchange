@@ -193,6 +193,13 @@ ul li {
     user-select: none;
 }
 
+.rowtyp01.listEmptyMsg {
+    text-align: center;
+    padding: 35px 0;
+    color: #9a9a9a;
+    font-size: 13px;
+}
+
 /****************************/
 
 #heading {
@@ -224,6 +231,10 @@ ul li {
 
 .form input.size1, .form textarea.size1 {
     width: 260px;
+}
+
+.form input.size2, .form textarea.size2 {
+    width: 290px;
 }
 
 .form .row0 {

@@ -17,7 +17,7 @@ module.exports.initCtrl = function (models, agenda) {
 
         this.newInvestment = function (req, res) {
             if (!req.kexProfile)
-                return res.json({});
+                return res.json(Utils.genResponse("Unauthorized"));
             var profId = req.kexProfile.id, amount = req.query.amount, profit = req.query.profit;
             var transInfo = {
                 type: transTypes.INVEST_ADD,
@@ -36,7 +36,7 @@ module.exports.initCtrl = function (models, agenda) {
 
         this.investmentsOf = function (req, res) {
             if (!req.kexProfile)
-                return res.json({});
+                return res.json(Utils.genResponse("Unauthorized"));
             var profId = req.params.id;
             investmentModel.getInvestmentsOf(profId, function (err, docs) {
                 if (err)
@@ -47,7 +47,7 @@ module.exports.initCtrl = function (models, agenda) {
 
         this.rmInvestment = function (req, res) {
             if (!req.kexProfile)
-                return res.json({});
+                return res.json(Utils.genResponse("Unauthorized"));
             var profId = req.kexProfile.id, invstmntID = req.params.id;
             investmentModel.rmInvestmentByInvestor(profId, invstmntID, function (err, doc) {
                 if (err || doc == null)
@@ -66,7 +66,7 @@ module.exports.initCtrl = function (models, agenda) {
 
         this.changeProfit = function (req, res) {
             if (!req.kexProfile)
-                return res.json({});
+                return res.json(Utils.genResponse("Unauthorized"));
             var investorId = req.kexProfile.id, invstmntId = req.params.invId, newProfit = req.query.profit;
             investmentModel.changeProfit(investorId, invstmntId, newProfit, function (err, doc) {
                 if (err)
@@ -77,7 +77,7 @@ module.exports.initCtrl = function (models, agenda) {
 
         this.getLoans = function (req, res) {
             if (!req.kexProfile)
-                return res.json({});
+                return res.json(Utils.genResponse("Unauthorized"));
             var profId = req.params.id;
             investmentModel.getLoans(profId, function (err, docs) {
                 if (err)
@@ -88,7 +88,7 @@ module.exports.initCtrl = function (models, agenda) {
 
         this.getInvestors = function (req, res) {
             if (!req.kexProfile)
-                return res.json({});
+                return res.json(Utils.genResponse("Unauthorized"));
             var profID = req.kexProfile.id;
             investmentModel.getInvestors(profID, null, function (err, docs) {
                 if (err)
@@ -99,7 +99,7 @@ module.exports.initCtrl = function (models, agenda) {
 
         this.payBack = function (req, res) {
             if (!req.kexProfile)
-                return res.json({});
+                return res.json(Utils.genResponse("Unauthorized"));
             var profID = req.kexProfile.id, invstmntID = req.params.invId;
             investmentModel.getInvestmentById(invstmntID, function getInvCB(err, doc) {
                 if (err || doc == null)
@@ -124,7 +124,7 @@ module.exports.initCtrl = function (models, agenda) {
 
         this.takeLoan = function (req, res) {
             if (!req.kexProfile)
-                return res.json({});
+                return res.json(Utils.genResponse("Unauthorized"));
             var profID = req.kexProfile.id, invstmntID = req.params.invId;
             investmentModel.takeLoan(invstmntID, profID, function (err, numberAffected, rawResponse) {
                 if (err || numberAffected < 1)

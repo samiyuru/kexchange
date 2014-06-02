@@ -2,7 +2,7 @@
 Samiyuru Senarathne
 -->
 <!DOCTYPE html>
-<html>
+<html ng-app="kexadmin">
 <head>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
     <title></title>
@@ -14,7 +14,7 @@ Samiyuru Senarathne
 
 </div>
 
-<div id="content">
+<div ng-controller="appRegCtrl" id="content">
     <div class="swidget">
         <div class="L-R-margin0">
             <div class="head-div">
@@ -25,24 +25,25 @@ Samiyuru Senarathne
             <table class="form">
                 <tr class="row0">
                     <td class="label">App Name</td>
-                    <td><input class="size0" placeholder="App name" type="text"/></td>
+                    <td><input ng-model="newApp.name" class="size0" placeholder="App name" type="text"/></td>
                 </tr>
                 <tr class="row0">
                     <td class="label">Description</td>
-                    <td><textarea class="size1" placeholder="App description"></textarea></td>
+                    <td><textarea ng-model="newApp.desc" class="size1" placeholder="App description"></textarea></td>
                 </tr>
                 <tr class="row0">
                     <td class="label">Url</td>
-                    <td><input class="size1" placeholder="App name" type="text"/></td>
+                    <td><input ng-model="newApp.url" class="size2" placeholder="App name" type="text"/></td>
                 </tr>
                 <tr class="row0">
                     <td class="label">Icon Url</td>
-                    <td><input class="size1" placeholder="App name" type="text"/></td>
+                    <td><input ng-model="newApp.iconUrl" class="size2" placeholder="App name" type="text"/></td>
                 </tr>
             </table>
         </div>
         <div class="rowtyp01 L-R-margin0">
-            <button class="btnbg-blue">Register App</button>
+            <button ng-click="register()" class="btnbg-blue">Register App</button>
+            <button ng-click="clear()" class="btnbg-gray">Clear</button>
         </div>
     </div>
 
@@ -52,39 +53,44 @@ Samiyuru Senarathne
                 <h3 class="active">Registered Apps</h3>
             </div>
         </div>
-        <div class="rowtyp01 L-R-margin0">
-            <img class="propic-small" src="img/earning-ico001.png">
+        <ul>
+            <li ng-if="regedApps.length==0;" class="rowtyp01 listEmptyMsg">
+                No apps are registered
+            </li>
+            <li ng-repeat="app in regedApps" class="rowtyp01 L-R-margin0">
+                <img ng-src="{{app.iconUrl}}" class="propic-small">
 
-            <div class="close"></div>
-
-            <div class="propic-left">
-                <table class="form">
-                    <tr class="row1">
-                        <td class="label">App Name</td>
-                        <td class="detail">Sample appname</td>
-                    </tr>
-                    <tr class="row1">
-                        <td class="label">Seccret</td>
-                        <td class="detail">9834798579348734</td>
-                    </tr>
-                    <tr class="row1">
-                        <td class="label">Description</td>
-                        <td class="detail">as zxcoewa sopure samcva awoui aszx coewa sopure samcva awoui asz xcoewa sop ure samcva awoui aszxcoewa sopure</td>
-                    </tr>
-                    <tr class="row1">
-                        <td class="label">Url</td>
-                        <td class="detail">http://google.com</td>
-                    </tr>
-                    <tr class="row1">
-                        <td class="label">Icon Url</td>
-                        <td class="detail">http://google.com</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+                <div ng-click="app.deleteApp()" class="close"></div>
+                <div class="propic-left">
+                    <table class="form">
+                        <tr class="row1">
+                            <td class="label">App Name</td>
+                            <td class="detail">{{app.name}}</td>
+                        </tr>
+                        <tr class="row1">
+                            <td class="label">Seccret</td>
+                            <td class="detail">{{app.secret}}</td>
+                        </tr>
+                        <tr class="row1">
+                            <td class="label">Description</td>
+                            <td class="detail">{{app.desc}}</td>
+                        </tr>
+                        <tr class="row1">
+                            <td class="label">Url</td>
+                            <td class="detail">{{app.url}}</td>
+                        </tr>
+                        <tr class="row1">
+                            <td class="label">Icon Url</td>
+                            <td class="detail">{{app.iconUrl}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </li>
+        </ul>
     </div>
 </div>
 
 <script src="js/libs/angular/angular.js" type="text/javascript"></script>
+<script src="js/app.js" type="text/javascript"></script>
 </body>
 </html>

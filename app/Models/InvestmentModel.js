@@ -89,9 +89,7 @@ module.exports.initModel = function (mongoose) {
     };
 
     function rmInvestmentById(invstmntID, cb) {
-        model.findByIdAndRemove({
-            _id: TypObjectID(invstmntID)
-        }, cb);
+        model.findByIdAndRemove(TypObjectID(invstmntID), cb);
     };
 
     function findInvestments(findObj, chunk, resInvestor, resDebitor, cb) {//investmentSchema.statics is used inorder to have a valid this ref inside of the function

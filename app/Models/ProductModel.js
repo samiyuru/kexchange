@@ -206,9 +206,7 @@ module.exports.initModel = function (mongoose) {
     };
 
     function removeProductById(productID, cb) {
-        model.findByIdAndRemove({
-            _id: TypObjectID(productID)
-        }, cb);
+        model.findByIdAndRemove(TypObjectID(productID), cb);
     };
 
     function getProductsFor(profID, isAuction, chunk, cb) {
