@@ -29,6 +29,9 @@ kEX.config(['$routeProvider', function ($routeProvider) {
         when('/login', {
             templateUrl: 'partials/login-part.html'
         }).
+        when('/apps', {
+            templateUrl: 'partials/apps-part.html'
+        }).
         otherwise({
             redirectTo: '/'
         });
