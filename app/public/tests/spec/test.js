@@ -1,6 +1,5 @@
 describe("client side tests", function() {
 
-
     beforeEach(function() {
 
     });

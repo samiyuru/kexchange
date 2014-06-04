@@ -4,7 +4,7 @@
 
 var uuid = require('node-uuid');
 var Utils = require(__base + "/utils");
-var CryptoJS = require(__base + '/services/sha3');
+var CryptoJS = require(__base + '/services/md5');
 
 module.exports.initModel = function (mongoose) {
 
@@ -42,9 +42,10 @@ module.exports.initModel = function (mongoose) {
     var model = mongoose.model('auth', authSchema);
 
     function createAuth(profile, password, cb) {
+        var passHash = CryptoJS.MD5(password).toString();
         model.create({
             nickname: profile.nickname,
-            password: CryptoJS.SHA3(password),
+            password: passHash,
             profile: profile._id,
             token: uuid.v4()
         }, function (err, doc) {

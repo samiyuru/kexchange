@@ -1,4 +1,56 @@
 <div kex-widget>
-    <div kex-tab="Available Apps">
+
+    <div kex-tab="Installed Apps">
+        <ul class="L-R-margin0" ng-controller="installedAppsCtrl">
+            <li ng-repeat="app in apps">
+                <!-- installed app -->
+                <div class="rowtyp01">
+
+                    <img class="propic-small" ng-src="{{app.iconUrl}}"/>
+
+                    <div class="pad-rightTo-propic">
+                        <div class="rowL2Typ01">{{app.name}}</div>
+                        <div class="rowL2Typ02">{{app.desc}}</div>
+                        <div class="rowL2Typ03">{{app.userCount}} people use this app</div>
+                        <div class="rowL2Typ02">
+                            <div class="rightPull">
+                                <button ng-click="app.uninstall()" class="btnbg-blue">Uninstall</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div style="clear: both;"></div>
+                <!-- installed app end-->
+            </li>
+        </ul>
     </div>
+
+
+    <div kex-tab="Available Apps">
+        <ul class="L-R-margin0" ng-controller="availableAppsCtrl">
+            <li ng-repeat="app in apps">
+                <!-- available app -->
+                <div class="rowtyp01">
+
+                    <img class="propic-small" ng-src="{{app.iconUrl}}"/>
+
+                    <div class="pad-rightTo-propic">
+                        <div class="rowL2Typ01">{{app.name}}</div>
+                        <div class="rowL2Typ02">{{app.desc}}</div>
+                        <div class="rowL2Typ03">{{app.userCount}} people use this app</div>
+                        <div class="rowL2Typ02">
+                            <div class="rightPull">
+                                <button ng-click="app.install()" class="btnbg-blue">Install</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div style="clear: both;"></div>
+                <!-- available app end-->
+            </li>
+        </ul>
+    </div>
+
 </div>

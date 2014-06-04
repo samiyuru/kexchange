@@ -313,6 +313,14 @@ nav a.active {
 .rowtyp01 .rowL2Typ02 {
     margin-top: 3px;
     color: #777777;
+    display: table;
+    width: 100%;
+}
+
+.rowtyp01 .rowL2Typ02 .rightPull {
+    text-align: right;
+    display: table-cell;
+    vertical-align: top;
 }
 
 .rowtyp01 .rowL2Typ03 {
@@ -833,6 +841,15 @@ table.accounts td {
     border-left: none;
     border-right: none;
     padding: 8px 0 8px 0;
+}
+
+/*************************************/
+
+.selectedApp iframe {
+    width: 100%;
+    min-height: 700px;
+    border: none;
+    overflow-x: hidden;
 }
 
 /*************************************/

@@ -23,8 +23,8 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
                 auth: this.getAuthToken()
             }
         }).success(function (data) {
-                cb(data);
-            });
+            cb(data);
+        });
     };
 
     this.loadAccounts = function (profId, cb) {
@@ -35,8 +35,8 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
             },
             url: "/api/profile/" + profId + "/accounts"
         }).success(function (data) {
-                cb(data);
-            });
+            cb(data);
+        });
     };
 
     //----------------------------------------
@@ -70,16 +70,16 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
                 },
                 url: "/api/authorize/"
             }).success(function (data) {
-                    if (data.success) {
-                        _loggedProf = data.data;
-                        cb(true);
-                    } else {
-                        _authToken = null;
-                        _loggedProf = null;
-                        $cookieStore.remove("authToken");
-                        cb(false);
-                    }
-                });
+                if (data.success) {
+                    _loggedProf = data.data;
+                    cb(true);
+                } else {
+                    _authToken = null;
+                    _loggedProf = null;
+                    $cookieStore.remove("authToken");
+                    cb(false);
+                }
+            });
         } else {
             cb(false);
         }
@@ -90,21 +90,21 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
             method: "POST",
             data: {
                 user: user,
-                pass: CryptoJS.SHA3(pass)
+                pass: CryptoJS.MD5(pass).toString()
             },
             url: "/api/authorize/"
         }).success(function (data) {
-                _authToken = (data.success) ? data.data.token : null;
-                if (data.success) {
-                    _authToken = data.data.token;
-                    _loggedProf = data.data.profile;
-                    $cookieStore.put("authToken", _authToken);
-                } else {
-                    _authToken = null;
-                    _loggedProf = null;
-                }
-                cb(data);
-            });
+            _authToken = (data.success) ? data.data.token : null;
+            if (data.success) {
+                _authToken = data.data.token;
+                _loggedProf = data.data.profile;
+                $cookieStore.put("authToken", _authToken);
+            } else {
+                _authToken = null;
+                _loggedProf = null;
+            }
+            cb(data);
+        });
     };
 
     //----------------------------------------
@@ -117,8 +117,8 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
             },
             url: "/api/profile/" + profID
         }).success(function (data) {
-                cb(data);
-            });
+            cb(data);
+        });
     }
 
     this.getCurrentProfile = function (cb) {

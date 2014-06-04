@@ -73,6 +73,35 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
 
         app.listen(config.deployment.port, function () {
             console.log('Express server listening on port ' + config.deployment.port);
+//            ctrls.profileCtrl.createProfile({
+//                nickname: 'Samiyuru',
+//                name: 'Samiyuru Senarathne',
+//                lastwealth: 0,
+//                wealth: 90000,
+//                propic: '/propics/propic01.png'
+//            }, 'pass1', function (status) {
+//                console.log(status);
+//            });
+//
+//            ctrls.profileCtrl.createProfile({
+//                nickname: 'Hasith',
+//                name: 'Hasith Yaggahawita',
+//                lastwealth: 0,
+//                wealth: 90000,
+//                propic: '/propics/propic02.png'
+//            }, 'pass2', function (status) {
+//                console.log(status);
+//            });
+//
+//            ctrls.profileCtrl.createProfile({
+//                nickname: 'Ishan',
+//                name: 'Ishan Gunasekara',
+//                lastwealth: 0,
+//                wealth: 90000,
+//                propic: '/propics/propic03.jpg'
+//            }, 'pass3', function (status) {
+//                console.log(status);
+//            });
         });
     });
 }
