@@ -10,15 +10,15 @@ module.exports.route = function (app, ctrls) {
 
     app.get('/api/profiles', ctrls.profileCtrl.peopleByWealth);
 
-    app.get('/api/profile', function(){});
+    app.get('/api/profile', function () {});
 
-    app.get('/api/profile/new', function(){});
+    app.get('/api/profile/new', function () {});
 
     app.get('/api/profile/:id', ctrls.profileCtrl.getProfile);
 
     app.get('/api/profile/:id/investments', ctrls.investmentCtrl.investmentsOf);
 
-    app.get('/api/profile/:id/notifications', function(){});
+    app.get('/api/profile/:id/notifications', function () {});
 
     app.get('/api/profile/:id/accounts', ctrls.profileCtrl.getAccounts);
 
@@ -32,6 +32,6 @@ module.exports.route = function (app, ctrls) {
 
     app.get('/api/profile/:id/products/sold', ctrls.productCtrl.getSoldPrdsOf);
 
-    app.get('/api/profile/:id/products/sold', ctrls.appsCtrl.);
+    app.get('/api/profile/:id/apps', ctrls.appsCtrl.getInstalledApps);
 
 }

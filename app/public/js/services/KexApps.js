@@ -3,46 +3,54 @@
  */
 
 
-angular.service("kexApps", function () {
+angular.service("kexApps", function ($http, kexPofiles) {
 
     this.loadAvailableApps = function (cb) {
         $http({
             method: "GET",
-            params: {},
-            url: ""
+            params: {
+                auth: kexPofiles.getAuthToken()
+            },
+            url: "/apps"
         }).success(function (data) {
-                cb(data);
-            });
+            cb(data);
+        });
     };
 
-    this.loadInstalledApps = function (cb) {
+    this.loadInstalledApps = function (profID, cb) {
         $http({
             method: "GET",
-            params: {},
-            url: ""
+            params: {
+                auth: kexPofiles.getAuthToken()
+            },
+            url: "/api/profile/" + profID + "/apps"
         }).success(function (data) {
-                cb(data);
-            });
+            cb(data);
+        });
     };
 
-    this.uninstallApp = function () {
+    this.uninstallApp = function (appId, cb) {
         $http({
             method: "GET",
-            params: {},
-            url: ""
+            params: {
+                auth: kexPofiles.getAuthToken()
+            },
+            url: "/apps/" + appId + "/uninstall"
         }).success(function (data) {
-                cb(data);
-            });
+            cb(data);
+        });
     };
 
-    this.installApp = function () {
+    this.installApp = function (appId, cb) {
         $http({
             method: "GET",
-            params: {},
-            url: ""
+            params: {
+                auth: kexPofiles.getAuthToken()
+            },
+            url: "/apps/" + appId + "/install"
         }).success(function (data) {
-                cb(data);
-            });
+            cb(data);
+        });
     };
 
 });

@@ -69,7 +69,12 @@ module.exports.initModel = function (mongoose) {
     }
 
     function installApp(userId, appId, cb) {
-        model.updateById(TypObjectID(appId), {
+        model.updateOne({
+            _id: TypObjectID(appId),
+            users: {
+                $ne: TypObjectID(userId)
+            }
+        }, {
             $inc: {
                 userCount: 1
             },
@@ -107,12 +112,22 @@ module.exports.initModel = function (mongoose) {
             });
     }
 
-    function getAllApps(isAdmin, cb) {
+    function getAppsAdmin(isAdmin, cb) {
         var query = model.find({});
         query.select('-users');
         if (!isAdmin)
             query.select('-secret');
         query.exec(cb);
+    }
+
+    function getAppsUser(profId, cb) {
+        var profId = TypObjectID(profId);
+        model.find({
+            users: {
+                $ne: profId
+            }
+        }).select({secret: -1, users: -1})
+            .exec(cb);
     }
 
     function getInstalledApps(profId, cb) {
@@ -130,7 +145,9 @@ module.exports.initModel = function (mongoose) {
         uninstallApp: uninstallApp,
         getUsersOf: getUsersOf,
         getAppById: getAppById,
-        getAllApps: getAllApps
+        getAppsAdmin: getAppsAdmin,
+        getInstalledApps: getInstalledApps,
+        getAppsUser: getAppsUser
     };
 };
 

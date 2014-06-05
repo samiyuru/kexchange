@@ -114,8 +114,19 @@ module.exports.initCtrl = function (models) {
             });
         };
 
-        this.getApps = function (req, res) {
-            appsModel.getAllApps(isAdmin(req), function (err, docs) {
+        this.getAppsAdmin = function (req, res) {
+            appsModel.getAppsAdmin(isAdmin(req), function (err, docs) {
+                if (err)
+                    return res.json(Utils.genResponse("could not get app list"));
+                res.json(Utils.genResponse(null, true, docs));
+            });
+        };
+
+
+        this.getAppsUser = function (req, res) {
+            if (!req.kexProfile)
+                return res.json(Utils.genResponse("Unauthorized"));
+            appsModel.getAppsUser(req.kexProfile.id, function (err, docs) {
                 if (err)
                     return res.json(Utils.genResponse("could not get app list"));
                 res.json(Utils.genResponse(null, true, docs));
@@ -125,6 +136,11 @@ module.exports.initCtrl = function (models) {
         this.getInstalledApps = function (req, res) {
             if (!req.kexProfile)
                 return res.json(Utils.genResponse("Unauthorized"));
+            appsModel.getInstalledApps(req.params.id, function (err, docs) {
+                if (err)
+                    return res.json(Utils.genResponse("could not get the installed app list"));
+                res.json(Utils.genResponse(null, true, docs));
+            });
         };
 
     })();

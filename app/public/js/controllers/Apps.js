@@ -2,7 +2,7 @@
  * Created by samiyuru on 6/3/14.
  */
 
-kEX.controller("installedAppsCtrl", function ($scope) {
+kEX.controller("installedAppsCtrl", function ($scope, kexApps) {
     var apps = [
         {
             name: "Attendance app",
@@ -57,7 +57,7 @@ kEX.controller("installedAppsCtrl", function ($scope) {
     $scope.apps = apps;
 });
 
-kEX.controller("availableAppsCtrl", function ($scope) {
+kEX.controller("availableAppsCtrl", function ($scope, kexApps) {
     var apps = [
         {
             name: "Attendance app",
