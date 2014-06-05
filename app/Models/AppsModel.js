@@ -115,6 +115,14 @@ module.exports.initModel = function (mongoose) {
         query.exec(cb);
     }
 
+    function getInstalledApps(profId, cb) {
+        var profId = TypObjectID(profId);
+        model.find({
+            users: profId
+        }).select({secret: -1, users: -1})
+            .exec(cb);
+    }
+
     return {
         registerApp: registerApp,
         unregisterApp: unregisterApp,

@@ -1,36 +1,41 @@
 <div kex-widget>
 
-    <div kex-tab="Installed Apps">
-        <ul class="L-R-margin0" ng-controller="installedAppsCtrl">
-            <li ng-repeat="app in apps">
-                <!-- installed app -->
-                <div class="rowtyp01">
+    <div class="installedApps" kex-tab="Installed Apps">
+        <ul list-scroller="6" class="L-R-padding0" ng-controller="installedAppsCtrl">
 
+            <li class="L-R-margin0 rowtyp01 listEmptyMsg" ng-if="apps.length==0;">
+                You haven't installed any apps
+            </li>
+
+            <!-- installed app -->
+            <li list-item ng-repeat="app in apps">
+                <div class="rowtyp01">
+                    <div class="arrow"></div>
                     <img class="propic-small" ng-src="{{app.iconUrl}}"/>
 
                     <div class="pad-rightTo-propic">
                         <div class="rowL2Typ01">{{app.name}}</div>
                         <div class="rowL2Typ02">{{app.desc}}</div>
                         <div class="rowL2Typ03">{{app.userCount}} people use this app</div>
-                        <div class="rowL2Typ02">
-                            <div class="rightPull">
-                                <button ng-click="app.uninstall()" class="btnbg-blue">Uninstall</button>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
                 <div style="clear: both;"></div>
-                <!-- installed app end-->
             </li>
+            <!-- installed app end-->
         </ul>
     </div>
 
 
     <div kex-tab="Available Apps">
-        <ul class="L-R-margin0" ng-controller="availableAppsCtrl">
-            <li ng-repeat="app in apps">
-                <!-- available app -->
+        <ul list-scroller="5" class="L-R-padding0" ng-controller="availableAppsCtrl">
+
+            <li class="L-R-margin0 rowtyp01 listEmptyMsg" ng-if="apps.length==0;">
+                Currently there are no apps available
+            </li>
+
+            <!-- available app -->
+            <li list-item ng-repeat="app in apps">
                 <div class="rowtyp01">
 
                     <img class="propic-small" ng-src="{{app.iconUrl}}"/>
@@ -48,8 +53,8 @@
 
                 </div>
                 <div style="clear: both;"></div>
-                <!-- available app end-->
             </li>
+            <!-- available app end-->
         </ul>
     </div>
 

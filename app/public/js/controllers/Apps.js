@@ -15,6 +15,42 @@ kEX.controller("installedAppsCtrl", function ($scope) {
             desc: "You can earn money for your participation in company events",
             userCount: 12,
             iconUrl: "http://localhost:3000/img/earning-ico001.png"
+        },
+        {
+            name: "Attendance app",
+            desc: "You can earn money for your participation in company events",
+            userCount: 12,
+            iconUrl: "http://localhost:3000/img/earning-ico001.png"
+        },
+        {
+            name: "Attendance app",
+            desc: "You can earn money for your participation in company events",
+            userCount: 12,
+            iconUrl: "http://localhost:3000/img/earning-ico001.png"
+        },
+        {
+            name: "Attendance app",
+            desc: "You can earn money for your participation in company events",
+            userCount: 12,
+            iconUrl: "http://localhost:3000/img/earning-ico001.png"
+        },
+        {
+            name: "Attendance app",
+            desc: "You can earn money for your participation in company events",
+            userCount: 12,
+            iconUrl: "http://localhost:3000/img/earning-ico001.png"
+        },
+        {
+            name: "Attendance app",
+            desc: "You can earn money for your participation in company events",
+            userCount: 12,
+            iconUrl: "http://localhost:3000/img/earning-ico001.png"
+        },
+        {
+            name: "Attendance app",
+            desc: "You can earn money for your participation in company events",
+            userCount: 12,
+            iconUrl: "http://localhost:3000/img/earning-ico001.png"
         }
     ];
 

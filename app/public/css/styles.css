@@ -847,9 +847,21 @@ table.accounts td {
 
 .selectedApp iframe {
     width: 100%;
-    min-height: 700px;
+    min-height: 800px;
     border: none;
     overflow-x: hidden;
+    height: 100%;
+}
+
+.installedApps li .arrow{
+    position: absolute;
+    height: 0;
+    width: 0;
+    left: -20px;
+    top: 0;
+    border-bottom: 10px solid transparent;
+    border-top: 10px solid transparent;
+    border-right: 10px solid #000;
 }
 
 /*************************************/

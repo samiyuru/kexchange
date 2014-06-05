@@ -32,4 +32,6 @@ module.exports.route = function (app, ctrls) {
 
     app.get('/api/profile/:id/products/sold', ctrls.productCtrl.getSoldPrdsOf);
 
+    app.get('/api/profile/:id/products/sold', ctrls.appsCtrl.);
+
 }

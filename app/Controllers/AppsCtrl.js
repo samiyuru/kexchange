@@ -25,7 +25,7 @@ module.exports.initCtrl = function (models) {
                     cb(null);
             });
             return true;
-        }
+        };
 
         this.registerApp = function (req, res) {
             if (!isAdmin(req))
@@ -39,7 +39,7 @@ module.exports.initCtrl = function (models) {
                     res.json(Utils.genResponse(null, true, doc));
                 });
             });
-        }
+        };
 
         this.unRegisterApp = function (req, res) {
             if (!isAdmin(req))
@@ -50,7 +50,7 @@ module.exports.initCtrl = function (models) {
                     return res.json(Utils.genResponse("error deleting app"));
                 res.json(Utils.genResponse(null, true, doc));
             });
-        }
+        };
 
         this.installApp = function (req, res) {
             if (!req.kexProfile)
@@ -62,7 +62,7 @@ module.exports.initCtrl = function (models) {
                     return res.json(Utils.genResponse("app installation failed"));
                 res.json(Utils.genResponse(null, true));
             });
-        }
+        };
 
         this.uninstallApp = function (req, res) {
             if (!req.kexProfile)
@@ -74,7 +74,7 @@ module.exports.initCtrl = function (models) {
                     return res.json(Utils.genResponse("app uninstallation failed"));
                 res.json(Utils.genResponse(null, true));
             });
-        }
+        };
 
         this.moneyTransfer = function (req, res) {
             var appId = req.params.appId;
@@ -98,7 +98,7 @@ module.exports.initCtrl = function (models) {
                     res.json(Utils.genResponse(null, true));
                 });
             });
-        }
+        };
 
         this.getUsers = function (req, res) {
             var appId = req.params.appId;
@@ -112,7 +112,7 @@ module.exports.initCtrl = function (models) {
                     res.json(Utils.genResponse(null, true, users));
                 });
             });
-        }
+        };
 
         this.getApps = function (req, res) {
             appsModel.getAllApps(isAdmin(req), function (err, docs) {
@@ -120,7 +120,12 @@ module.exports.initCtrl = function (models) {
                     return res.json(Utils.genResponse("could not get app list"));
                 res.json(Utils.genResponse(null, true, docs));
             });
-        }
+        };
+
+        this.getInstalledApps = function (req, res) {
+            if (!req.kexProfile)
+                return res.json(Utils.genResponse("Unauthorized"));
+        };
 
     })();
 
