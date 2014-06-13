@@ -114,8 +114,10 @@ module.exports.initCtrl = function (models) {
             });
         };
 
-        this.getAppsAdmin = function (req, res) {
-            appsModel.getAppsAdmin(isAdmin(req), function (err, docs) {
+        this.getAppsAdmin = function (req, res) {//get apps list as admin
+            if (!isAdmin(req))
+                return res.json(Utils.genResponse("Unauthorized"));
+            appsModel.getAppsAdmin(function (err, docs) {
                 if (err)
                     return res.json(Utils.genResponse("could not get app list"));
                 res.json(Utils.genResponse(null, true, docs));
@@ -123,7 +125,7 @@ module.exports.initCtrl = function (models) {
         };
 
 
-        this.getAppsUser = function (req, res) {
+        this.getAppsUser = function (req, res) {//get apps list as user
             if (!req.kexProfile)
                 return res.json(Utils.genResponse("Unauthorized"));
             appsModel.getAppsUser(req.kexProfile.id, function (err, docs) {

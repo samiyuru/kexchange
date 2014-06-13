@@ -16,7 +16,7 @@
                     <div class="pad-rightTo-propic">
                         <div class="rowL2Typ01">{{app.name}}</div>
                         <div class="rowL2Typ02">{{app.desc}}</div>
-                        <div class="rowL2Typ03">{{app.userCount}} people use this app</div>
+                        <div class="rowL2Typ03">{{app.userCount}}  <span ng-if="app.userCount!=1">people</span> <span ng-if="app.userCount==1">person</span>  use this app</div>
                     </div>
 
                 </div>
@@ -50,7 +50,7 @@
                     <div class="pad-rightTo-propic">
                         <div class="rowL2Typ01">{{app.name}}</div>
                         <div class="rowL2Typ02">{{app.desc}}</div>
-                        <div class="rowL2Typ03">{{app.userCount}} people use this app</div>
+                        <div class="rowL2Typ03">{{app.userCount}} <span ng-if="app.userCount!=1">people</span> <span ng-if="app.userCount==1">person</span> use this app</div>
                         <div ng-if="!app.ui.installConf" class="rowL2Typ02">
                             <div class="rightPull">
                                 <button ng-click="app.showInstallConf()" class="btnbg-blue">Install</button>

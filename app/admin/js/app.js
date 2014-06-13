@@ -40,7 +40,7 @@ kexAdmin.controller("appRegCtrl", function ($http, $scope) {
 
     function loadRegApps() {
         $http({
-            url: "/apps",
+            url: "/admin/apps",
             method: "GET"
         }).success(function (status) {
                 if (status.success) {

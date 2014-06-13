@@ -2,34 +2,22 @@
  * Created by samiyuru on 6/3/14.
  */
 
-kEX.controller("installedAppsCtrl", function ($scope, kexApps) {
+kEX.controller("installedAppsCtrl", function ($scope, kexApps, kexPofiles) {
     var selectedApp = null;
-    var apps = [
-        {
-            name: "Attendance app",
-            desc: "You can earn money for your participation in company events",
-            userCount: 12,
-            iconUrl: "http://localhost:3000/img/earning-ico001.png"
-        },
-        {
-            name: "Other app",
-            desc: "You can earn money for your participation in company events",
-            userCount: 12,
-            iconUrl: "http://localhost:3000/img/earning-ico001.png"
-        },
-        {
-            name: "Another app",
-            desc: "You can earn money for your participation in company events",
-            userCount: 12,
-            iconUrl: "http://localhost:3000/img/earning-ico001.png"
-        },
-        {
-            name: "Some app",
-            desc: "You can earn money for your participation in company events",
-            userCount: 12,
-            iconUrl: "http://localhost:3000/img/earning-ico001.png"
+    var apps = [];
+
+    kexApps.loadInstalledApps(kexPofiles.getLoggedProf()._id, function (status) {
+        if (status.success) {
+            var _apps = status.data;
+            var aL = _apps.length;
+            for (var i = 0; i < aL; i++) {
+                var _app = _apps[i];
+                apps.push(_app);
+            }
+        } else {
+            alert(status.err)
         }
-    ];
+    });
 
     function removeApp(app) {
         var aL = apps.length;
@@ -37,7 +25,6 @@ kEX.controller("installedAppsCtrl", function ($scope, kexApps) {
             var _app = apps[i];
             if (_app._id == app._id) {
                 apps.splice(i, 1);
-                $scope.$apply();
                 break;
             }
         }
@@ -63,37 +50,43 @@ kEX.controller("installedAppsCtrl", function ($scope, kexApps) {
     $scope.selectApp = selectApp;
 });
 
+
 kEX.controller("availableAppsCtrl", function ($scope, kexApps) {
-    var apps = [
-        installableAppDeco({
-            _id: 12312,
-            name: "Attendance app",
-            desc: "You can earn money for your participation in company events",
-            userCount: 12,
-            iconUrl: "http://localhost:3000/img/earning-ico001.png"
-        }, installHndl),
-        installableAppDeco({
-            _id: 8367,
-            name: "Attendance app",
-            desc: "You can earn money for your participation in company events",
-            userCount: 12,
-            iconUrl: "http://localhost:3000/img/earning-ico001.png"
-        }, installHndl)
-    ];
+    var apps = [];
+
+    kexApps.loadAvailableApps(function (status) {
+        if (status.success) {
+            var _apps = status.data;
+            var aL = _apps.length;
+            for (var i = 0; i < aL; i++) {
+                var _app = _apps[i];
+                _app = installableAppDeco(_app, installHndl);
+                apps.push(_app);
+            }
+        } else {
+            alert(status.err)
+        }
+    });
 
     function installHndl(app) {
-        app.isInstalled = true;
-        window.setTimeout(function () {
-            var aL = apps.length;
-            for (var i = 0; i < aL; i++) {
-                var _app = apps[i];
-                if (_app._id == app._id) {
-                    apps.splice(i, 1);
-                    $scope.$apply();
-                    break;
-                }
+        kexApps.installApp(app._id, function (status) {
+            if (status.success) {
+                app.isInstalled = true;
+                window.setTimeout(function () {
+                    var aL = apps.length;
+                    for (var i = 0; i < aL; i++) {
+                        var _app = apps[i];
+                        if (_app._id == app._id) {
+                            apps.splice(i, 1);
+                            $scope.$apply();
+                            break;
+                        }
+                    }
+                }, 3000);
+            } else {
+                alert(status.err)
             }
-        }, 3000);
+        });
     };
 
     function installableAppDeco(app, instHndl) {
@@ -127,6 +120,7 @@ kEX.controller("availableAppsCtrl", function ($scope, kexApps) {
     $scope.apps = apps;
 });
 
+
 kEX.controller("selectedAppCtrl", function ($scope, kexApps) {
     var ui = {
         uninsConf: false
@@ -151,9 +145,15 @@ kEX.controller("selectedAppCtrl", function ($scope, kexApps) {
     }
 
     function uninstall() {
-        ui.uninsConf = false;
-        app.remove();//remove app from installed apps list
-        $scope.app = app = null;
+        kexApps.uninstallApp(app._id, function (status) {
+            if (status.success) {
+                ui.uninsConf = false;
+                app.remove();//remove app from installed apps list
+                $scope.app = app = null;
+            } else {
+                alert(status.err)
+            }
+        });
     }
 
     $scope.$on('$destroy', function () {

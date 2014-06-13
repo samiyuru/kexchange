@@ -69,7 +69,7 @@ module.exports.initModel = function (mongoose) {
     }
 
     function installApp(userId, appId, cb) {
-        model.updateOne({
+        model.findOneAndUpdate({
             _id: TypObjectID(appId),
             users: {
                 $ne: TypObjectID(userId)
@@ -85,7 +85,7 @@ module.exports.initModel = function (mongoose) {
     }
 
     function uninstallApp(userId, appId, cb) {
-        model.update({
+        model.findOneAndUpdate({
             _id: TypObjectID(appId),
             users: TypObjectID(userId)
         }, {
@@ -112,11 +112,9 @@ module.exports.initModel = function (mongoose) {
             });
     }
 
-    function getAppsAdmin(isAdmin, cb) {
+    function getAppsAdmin(cb) {
         var query = model.find({});
         query.select('-users');
-        if (!isAdmin)
-            query.select('-secret');
         query.exec(cb);
     }
 
@@ -126,7 +124,7 @@ module.exports.initModel = function (mongoose) {
             users: {
                 $ne: profId
             }
-        }).select({secret: -1, users: -1})
+        }).select({name: 1, desc: 1, url: 1, iconUrl: 1, userCount: 1})
             .exec(cb);
     }
 
@@ -134,7 +132,7 @@ module.exports.initModel = function (mongoose) {
         var profId = TypObjectID(profId);
         model.find({
             users: profId
-        }).select({secret: -1, users: -1})
+        }).select({name: 1, desc: 1, url: 1, iconUrl: 1, userCount: 1})
             .exec(cb);
     }
 

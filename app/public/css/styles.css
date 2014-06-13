@@ -867,6 +867,10 @@ table.accounts td {
     top: 2px;
 }
 
+.selectedApp .rowtyp01.listEmptyMsg {
+    border: none;
+}
+
 .installedApps ul {
     margin-left: -15px;
     padding-left: 26px;
