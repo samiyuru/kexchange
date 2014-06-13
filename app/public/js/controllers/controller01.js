@@ -45,7 +45,7 @@ kEX.controller("loginCtrl", function ($scope, kexPofiles, $location) {
 });
 
 
-kEX.controller("recntErnngsCtrlr", function ($scope) {
+kEX.controller("recntErnngsCtrlr", function ($scope, kexPofiles) {
     $scope.ernngs = [
         {
             head: "Blogger Earning",
@@ -110,46 +110,22 @@ kEX.controller("recntErnngsCtrlr", function ($scope) {
     ];
 });
 
-kEX.controller("topErnrsCtrlr", function ($scope) {
-    $scope.tpErners = [
-        {
-            person: {
-                id: 0001,
-                wealth: 3000,
-                shname: "Samiyuru",
-                name: "Samiyuru Senarathne",
-                propic: "/img/propic01.png"
-            },
-            earning: 10000,
-            place: 01
-        },
-        {
-            person: {
-                id: 0001,
-                wealth: 3000,
-                shname: "Samiyuru",
-                name: "Samiyuru Senarathne",
-                propic: "/img/propic01.png"
-            },
-            earning: 10000,
-            place: 02
-        },
-        {
-            person: {
-                id: 0001,
-                wealth: 3000,
-                shname: "Samiyuru",
-                name: "Samiyuru Senarathne",
-                propic: "/img/propic01.png"
-            },
-            earning: 10000,
-            place: 03
+kEX.controller("topErnrsCtrlr", function ($scope, kexPofiles) {
+    var tpErners = [];
+
+    kexPofiles.loadTopEarners(function loadWlthyPplCB(status) {
+        var profiles = status.data;
+        var len = profiles.length;
+        for (var i = 0; i < len; i++) {
+            tpErners.push(profiles[i]);
         }
-    ];
+    });
+
+    $scope.tpErners = tpErners;
 });
 
 kEX.controller("tpWlthyCtrler", function ($scope, kexPofiles) {
-    $scope.wlthyPrsns = wlthyPrsns = [];
+    var wlthyPrsns = [];
 
     kexPofiles.loadProfiles(function loadWlthyPplCB(status) {
         var profiles = status.data;
@@ -159,6 +135,7 @@ kEX.controller("tpWlthyCtrler", function ($scope, kexPofiles) {
         }
     });
 
+    $scope.wlthyPrsns = wlthyPrsns;
 });
 
 kEX.controller("coverCtrlr", function ($scope, kexPofiles) {

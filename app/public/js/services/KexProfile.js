@@ -6,20 +6,32 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
 
     var _loggedProf = null;
     var _curProfile;// currently shown profile
-    var _limit = 5;
-    var _skip = 0;
-    var _profileService = this;
+    //var _profileService = this;
     var _authToken;
 
     //----------------------------------------
+
+    this.loadTopEarners = function (cb) {
+        $http({
+            method: "GET",
+            url: "/api/topearners",
+            params: {
+                skip: 0,
+                limit: 3,
+                auth: this.getAuthToken()
+            }
+        }).success(function (data) {
+            cb(data);
+        });
+    };
 
     this.loadProfiles = function (cb) {
         $http({
             method: "GET",
             url: "/api/profiles",
             params: {
-                skip: _skip,
-                limit: _limit,
+                skip: 0,
+                limit: 5,
                 auth: this.getAuthToken()
             }
         }).success(function (data) {
@@ -132,7 +144,7 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
                     cb(_loggedProf);
                     return;
                 }
-                _profileService.getProfile(profID, function (data) {
+                this.getProfile(profID, function (data) {
                     if (data.success) {
                         var _curProfile = data.data;
                         cb(_curProfile);

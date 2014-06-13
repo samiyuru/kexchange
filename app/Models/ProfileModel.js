@@ -30,6 +30,10 @@ module.exports.initModel = function (mongoose, accEvent) {
             type: Number,
             required: true
         },
+        lastearn: {
+            type: Number,
+            required: true
+        },
         lastwealth: {
             type: Number,
             required: true
@@ -41,23 +45,7 @@ module.exports.initModel = function (mongoose, accEvent) {
         propic: {
             type: String,
             required: true
-        },
-        purchases: [
-            {
-                date: {
-                    type: Date,
-                    required: true
-                },
-                product: {
-                    type: ObjectId,
-                    required: true
-                },
-                price: {//added here for efficiency in finding price of an auctioned product
-                    type: Number,
-                    required: true
-                }
-            }
-        ]
+        }
     }, {
         collection: 'profiles'
     });
@@ -66,6 +54,7 @@ module.exports.initModel = function (mongoose, accEvent) {
 
     function createProfile(profile, cb) {
         //profile.wealth = 0;
+        profile.lastearn = 0;
         profile.lastwealth = 0;
         profile.loan = 0;
         profile.status = 'Beginner';
@@ -85,6 +74,18 @@ module.exports.initModel = function (mongoose, accEvent) {
         var query = model.find({})
             .select(Utils.getProfileFieldsPub())
             .sort('-wealth');
+        if (chunk) {
+            query = query.skip(chunk.skip)
+                .limit(chunk.limit);
+        }
+        query.exec(cb);
+    };
+
+    function getProfilesByEarn(chunk, cb) {
+        var findObj = {};
+        var query = model.find({})
+            .select(Utils.getProfileFieldsPub())
+            .sort('-lastearn');
         if (chunk) {
             query = query.skip(chunk.skip)
                 .limit(chunk.limit);
@@ -201,7 +202,8 @@ module.exports.initModel = function (mongoose, accEvent) {
         getAllProfiles: getAllProfiles,
         putMoney: putMoney,
         getMoney: getMoney,
-        transferMoney: transferMoney
+        transferMoney: transferMoney,
+        getProfilesByEarn: getProfilesByEarn
     };
 
 };

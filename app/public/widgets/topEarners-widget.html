@@ -6,15 +6,15 @@
                 <div class="rowtyp01">
 
                     <div class="place-circle">
-                        <span>{{earner.place}}</span>
+                        <span>{{$index + 1}}</span>
                     </div>
 
-                    <img class="propic-small" ng-src="{{earner.person.propic}}"/>
+                    <img class="propic-small" ng-src="{{earner.propic}}"/>
 
                     <div class="pad-rightTo-propic">
-                        <div class="rowL2Typ01">{{earner.person.name}}</div>
-                        <div class="rowL2Typ02">wealth {{earner.person.wealth}} K$</div>
-                        <div class="rowL2Typ03">weeks's earning {{earner.earning}} K$</div>
+                        <div class="rowL2Typ01">{{earner.name}}</div>
+                        <div class="rowL2Typ02">wealth {{earner.wealth.toLocaleString()}} K$</div>
+                        <div class="rowL2Typ03">weeks's earning {{earner.lastearn.toLocaleString()}} K$</div>
                     </div>
 
                 </div>

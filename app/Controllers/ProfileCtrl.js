@@ -10,7 +10,7 @@ module.exports.initCtrl = function (models, agenda) {
     var authModel = models.authModel;
     var accModel = models.accountModel;
 
-    agenda.every('10 minutes', 'updateLastWealth');
+    agenda.every('5 minutes', 'updateLastWealth');
 
     return new (function () {
 
@@ -68,6 +68,20 @@ module.exports.initCtrl = function (models, agenda) {
             });
         };
 
+        this.peopleByEarning = function (req, res) {
+            if (!req.kexProfile)
+                return res.json(Utils.genResponse("Unauthorized"));
+            var skip = req.query.skip, limit = req.query.limit;
+            profileModel.getProfilesByEarn({
+                skip: skip,
+                limit: limit
+            }, function (err, docs) {
+                if (err)
+                    return res.json(Utils.genResponse("profile retrieval error"));
+                res.json(Utils.genResponse(null, true, docs));
+            });
+        };
+
         this.getProfile = function (req, res) {
             if (!req.kexProfile)
                 return res.json(Utils.genResponse("Unauthorized"));
@@ -99,6 +113,7 @@ module.exports.initCtrl = function (models, agenda) {
                 var pL = docs.length;
                 for (var i = 0; i < pL; i++) {
                     var profile = docs[i];
+                    profile.lastearn = profile.wealth - profile.lastwealth;
                     profile.lastwealth = profile.wealth;
                     profile.save();
                 }

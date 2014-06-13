@@ -10,6 +10,8 @@ module.exports.route = function (app, ctrls) {
 
     app.get('/api/profiles', ctrls.profileCtrl.peopleByWealth);
 
+    app.get('/api/topearners', ctrls.profileCtrl.peopleByEarning);
+
     app.get('/api/profile', function () {});
 
     app.get('/api/profile/new', function () {});
