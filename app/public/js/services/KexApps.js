@@ -2,8 +2,23 @@
  * Created by samiyuru on 6/3/14.
  */
 
+kEX.service("kexApps", function ($http, kexPofiles) {
 
-angular.service("kexApps", function ($http, kexPofiles) {
+    var selectedAppHndl = null;
+
+    this.setSelectedAppHndl = function (appHndl) {
+        selectedAppHndl = appHndl;
+    };
+
+    this.setSelectedApp = function (app) {
+        if (!selectedAppHndl)return;
+        selectedAppHndl.setSelectedApp(app);
+    };
+
+    this.unsetSelectedApp = function () {
+        if (!selectedAppHndl)return;
+        selectedAppHndl.unsetSelectedApp();
+    };
 
     this.loadAvailableApps = function (cb) {
         $http({

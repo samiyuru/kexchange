@@ -172,6 +172,11 @@ nav a.active {
     margin-left: 5px;
 }
 
+.confrm span {
+    color: #282828;
+    font-weight: bold;
+}
+
 /***************************/
 
 .swidget {
@@ -342,11 +347,6 @@ nav a.active {
     vertical-align: top;
 }
 
-.rowtyp01 .confrm span {
-    color: #282828;
-    font-weight: bold;
-}
-
 .rowtyp01 .rowL2Typ04 {
     margin-top: 6px;
     color: #93847d;
@@ -421,13 +421,13 @@ nav a.active {
 /***************************/
 
 .L-R-padding0 {
-    padding-left: 11px !important;
-    padding-right: 11px !important;
+    padding-left: 11px;
+    padding-right: 11px;
 }
 
 .L-R-margin0 {
-    margin-left: 11px !important;
-    margin-right: 11px !important;
+    margin-left: 11px;
+    margin-right: 11px;
 }
 
 /***************************/
@@ -853,15 +853,49 @@ table.accounts td {
     height: 100%;
 }
 
-.installedApps li .arrow{
+.selectedApp .head-div {
+    min-height: 25px;
+}
+
+.selectedApp .uninstall {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.selectedApp .uninstall .confrm {
+    position: relative;
+    top: 2px;
+}
+
+.installedApps ul {
+    margin-left: -15px;
+    padding-left: 26px;
+}
+
+.installedApps li .arrow {
     position: absolute;
     height: 0;
     width: 0;
-    left: -20px;
-    top: 0;
-    border-bottom: 10px solid transparent;
-    border-top: 10px solid transparent;
-    border-right: 10px solid #000;
+    left: -23px;
+    top: 8;
+    border-bottom: 15px solid transparent;
+    border-top: 15px solid transparent;
+    border-right: 15px solid #fff;
+}
+
+.installedApps .rowL2Typ01 {
+    cursor: default;
+}
+
+.availableApps .confrm {
+    padding: 4px 0;
+}
+
+.availableApps .installedapp {
+    text-align: center;
+    padding: 45px 0;
+    color: #444444;
+    font-size: 13px;
 }
 
 /*************************************/

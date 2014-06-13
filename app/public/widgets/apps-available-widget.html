@@ -1,16 +1,16 @@
-<div kex-widget>
+<div kex-widget class="installedApps">
 
-    <div class="installedApps" kex-tab="Installed Apps">
+    <div kex-tab="Installed Apps">
         <ul list-scroller="6" class="L-R-padding0" ng-controller="installedAppsCtrl">
 
-            <li class="L-R-margin0 rowtyp01 listEmptyMsg" ng-if="apps.length==0;">
+            <li class="rowtyp01 listEmptyMsg" ng-if="apps.length==0;">
                 You haven't installed any apps
             </li>
 
             <!-- installed app -->
-            <li list-item ng-repeat="app in apps">
+            <li list-item ng-repeat="app in apps" ng-click="selectApp(app)">
                 <div class="rowtyp01">
-                    <div class="arrow"></div>
+                    <div ng-show="app.active" class="arrow"></div>
                     <img class="propic-small" ng-src="{{app.iconUrl}}"/>
 
                     <div class="pad-rightTo-propic">
@@ -27,16 +27,23 @@
     </div>
 
 
-    <div kex-tab="Available Apps">
+    <div kex-tab="Available Apps" class="availableApps">
         <ul list-scroller="5" class="L-R-padding0" ng-controller="availableAppsCtrl">
 
-            <li class="L-R-margin0 rowtyp01 listEmptyMsg" ng-if="apps.length==0;">
+            <li class="rowtyp01 listEmptyMsg" ng-if="apps.length==0;">
                 Currently there are no apps available
             </li>
 
             <!-- available app -->
             <li list-item ng-repeat="app in apps">
-                <div class="rowtyp01">
+                <!-- after app intalled -->
+                <div ng-if="app.isInstalled==true" class="rowtyp01 installedapp">
+                    App was successfully installed
+                </div>
+                <!-- after app intalled end -->
+
+                <!-- before app installed -->
+                <div ng-if="app.isInstalled!=true" class="rowtyp01">
 
                     <img class="propic-small" ng-src="{{app.iconUrl}}"/>
 
@@ -44,14 +51,22 @@
                         <div class="rowL2Typ01">{{app.name}}</div>
                         <div class="rowL2Typ02">{{app.desc}}</div>
                         <div class="rowL2Typ03">{{app.userCount}} people use this app</div>
-                        <div class="rowL2Typ02">
+                        <div ng-if="!app.ui.installConf" class="rowL2Typ02">
                             <div class="rightPull">
-                                <button ng-click="app.install()" class="btnbg-blue">Install</button>
+                                <button ng-click="app.showInstallConf()" class="btnbg-blue">Install</button>
+                            </div>
+                        </div>
+                        <div ng-if="app.ui.installConf" class="rowL2Typ02">
+                            <div class="confrm rightPull">
+                                <span>Install app for sure?</span>
+                                <a ng-click="app.installApp()" class="link-btn btnbg-red">Install</a>
+                                <a ng-click="app.hideInstallConf()" class="link-btn btnbg-gray">Cancel</a>
                             </div>
                         </div>
                     </div>
-
                 </div>
+                <!-- before app installed end -->
+
                 <div style="clear: both;"></div>
             </li>
             <!-- available app end-->

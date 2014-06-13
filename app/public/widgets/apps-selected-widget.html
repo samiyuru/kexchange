@@ -1,7 +1,29 @@
-<div kex-widget>
-    <div ng-controller="selectedAppCtrl" kex-tab="Selected app name" class="selectedApp L-R-padding0">
-        <div>
-            <iframe></iframe>
+<div ng-controller="selectedAppCtrl" class="swidget selectedApp">
+    <div ng-if="app!=null" class="L-R-margin0">
+        <div class="head-div">
+            <h3 class="active">{{app.name}}</h3>
+
+            <!-- uninstall app -->
+            <span class="uninstall">
+                <button ng-if="!ui.uninsConf" ng-click="showUninsConf()" class="btnbg-blue">Uninstall</button>
+                <div ng-if="ui.uninsConf" class="confrm">
+                    <span>Uninstall the app?</span>
+                    <a ng-click="uninstall()" class="link-btn btnbg-red">Uninstall</a>
+                    <a ng-click="hideUninsConf()" class="link-btn btnbg-gray">Cancel</a>
+                </div>
+            </span>
+            <!-- uninstall app end -->
         </div>
+    </div>
+    <div class="L-R-padding0">
+
+        <div ng-if="app==null" class="rowtyp01 listEmptyMsg">
+            You haven't selected an installed app
+        </div>
+
+        <div ng-if="app!=null" class="rowtyp01">
+            <iframe src="http://localhost:3000/"></iframe>
+        </div>
+
     </div>
 </div>
