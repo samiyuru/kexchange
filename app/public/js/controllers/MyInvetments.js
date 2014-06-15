@@ -148,6 +148,10 @@ kEX.controller("newInvestCtrl", function ($scope, kexInvest, kexPofiles, kexEven
     }
 
     function investMoney() {
+        if(!$scope.investForm.$valid){
+            alert("Please fill all inputs correctly.");
+            return;
+        }
         kexInvest.investMoney(newInvest, function newInvestCB(status) {//data format from server is different from normal MyInvestment format
             if (status.success) {
                 var data = status.data;

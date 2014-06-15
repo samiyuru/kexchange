@@ -25,7 +25,7 @@ kEX.controller("mybidsctrl", function ($scope, $filter, kexProducts, kexPofiles)
                 product.delegate = iProductHandler;
                 products.push(product);
             }
-        }else {
+        } else {
             alert(status.err);
         }
     });
@@ -40,7 +40,7 @@ kEX.controller("mybidsctrl", function ($scope, $filter, kexProducts, kexPofiles)
                 product.addBidToTop(kexPofiles.getLoggedProf(), now, newBid);
                 product.bidRank = 1;//most recent bid is mine so rank = 1
                 product.newBid = "";//clear bid field if success
-            }else {
+            } else {
                 alert(status.err);
             }
         });
@@ -69,7 +69,7 @@ kEX.controller("prdctsCtrlr", function ($scope, kexProducts, kexPofiles) {
                 product.delegate = iProductHandler;
                 products.push(product);
             }
-        }else {
+        } else {
             alert(status.err);
         }
     });
@@ -84,7 +84,7 @@ kEX.controller("prdctsCtrlr", function ($scope, kexProducts, kexPofiles) {
                 product.addBidToTop(kexPofiles.getLoggedProf(), now, newBid);
                 product.bidRank = 1;//most recent bid is mine so rank = 1
                 product.newBid = "";//clear bid field if success
-            }else {
+            } else {
                 alert(status.err);
             }
         });
@@ -94,7 +94,7 @@ kEX.controller("prdctsCtrlr", function ($scope, kexProducts, kexPofiles) {
         kexProducts.purchase(product.id, function (status) {
             if (status.success) {
 
-            }else {
+            } else {
                 alert(status.err);
             }
         });
@@ -141,7 +141,13 @@ kEX.controller("newPrdCtrl", function ($scope, kexProducts) {
     var _creationInProg = false;
 
     function submitProduct() {
+        $scope.productForm.$setDirty();
         if (_creationInProg)return;
+        if (!$scope.productForm.$valid){
+            alert("Please fill the required fields correctly.")
+            return;
+        };
+
         _creationInProg = true;
         //isAuction, type, name, detail, qty, price, expire, imgs
         kexProducts.createProduct(newPrdct.isAuction
@@ -156,7 +162,7 @@ kEX.controller("newPrdCtrl", function ($scope, kexProducts) {
                 if (status.success) {
                     ui.form = false;
                     resetFields();
-                }else {
+                } else {
                     alert(status.err);
                 }
                 _creationInProg = false;
@@ -169,7 +175,7 @@ kEX.controller("newPrdCtrl", function ($scope, kexProducts) {
         newPrdct.type = 0;
         newPrdct.qty = 1;
         newPrdct.isAuction = false;
-        newPrdct.minBid = 0;
+        newPrdct.minBid = "";
         newPrdct.price = "";
         newPrdct.images = [];
         newPrdct.expire = null;

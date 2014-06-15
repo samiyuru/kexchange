@@ -143,7 +143,7 @@
 
     <div ng-controller="newInvestCtrl">
         <div id="newInvestmentLoc"></div>
-        <div ng-if="ui.isShowNwInvest">
+        <div ng-show="ui.isShowNwInvest">
 
             <!-- new investment head-->
             <div class="rowtyp01 subhead01">
@@ -161,13 +161,13 @@
                     <img class="propic-small" ng-src="{{myProfile.propic}}"/>
                 </a>
 
-                <div class="pad-rightTo-propic">
+                <form name="investForm" class="pad-rightTo-propic">
                     <table>
                         <tr>
                             <td>
                                 <div class="input-Labl01 rightspc01">Ammount</div>
                             </td>
-                            <td><input class="rightAlgn type01" ng-model="newInvest.amount" placeholder="investment" type="text"/></td>
+                            <td><input required="" class="rightAlgn type01" ng-model="newInvest.amount" placeholder="investment" min="1" type="number"/></td>
                             <td>
                                 <div class="input-Labl01 rightspc01">K$</div>
                             </td>
@@ -176,13 +176,13 @@
                             <td>
                                 <div class="input-Labl01 rightspc01">Profit</div>
                             </td>
-                            <td><input class="rightAlgn type01" ng-model="newInvest.profit" placeholder="per week" type="number"/></td>
+                            <td><input required="" class="rightAlgn type01" ng-model="newInvest.profit" placeholder="per week" min="0" type="number"/></td>
                             <td>
                                 <div class="input-Labl01 rightspc01">K$</div>
                             </td>
                         </tr>
                     </table>
-                </div>
+                </form>
             </div>
             <!-- new investment input end -->
 

@@ -97,7 +97,11 @@ input, textarea {
     -moz-box-sizing: border-box;
 }
 
-input[type=text]:focus, input[type=password]:focus, textarea:focus {
+input.ng-invalid,textarea.ng-invalid {
+    border: 1px solid #dc7563;
+}
+
+input:focus, textarea:focus {
     border-color: #4b87d2;
 }
 
@@ -458,20 +462,6 @@ nav a.active {
 .place-circle span {
     position: relative;
     font-size: 13px;
-}
-
-/***************************/
-
-.input-lable {
-    font-size: 13px;
-    color: #737373;
-    margin-right: 5px;
-    min-width: 50px;
-    display: inline-block;
-}
-
-.input-row-gutter {
-    margin: 0 0 12px 0;
 }
 
 /***************************/
@@ -871,6 +861,8 @@ table.accounts td {
     border: none;
 }
 
+/*************************************/
+
 .installedApps ul {
     margin-left: -15px;
     padding-left: 26px;
@@ -891,6 +883,8 @@ table.accounts td {
     cursor: default;
 }
 
+/*************************************/
+
 .availableApps .confrm {
     padding: 4px 0;
 }
@@ -900,6 +894,51 @@ table.accounts td {
     padding: 45px 0;
     color: #444444;
     font-size: 13px;
+}
+
+/*************************************/
+
+.input-lable {
+    font-size: 13px;
+    color: #737373;
+    margin-right: 5px;
+    min-width: 50px;
+    display: inline-block;
+}
+
+.input-row-gutter {
+    margin: 0 0 12px 0;
+}
+
+.newProductForm table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.newProductForm table .lcol {
+    vertical-align: top;
+    width: 280px;
+}
+
+.newProductForm table .rcol {
+    vertical-align: top;
+    display: block;
+}
+
+.newProductForm form {
+    border-bottom: 1px solid #e5e5e5;
+    padding-top: 15px;
+}
+
+.newProductForm .imgupload {
+    padding-left: 15px;
+    border-left: 1px solid #eaeaea;
+    margin-left: 15px;
+    min-height: 160px;
+}
+
+.newProductForm .rowtyp01.buttons{
+    border: none;
 }
 
 /*************************************/
