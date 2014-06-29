@@ -38,7 +38,7 @@ kEX.controller("accountCtrl", function ($scope, kexPofiles) {
                     switch (logItm.type) {
                         case transTypes.EARNING:
                         {
-                            logItm.detail = "External earning";
+                            logItm.detail = logItm.object.app + " " + logItm.object.detail;
                             break;
                         }
                         case transTypes.TAX:

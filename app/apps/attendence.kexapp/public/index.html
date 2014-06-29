@@ -21,28 +21,31 @@ Samiyuru Senarathne
         <div class="rowtyp01 subhead01">
             <div class="L-R-margin0">
                 <h3 class="active">Select People</h3>
-                <span id="selecCount">10 Selected</span>
+                <span id="selecCount">{{ui.selecCnt}} Selected</span>
             </div>
         </div>
 
         <div class="rowtyp01 L-R-margin0">
-            <input type="text" placeholder="Filter Names" id="filter"/>
+            <input ng-model="ui.fsearch" type="text" placeholder="Filter Names" id="filter"/>
             <span id="onlyselected">
-                <span class="input-lable">View only selected </span><input type="checkbox">
+                <span class="input-lable">View only selected </span>
+                <input ng-model="ui.onlySelec" type="checkbox">
             </span>
         </div>
 
         <ul class="rowtyp01 L-R-margin0 users">
-            <li ng-repeat="user in users" class="user">
-                <input type="checkbox">
+            <li ng-repeat="user in users | filter:{name:ui.fsearch}" ng-if="!ui.onlySelec || user.selected" class="user">
+                <input ng-click="userChkChng(user)" ng-checked="user.selected" type="checkbox">
                 <span>{{user.name}}</span>
             </li>
         </ul>
 
         <div class="rowtyp01 L-R-margin0">
-            <input required="" type="text" placeholder="Event" style="width: 350px;">
-            <input required="" min="1" type="number" placeholder="Amount" style="width: 80px;">
-            <button ng-click="" class="btnbg-blue">Pay</button>
+            <form name="payForm">
+                <input ng-model="ui.detail" required="" type="text" placeholder="Event" style="width: 350px;">
+                <input ng-model="ui.amount" required="" min="1" type="number" placeholder="Amount" style="width: 80px;">
+                <button ng-click="payUsers()" class="btnbg-blue">Pay</button>
+            </form>
         </div>
     </div>
 </div>

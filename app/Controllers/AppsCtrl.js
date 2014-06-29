@@ -3,6 +3,7 @@
  */
 var Utils = require(__base + "/utils");
 var formidable = require('formidable');
+var uuid = require('node-uuid');
 
 module.exports.initCtrl = function (models) {
 
@@ -77,32 +78,51 @@ module.exports.initCtrl = function (models) {
         };
 
         this.moneyTransfer = function (req, res) {
-            var appId = req.params.appId;
-            var appKey = req.query.key;
-            var detail = req.query.detail;
-            var batchId = req.query.batch;//uuid identifies a set of people receive money for single purpose
-            isAppValid(appId, appKey, function (app) {
-                if (!app)
-                    return res.json(Utils.genResponse("Unauthorized"));
-                var transInfo = {
-                    type: transTypes.APP_PROFIT,
-                    object: {
-                        app: app.name,
-                        detail: detail,
-                        batchId: batchId
+            var form = new formidable.IncomingForm();
+            form.parse(req, function (err, fields, files) {
+                var appId = req.params.appId;
+                var appKey = req.headers.secret;
+                var detail = fields.detail;
+                var amount = fields.amount;
+                var users = fields.users;
+                var batchId = uuid.v4();//uuid identifies a set of people receive money for single purpose
+                isAppValid(appId, appKey, function (app) {
+                    if (!app)
+                        return res.json(Utils.genResponse("Unauthorized"));
+                    var transInfo = {
+                        type: transTypes.APP_PROFIT,
+                        object: {
+                            app: app.name,
+                            detail: detail,
+                            batchId: batchId
+                        }
+                    };
+                    var cbCount = 0;
+                    var respData = {
+                        payed: [], nonpayed: []
+                    };
+                    var uL = users.length;
+                    for (var i = 0; i < uL; i++) {
+                        var user = users[i];
+                        profileModel.putMoney(user, amount, transInfo, function moneyGive(success) {
+                            if (!success) {
+                                respData.nonpayed.push(user);
+                            } else {
+                                respData.payed.push(user);
+                            }
+                            cbCount++;
+                            if (cbCount >= uL) {
+                                res.json(Utils.genResponse(null, true, respData));
+                            }
+                        });
                     }
-                };
-                profileModel.putMoney(doc.investor.id.toString(), doc.amount, transInfo, function moneyGive(success) {
-                    if (!success)
-                        return res.json(Utils.genResponse("failed to restore money"));
-                    res.json(Utils.genResponse(null, true));
                 });
             });
         };
 
         this.getUsers = function (req, res) {
             var appId = req.params.appId;
-            var appKey = req.query.key;
+            var appKey = req.headers.secret;
             isAppValid(appId, appKey, function (app) {
                 if (!app)
                     return res.json(Utils.genResponse("Unauthorized"));

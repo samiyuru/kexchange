@@ -1,21 +1,21 @@
 {
-  "name": "KExchange",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node app.js"
-  },
-  "dependencies": {
-    "express": "4.2.0",
-    "mongoose": "3.8.8",
-    "formidable": "1.0.14",
-    "node-uuid": "1.4.0",
-    "morgan": "1.0.1",
-    "agenda": "^0.6.12"
-  },
-  "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-cli": "^0.1.13",
-    "jasmine-node": "^1.14.3"
-  }
+    "name": "KExchange",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start": "node app.js"
+    },
+    "dependencies": {
+        "express": "4.2.0",
+        "mongoose": "3.8.8",
+        "formidable": "1.0.14",
+        "node-uuid": "1.4.0",
+        "morgan": "1.0.1",
+        "agenda": "0.6.12"
+    },
+    "devDependencies": {
+        "grunt": "^0.4.5",
+        "grunt-cli": "^0.1.13",
+        "jasmine-node": "^1.14.3"
+    }
 }
