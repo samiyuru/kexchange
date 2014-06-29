@@ -21,14 +21,14 @@ kexAdmin.controller("appRegCtrl", function ($http, $scope) {
             data: newApp,
             method: "POST"
         }).success(function (status) {
-                if (status.success) {
-                    alert(newApp.name + " successfully registered");
-                    var app = status.data;
-                    regedApps.push(app);
-                } else {
-                    alert(status.err);
-                }
-            });
+            if (status.success) {
+                alert(newApp.name + " successfully registered");
+                var app = status.data;
+                regedApps.push(app);
+            } else {
+                alert(status.err);
+            }
+        });
     };
 
     function clear() {
@@ -43,28 +43,29 @@ kexAdmin.controller("appRegCtrl", function ($http, $scope) {
             url: "/admin/apps",
             method: "GET"
         }).success(function (status) {
-                if (status.success) {
-                    var apps = status.data;
-                    var aL = apps.length;
-                    for (var i = 0; i < aL; i++) {
-                        var app = apps[i];
-                        app.deleteApp = deleteApp;
-                        regedApps.push(app);
-                    }
-                } else {
-                    alert(status.err);
+            if (status.success) {
+                var apps = status.data;
+                var aL = apps.length;
+                for (var i = 0; i < aL; i++) {
+                    var app = apps[i];
+                    app.deleteApp = deleteApp;
+                    regedApps.push(app);
                 }
-            });
+            } else {
+                alert(status.err);
+            }
+        });
     }
 
     function deleteApp() {
-        $http({
-            url: "/apps/unregister",
-            params: {
-                appid: this._id
-            },
-            method: "POST"
-        }).success(function (status) {
+        if (confirm('Are you sure you want to delete the app?')) {
+            $http({
+                url: "/apps/unregister",
+                params: {
+                    appid: this._id
+                },
+                method: "POST"
+            }).success(function (status) {
                 if (status.success) {
                     var delApp = status.data;
                     var aL = regedApps.length;
@@ -79,6 +80,7 @@ kexAdmin.controller("appRegCtrl", function ($http, $scope) {
                     alert(status.err);
                 }
             });
+        }
     }
 
     $scope.newApp = newApp;
