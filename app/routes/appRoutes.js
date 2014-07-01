@@ -17,8 +17,10 @@ module.exports.route = function (app, ctrls) {
 
     app.get('/apps/:appId/uninstall', ctrls.appsCtrl.uninstallApp);//by user
 
-    app.post('/apps/:appId/moneytransfer', ctrls.appsCtrl.moneyTransfer);//by app
+    app.post('/apps/:appId/money-transfer', ctrls.appsCtrl.moneyTransfer);//by app
 
     app.post('/apps/:appId/users', ctrls.appsCtrl.getUsers);//by app
+
+    app.get('/apps/user-earnings', ctrls.appsCtrl.getUserEarnings);//by user
 
 }

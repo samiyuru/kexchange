@@ -38,7 +38,7 @@ app.get('/users', function (req, res) {
 app.post('/pay', function (req, res) {
     var options = {
         method:'post',
-        url: KEX_SERVER + "/apps/" + appID + "/moneytransfer",
+        url: KEX_SERVER + "/apps/" + appID + "/money-transfer",
         json: true,
         headers: {
             secret: appSecret
