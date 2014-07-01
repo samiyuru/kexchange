@@ -9,10 +9,12 @@
                         <span>{{$index + 1}}</span>
                     </div>
 
-                    <img class="propic-small" ng-src="{{earner.propic}}"/>
+                    <a prfid="earner._id">
+                        <img class="propic-small" ng-src="{{earner.propic}}"/>
+                    </a>
 
                     <div class="pad-rightTo-propic">
-                        <div class="rowL2Typ01">{{earner.name}}</div>
+                        <div class="rowL2Typ01"><a prfid="earner._id">{{earner.name}}</a></div>
                         <div class="rowL2Typ02">wealth {{earner.wealth.toLocaleString()}} K$</div>
                         <div class="rowL2Typ03">weeks's earning {{earner.lastearn.toLocaleString()}} K$</div>
                     </div>

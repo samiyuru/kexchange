@@ -5,13 +5,15 @@
                 <li ng-repeat="wlthyPrsn in wlthyPrsns">
                     <!-- top earner -->
                     <div class="rowtyp01">
-                        <img class="propic-small" ng-src="{{wlthyPrsn.propic}}"/>
+                        <a prfid="wlthyPrsn._id">
+                            <img class="propic-small" ng-src="{{wlthyPrsn.propic}}"/>
+                        </a>
 
                         <div class="place-circle">
                             <span>{{$index + 1}}</span>
                         </div>
                         <div class="pad-rightTo-propic">
-                            <div class="rowL2Typ01">{{wlthyPrsn.name}}</div>
+                            <div class="rowL2Typ01"><a prfid="wlthyPrsn._id">{{wlthyPrsn.name}}</a></div>
                             <div class="rowL2Typ02">wealth {{wlthyPrsn.wealth.toLocaleString()}} K$</div>
                             <div class="rowL2Typ03">weeks's earning {{(wlthyPrsn.wealth - wlthyPrsn.lastwealth).toLocaleString()}} K$</div>
                         </div>
