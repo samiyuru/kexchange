@@ -2,6 +2,8 @@
  * Created by samiyuru on 4/4/14.
  */
 
+var Utils = require(__base + "/utils");
+
 module.exports.initModel = function (mongoose, accEvent) {
 
     var ObjectId = mongoose.Schema.ObjectId,
@@ -14,7 +16,8 @@ module.exports.initModel = function (mongoose, accEvent) {
     var accountSchema = new mongoose.Schema({
         owner: {
             type: ObjectId,
-            required: true
+            required: true,
+            ref: 'profile'
         },
         subject: {
             id: {
@@ -69,8 +72,40 @@ module.exports.initModel = function (mongoose, accEvent) {
         query.exec(cb);
     };
 
+    function getAppUserEarnings(chunk, cb) {
+        var query = model.aggregate({
+            $group: {
+                _id: "$object.batchId",
+                amount: {
+                    $last: "$amount"
+                },
+                user: {
+                    $last: "$owner"
+                },
+                count: {
+                    $sum: 1
+                },
+                app: {
+                    $last: "$object.app"
+                },
+                detail: {
+                    $last: "$object.detail"
+                },
+                date: {
+                    $last: "$date"
+                }
+            }
+        })
+            .sort('-date');
+        if (chunk != null) {
+            query = query.skip(chunk.skip).limit(chunk.limit);
+        }
+        query.exec(cb);
+    }
+
     return {
-        getTransactions: getTransactions
+        getTransactions: getTransactions,
+        getAppUserEarnings: getAppUserEarnings
     };
 
 };

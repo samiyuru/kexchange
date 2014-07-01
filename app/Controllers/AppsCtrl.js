@@ -9,6 +9,7 @@ module.exports.initCtrl = function (models) {
 
     var profileModel = models.profileModel;
     var appsModel = models.appsModel;
+    var accModel = models.accountModel;
 
     var transTypes = require(__base + "/constants").accounts.transTypes;
 
@@ -161,6 +162,20 @@ module.exports.initCtrl = function (models) {
             appsModel.getInstalledApps(req.params.id, function (err, docs) {
                 if (err)
                     return res.json(Utils.genResponse("could not get the installed app list"));
+                res.json(Utils.genResponse(null, true, docs));
+            });
+        };
+
+        this.getUserEarnings = function(req, res){
+            if (!req.kexProfile)
+                return res.json(Utils.genResponse("Unauthorized"));
+            var profID = req.params.id;
+            accModel.getAppUserEarnings({
+                skip: 0,
+                limit: 50
+            }, function (err, docs) {
+                if (err)
+                    return  res.json(Utils.genResponse("could not get transactions"));
                 res.json(Utils.genResponse(null, true, docs));
             });
         };
