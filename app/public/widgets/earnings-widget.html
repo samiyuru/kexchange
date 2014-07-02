@@ -10,16 +10,20 @@
 <div kex-widget>
     <div kex-tab="Earnings of KE People">
         <ul class="L-R-margin0 earnings" ng-controller="recntErnngsCtrlr">
+            <li ng-if="earnings.length==0;" class="rowtyp01 listEmptyMsg">
+                No recent earnings are available
+            </li>
             <li ng-repeat="earning in ernngs">
                 <!-- earning post -->
                 <div class="rowtyp01 earning">
-                    <img class="propic-small" ng-src="{{earning.srcimg}}"/>
+                    <img class="propic-small" ng-src="{{earning.appIco}}"/>
 
-                    <div class="timeago">{{earning.timeago}}</div>
+                    <div class="timeago"><span timediff="earning.date"></span></div>
                     <div class="pad-rightTo-propic">
-                        <div class="rowL2Typ01">{{earning.head}}</div>
+                        <div class="rowL2Typ01">{{earning.app}}</div>
                         <div class="rowL2Typ02">{{earning.detail}}</div>
-                        <div class="rowL2Typ03">{{earning.person.shname}} earned {{earning.amount}} K$</div>
+                        <div ng-if="earning.count==1" class="rowL2Typ03"><a prfid="earning.user._id">{{earning.user.nickname}}</a> earned {{earning.amount}} K$</div>
+                        <div ng-if="earning.count!=1" class="rowL2Typ03">{{earning.count}} people earned {{earning.amount}} K$</div>
                     </div>
                     <div style="clear: both;"></div>
                 </div>

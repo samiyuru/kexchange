@@ -31,7 +31,7 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
             url: "/api/profiles",
             params: {
                 skip: 0,
-                limit: 5,
+                limit: 8,
                 auth: this.getAuthToken()
             }
         }).success(function (data) {
@@ -43,6 +43,8 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
         $http({
             method: "GET",
             params: {
+                skip: 0,
+                limit: 50,
                 auth: this.getAuthToken()
             },
             url: "/api/profile/" + profId + "/accounts"

@@ -68,4 +68,19 @@ kEX.service("kexApps", function ($http, kexPofiles) {
         });
     };
 
+
+    this.userEarnings = function (cb) {
+        $http({
+            method: "GET",
+            params: {
+                skip: 0,
+                limit: 6,
+                auth: kexPofiles.getAuthToken()
+            },
+            url: "/apps/user-earnings"
+        }).success(function (data) {
+            cb(data);
+        });
+    };
+
 });

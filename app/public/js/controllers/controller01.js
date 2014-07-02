@@ -45,97 +45,40 @@ kEX.controller("loginCtrl", function ($scope, kexPofiles, $location) {
 });
 
 
-kEX.controller("recntErnngsCtrlr", function ($scope, kexPofiles) {
-    $scope.ernngs = [
-        {
-            head: "Blogger Earning",
-            amount: 100,
-            detail: "For the blogger you mentioned",
-            srcimg: "/img/earning-ico001.png",
-            timeago: "Yesterday",
-            link: "#",
-            person: {
-                id: 0001,
-                wealth: 3000,
-                shname: "Samiyuru",
-                name: "Samiyuru Senarathne",
-                propic: "/img/propic02.png"
-            }
-        },
-        {
-            head: "Blogger Earning",
-            amount: 100,
-            detail: "For the blogger you mentioned",
-            srcimg: "/img/earning-ico001.png",
-            timeago: "Yesterday",
-            link: "#",
-            person: {
-                id: 0001,
-                wealth: 3000,
-                shname: "Samiyuru",
-                name: "Samiyuru Senarathne",
-                propic: "/img/propic02.png"
-            }
-        },
-        {
-            head: "Blogger Earning",
-            amount: 100,
-            detail: "For the blogger you mentioned",
-            srcimg: "/img/earning-ico001.png",
-            timeago: "Yesterday",
-            link: "#",
-            person: {
-                id: 0001,
-                wealth: 3000,
-                shname: "Samiyuru",
-                name: "Samiyuru Senarathne",
-                propic: "/img/propic02.png"
-            }
-        },
-        {
-            head: "Blogger Earning",
-            amount: 100,
-            detail: "For the blogger you mentioned",
-            srcimg: "/img/earning-ico001.png",
-            timeago: "Yesterday",
-            link: "#",
-            person: {
-                id: 0001,
-                wealth: 3000,
-                shname: "Samiyuru",
-                name: "Samiyuru Senarathne",
-                propic: "/img/propic02.png"
-            }
+kEX.controller("recntErnngsCtrlr", function ($scope, kexApps) {
+    $scope.ernngs = [];
+
+    kexApps.userEarnings(function (status) {
+        if (status.success) {
+            $scope.ernngs = status.data;
+        } else {
+            alert(status.err);
         }
-    ];
+    });
 });
 
 kEX.controller("topErnrsCtrlr", function ($scope, kexPofiles) {
-    var tpErners = [];
+    $scope.tpErners = [];
 
     kexPofiles.loadTopEarners(function loadWlthyPplCB(status) {
-        var profiles = status.data;
-        var len = profiles.length;
-        for (var i = 0; i < len; i++) {
-            tpErners.push(profiles[i]);
+        if (status.success) {
+            $scope.tpErners = status.data;
+        } else {
+            alert(status.err);
         }
     });
-
-    $scope.tpErners = tpErners;
 });
 
 kEX.controller("tpWlthyCtrler", function ($scope, kexPofiles) {
-    var wlthyPrsns = [];
+    $scope.wlthyPrsns = [];
 
     kexPofiles.loadProfiles(function loadWlthyPplCB(status) {
-        var profiles = status.data;
-        var len = profiles.length;
-        for (var i = 0; i < len; i++) {
-            wlthyPrsns.push(profiles[i]);
+        if (status.success) {
+            $scope.wlthyPrsns = status.data;
+        } else {
+            alert(status.err);
         }
     });
-
-    $scope.wlthyPrsns = wlthyPrsns;
 });
 
 kEX.controller("coverCtrlr", function ($scope, kexPofiles) {

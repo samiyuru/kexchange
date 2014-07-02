@@ -94,6 +94,7 @@ module.exports.initCtrl = function (models) {
                         type: transTypes.APP_PROFIT,
                         object: {
                             app: app.name,
+                            appIco: app.iconUrl,
                             detail: detail,
                             batchId: batchId
                         }
@@ -166,17 +167,45 @@ module.exports.initCtrl = function (models) {
             });
         };
 
-        this.getUserEarnings = function(req, res){
+        this.getUserEarnings = function (req, res) {
             if (!req.kexProfile)
                 return res.json(Utils.genResponse("Unauthorized"));
-            var profID = req.params.id;
+            var skip = parseInt(req.query.skip), limit = parseInt(req.query.limit);
             accModel.getAppUserEarnings({
-                skip: 0,
-                limit: 50
+                skip: skip,
+                limit: limit
             }, function (err, docs) {
                 if (err)
                     return  res.json(Utils.genResponse("could not get transactions"));
-                res.json(Utils.genResponse(null, true, docs));
+                var dL = docs.length;
+                var i = dL - 1;
+                var respData = [];
+                for (; i >= 0; i--) {
+                    var doc = docs[i];// aggregation cb gives plain js data objects
+                    if (doc._id == null) {
+                        --dL;
+                        docs.splice(i, 1);
+                        continue;
+                    }
+                    if (doc.count == 1) {
+                        (function (doc) {
+                            profileModel.getProfile(doc.user.toString(), function (err, prof) {
+                                if (!err) {
+                                    doc.user = prof.toObject();
+                                }
+                                respData.push(doc);
+                                if (respData.length == dL) {
+                                    res.json(Utils.genResponse(null, true, respData));
+                                }
+                            });
+                        })(doc);
+                    } else {
+                        doc.user = null;
+                        respData.push(doc);
+                    }
+                }
+                if (respData.length == dL)
+                    res.json(Utils.genResponse(null, true, respData));
             });
         };
 

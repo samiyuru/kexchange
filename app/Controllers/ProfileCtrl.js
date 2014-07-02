@@ -57,7 +57,7 @@ module.exports.initCtrl = function (models, agenda) {
         this.peopleByWealth = function (req, res) {
             if (!req.kexProfile)
                 return res.json(Utils.genResponse("Unauthorized"));
-            var skip = req.query.skip, limit = req.query.limit;
+            var skip = parseInt(req.query.skip), limit = parseInt(req.query.limit);
             profileModel.getProfiles({
                 skip: skip,
                 limit: limit
@@ -71,7 +71,7 @@ module.exports.initCtrl = function (models, agenda) {
         this.peopleByEarning = function (req, res) {
             if (!req.kexProfile)
                 return res.json(Utils.genResponse("Unauthorized"));
-            var skip = req.query.skip, limit = req.query.limit;
+            var skip = parseInt(req.query.skip), limit = parseInt(req.query.limit);
             profileModel.getProfilesByEarn({
                 skip: skip,
                 limit: limit
@@ -96,10 +96,11 @@ module.exports.initCtrl = function (models, agenda) {
         this.getAccounts = function (req, res) {
             if (!req.kexProfile)
                 return res.json(Utils.genResponse("Unauthorized"));
+            var skip = parseInt(req.query.skip), limit = parseInt(req.query.limit);
             var profID = req.params.id;
             accModel.getTransactions(profID, {
-                skip: 0,
-                limit: 50
+                skip: skip,
+                limit: limit
             }, function (err, docs) {
                 if (err)
                     return  res.json(Utils.genResponse("could not get transactions"));

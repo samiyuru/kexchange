@@ -62,9 +62,7 @@ module.exports.initModel = function (mongoose, accEvent) {
     };
 
     function getProfile(profID, cb) {
-        model.findOne({
-            _id: TypObjectID(profID)
-        })
+        model.findById(TypObjectID(profID))
             .select(Utils.getProfileFieldsPub())
             .exec(cb);
     };

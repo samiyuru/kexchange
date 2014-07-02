@@ -77,7 +77,7 @@ module.exports.initModel = function (mongoose, accEvent) {
             $group: {
                 _id: "$object.batchId",
                 amount: {
-                    $last: "$amount"
+                    $sum: "$amount"
                 },
                 user: {
                     $last: "$owner"
@@ -87,6 +87,9 @@ module.exports.initModel = function (mongoose, accEvent) {
                 },
                 app: {
                     $last: "$object.app"
+                },
+                appIco: {
+                    $last: "$object.appIco"
                 },
                 detail: {
                     $last: "$object.detail"
@@ -100,7 +103,7 @@ module.exports.initModel = function (mongoose, accEvent) {
         if (chunk != null) {
             query = query.skip(chunk.skip).limit(chunk.limit);
         }
-        query.exec(cb);
+        query.exec(cb);// aggregation cb gives plain js data objects
     }
 
     return {
