@@ -5,12 +5,6 @@
 
 module.exports.route = function (app, ctrls) {
 
-    app.get('/admin/apps', ctrls.appsCtrl.getAppsAdmin);//by admin
-
-    app.post('/apps/register', ctrls.appsCtrl.registerApp);//by admin
-
-    app.post('/apps/unregister', ctrls.appsCtrl.unRegisterApp);//by admin
-
     app.get('/apps', ctrls.appsCtrl.getAppsUser);//by user
 
     app.get('/apps/:appId/install', ctrls.appsCtrl.installApp);//by user

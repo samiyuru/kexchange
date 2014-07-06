@@ -17,7 +17,7 @@ kexAdmin.controller("appRegCtrl", function ($http, $scope) {
 
     function register() {
         $http({
-            url: "/apps/register",
+            url: "/admin/register-app",
             data: newApp,
             method: "POST"
         }).success(function (status) {
@@ -60,7 +60,7 @@ kexAdmin.controller("appRegCtrl", function ($http, $scope) {
     function deleteApp() {
         if (confirm('Are you sure you want to delete the app?')) {
             $http({
-                url: "/apps/unregister",
+                url: "/admin/unregister-app",
                 params: {
                     appid: this._id
                 },
