@@ -11,4 +11,6 @@ module.exports.route = function (app, ctrls) {
 
     app.post('/admin/unregister-app', ctrls.appsCtrl.unRegisterApp);//by admin
 
+    app.post('/admin/validate', ctrls.adminCtrl.validateAdmin);//by admin
+
 }

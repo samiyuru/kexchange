@@ -14,5 +14,7 @@ module.exports = function(models, agenda){
 
     ctrls.profileCtrl = require('./ProfileCtrl').initCtrl(models, agenda);
 
+    ctrls.adminCtrl = require('./AdminCtrl').initCtrl(models, agenda);
+
     return ctrls;
 }

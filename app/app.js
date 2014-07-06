@@ -19,6 +19,7 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
     var morgan = require('morgan');
     var express = require('express');
     var config = require('./config');
+    var CryptoJS = require('./services/md5');
     global.__base = __dirname;
 
     var mongoose = require('mongoose');
@@ -59,6 +60,11 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
         app.use('/', express.static(__base + '/public'));//map static files routes.
         app.use('/admin', express.static(__base + '/admin'));//map static files routes.
         app.use(function (req, res, next) {//authentication
+            var adminAuth = CryptoJS.MD5(config.admin.username + config.admin.password).toString();
+            req.isAdmin = function(){
+                return adminAuth === req.headers.auth;
+            }
+
             var authToken = req.query.auth;
             if (!authToken) {
                 return next();

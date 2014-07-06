@@ -15,10 +15,6 @@ module.exports.initCtrl = function (models) {
 
     return new (function () {
 
-        function isAdmin(req) {
-            return true;
-        }
-
         function isAppValid(appId, secret, cb) {
             appsModel.getAppById(appId, function (err, doc) {
                 if (doc.secret == secret)
@@ -30,7 +26,7 @@ module.exports.initCtrl = function (models) {
         };
 
         this.registerApp = function (req, res) {
-            if (!isAdmin(req))
+            if (!req.isAdmin())
                 return res.json(Utils.genResponse("Unauthorized"));
             var form = new formidable.IncomingForm();
             form.parse(req, function (err, fields, files) {
@@ -44,7 +40,7 @@ module.exports.initCtrl = function (models) {
         };
 
         this.unRegisterApp = function (req, res) {
-            if (!isAdmin(req))
+            if (!req.isAdmin())
                 return res.json(Utils.genResponse("Unauthorized"));
             var appId = req.query.appid;
             appsModel.unregisterApp(appId, function (err, doc) {
@@ -137,7 +133,7 @@ module.exports.initCtrl = function (models) {
         };
 
         this.getAppsAdmin = function (req, res) {//get apps list as admin
-            if (!isAdmin(req))
+            if (!req.isAdmin())
                 return res.json(Utils.genResponse("Unauthorized"));
             appsModel.getAppsAdmin(function (err, docs) {
                 if (err)
