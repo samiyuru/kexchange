@@ -17,8 +17,7 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
             url: "/api/topearners",
             params: {
                 skip: 0,
-                limit: 3,
-                auth: this.getAuthToken()
+                limit: 3
             }
         }).success(function (data) {
             cb(data);
@@ -31,8 +30,7 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
             url: "/api/profiles",
             params: {
                 skip: 0,
-                limit: 8,
-                auth: this.getAuthToken()
+                limit: 8
             }
         }).success(function (data) {
             cb(data);
@@ -44,8 +42,7 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
             method: "GET",
             params: {
                 skip: 0,
-                limit: 50,
-                auth: this.getAuthToken()
+                limit: 50
             },
             url: "/api/profile/" + profId + "/accounts"
         }).success(function (data) {
@@ -126,9 +123,6 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
     this.getProfile = function (profID, cb) {
         $http({
             method: "GET",
-            params: {
-                auth: this.getAuthToken()
-            },
             url: "/api/profile/" + profID
         }).success(function (data) {
             cb(data);
