@@ -10,7 +10,26 @@ Samiyuru Senarathne
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body ng-controller="kexroot">
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '623501857748465',
+            xfbml: false,
+            version: 'v2.0'
+        });
+    };
 
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
 
 <div ng-if="isLoginChecked">
     <div ng-if="isLogged" style="position: fixed;width: 100%;z-index: 100;background-color:#f5f5f5;box-shadow: 0 0 5px 0 #000;">

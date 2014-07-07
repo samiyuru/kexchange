@@ -4,11 +4,11 @@
             <img class="logo" src="/img/logo.png"/>
             <span class="text">KExchange</span>
         </div>
-        <input ng-model="user.username" type="text" placeholder="username"/>
-        <input ng-model="user.password" type="password" placeholder="password"/>
 
         <div class="btnPane">
-            <button ng-click="login()" class="btnbg-blue">Login</button>
+            <img ng-if="!loginProgress" src="/img/login_with_facebook.png" ng-click="login()" class="fbloginButt"/>
+
+            <div ng-if="loginProgress" class="loader"></div>
         </div>
     </div>
 </div>

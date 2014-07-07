@@ -55,8 +55,8 @@ module.exports.initCtrl = function (models) {
                 return res.json(Utils.genResponse("Unauthorized"));
             var appId = req.params.appId;
             var userId = req.kexProfile.id;
-            appsModel.installApp(userId, appId, function (err, numberAffected, rawResponse) {
-                if (err || numberAffected < 1)
+            appsModel.installApp(userId, appId, function (err, doc) {
+                if (err || !doc)
                     return res.json(Utils.genResponse("app installation failed"));
                 res.json(Utils.genResponse(null, true));
             });
@@ -67,8 +67,8 @@ module.exports.initCtrl = function (models) {
                 return res.json(Utils.genResponse("Unauthorized"));
             var appId = req.params.appId;
             var userId = req.kexProfile.id;
-            appsModel.uninstallApp(userId, appId, function (err, numberAffected, rawResponse) {
-                if (err || numberAffected < 1)
+            appsModel.uninstallApp(userId, appId, function (err, doc) {
+                if (err || !doc)
                     return res.json(Utils.genResponse("app uninstallation failed"));
                 res.json(Utils.genResponse(null, true));
             });

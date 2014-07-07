@@ -11,7 +11,8 @@
         "formidable": "1.0.14",
         "node-uuid": "1.4.0",
         "morgan": "1.0.1",
-        "agenda": "0.6.12"
+        "agenda": "0.6.12",
+        "request":"2.36.0"
     },
     "devDependencies": {
         "grunt": "^0.4.5",

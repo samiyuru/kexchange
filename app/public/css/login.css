@@ -13,12 +13,13 @@
 }
 
 .login .head {
-    margin-bottom: 6px;
+    margin-bottom: 15px;
 }
 
 .login .btnPane {
-    margin-top: 6px;
-    text-align: right;
+    text-align: center;
+    padding-top: 15px;
+    border-top: 1px solid #d8d8d8;
 }
 
 .login input {
@@ -45,4 +46,16 @@
     vertical-align: middle;
     font-size: 24px;
     color: #666666;
+}
+
+.login .fbloginButt {
+    display: inline-block;
+    height: 40px;
+}
+
+.login .loader {
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+    background: url("/img/loader.GIF") no-repeat;
 }

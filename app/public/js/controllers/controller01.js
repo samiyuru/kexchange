@@ -3,7 +3,7 @@
  */
 
 kEX.controller("kexroot", function ($scope, kexPofiles, $rootScope, $location) {
-    $scope.isLogged = false;//hide ui controllers
+    $scope.isLogged = false;//hide ui controllers like navigation
     $scope.isLoginChecked = false;
 
     function loginCheck() {
@@ -24,20 +24,33 @@ kEX.controller("kexroot", function ($scope, kexPofiles, $rootScope, $location) {
     });
 });
 
-kEX.controller("loginCtrl", function ($scope, kexPofiles, $location) {
+kEX.controller("loginCtrl", function ($scope, kexPofiles, $location, $window) {
     var user = {
         username: "",
         password: ""
     };
 
+    $scope.loginProgress = false;
+
     function login() {
-        kexPofiles.authorize(user.username, user.password, function (status) {
-            if (status.success) {
-                $location.path('/');
-            } else {
-                alert(status.err);
-            }
-        });
+        if ($window.FB) {
+            $window.FB.login(function (response) {
+                $scope.loginProgress = true;
+                if (response.status === 'connected') {
+                    kexPofiles.registerUser(response.authResponse.accessToken, function (status) {
+                        $scope.loginProgress = false;
+                        if (status.success) {
+                            $location.path('/');
+                        } else {
+                            alert(status.err);
+                        }
+                    });
+                } else {
+                    $scope.loginProgress = false;
+                    alert('unable to login with facebook');
+                }
+            }, {scope: 'public_profile,email'});
+        }
     }
 
     $scope.user = user;

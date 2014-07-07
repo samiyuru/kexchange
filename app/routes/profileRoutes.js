@@ -12,9 +12,7 @@ module.exports.route = function (app, ctrls) {
 
     app.get('/api/topearners', ctrls.profileCtrl.peopleByEarning);
 
-    app.get('/api/profile', function () {});
-
-    app.get('/api/profile/new', function () {});
+    app.post('/api/profile/register', ctrls.profileCtrl.createProfileFB);
 
     app.get('/api/profile/:id', ctrls.profileCtrl.getProfile);
 

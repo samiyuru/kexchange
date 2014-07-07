@@ -101,7 +101,9 @@ module.exports.initModel = function (mongoose) {
                 userCount: -1
             },
             $pull: {
-                'users.id': TypObjectID(userId)
+                'users': {
+                    id: TypObjectID(userId)
+                }
             }
         }, cb);
     }

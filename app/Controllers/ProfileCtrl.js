@@ -3,17 +3,18 @@
  */
 var formidable = require('formidable');
 var Utils = require(__base + "/utils");
+var request = require('request');
 
 module.exports.initCtrl = function (models, agenda) {
 
     var profileModel = models.profileModel;
-    var authModel = models.authModel;
     var accModel = models.accountModel;
+
+    var FB_URL = 'https://graph.facebook.com/me';
 
     agenda.every('5 minutes', 'updateLastWealth');
 
     return new (function () {
-
         this.createProfile = function (profile, password, cb) {
             profileModel.createProfile(profile, function (err, doc) {
                 if (err)
@@ -26,8 +27,56 @@ module.exports.initCtrl = function (models, agenda) {
             });
         };
 
+        this.createProfileFB = function (req, res) {
+            function genRespObj(doc) {
+                doc = doc.toObject();
+                var authToken = doc.apikey;
+                delete doc.apikey;
+                var profile = doc;
+                return {
+                    profile: profile,
+                    authToken: authToken
+                };
+            }
+
+            var token = req.query.token;
+            request({
+                method: 'get',
+                url: FB_URL,
+                json: true,
+                qs: {
+                    access_token: token
+                }
+            }, function callback(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    profileModel.getProfileByEmail(body.email, true, function (err, doc) {
+                        if (err)
+                            return res.json(Utils.genResponse("profile creation error"));
+                        if (doc) {
+                            res.json(Utils.genResponse(null, true, genRespObj(doc)));
+                        } else {
+                            profileModel.createProfile({
+                                nickname: body.first_name,
+                                email: body.email,
+                                name: body.first_name + ' ' + body.last_name,
+                                lastwealth: 0,
+                                wealth: 10000,
+                                propic: 'http://graph.facebook.com/' + body.id + '/picture?height=70&type=normal&width=70'
+                            }, function (err, doc) {
+                                if (err)
+                                    return res.json(Utils.genResponse("profile creation error"));
+                                res.json(Utils.genResponse(null, true, genRespObj(doc)));
+                            });
+                        }
+                    });
+                } else {
+                    res.json(Utils.genResponse("Facebook user retrieval error"));
+                }
+            });
+        };
+
         this.validateAuth = function (authToken, cb) {
-            authModel.validateToken(authToken, cb);
+            profileModel.validateToken(authToken, cb);
         }
 
         this.authorize = function (req, res) {
