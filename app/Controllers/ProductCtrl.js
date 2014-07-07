@@ -34,6 +34,9 @@ module.exports.initCtrl = function (models, agenda) {
             function onProduct(err, product) {
                 if (err || product == null)
                     return res.json(Utils.genResponse("invalid product"));
+                if(product.price >= amount){
+                    return res.json(Utils.genResponse("bid amount is less than the required minimum bid"));
+                }
                 var transInfo = {
                     type: transTypes.BID_PLACE,
                     object: {
@@ -155,7 +158,7 @@ module.exports.initCtrl = function (models, agenda) {
                         if (err)
                             return res.json(Utils.genResponse("product creation error"));
                         res.json(Utils.genResponse(null, true, doc));
-                        agenda.schedule(new Date((new Date()).getTime() + 4 * 60 * 1000), "productExpire", {id: doc.id});
+                        agenda.schedule(new Date((new Date()).getTime() + 4 * 60 * 1000), "productExpire", {id: doc.id});//schedule expire
                     });
                 });
             });
