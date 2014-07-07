@@ -17,8 +17,8 @@ module.exports.initCtrl = function (models) {
 
         function isAppValid(appId, secret, cb) {
             appsModel.getAppById(appId, function (err, doc) {
-                if (doc.secret == secret)
-                    cb(doc);
+                if (doc && doc.secret == secret)
+                    cb(doc.toObject());
                 else
                     cb(null);
             });
@@ -162,6 +162,52 @@ module.exports.initCtrl = function (models) {
                 res.json(Utils.genResponse(null, true, docs));
             });
         };
+
+        this.getUserForKey = function (req, res) {
+            var appId = req.params.appId;
+            var appKey = req.headers.secret;
+            isAppValid(appId, appKey, function (app) {
+                if (!app)
+                    return res.json(Utils.genResponse("Unauthorized"));
+                var isUser = false;
+                for (var i in app.users) {
+                    var user = app.users[i];
+                    if (user.key === req.params.userKey) {
+                        isUser = true;
+                        profileModel.getProfile(user.id.toString(), function (err, doc) {
+                            if (err)
+                                return res.json(Utils.genResponse("user retrieval failed"));
+                            res.json(Utils.genResponse(null, true, doc));
+                        });
+                        break;
+                    }
+                }
+                if (!isUser)
+                    return res.json(Utils.genResponse("Invalid user"));
+            });
+        }
+
+        this.redirectToApp = function (req, res) {
+            if (!req.kexProfile)
+                return res.json(Utils.genResponse("Unauthorized"));
+            var appId = req.params.appId;
+            appsModel.getAppById(appId, function (err, doc) {
+                if (err)
+                    return res.json(Utils.genResponse("Invalid app"));
+                var app = doc.toObject();
+                var isUser = false;
+                for (var i in app.users) {
+                    var user = app.users[i];
+                    if (user.id.toString() == req.kexProfile.id) {
+                        isUser = true;
+                        res.redirect(app.url + '?userkey=' + user.key);
+                        break;
+                    }
+                }
+                if (!isUser)
+                    return res.json(Utils.genResponse("Invalid user"));
+            });
+        }
 
         this.getUserEarnings = function (req, res) {
             if (!req.kexProfile)

@@ -12,6 +12,9 @@ kEX.controller("installedAppsCtrl", function ($scope, kexApps, kexPofiles) {
             var aL = _apps.length;
             for (var i = 0; i < aL; i++) {
                 var _app = _apps[i];
+                _app.getUrl = function () {
+                    return '/apps/' + _app._id + '?auth=' + kexPofiles.getAuthToken();
+                };
                 apps.push(_app);
             }
         } else {
