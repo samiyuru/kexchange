@@ -61,11 +61,11 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
         app.use('/admin', express.static(__base + '/admin'));//map static files routes.
         app.use(function (req, res, next) {//authentication
             var adminAuth = CryptoJS.MD5(config.admin.username + config.admin.password).toString();
-            req.isAdmin = function(){
+            req.isAdmin = function () {
                 return adminAuth === req.headers.auth;
             }
 
-            var authToken = req.query.auth;
+            var authToken = req.headers.auth || req.query.auth;
             if (!authToken) {
                 return next();
             }

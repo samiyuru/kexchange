@@ -3,8 +3,8 @@
  */
 
 var KEX_SERVER = "http://localhost:3000";
-var appID = "539b28f62d5a57100f00cfef";
-var appSecret = "d467d305-2524-4532-9f9b-1398fa211067";
+var appID = "53b982baef8205940c443889";
+var appSecret = "a63777da-a38f-4f0b-94ab-0b4069d5d339";
 var adminCred = "";
 
 var express = require('express');

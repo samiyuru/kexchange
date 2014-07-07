@@ -7,7 +7,7 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
     var _loggedProf = null;
     var _curProfile;// currently shown profile
     //var _profileService = this;
-    var _authToken;
+    var _authToken = null;
 
     //----------------------------------------
 

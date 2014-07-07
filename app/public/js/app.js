@@ -12,7 +12,7 @@ var INVEST_OTHERS_SHOW = "INVEST_OTHERS_SHOW"; //show other people's investments
 
 var kEX = angular.module("kExchange", ['ngRoute', 'ngCookies']);
 
-kEX.config(['$routeProvider', function ($routeProvider) {
+kEX.config(function ($routeProvider, $httpProvider) {
     $routeProvider.
         when('/', {
             templateUrl: 'partials/home-part.html'
@@ -35,4 +35,17 @@ kEX.config(['$routeProvider', function ($routeProvider) {
         otherwise({
             redirectTo: '/'
         });
-}]);
+
+    $httpProvider.interceptors.push(function ($injector) {
+        return {
+            request: function (config) {
+                var kexPofiles = $injector.get('kexPofiles');
+                var auth = kexPofiles.getAuthToken();
+                if (auth) {
+                    config.headers['auth'] = auth;
+                }
+                return config;
+            }
+        };
+    });
+});
