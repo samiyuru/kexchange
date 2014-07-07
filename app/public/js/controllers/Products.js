@@ -162,6 +162,7 @@ kEX.controller("newPrdCtrl", function ($scope, kexProducts) {
                 if (status.success) {
                     ui.form = false;
                     resetFields();
+                    alert('Product was successfully added');
                 } else {
                     alert(status.err);
                 }
