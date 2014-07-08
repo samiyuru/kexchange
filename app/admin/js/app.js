@@ -12,7 +12,7 @@ kexAdmin.controller("rootCtrl", function ($http, $scope) {
     };
 
     function login() {
-        $scope.adminAuth = CryptoJS.MD5(user.username + user.password);
+        $scope.adminAuth = CryptoJS.MD5(user.username + user.password).toString();
         $http({
             method: 'post',
             url: '/admin/validate',

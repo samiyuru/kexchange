@@ -25,9 +25,10 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
     var mongoose = require('mongoose');
     mongoose.connect(config.deployment.mongo, function (err) {
         if (err) {
-            console.warn(err);
+            console.error(err);
             return;
         }
+
 
         var agenda = new Agenda({
             db: {
@@ -40,6 +41,7 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
         });
         agenda.start();
 
+
         function graceful() {
             agenda.stop(function () {
                 process.exit(0);
@@ -48,6 +50,9 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
 
         process.on('SIGTERM', graceful);
         process.on('SIGINT', graceful);
+
+
+        var adminAuth = CryptoJS.MD5(config.admin.username + config.admin.password).toString();
 
         var accEvent = require('./services/EventService').init();
         var models = require('./Models')(mongoose, accEvent);
@@ -60,7 +65,6 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
         app.use('/', express.static(__base + '/public'));//map static files routes.
         app.use('/admin', express.static(__base + '/admin'));//map static files routes.
         app.use(function (req, res, next) {//authentication
-            var adminAuth = CryptoJS.MD5(config.admin.username + config.admin.password).toString();
             req.isAdmin = function () {
                 return adminAuth === req.headers.auth;
             }

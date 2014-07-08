@@ -122,6 +122,10 @@ kEX.controller("newPrdCtrl", function ($scope, kexProducts) {
             {
                 name: "Code Help",
                 value: 3
+            },
+            {
+                name: "Product",
+                value: 4
             }
         ]
     };

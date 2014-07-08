@@ -8,44 +8,60 @@ Samiyuru Senarathne
     <title>Attendance App</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
-<body>
-
-<div ng-controller="userCtrl" id="content">
-    <div class="swidget">
-        <div class="L-R-margin0">
-            <div class="head-div">
-                <h3 class="active">Pay for Attendance</h3>
-            </div>
+<body ng-controller="rootCtrl">
+<div ng-if="!isLogged" id="loginparent">
+    <div class="login">
+        <div class="head">
+            <img class="logo" src="/img/logo.png"/>
+            <span class="text">KExchange</span>
         </div>
+        <input ng-model="user.username" type="text" placeholder="username"/>
+        <input ng-model="user.password" type="password" placeholder="password"/>
 
-        <div class="rowtyp01 subhead01">
+        <div class="btnPane">
+            <button ng-click="login()" class="btnbg-blue">Login</button>
+        </div>
+    </div>
+</div>
+
+<div ng-if="isLogged">
+    <div ng-controller="userCtrl" id="content">
+        <div class="swidget">
             <div class="L-R-margin0">
-                <h3 class="active">Select People</h3>
-                <span id="selecCount">{{ui.selecCnt}} Selected</span>
+                <div class="head-div">
+                    <h3 class="active">Pay for Attendance</h3>
+                </div>
             </div>
-        </div>
 
-        <div class="rowtyp01 L-R-margin0">
-            <input ng-model="ui.fsearch" type="text" placeholder="Filter Names" id="filter"/>
+            <div class="rowtyp01 subhead01">
+                <div class="L-R-margin0">
+                    <h3 class="active">Select People</h3>
+                    <span id="selecCount">{{ui.selecCnt}} Selected</span>
+                </div>
+            </div>
+
+            <div class="rowtyp01 L-R-margin0">
+                <input ng-model="ui.fsearch" type="text" placeholder="Filter Names" id="filter"/>
             <span id="onlyselected">
                 <span class="input-lable">View only selected </span>
                 <input ng-model="ui.onlySelec" type="checkbox">
             </span>
-        </div>
+            </div>
 
-        <ul class="rowtyp01 L-R-margin0 users">
-            <li ng-repeat="user in users | filter:{name:ui.fsearch}" ng-if="!ui.onlySelec || user.selected" class="user">
-                <input ng-click="userChkChng(user)" ng-checked="user.selected" type="checkbox">
-                <span>{{user.name}}</span>
-            </li>
-        </ul>
+            <ul class="rowtyp01 L-R-margin0 users">
+                <li ng-repeat="user in users | filter:{name:ui.fsearch}" ng-if="!ui.onlySelec || user.selected" class="user">
+                    <input ng-click="userChkChng(user)" ng-checked="user.selected" type="checkbox">
+                    <span>{{user.name}}</span>
+                </li>
+            </ul>
 
-        <div class="rowtyp01 L-R-margin0">
-            <form name="payForm">
-                <input ng-model="ui.detail" required="" type="text" placeholder="Event" style="width: 350px;">
-                <input ng-model="ui.amount" required="" min="1" type="number" placeholder="Amount" style="width: 80px;">
-                <button ng-click="payUsers()" class="btnbg-blue">Pay</button>
-            </form>
+            <div class="rowtyp01 L-R-margin0">
+                <form name="payForm">
+                    <input ng-model="ui.detail" required="" type="text" placeholder="Event" style="width: 350px;">
+                    <input ng-model="ui.amount" required="" min="1" type="number" placeholder="Amount" style="width: 80px;">
+                    <button ng-click="payUsers()" class="btnbg-blue">Pay</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
