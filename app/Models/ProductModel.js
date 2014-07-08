@@ -28,7 +28,8 @@ module.exports.initModel = function (mongoose) {
         owner: {
             type: ObjectId,
             required: true,
-            ref: 'profile'
+            ref: 'profile',
+            index: true
         },
         type: {
             type: Number,
@@ -51,7 +52,10 @@ module.exports.initModel = function (mongoose) {
             required: true
         },
         price: Number, /*if auction this is minbid or later the max bid after bidding*/
-        expire: Date,
+        expire: {
+            type: Date,
+            required: true
+        },
         bidCount: {
             type: Number,
             required: true
@@ -61,7 +65,8 @@ module.exports.initModel = function (mongoose) {
             {
                 person: {
                     type: ObjectId,
-                    ref: 'profile'
+                    ref: 'profile',
+                    index: true
                 },
                 date: {
                     type: Date
@@ -78,7 +83,8 @@ module.exports.initModel = function (mongoose) {
                 },
                 buyer: {
                     type: ObjectId,
-                    ref: 'profile'
+                    ref: 'profile',
+                    index: true
                 },
                 price: {//added here for efficiency in finding price of an auctioned product
                     type: Number

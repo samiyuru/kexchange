@@ -17,7 +17,8 @@ module.exports.initModel = function (mongoose, accEvent) {
         owner: {
             type: ObjectId,
             required: true,
-            ref: 'profile'
+            ref: 'profile',
+            index: true
         },
         subject: {
             id: {
@@ -40,7 +41,8 @@ module.exports.initModel = function (mongoose, accEvent) {
         },
         type: {
             type: Number,
-            required: true
+            required: true,
+            index: true
         },
         date: {
             type: Date,

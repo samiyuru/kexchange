@@ -41,10 +41,12 @@ module.exports.initModel = function (mongoose) {
             {
                 id: {
                     type: ObjectId,
-                    ref: 'profile'
+                    ref: 'profile',
+                    index: true
                 },
                 key: {
-                    type: String
+                    type: String,
+                    index: true
                 }
             }
         ]
