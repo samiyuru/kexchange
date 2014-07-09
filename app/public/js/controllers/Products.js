@@ -122,6 +122,10 @@ kEX.controller("newPrdCtrl", function ($scope, kexProducts) {
             {
                 name: "Code Help",
                 value: 3
+            },
+            {
+                name: "Product",
+                value: 4
             }
         ]
     };
@@ -162,6 +166,7 @@ kEX.controller("newPrdCtrl", function ($scope, kexProducts) {
                 if (status.success) {
                     ui.form = false;
                     resetFields();
+                    alert('Product was successfully added');
                 } else {
                     alert(status.err);
                 }

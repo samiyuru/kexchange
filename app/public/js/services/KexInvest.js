@@ -12,9 +12,6 @@ kEX.service("kexInvest", function ($http, kexPofiles, kexInvestTypes) {
     this.loadInvestmentsOf = function (profID, cb) {
         $http({
             method: "GET",
-            params: {
-                auth: kexPofiles.getAuthToken()
-            },
             url: "/api/profile/" + profID + "/investments"
         }).success(function (data) {
                 cb(data);
@@ -24,9 +21,6 @@ kEX.service("kexInvest", function ($http, kexPofiles, kexInvestTypes) {
     this.deleteInvest = function (invstmntID, cb) {
         $http({
             method: "DELETE",
-            params: {
-                auth: kexPofiles.getAuthToken()
-            },
             url: "/api/investments/" + invstmntID
         }).success(function (data) {
                 cb(data);
@@ -37,7 +31,6 @@ kEX.service("kexInvest", function ($http, kexPofiles, kexInvestTypes) {
         $http({
             method: "POST",
             params: {
-                auth: kexPofiles.getAuthToken(),
                 amount: investment.amount,
                 profit: investment.profit
             },
@@ -51,7 +44,6 @@ kEX.service("kexInvest", function ($http, kexPofiles, kexInvestTypes) {
         $http({
             method: "PUT",
             params: {
-                auth: kexPofiles.getAuthToken(),
                 profit: newProft
             },
             url: "/api/investments/" + invstmntID + "/profit"
@@ -63,9 +55,6 @@ kEX.service("kexInvest", function ($http, kexPofiles, kexInvestTypes) {
     this.loadInvestors = function (cb) {
         $http({
             method: "GET",
-            params: {
-                auth: kexPofiles.getAuthToken()
-            },
             url: "/api/investments"
         }).success(function (data) {
                 cb(data);
@@ -75,9 +64,6 @@ kEX.service("kexInvest", function ($http, kexPofiles, kexInvestTypes) {
     this.loadLoans = function (profID, cb) {
         $http({
             method: "GET",
-            params: {
-                auth: kexPofiles.getAuthToken()
-            },
             url: "/api/profile/" + profID + "/moneytaken"
         }).success(function (data) {
                 cb(data);
@@ -87,9 +73,6 @@ kEX.service("kexInvest", function ($http, kexPofiles, kexInvestTypes) {
     this.payBack = function (invstmntID, cb) {
         $http({
             method: "PUT",
-            params: {
-                auth: kexPofiles.getAuthToken()
-            },
             url: "/api/investments/" + invstmntID + "/payback"
         }).success(function (data) {
                 cb(data);
@@ -99,9 +82,6 @@ kEX.service("kexInvest", function ($http, kexPofiles, kexInvestTypes) {
     this.takeLoan = function (invstmntID, cb) {
         $http({
             method: "PUT",
-            params: {
-                auth: kexPofiles.getAuthToken()
-            },
             url: "/api/investments/" + invstmntID + "/take"
         }).success(function (data) {
                 cb(data);

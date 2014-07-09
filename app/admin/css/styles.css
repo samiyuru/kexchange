@@ -203,6 +203,58 @@ ul li {
     font-size: 13px;
 }
 
+
+/****************************/
+
+
+#loginparent {
+    height: 100%;
+}
+
+.login {
+    width: 250px;
+    margin: 200px auto;
+    background-color: #ffffff;
+    border: 1px solid #d8d8d8;
+    border-bottom-width: 2px;
+    border-top-width: 0px;
+    padding: 18px;
+}
+
+.login .head {
+    margin-bottom: 6px;
+}
+
+.login .btnPane {
+    margin-top: 6px;
+    text-align: right;
+}
+
+.login input {
+    font-size: 14px;
+    padding: 6px;
+    margin: 6px 0 0 0;
+    width: 100%;
+}
+
+.login input:focus {
+
+}
+
+.login .logo {
+    height: 100%;
+    display: inline;
+    vertical-align: middle;
+}
+
+.login .text {
+    padding: 0 5px;
+    position: relative;
+    line-height: 40px;
+    vertical-align: middle;
+    font-size: 24px;
+    color: #666666;
+}
 /****************************/
 
 #heading {

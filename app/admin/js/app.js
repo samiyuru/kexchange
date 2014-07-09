@@ -4,6 +4,36 @@
 
 var kexAdmin = angular.module("kexadmin", []);
 
+kexAdmin.controller("rootCtrl", function ($http, $scope) {
+
+    var user = {
+        username: "",
+        password: ""
+    };
+
+    function login() {
+        $scope.adminAuth = CryptoJS.MD5(user.username + user.password).toString();
+        $http({
+            method: 'post',
+            url: '/admin/validate',
+            headers: {
+                auth: $scope.adminAuth
+            }
+        }).success(function (status) {
+            if (status.success) {
+                $scope.isLogged = true;
+            } else {
+                $scope.adminAuth = null;
+                alert(status.err)
+            }
+        });
+    }
+
+    $scope.user = user;
+    $scope.isLogged = false;
+    $scope.login = login;
+});
+
 kexAdmin.controller("appRegCtrl", function ($http, $scope) {
     var newApp = {
         name: "",
@@ -17,9 +47,12 @@ kexAdmin.controller("appRegCtrl", function ($http, $scope) {
 
     function register() {
         $http({
-            url: "/apps/register",
+            url: "/admin/register-app",
             data: newApp,
-            method: "POST"
+            method: "POST",
+            headers: {
+                auth: $scope.adminAuth
+            }
         }).success(function (status) {
             if (status.success) {
                 alert(newApp.name + " successfully registered");
@@ -41,7 +74,10 @@ kexAdmin.controller("appRegCtrl", function ($http, $scope) {
     function loadRegApps() {
         $http({
             url: "/admin/apps",
-            method: "GET"
+            method: "GET",
+            headers: {
+                auth: $scope.adminAuth
+            }
         }).success(function (status) {
             if (status.success) {
                 var apps = status.data;
@@ -60,11 +96,14 @@ kexAdmin.controller("appRegCtrl", function ($http, $scope) {
     function deleteApp() {
         if (confirm('Are you sure you want to delete the app?')) {
             $http({
-                url: "/apps/unregister",
+                url: "/admin/unregister-app",
                 params: {
                     appid: this._id
                 },
-                method: "POST"
+                method: "POST",
+                headers: {
+                    auth: $scope.adminAuth
+                }
             }).success(function (status) {
                 if (status.success) {
                     var delApp = status.data;

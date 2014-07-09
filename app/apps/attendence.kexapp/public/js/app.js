@@ -4,6 +4,36 @@
 
 var attApp = angular.module("attApp", []);
 
+attApp.controller("rootCtrl", function ($http, $scope) {
+
+    var user = {
+        username: "",
+        password: ""
+    };
+
+    function login() {
+        $scope.adminAuth = CryptoJS.MD5(user.username + user.password).toString();
+        $http({
+            method: 'post',
+            url: '/authenticate',
+            headers: {
+                auth: $scope.adminAuth
+            }
+        }).success(function (status) {
+            if (status.success) {
+                $scope.isLogged = true;
+            } else {
+                $scope.adminAuth = null;
+                alert(status.err)
+            }
+        });
+    }
+
+    $scope.user = user;
+    $scope.isLogged = false;
+    $scope.login = login;
+});
+
 attApp.controller("userCtrl", function ($scope, $http) {
 
     var ui = {
@@ -18,7 +48,10 @@ attApp.controller("userCtrl", function ($scope, $http) {
     (function () {
         $http({
             method: "GET",
-            url: "/users"
+            url: "/users",
+            headers: {
+                auth: $scope.adminAuth
+            }
         }).success(function (status) {
             if (status.success) {
                 var _users = status.data;
@@ -65,7 +98,8 @@ attApp.controller("userCtrl", function ($scope, $http) {
             url: "/pay",
             data: body,
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                auth: $scope.adminAuth
             }
         }).success(function (status) {
             ui.amount = 0;

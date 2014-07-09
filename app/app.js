@@ -19,14 +19,16 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
     var morgan = require('morgan');
     var express = require('express');
     var config = require('./config');
+    var CryptoJS = require('./services/md5');
     global.__base = __dirname;
 
     var mongoose = require('mongoose');
     mongoose.connect(config.deployment.mongo, function (err) {
         if (err) {
-            console.warn(err);
+            console.error(err);
             return;
         }
+
 
         var agenda = new Agenda({
             db: {
@@ -39,6 +41,7 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
         });
         agenda.start();
 
+
         function graceful() {
             agenda.stop(function () {
                 process.exit(0);
@@ -47,6 +50,9 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
 
         process.on('SIGTERM', graceful);
         process.on('SIGINT', graceful);
+
+
+        var adminAuth = CryptoJS.MD5(config.admin.username + config.admin.password).toString();
 
         var accEvent = require('./services/EventService').init();
         var models = require('./Models')(mongoose, accEvent);
@@ -59,7 +65,11 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
         app.use('/', express.static(__base + '/public'));//map static files routes.
         app.use('/admin', express.static(__base + '/admin'));//map static files routes.
         app.use(function (req, res, next) {//authentication
-            var authToken = req.query.auth;
+            req.isAdmin = function () {
+                return adminAuth === req.headers.auth;
+            }
+
+            var authToken = req.headers.auth || req.query.auth;
             if (!authToken) {
                 return next();
             }
@@ -73,35 +83,6 @@ if (false /*cluster.isMaster  disabled clusters for debugging*/) {
 
         app.listen(config.deployment.port, function () {
             console.log('Express server listening on port ' + config.deployment.port);
-//            ctrls.profileCtrl.createProfile({
-//                nickname: 'Samiyuru',
-//                name: 'Samiyuru Senarathne',
-//                lastwealth: 0,
-//                wealth: 90000,
-//                propic: '/propics/propic01.png'
-//            }, 'pass1', function (status) {
-//                console.log(status);
-//            });
-//
-//            ctrls.profileCtrl.createProfile({
-//                nickname: 'Hasith',
-//                name: 'Hasith Yaggahawita',
-//                lastwealth: 0,
-//                wealth: 90000,
-//                propic: '/propics/propic02.png'
-//            }, 'pass2', function (status) {
-//                console.log(status);
-//            });
-//
-//            ctrls.profileCtrl.createProfile({
-//                nickname: 'Ishan',
-//                name: 'Ishan Gunasekara',
-//                lastwealth: 0,
-//                wealth: 90000,
-//                propic: '/propics/propic03.jpg'
-//            }, 'pass3', function (status) {
-//                console.log(status);
-//            });
         });
     });
 }

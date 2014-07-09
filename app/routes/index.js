@@ -14,4 +14,6 @@ module.exports.route = function (app, ctrls) {
 
     require('./appRoutes').route(app, ctrls);
 
+    require('./adminRoutes').route(app, ctrls);
+
 };

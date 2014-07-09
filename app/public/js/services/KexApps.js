@@ -23,9 +23,6 @@ kEX.service("kexApps", function ($http, kexPofiles) {
     this.loadAvailableApps = function (cb) {
         $http({
             method: "GET",
-            params: {
-                auth: kexPofiles.getAuthToken()
-            },
             url: "/apps"
         }).success(function (data) {
             cb(data);
@@ -35,9 +32,6 @@ kEX.service("kexApps", function ($http, kexPofiles) {
     this.loadInstalledApps = function (profID, cb) {
         $http({
             method: "GET",
-            params: {
-                auth: kexPofiles.getAuthToken()
-            },
             url: "/api/profile/" + profID + "/apps"
         }).success(function (data) {
             cb(data);
@@ -47,9 +41,6 @@ kEX.service("kexApps", function ($http, kexPofiles) {
     this.uninstallApp = function (appId, cb) {
         $http({
             method: "GET",
-            params: {
-                auth: kexPofiles.getAuthToken()
-            },
             url: "/apps/" + appId + "/uninstall"
         }).success(function (data) {
             cb(data);
@@ -59,9 +50,6 @@ kEX.service("kexApps", function ($http, kexPofiles) {
     this.installApp = function (appId, cb) {
         $http({
             method: "GET",
-            params: {
-                auth: kexPofiles.getAuthToken()
-            },
             url: "/apps/" + appId + "/install"
         }).success(function (data) {
             cb(data);
@@ -74,8 +62,7 @@ kEX.service("kexApps", function ($http, kexPofiles) {
             method: "GET",
             params: {
                 skip: 0,
-                limit: 6,
-                auth: kexPofiles.getAuthToken()
+                limit: 6
             },
             url: "/apps/user-earnings"
         }).success(function (data) {

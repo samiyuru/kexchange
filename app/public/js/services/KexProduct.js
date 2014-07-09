@@ -36,9 +36,6 @@ kEX.service("kexProducts", function ($http, kexPofiles, kexEvent, kexProductType
         }
         $http({
             method: "POST",
-            params: {
-                auth: kexPofiles.getAuthToken()
-            },
             data: formData,
             headers: {'Content-Type': undefined },
             transformRequest: angular.identity,
@@ -53,7 +50,6 @@ kEX.service("kexProducts", function ($http, kexPofiles, kexEvent, kexProductType
             method: "GET",
             params: {
                 isauction: isAuction,
-                auth: kexPofiles.getAuthToken()
             },
             url: "/api/products"
         }).success(function (data) {
@@ -64,9 +60,6 @@ kEX.service("kexProducts", function ($http, kexPofiles, kexEvent, kexProductType
     this.purchase = function (productID, cb) {
         $http({
             method: "POST",
-            params: {
-                auth: kexPofiles.getAuthToken()
-            },
             url: "/api/products/" + productID + "/purchase"
         }).success(function (data) {
                 cb(data);
@@ -77,7 +70,6 @@ kEX.service("kexProducts", function ($http, kexPofiles, kexEvent, kexProductType
         $http({
             method: "POST",
             params: {
-                auth: kexPofiles.getAuthToken(),
                 bid: newBid
             },
             url: "/api/products/" + productID + "/bid"
@@ -90,9 +82,6 @@ kEX.service("kexProducts", function ($http, kexPofiles, kexEvent, kexProductType
     this.getBidedProducts = function (profID, cb) {
         $http({
             method: "GET",
-            params: {
-                auth: kexPofiles.getAuthToken()
-            },
             url: "/api/profile/" + profID + "/products/bids"
         }).success(function (data) {
                 cb(data);
@@ -103,9 +92,6 @@ kEX.service("kexProducts", function ($http, kexPofiles, kexEvent, kexProductType
     this.getSoldProductsOf = function (profID, cb) {
         $http({
             method: "GET",
-            params: {
-                auth: kexPofiles.getAuthToken()
-            },
             url: "/api/profile/" + profID + "/products/sold"
         }).success(function (data) {
                 cb(data);
@@ -115,9 +101,6 @@ kEX.service("kexProducts", function ($http, kexPofiles, kexEvent, kexProductType
     this.getInstoreProductsOf = function (profID, cb) {
         $http({
             method: "GET",
-            params: {
-                auth: kexPofiles.getAuthToken()
-            },
             url: "/api/profile/" + profID + "/products/instore"
         }).success(function (data) {
                 cb(data);
@@ -127,9 +110,6 @@ kEX.service("kexProducts", function ($http, kexPofiles, kexEvent, kexProductType
     this.getPurchasedProductsOf = function (profID, cb) {
         $http({
             method: "GET",
-            params: {
-                auth: kexPofiles.getAuthToken()
-            },
             url: "/api/profile/" + profID + "/products/purchased"
         }).success(function (data) {
                 cb(data);

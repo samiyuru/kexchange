@@ -7,7 +7,7 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
     var _loggedProf = null;
     var _curProfile;// currently shown profile
     //var _profileService = this;
-    var _authToken;
+    var _authToken = null;
 
     //----------------------------------------
 
@@ -17,8 +17,7 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
             url: "/api/topearners",
             params: {
                 skip: 0,
-                limit: 3,
-                auth: this.getAuthToken()
+                limit: 3
             }
         }).success(function (data) {
             cb(data);
@@ -31,8 +30,7 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
             url: "/api/profiles",
             params: {
                 skip: 0,
-                limit: 8,
-                auth: this.getAuthToken()
+                limit: 8
             }
         }).success(function (data) {
             cb(data);
@@ -44,8 +42,7 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
             method: "GET",
             params: {
                 skip: 0,
-                limit: 50,
-                auth: this.getAuthToken()
+                limit: 50
             },
             url: "/api/profile/" + profId + "/accounts"
         }).success(function (data) {
@@ -75,6 +72,8 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
     };
 
     this.validateToken = function (cb) {
+        if (_authToken)
+            return cb(true);
         _authToken = $cookieStore.get("authToken");
         if (_authToken) {
             $http({
@@ -99,18 +98,16 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
         }
     };
 
-    this.authorize = function (user, pass, cb) {
+    this.registerUser = function (token, cb) {
         $http({
             method: "POST",
-            data: {
-                user: user,
-                pass: CryptoJS.MD5(pass).toString()
+            params: {
+                token: token
             },
-            url: "/api/authorize/"
+            url: "/api/profile/register"
         }).success(function (data) {
-            _authToken = (data.success) ? data.data.token : null;
             if (data.success) {
-                _authToken = data.data.token;
+                _authToken = data.data.authToken;
                 _loggedProf = data.data.profile;
                 $cookieStore.put("authToken", _authToken);
             } else {
@@ -119,16 +116,13 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
             }
             cb(data);
         });
-    };
+    }
 
     //----------------------------------------
 
     this.getProfile = function (profID, cb) {
         $http({
             method: "GET",
-            params: {
-                auth: this.getAuthToken()
-            },
             url: "/api/profile/" + profID
         }).success(function (data) {
             cb(data);

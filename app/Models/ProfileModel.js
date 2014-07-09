@@ -2,6 +2,7 @@
  * Created by samiyuru on 4/4/14.
  */
 var Utils = require(__base + "/utils");
+var uuid = require('node-uuid');
 
 module.exports.initModel = function (mongoose, accEvent) {
     var EV_ACC_TRANS = require(__base + "/constants").events.EVENT_ACCOUNT_TRANS;
@@ -21,6 +22,16 @@ module.exports.initModel = function (mongoose, accEvent) {
         name: {
             type: String,
             required: true
+        },
+        email: {
+            type: String,
+            required: true,
+            unique: true
+        },
+        apikey: {
+            type: String,
+            required: true,
+            unique: true
         },
         status: {
             type: String,
@@ -58,6 +69,7 @@ module.exports.initModel = function (mongoose, accEvent) {
         profile.lastwealth = 0;
         profile.loan = 0;
         profile.status = 'Beginner';
+        profile.apikey = uuid.v4();
         model.create(profile, cb);
     };
 
@@ -65,6 +77,16 @@ module.exports.initModel = function (mongoose, accEvent) {
         model.findById(TypObjectID(profID))
             .select(Utils.getProfileFieldsPub())
             .exec(cb);
+    };
+
+    function getProfileByEmail(email, needApiKey, cb) {
+        var q = model.findOne({
+            email: email
+        })
+            .select(Utils.getProfileFieldsPub());
+        if (needApiKey)
+            q.select('apikey')
+        q.exec(cb);
     };
 
     function getProfiles(chunk, cb) {
@@ -193,6 +215,20 @@ module.exports.initModel = function (mongoose, accEvent) {
         });
     }
 
+    function validateToken(authToken, cb) {
+        model.findOne({
+            apikey: authToken
+        })
+            .select(Utils.getProfileFieldsPub())
+            .exec(function (err, doc) {
+                if (!err && doc) {
+                    cb(doc);
+                    return;
+                }
+                cb(null);
+            });
+    };
+
     return {
         createProfile: createProfile,
         getProfile: getProfile,
@@ -201,7 +237,9 @@ module.exports.initModel = function (mongoose, accEvent) {
         putMoney: putMoney,
         getMoney: getMoney,
         transferMoney: transferMoney,
-        getProfilesByEarn: getProfilesByEarn
+        getProfilesByEarn: getProfilesByEarn,
+        validateToken: validateToken,
+        getProfileByEmail: getProfileByEmail
     };
 
 };

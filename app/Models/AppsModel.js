@@ -39,8 +39,15 @@ module.exports.initModel = function (mongoose) {
         },
         users: [
             {
-                type: ObjectId,
-                ref: 'profile'
+                id: {
+                    type: ObjectId,
+                    ref: 'profile',
+                    index: true
+                },
+                key: {
+                    type: String,
+                    index: true
+                }
             }
         ]
     }, {
@@ -71,7 +78,7 @@ module.exports.initModel = function (mongoose) {
     function installApp(userId, appId, cb) {
         model.findOneAndUpdate({
             _id: TypObjectID(appId),
-            users: {
+            'users.id': {
                 $ne: TypObjectID(userId)
             }
         }, {
@@ -79,7 +86,10 @@ module.exports.initModel = function (mongoose) {
                 userCount: 1
             },
             $push: {
-                users: TypObjectID(userId)
+                'users': {
+                    id: TypObjectID(userId),
+                    key: uuid.v4()
+                }
             }
         }, cb);
     }
@@ -87,24 +97,31 @@ module.exports.initModel = function (mongoose) {
     function uninstallApp(userId, appId, cb) {
         model.findOneAndUpdate({
             _id: TypObjectID(appId),
-            users: TypObjectID(userId)
+            'users.id': TypObjectID(userId)
         }, {
             $inc: {
                 userCount: -1
             },
             $pull: {
-                users: TypObjectID(userId)
+                'users': {
+                    id: TypObjectID(userId)
+                }
             }
         }, cb);
     }
 
     function getUsersOf(appId, cb) {
         model.findById(TypObjectID(appId))
-            .populate('users', Utils.getProfileFieldsPub())
+            .populate('users.id', Utils.getProfileFieldsPub())
             .select("users")
             .exec(function (err, doc) {
                 if (!err && doc) {
-                    var users = doc.users;
+                    doc = doc.toObject();
+                    var users = [];
+                    for (var i in doc.users) {
+                        var user = (doc.users[i]).id;
+                        users.push(user);
+                    }
                     cb(users);
                     return;
                 }
@@ -112,27 +129,27 @@ module.exports.initModel = function (mongoose) {
             });
     }
 
-    function getAppsAdmin(cb) {
+    function getAppsAdmin(cb) {//for admin to get apps data
         var query = model.find({});
         query.select('-users');
         query.exec(cb);
     }
 
-    function getAppsUser(profId, cb) {
+    function getAppsUser(profId, cb) {//for users to get apps data
         var profId = TypObjectID(profId);
         model.find({
-            users: {
+            'users.id': {
                 $ne: profId
             }
-        }).select({name: 1, desc: 1, url: 1, iconUrl: 1, userCount: 1})
+        }).select({name: 1, desc: 1, iconUrl: 1, userCount: 1})
             .exec(cb);
     }
 
     function getInstalledApps(profId, cb) {
         var profId = TypObjectID(profId);
         model.find({
-            users: profId
-        }).select({name: 1, desc: 1, url: 1, iconUrl: 1, userCount: 1})
+            'users.id': profId
+        }).select({name: 1, desc: 1, iconUrl: 1, userCount: 1})
             .exec(cb);
     }
 

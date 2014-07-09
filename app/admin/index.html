@@ -8,89 +8,106 @@ Samiyuru Senarathne
     <title>KExchange Admin</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
-<body>
+<body ng-controller="rootCtrl">
 
-<div id="heading">
-
-</div>
-
-<div ng-controller="appRegCtrl" id="content">
-    <div class="swidget">
-        <div class="L-R-margin0">
-            <div class="head-div">
-                <h3 class="active">Register KExchange App</h3>
-            </div>
+<div ng-if="!isLogged" id="loginparent">
+    <div class="login">
+        <div class="head">
+            <img class="logo" src="/img/logo.png"/>
+            <span class="text">KExchange</span>
         </div>
-        <div class="rowtyp01 L-R-margin0">
-            <table class="form">
-                <tr class="row0">
-                    <td class="label">App Name</td>
-                    <td><input ng-model="newApp.name" class="size0" placeholder="App name" type="text"/></td>
-                </tr>
-                <tr class="row0">
-                    <td class="label">Description</td>
-                    <td><textarea ng-model="newApp.desc" class="size1" placeholder="App description"></textarea></td>
-                </tr>
-                <tr class="row0">
-                    <td class="label">Url</td>
-                    <td><input ng-model="newApp.url" class="size2" placeholder="App Url" type="text"/></td>
-                </tr>
-                <tr class="row0">
-                    <td class="label">Icon Url</td>
-                    <td><input ng-model="newApp.iconUrl" class="size2" placeholder="App Icon Url" type="text"/></td>
-                </tr>
-            </table>
-        </div>
-        <div class="rowtyp01 L-R-margin0">
-            <button ng-click="register()" class="btnbg-blue">Register App</button>
-            <button ng-click="clear()" class="btnbg-gray">Clear</button>
+        <input ng-model="user.username" type="text" placeholder="username"/>
+        <input ng-model="user.password" type="password" placeholder="password"/>
+
+        <div class="btnPane">
+            <button ng-click="login()" class="btnbg-blue">Login</button>
         </div>
     </div>
+</div>
 
-    <div class="swidget">
-        <div class="L-R-margin0">
-            <div class="head-div">
-                <h3 class="active">Registered Apps</h3>
+<div ng-if="isLogged">
+    <div id="heading">
+
+    </div>
+
+    <div ng-controller="appRegCtrl" id="content">
+        <div class="swidget">
+            <div class="L-R-margin0">
+                <div class="head-div">
+                    <h3 class="active">Register KExchange App</h3>
+                </div>
+            </div>
+            <div class="rowtyp01 L-R-margin0">
+                <table class="form">
+                    <tr class="row0">
+                        <td class="label">App Name</td>
+                        <td><input ng-model="newApp.name" class="size0" placeholder="App name" type="text"/></td>
+                    </tr>
+                    <tr class="row0">
+                        <td class="label">Description</td>
+                        <td><textarea ng-model="newApp.desc" class="size1" placeholder="App description"></textarea></td>
+                    </tr>
+                    <tr class="row0">
+                        <td class="label">Url</td>
+                        <td><input ng-model="newApp.url" class="size2" placeholder="App name" type="text"/></td>
+                    </tr>
+                    <tr class="row0">
+                        <td class="label">Icon Url</td>
+                        <td><input ng-model="newApp.iconUrl" class="size2" placeholder="App name" type="text"/></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="rowtyp01 L-R-margin0">
+                <button ng-click="register()" class="btnbg-blue">Register App</button>
+                <button ng-click="clear()" class="btnbg-gray">Clear</button>
             </div>
         </div>
-        <ul>
-            <li ng-if="regedApps.length==0;" class="rowtyp01 listEmptyMsg">
-                No apps are registered
-            </li>
-            <li ng-repeat="app in regedApps" class="rowtyp01 L-R-margin0">
-                <img ng-src="{{app.iconUrl}}" class="propic-small">
 
-                <div ng-click="app.deleteApp()" class="close"></div>
-                <div class="propic-left">
-                    <table class="form">
-                        <tr class="row1">
-                            <td class="label">App Name</td>
-                            <td class="detail">{{app.name}}</td>
-                        </tr>
-                        <tr class="row1">
-                            <td class="label">App ID</td>
-                            <td class="detail">{{app._id}}</td>
-                        </tr>
-                        <tr class="row1">
-                            <td class="label">Seccret</td>
-                            <td class="detail">{{app.secret}}</td>
-                        </tr>
-                        <tr class="row1">
-                            <td class="label">Description</td>
-                            <td class="detail">{{app.desc}}</td>
-                        </tr>
-                        <tr class="row1">
-                            <td class="label">Url</td>
-                            <td class="detail">{{app.url}}</td>
-                        </tr>
-                        <tr class="row1">
-                            <td class="label">Icon Url</td>
-                            <td class="detail">{{app.iconUrl}}</td>
-                        </tr>
-                    </table>
+        <div class="swidget">
+            <div class="L-R-margin0">
+                <div class="head-div">
+                    <h3 class="active">Registered Apps</h3>
                 </div>
-            </li>
-        </ul>
+            </div>
+            <ul>
+                <li ng-if="regedApps.length==0;" class="rowtyp01 listEmptyMsg">
+                    No apps are registered
+                </li>
+                <li ng-repeat="app in regedApps" class="rowtyp01 L-R-margin0">
+                    <img ng-src="{{app.iconUrl}}" class="propic-small">
+
+                    <div ng-click="app.deleteApp()" class="close"></div>
+                    <div class="propic-left">
+                        <table class="form">
+                            <tr class="row1">
+                                <td class="label">App Name</td>
+                                <td class="detail">{{app.name}}</td>
+                            </tr>
+                            <tr class="row1">
+                                <td class="label">App ID</td>
+                                <td class="detail">{{app._id}}</td>
+                            </tr>
+                            <tr class="row1">
+                                <td class="label">Seccret</td>
+                                <td class="detail">{{app.secret}}</td>
+                            </tr>
+                            <tr class="row1">
+                                <td class="label">Description</td>
+                                <td class="detail">{{app.desc}}</td>
+                            </tr>
+                            <tr class="row1">
+                                <td class="label">Url</td>
+                                <td class="detail">{{app.url}}</td>
+                            </tr>
+                            <tr class="row1">
+                                <td class="label">Icon Url</td>
+                                <td class="detail">{{app.iconUrl}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 

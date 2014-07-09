@@ -17,7 +17,8 @@ module.exports.initModel = function (mongoose, accEvent) {
         owner: {
             type: ObjectId,
             required: true,
-            ref: 'profile'
+            ref: 'profile',
+            index: true
         },
         subject: {
             id: {
@@ -40,7 +41,8 @@ module.exports.initModel = function (mongoose, accEvent) {
         },
         type: {
             type: Number,
-            required: true
+            required: true,
+            index: true
         },
         date: {
             type: Date,
@@ -73,33 +75,39 @@ module.exports.initModel = function (mongoose, accEvent) {
     };
 
     function getAppUserEarnings(chunk, cb) {
-        var query = model.aggregate({
-            $group: {
-                _id: "$object.batchId",
-                amount: {
-                    $sum: "$amount"
-                },
-                user: {
-                    $last: "$owner"
-                },
-                count: {
-                    $sum: 1
-                },
-                app: {
-                    $last: "$object.app"
-                },
-                appIco: {
-                    $last: "$object.appIco"
-                },
-                detail: {
-                    $last: "$object.detail"
-                },
-                date: {
-                    $last: "$date"
+        var query = model.aggregate([
+            {
+                $group: {
+                    _id: "$object.batchId",
+                    amount: {
+                        $sum: "$amount"
+                    },
+                    user: {
+                        $last: "$owner"
+                    },
+                    count: {
+                        $sum: 1
+                    },
+                    app: {
+                        $last: "$object.app"
+                    },
+                    appIco: {
+                        $last: "$object.appIco"
+                    },
+                    detail: {
+                        $last: "$object.detail"
+                    },
+                    date: {
+                        $last: "$date"
+                    }
+                }
+            },
+            {
+                $sort: {
+                    date: 1
                 }
             }
-        })
-            .sort('-date');
+        ]);
         if (chunk != null) {
             query = query.skip(chunk.skip).limit(chunk.limit);
         }

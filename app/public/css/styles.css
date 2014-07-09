@@ -789,6 +789,7 @@ table.accounts .desc .obj {
     color: inherit;
     text-decoration: underline;
     text-transform: capitalize;
+    color: #444;
 }
 
 table.accounts .desc .subj {
@@ -796,6 +797,7 @@ table.accounts .desc .subj {
     color: inherit;
     text-decoration: underline;
     text-transform: capitalize;
+    color: #444;
 }
 
 table.accounts .date {
@@ -805,12 +807,12 @@ table.accounts .date {
 }
 
 table.accounts .amt {
-    width: 100px;
+    width: 93px;
     text-align: right;
 }
 
 table.accounts .bal {
-    width: 100px;
+    width: 93px;
     text-align: right;
 }
 

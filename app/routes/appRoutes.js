@@ -5,13 +5,11 @@
 
 module.exports.route = function (app, ctrls) {
 
-    app.get('/admin/apps', ctrls.appsCtrl.getAppsAdmin);//by admin
-
-    app.post('/apps/register', ctrls.appsCtrl.registerApp);//by admin
-
-    app.post('/apps/unregister', ctrls.appsCtrl.unRegisterApp);//by admin
-
     app.get('/apps', ctrls.appsCtrl.getAppsUser);//by user
+
+    app.get('/apps/user-earnings', ctrls.appsCtrl.getUserEarnings);//by user
+
+    app.get('/apps/:appId', ctrls.appsCtrl.redirectToApp);//by user
 
     app.get('/apps/:appId/install', ctrls.appsCtrl.installApp);//by user
 
@@ -21,6 +19,6 @@ module.exports.route = function (app, ctrls) {
 
     app.post('/apps/:appId/users', ctrls.appsCtrl.getUsers);//by app
 
-    app.get('/apps/user-earnings', ctrls.appsCtrl.getUserEarnings);//by user
+    app.get('/apps/:appId/:userKey', ctrls.appsCtrl.getUserForKey);//by app
 
 }

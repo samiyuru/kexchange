@@ -40,7 +40,8 @@ module.exports.initModel = function (mongoose) {
             id: {
                 type: ObjectId,
                 required: true,
-                ref: 'profile'
+                ref: 'profile',
+                index: true
             }
         },
         debitor: {
@@ -49,7 +50,8 @@ module.exports.initModel = function (mongoose) {
             },
             id: {
                 type: ObjectId,
-                ref: 'profile'
+                ref: 'profile',
+                index: true
             }
         }
     }, {

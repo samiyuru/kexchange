@@ -6,6 +6,10 @@ var config = {
         mode: 'local',
         mongo: 'mongodb://localhost/kexchange',
         port: 3000
+    },
+    admin:{
+        username:'admin',
+        password:'kkeexx'
     }
 }
 module.exports = config;

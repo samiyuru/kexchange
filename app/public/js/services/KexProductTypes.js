@@ -10,6 +10,7 @@ kEX.service("kexProductTypes", function (kexPofiles) {
         prdTypeImgs[1] = '/img/prdtypes/share.png';
         prdTypeImgs[2] = '/img/prdtypes/review.png';
         prdTypeImgs[3] = '/img/prdtypes/help.png';
+        prdTypeImgs[4] = '/img/prdtypes/product.png';
         this.id = prdObj._id;
         this.title = prdObj.title;
         this.qty = prdObj.qty;
