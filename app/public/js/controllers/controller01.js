@@ -56,7 +56,8 @@ kEX.controller("loginCtrl", function ($scope, kexPofiles, $location, $window) {
     }
 
     function loginGoogle() {
-        gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, function (authResult) {
+        $window.gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, function (authResult) {
+            $scope.loginProgress = true;
             var authorizeButton = document.getElementById('authorize-button');
             if (authResult && !authResult.error) {
                 kexPofiles.registerUser(authResult.access_token, 'google', function (status) {

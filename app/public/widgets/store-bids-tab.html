@@ -1,9 +1,9 @@
-<ul ng-controller="mybidsctrl">
-    <li ng-if="products.length==0;" class="rowtyp01 listEmptyMsg L-R-margin0">
+<ul list-scroller="7" ng-controller="mybidsctrl">
+    <li list-item ng-if="products.length==0;" class="rowtyp01 listEmptyMsg L-R-margin0">
         No bided products available
     </li>
     <!-- My bid -->
-    <li class="mybid" ng-repeat="product in products">
+    <li list-item class="mybid" ng-repeat="product in products">
         <div class="rowtyp01">
             <div class="L-R-margin0">
                 <img ng-click="product.showInfo()" class="propic-small" ng-src="{{product.prdCover}}"/>

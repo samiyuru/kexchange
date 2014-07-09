@@ -4,11 +4,11 @@
         <!-- my loans ui -->
         <div ng-if="ui.isLoggedProfile">
             <!-- my loans -->
-            <ul class="L-R-margin0">
-                <li ng-if="loans.length==0;" class="rowtyp01 listEmptyMsg">
+            <ul list-scroller="6" class="L-R-padding0">
+                <li list-item ng-if="loans.length==0;" class="rowtyp01 listEmptyMsg">
                     No money has taken from anyone
                 </li>
-                <li ng-repeat="loan in loans">
+                <li list-item ng-repeat="loan in loans">
                     <!-- You took money -->
                     <div class="rowtyp01">
                         <a prfid="loan.investor._id">
@@ -104,11 +104,11 @@
             <!--investors head end -->
 
             <!--investors list -->
-            <ul class="L-R-margin0">
-                <li ng-if="investors.length==0;" class="rowtyp01 listEmptyMsg">
+            <ul list-scroller="6" class="L-R-padding0">
+                <li list-item ng-if="investors.length==0;" class="rowtyp01 listEmptyMsg">
                     No Investors available at the moment
                 </li>
-                <li ng-repeat="investor in investors">
+                <li list-item ng-repeat="investor in investors">
                     <!-- Investor -->
                     <div class="rowtyp01">
                         <a prfid="investor.investor._id">

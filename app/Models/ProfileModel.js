@@ -16,7 +16,6 @@ module.exports.initModel = function (mongoose, accEvent) {
         nickname: {
             type: String,
             required: true,
-            unique: true,
             dropDubs: true
         },
         name: {
@@ -26,7 +25,8 @@ module.exports.initModel = function (mongoose, accEvent) {
         email: {
             type: String,
             required: true,
-            unique: true
+            unique: true,
+            index: true
         },
         apikey: {
             type: String,
