@@ -98,11 +98,12 @@ kEX.service("kexPofiles", function ($http, $rootScope, $location, $cookieStore) 
         }
     };
 
-    this.registerUser = function (token, cb) {
+    this.registerUser = function (token, provider, cb) {
         $http({
             method: "POST",
             params: {
-                token: token
+                token: token,
+                provider: provider
             },
             url: "/api/profile/register"
         }).success(function (data) {

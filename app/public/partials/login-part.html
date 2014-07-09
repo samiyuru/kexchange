@@ -6,7 +6,8 @@
         </div>
 
         <div class="btnPane">
-            <img ng-if="!loginProgress" src="/img/login_with_facebook.png" ng-click="login()" class="fbloginButt"/>
+            <img ng-if="!loginProgress" src="/img/login_with_facebook.png" ng-click="loginFB()" class="fbloginButt"/>
+            <img ng-if="!loginProgress" src="/img/sign-in-with-google.png" ng-click="loginGoogle()" class="gglloginButt"/>
 
             <div ng-if="loginProgress" class="loader"></div>
         </div>

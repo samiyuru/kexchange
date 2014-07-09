@@ -11,6 +11,7 @@ module.exports.initCtrl = function (models, agenda) {
     var accModel = models.accountModel;
 
     var FB_URL = 'https://graph.facebook.com/me';
+    var GOOGLE_URL = 'https://www.googleapis.com/oauth2/v1/userinfo';
 
     agenda.every('5 minutes', 'updateLastWealth');
 
@@ -28,6 +29,7 @@ module.exports.initCtrl = function (models, agenda) {
         };
 
         this.createProfileFB = function (req, res) {
+
             function genRespObj(doc) {
                 doc = doc.toObject();
                 var authToken = doc.apikey;
@@ -40,39 +42,76 @@ module.exports.initCtrl = function (models, agenda) {
             }
 
             var token = req.query.token;
-            request({
-                method: 'get',
-                url: FB_URL,
-                json: true,
-                qs: {
-                    access_token: token
-                }
-            }, function callback(error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    profileModel.getProfileByEmail(body.email, true, function (err, doc) {
-                        if (err)
-                            return res.json(Utils.genResponse("profile creation error"));
-                        if (doc) {
-                            res.json(Utils.genResponse(null, true, genRespObj(doc)));
-                        } else {
-                            profileModel.createProfile({
-                                nickname: body.first_name,
-                                email: body.email,
-                                name: body.first_name + ' ' + body.last_name,
-                                lastwealth: 0,
-                                wealth: 10000,
-                                propic: 'http://graph.facebook.com/' + body.id + '/picture?height=70&type=normal&width=70'
-                            }, function (err, doc) {
-                                if (err)
-                                    return res.json(Utils.genResponse("profile creation error"));
+            var provider = req.query.provider;
+            if (provider == 'facebook') {
+                request({
+                    method: 'get',
+                    url: FB_URL,
+                    json: true,
+                    qs: {
+                        access_token: token
+                    }
+                }, function callback(error, response, body) {
+                    if (!error && response.statusCode == 200) {
+                        profileModel.getProfileByEmail(body.email, true, function (err, doc) {
+                            if (err)
+                                return res.json(Utils.genResponse("profile creation error"));
+                            if (doc) {
                                 res.json(Utils.genResponse(null, true, genRespObj(doc)));
-                            });
-                        }
-                    });
-                } else {
-                    res.json(Utils.genResponse("Facebook user retrieval error"));
-                }
-            });
+                            } else {
+                                profileModel.createProfile({
+                                    nickname: body.first_name,
+                                    email: body.email,
+                                    name: body.first_name + ' ' + body.last_name,
+                                    lastwealth: 0,
+                                    wealth: 10000,
+                                    propic: 'http://graph.facebook.com/' + body.id + '/picture?height=70&type=normal&width=70'
+                                }, function (err, doc) {
+                                    if (err)
+                                        return res.json(Utils.genResponse("profile creation error"));
+                                    res.json(Utils.genResponse(null, true, genRespObj(doc)));
+                                });
+                            }
+                        });
+                    } else {
+                        res.json(Utils.genResponse("Facebook user retrieval error"));
+                    }
+                });
+            }else if (provider == 'google'){
+                request({
+                    method: 'get',
+                    url: GOOGLE_URL,
+                    json: true,
+                    qs: {
+                        access_token: token
+                    }
+                }, function callback(error, response, body) {
+                    if (!error && response.statusCode == 200) {
+                        profileModel.getProfileByEmail(body.email, true, function (err, doc) {
+                            if (err)
+                                return res.json(Utils.genResponse("profile creation error"));
+                            if (doc) {
+                                res.json(Utils.genResponse(null, true, genRespObj(doc)));
+                            } else {
+                                profileModel.createProfile({
+                                    nickname: body.given_name,
+                                    email: body.email,
+                                    name: body.given_name + ' ' + body.family_name,
+                                    lastwealth: 0,
+                                    wealth: 10000,
+                                    propic: body.picture
+                                }, function (err, doc) {
+                                    if (err)
+                                        return res.json(Utils.genResponse("profile creation error"));
+                                    res.json(Utils.genResponse(null, true, genRespObj(doc)));
+                                });
+                            }
+                        });
+                    } else {
+                        res.json(Utils.genResponse("Facebook user retrieval error"));
+                    }
+                });
+            }
         };
 
         this.validateAuth = function (authToken, cb) {

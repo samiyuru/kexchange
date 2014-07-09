@@ -29,15 +29,17 @@ kEX.controller("loginCtrl", function ($scope, kexPofiles, $location, $window) {
         username: "",
         password: ""
     };
+    var clientId = '637246941281-1tqm25228j81gn6re8in2uqr8s0qmk4v.apps.googleusercontent.com';
+    var scopes = 'email https://www.googleapis.com/auth/userinfo.profile';
 
     $scope.loginProgress = false;
 
-    function login() {
+    function loginFB() {
         if ($window.FB) {
             $window.FB.login(function (response) {
                 $scope.loginProgress = true;
                 if (response.status === 'connected') {
-                    kexPofiles.registerUser(response.authResponse.accessToken, function (status) {
+                    kexPofiles.registerUser(response.authResponse.accessToken, 'facebook', function (status) {
                         $scope.loginProgress = false;
                         if (status.success) {
                             $location.path('/');
@@ -53,8 +55,27 @@ kEX.controller("loginCtrl", function ($scope, kexPofiles, $location, $window) {
         }
     }
 
+    function loginGoogle() {
+        gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, function (authResult) {
+            var authorizeButton = document.getElementById('authorize-button');
+            if (authResult && !authResult.error) {
+                kexPofiles.registerUser(authResult.access_token, 'google', function (status) {
+                    $scope.loginProgress = false;
+                    if (status.success) {
+                        $location.path('/');
+                    } else {
+                        alert(status.err);
+                    }
+                });
+            } else {
+                alert('google authentication failed');
+            }
+        });
+    }
+
     $scope.user = user;
-    $scope.login = login;
+    $scope.loginFB = loginFB;
+    $scope.loginGoogle = loginGoogle;
 });
 
 
