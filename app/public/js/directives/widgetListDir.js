@@ -99,18 +99,31 @@ kEX.directive("listScroller", function () {
             function calcMaxH() {
                 var h = 0;
                 for (var i in hLst) {
-                    h += ((hLst[i]).prop('offsetHeight'));
+                    h += (hLst[i].elem.prop('offsetHeight'));
                 }
                 return h;
             }
 
+            function removeElemByScope(_scope) {
+                for (var i in hLst) {
+                    if (_scope == hLst[i].scope) {
+                        count--;
+                        hLst.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+
             this.addListItemH = function (obj) {
                 if (count < MAX_SHOW) {
-                    hLst.push(obj.elem);
+                    hLst.push(obj);
+                    obj.scope.$on('$destroy', (function () {
+                        removeElemByScope(this);
+                    }).bind(obj.scope));
                     obj.scope.$watch(function () {
                         return obj.elem.prop('offsetHeight');
                     }, function () {
-                        $element.css("max-height",calcMaxH() + "px");
+                        $element.css("max-height", calcMaxH() + "px");
                     });
                     //maxHeight += height;
                     count++;
