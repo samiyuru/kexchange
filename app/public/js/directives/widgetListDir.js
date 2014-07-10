@@ -123,7 +123,8 @@ kEX.directive("listScroller", function () {
                     obj.scope.$watch(function () {
                         return obj.elem.prop('offsetHeight');
                     }, function () {
-                        $element.css("max-height", calcMaxH() + "px");
+                        if (count >= MAX_SHOW)
+                            $element.css("max-height", calcMaxH() + "px");
                     });
                     //maxHeight += height;
                     count++;
