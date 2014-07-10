@@ -94,12 +94,28 @@ kEX.directive("listScroller", function () {
             $element.css("overflow-y", "auto");
             $element.addClass("tabScroll");
 
-            this.addListItemH = function (height) {
+            var hLst = [];
+
+            function calcMaxH() {
+                var h = 0;
+                for (var i in hLst) {
+                    h += ((hLst[i]).prop('offsetHeight'));
+                }
+                return h;
+            }
+
+            this.addListItemH = function (obj) {
                 if (count < MAX_SHOW) {
-                    maxHeight += height;
+                    hLst.push(obj.elem);
+                    obj.scope.$watch(function () {
+                        return obj.elem.prop('offsetHeight');
+                    }, function () {
+                        $element.css("max-height",calcMaxH() + "px");
+                    });
+                    //maxHeight += height;
                     count++;
                 } else {
-                    $element.css("max-height", maxHeight + "px");
+                    $element.css("max-height", calcMaxH() + "px");
                 }
             }
         }
@@ -113,7 +129,10 @@ kEX.directive("listItem", function () {
         require: "^listScroller",
         scope: {},
         link: function (scope, elem, attr, listScrlCtrl) {
-            listScrlCtrl.addListItemH(elem.prop('offsetHeight'));
+            listScrlCtrl.addListItemH({
+                elem: elem,
+                scope: scope
+            });
         }
     };
 });

@@ -57,9 +57,11 @@ attApp.controller("userCtrl", function ($scope, $http) {
                 var _users = status.data;
                 for (var i = 0; i < _users.length; i++) {
                     var user = _users[i];
-                    user.selected = false;
-                    users.push(user);
-                    usersDic[users._id] = user;
+                    if(user) {
+                        user.selected = false;
+                        users.push(user);
+                        usersDic[users._id] = user;
+                    }
                 }
             } else {
                 alert(status.err);

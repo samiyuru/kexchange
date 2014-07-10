@@ -158,7 +158,7 @@ module.exports.initCtrl = function (models, agenda) {
                         if (err)
                             return res.json(Utils.genResponse("product creation error"));
                         res.json(Utils.genResponse(null, true, doc));
-                        agenda.schedule(new Date((new Date()).getTime() + 15 * 60 * 1000), "productExpire", {id: doc.id});//schedule expire
+                        agenda.schedule(new Date((new Date()).getTime() + 25 * 60 * 1000), "productExpire", {id: doc.id});//schedule expire
                     });
                 });
             });

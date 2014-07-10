@@ -5,7 +5,7 @@
         <div ng-if="ui.isLoggedProfile">
             <!-- my loans -->
             <ul list-scroller="6" class="L-R-padding0">
-                <li list-item ng-if="loans.length==0;" class="rowtyp01 listEmptyMsg">
+                <li ng-if="loans.length==0;" class="rowtyp01 listEmptyMsg">
                     No money has taken from anyone
                 </li>
                 <li list-item ng-repeat="loan in loans">
@@ -105,7 +105,7 @@
 
             <!--investors list -->
             <ul list-scroller="6" class="L-R-padding0">
-                <li list-item ng-if="investors.length==0;" class="rowtyp01 listEmptyMsg">
+                <li ng-if="investors.length==0;" class="rowtyp01 listEmptyMsg">
                     No Investors available at the moment
                 </li>
                 <li list-item ng-repeat="investor in investors">
